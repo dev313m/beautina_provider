@@ -1,0 +1,131 @@
+{
+  "project_info": {
+    "project_number": "763645979803",
+    "firebase_url": "https://beautina-firebase.firebaseio.com",
+    "project_id": "beautina-firebase",
+    "storage_bucket": "beautina-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763645979803:android:4992fce5f8c910a2116a3e",
+        "android_client_info": {
+          "package_name": "com.beautina.beautina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763645979803-34pt3o85m0ndg094erqqobg27bh4le6n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.beautina",
+            "certificate_hash": "be779edd3375eb33082a7a0d6651091006e41c00"
+          }
+        },
+        {
+          "client_id": "763645979803-o7rk6v07124bk3553ve89j26369q9vgp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.beautina",
+            "certificate_hash": "6aa9e74c19daa50396baf3e3e741fb6be15eba6f"
+          }
+        },
+        {
+          "client_id": "763645979803-djfet682f9sg6tjrrsdm25bqqj9i79d8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.beautina",
+            "certificate_hash": "3800473c53eeb5f25618ebe12fc312c8a8980196"
+          }
+        },
+        {
+          "client_id": "763645979803-7d8u1hoc7s5s0rh0p2kcrm20769j8j68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARZXL20ENRGrXuew86GlczRVsqXy3yuFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763645979803-7d8u1hoc7s5s0rh0p2kcrm20769j8j68.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763645979803-psggjud01oqrp3d1dkapmcj5g9np3trv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beautina.beautina"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763645979803:android:54e783995d35cab6116a3e",
+        "android_client_info": {
+          "package_name": "com.beautina.salon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763645979803-a4bdprvv62ch78k90eqsabjrik8m1bej.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.salon",
+            "certificate_hash": "be779edd3375eb33082a7a0d6651091006e41c00"
+          }
+        },
+        {
+          "client_id": "763645979803-f6i2emdeaau1nl10hfvi0o76r2a0fiq1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.salon",
+            "certificate_hash": "6aa9e74c19daa50396baf3e3e741fb6be15eba6f"
+          }
+        },
+        {
+          "client_id": "763645979803-em7gq3u361kssuelqrq8iap8vdo4n8rk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.salon",
+            "certificate_hash": "3800473c53eeb5f25618ebe12fc312c8a8980196"
+          }
+        },
+        {
+          "client_id": "763645979803-7d8u1hoc7s5s0rh0p2kcrm20769j8j68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARZXL20ENRGrXuew86GlczRVsqXy3yuFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763645979803-7d8u1hoc7s5s0rh0p2kcrm20769j8j68.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763645979803-psggjud01oqrp3d1dkapmcj5g9np3trv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beautina.beautina"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
