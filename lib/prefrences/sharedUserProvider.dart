@@ -1,4 +1,4 @@
-import 'package:beauty_order_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';

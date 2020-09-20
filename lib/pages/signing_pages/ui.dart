@@ -1,7 +1,7 @@
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/pages/signing_pages/function.dart';
-import 'package:beauty_order_provider/pages/signing_pages/shared_variable.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/pages/signing_pages/function.dart';
+import 'package:beautina_provider/pages/signing_pages/shared_variable.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';

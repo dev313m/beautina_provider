@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/reusables/toast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';

@@ -1,7 +1,7 @@
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/models/order.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/services/api/post.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/models/order.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/services/api/post.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';

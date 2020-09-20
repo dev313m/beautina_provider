@@ -1,10 +1,10 @@
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/pages/my_salon/functions.dart';
-import 'package:beauty_order_provider/prefrences/services.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
-import 'package:beauty_order_provider/services/api/api_provided_services.dart';
-import 'package:beauty_order_provider/services/api/api_user_provider.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/pages/my_salon/functions.dart';
+import 'package:beautina_provider/prefrences/services.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/services/api/api_provided_services.dart';
+import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:flutter/foundation.dart';
 
 class SharedSalon with ChangeNotifier {

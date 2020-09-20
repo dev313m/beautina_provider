@@ -1,7 +1,7 @@
-import 'package:beauty_order_provider/models/order.dart';
-import 'package:beauty_order_provider/pages/dates/shared_variables_order.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
-import 'package:beauty_order_provider/services/api/db_orders.dart';
+import 'package:beautina_provider/models/order.dart';
+import 'package:beautina_provider/pages/dates/shared_variables_order.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/services/api/db_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

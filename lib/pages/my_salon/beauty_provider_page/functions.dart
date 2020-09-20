@@ -1,4 +1,4 @@
-import 'package:beauty_order_provider/reusables/toast.dart';
+import 'package:beautina_provider/reusables/toast.dart';
 import 'package:flutter/material.dart';
 // import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:url_launcher/url_launcher.dart';
@@ -12,10 +12,7 @@ class OrderFunctions {
     await Future.delayed(Duration(seconds: 4));
     return 'تم تنفيذ الطلب بنجاح';
   }
-
 }
-
-
 
 getLaunchMapFunction(List<dynamic> geoPoint) {
   Function f = () async {
@@ -42,5 +39,3 @@ Function getWhatsappFunction(String s) {
 
   return f;
 }
-
-

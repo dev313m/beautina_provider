@@ -1,6 +1,6 @@
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/pages/notification/ui.dart';
-import 'package:beauty_order_provider/pages/root/shared_variable_root.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/pages/notification/ui.dart';
+import 'package:beautina_provider/pages/root/shared_variable_root.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -107,45 +107,40 @@ class _Index extends State<Index> with AutomaticKeepAliveClientMixin<Index> {
           ClipRRect(
             borderRadius: BorderRadius.circular(17),
             child: Container(
-          height: ScreenUtil().setHeight(500),
-          color: AppColors.purpleColor,
-          child: FlareActor(
-            'assets/rive/notification.flr',
-            animation: 'active',
-            // color: Colors.black.withOpacity(0.2),
-          ),
+              height: ScreenUtil().setHeight(500),
+              color: AppColors.purpleColor,
+              child: FlareActor(
+                'assets/rive/notification.flr',
+                animation: 'active',
+                // color: Colors.black.withOpacity(0.2),
+              ),
             ),
           ),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount:
-                Provider.of<SharedRoot>(context).notificationList.length,
+            itemCount: Provider.of<SharedRoot>(context).notificationList.length,
             itemBuilder: (_, index) {
               return Padding(
-                  padding: EdgeInsets.only(top: ScreenUtil().setWidth(4)),
-                  child: 
-
-                  Provider.of<SharedRoot>(context)
-                              .notificationList
-                              .elementAt(index)
-                              .type ==
-                          ''
-                      ? 
-                      Container(
+                padding: EdgeInsets.only(top: ScreenUtil().setWidth(4)),
+                child: Provider.of<SharedRoot>(context)
+                            .notificationList
+                            .elementAt(index)
+                            .type ==
+                        ''
+                    ? Container(
                         height: 200.h,
                         child: NotificationUI(
-                            notification: Provider.of<SharedRoot>(context)
-                                .notificationList
-                                .elementAt(index),
-                          ),
-                      )
-                      : 
-                      BroadcastUI(
                           notification: Provider.of<SharedRoot>(context)
                               .notificationList
-                              .elementAt(index)),
-                  );
+                              .elementAt(index),
+                        ),
+                      )
+                    : BroadcastUI(
+                        notification: Provider.of<SharedRoot>(context)
+                            .notificationList
+                            .elementAt(index)),
+              );
             },
           ),
           SizedBox(

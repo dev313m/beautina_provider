@@ -1,7 +1,7 @@
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:flutter/material.dart';
-import 'package:beauty_order_provider/models/notification.dart' as MyNotify;
+import 'package:beautina_provider/models/notification.dart' as MyNotify;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -124,17 +124,13 @@ class BroadcastUI extends StatelessWidget {
                     height: 150.h,
                     width: 150.h,
                     child: ClipOval(
-
                       child: Image.asset(
                         'assets/images/default.jpg',
                         fit: BoxFit.cover,
-
                       ),
                     ),
                   ),
-
-
-                                    SizedBox(
+                  SizedBox(
                     height: 20.h,
                   ),
                   ExtendedText(

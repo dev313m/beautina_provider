@@ -1,5 +1,5 @@
-import 'package:beauty_order_provider/pages/dates/constants.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/pages/dates/constants.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,16 +1,14 @@
 //Colors
 
-import 'package:beauty_order_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ConstLoginColors {
-
- static Color backgroundColor = AppColors.purpleColor; 
- static Color regionColor = Colors.pink; 
- static Color google = Colors.pink; 
- static Color apple = Colors.orangeAccent; 
- static Color city = Colors.pink; 
-
+  static Color backgroundColor = AppColors.purpleColor;
+  static Color regionColor = Colors.pink;
+  static Color google = Colors.pink;
+  static Color apple = Colors.orangeAccent;
+  static Color city = Colors.pink;
 }
 
 //sizes
@@ -29,4 +27,4 @@ class ConstLoginStrings {
   final region = 'المنطقة';
 }
 
-final raduis = 15; 
+final raduis = 15;

@@ -1,4 +1,4 @@
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -113,8 +113,8 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
           decoration: InputDecoration(
               hintStyle: TextStyle(color: widget.textColor),
               hintText: widget.placeholder,
-              prefixIcon:
-                  Icon(CommunityMaterialIcons.near_me, color: ExtendedText.darkColor),
+              prefixIcon: Icon(CommunityMaterialIcons.near_me,
+                  color: ExtendedText.darkColor),
               border: InputBorder.none),
           cursorColor: isFocus ? widget.accentColor : widget.backgroundColor,
         ),

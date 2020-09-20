@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/constants/app_url.dart';
-import 'package:beauty_order_provider/pages/root/functions.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/app_url.dart';
+import 'package:beautina_provider/pages/root/functions.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
 import 'package:flare_flutter/flare_actor.dart';
@@ -38,7 +38,8 @@ onAlertWithCustomContentPressed(context) {
       ),
       backgroundColor: AppColors.purpleColor,
       titleStyle: TextStyle(
-          fontSize: ExtendedText.bigFont, color: ExtendedText.brightColor.withOpacity(0.7)));
+          fontSize: ExtendedText.bigFont,
+          color: ExtendedText.brightColor.withOpacity(0.7)));
 
   // Alert dialog using custom alert style
   Alert(
@@ -50,8 +51,7 @@ onAlertWithCustomContentPressed(context) {
           Container(
             height: ScreenUtil().setHeight(100),
             child: FlareActor(
-              'assets/rive/upgrade.flr', 
-              
+              'assets/rive/upgrade.flr',
               fit: BoxFit.contain,
               animation: 'spin2',
             ),

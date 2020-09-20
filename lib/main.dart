@@ -1,9 +1,9 @@
-import 'package:beauty_order_provider/pages/dates/shared_variables_order.dart';
-import 'package:beauty_order_provider/pages/my_salon/shared_mysalon.dart';
-import 'package:beauty_order_provider/pages/root/index.dart';
-import 'package:beauty_order_provider/pages/root/shared_variable_root.dart';
-import 'package:beauty_order_provider/pages/signing_pages/index.dart';
-import 'package:beauty_order_provider/prefrences/default_page.dart';
+import 'package:beautina_provider/pages/dates/shared_variables_order.dart';
+import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/pages/root/index.dart';
+import 'package:beautina_provider/pages/root/shared_variable_root.dart';
+import 'package:beautina_provider/pages/signing_pages/index.dart';
+import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:home_indicator/home_indicator.dart';

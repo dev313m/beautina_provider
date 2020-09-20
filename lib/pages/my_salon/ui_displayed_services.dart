@@ -1,11 +1,11 @@
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/constants/duration.dart';
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/pages/my_salon/shared_mysalon.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
-import 'package:beauty_order_provider/services/api/api_user_provider.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/duration.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,10 +61,8 @@ class _WidgetServicesState extends State<WidgetServices> {
     List<Widget> list = [];
     services.forEach((k, v) {
       Map<String, dynamic> testValue = mapper['services'];
-      if (testValue.containsKey(category)) if (testValue[category]
-          .containsKey('items')) 
-          
-          if (testValue[category]['items'].containsKey(k))
+      if (testValue.containsKey(category)) if (testValue[category].containsKey(
+          'items')) if (testValue[category]['items'].containsKey(k))
         list.add(SingleService(
           serviceName: category == "other"
               ? k

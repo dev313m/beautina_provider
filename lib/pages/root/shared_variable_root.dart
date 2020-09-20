@@ -1,8 +1,8 @@
-import 'package:beauty_order_provider/db_sqflite/notification_sqflite.dart';
-import 'package:beauty_order_provider/models/notification.dart';
-import 'package:beauty_order_provider/prefrences/last_notification_date.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
-import 'package:beauty_order_provider/models/notification.dart' as noti;
+import 'package:beautina_provider/db_sqflite/notification_sqflite.dart';
+import 'package:beautina_provider/models/notification.dart';
+import 'package:beautina_provider/prefrences/last_notification_date.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/models/notification.dart' as noti;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';

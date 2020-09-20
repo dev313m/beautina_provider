@@ -1,9 +1,8 @@
-
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/models/order.dart';
-import 'package:beauty_order_provider/pages/dates/constants.dart';
-import 'package:beauty_order_provider/pages/dates/shared_variables_order.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/models/order.dart';
+import 'package:beautina_provider/pages/dates/constants.dart';
+import 'package:beautina_provider/pages/dates/shared_variables_order.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
@@ -214,7 +213,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   todayDayBuilder: (context, date, _) {
                     return Container(
                       decoration: BoxDecoration(
-                          color:  CalendarColors.todayContainer,
+                          color: CalendarColors.todayContainer,
                           borderRadius: BorderRadius.circular(9)),
                       margin: const EdgeInsets.all(4.0),
                       padding: const EdgeInsets.only(top: 5.0, left: 6.0),

@@ -1,4 +1,4 @@
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -119,7 +119,7 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
               hintText: widget.placeholder,
               // helperText: 'هنا ضع اسمك',
               // suffixText: 'suffex',
-              
+
               // labelText: 'labels',
               prefixIcon: widget.prefixIcon,
               border: InputBorder.none),

@@ -1,8 +1,8 @@
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/pages/signing_pages/function.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
-import 'package:beauty_order_provider/services/auth/google_auth.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/pages/signing_pages/function.dart';
+import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/services/auth/google_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';

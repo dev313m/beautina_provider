@@ -1,6 +1,6 @@
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/constants/duration.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/duration.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

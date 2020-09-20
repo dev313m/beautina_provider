@@ -1,6 +1,6 @@
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/services/api/api_user_provider.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:flutter/foundation.dart';
 
 Future<ModelBeautyProvider> updateDataFromServer() async {

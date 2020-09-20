@@ -1,14 +1,14 @@
-import 'package:beauty_order_provider/db_sqflite/notification_sqflite.dart';
-import 'package:beauty_order_provider/pages/dates/index.dart';
-import 'package:beauty_order_provider/pages/my_salon/index.dart';
-import 'package:beauty_order_provider/pages/notification/index.dart';
-import 'package:beauty_order_provider/pages/packages/index.dart';
-import 'package:beauty_order_provider/pages/root/shared_variable_root.dart';
-import 'package:beauty_order_provider/pages/root/ui.dart';
-import 'package:beauty_order_provider/pages/settings/index.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
-import 'package:beauty_order_provider/services/api/api_user_provider.dart';
+import 'package:beautina_provider/db_sqflite/notification_sqflite.dart';
+import 'package:beautina_provider/pages/dates/index.dart';
+import 'package:beautina_provider/pages/my_salon/index.dart';
+import 'package:beautina_provider/pages/notification/index.dart';
+import 'package:beautina_provider/pages/packages/index.dart';
+import 'package:beautina_provider/pages/root/shared_variable_root.dart';
+import 'package:beautina_provider/pages/root/ui.dart';
+import 'package:beautina_provider/pages/settings/index.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:provider/provider.dart';
-import 'package:beauty_order_provider/models/notification.dart' as noti;
+import 'package:beautina_provider/models/notification.dart' as noti;
 import 'package:url_launcher/url_launcher.dart';
 
 ///This will return the list of pages that appears in the main menu of the app

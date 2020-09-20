@@ -1,9 +1,9 @@
 // import 'dart:js';
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/pages/my_salon/beauty_provider_page/constants.dart';
-import 'package:beauty_order_provider/pages/my_salon/beauty_provider_page/functions.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/pages/my_salon/beauty_provider_page/constants.dart';
+import 'package:beautina_provider/pages/my_salon/beauty_provider_page/functions.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -98,8 +98,7 @@ class _RowCellState extends State<RowCell> {
             size: 25,
             color: widget.color,
           ),
-          onPressed: () async {
-          },
+          onPressed: () async {},
           splashColor: widget.color,
           color: widget.color,
           tooltip: widget.type,

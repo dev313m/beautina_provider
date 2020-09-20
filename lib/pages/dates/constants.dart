@@ -1,5 +1,5 @@
 //Colors
-import 'package:beauty_order_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ConstDatesColors {

@@ -1,25 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/constants/countries.dart';
-import 'package:beauty_order_provider/constants/resolution.dart';
-import 'package:beauty_order_provider/pages/my_salon/beauty_provider_page/functions.dart';
-import 'package:beauty_order_provider/pages/my_salon/index.dart';
-import 'package:beauty_order_provider/pages/root/constants.dart';
-import 'package:beauty_order_provider/pages/root/shared_variable_root.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/countries.dart';
+import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/pages/my_salon/beauty_provider_page/functions.dart';
+import 'package:beautina_provider/pages/my_salon/index.dart';
+import 'package:beautina_provider/pages/root/constants.dart';
+import 'package:beautina_provider/pages/root/shared_variable_root.dart';
 
-import 'package:beauty_order_provider/pages/settings/functions.dart';
+import 'package:beautina_provider/pages/settings/functions.dart';
 
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/reusables/picker.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
-import 'package:beauty_order_provider/reusables/toast.dart';
-import 'package:beauty_order_provider/services/api/api_user_provider.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/reusables/picker.dart';
+import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:flutter/painting.dart' as painting;
 
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/pages/my_salon/shared_mysalon.dart';
-import 'package:beauty_order_provider/services/api/image.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/services/api/image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -459,9 +459,7 @@ class _PageSettingsState extends State<PageSettings> {
                                   string: "للشكوى والاقتراحات والاستفسارات",
                                   fontSize: ExtendedText.xxbigFont,
                                 ),
-                                SizedBox(
-                                  height: ScreenUtil().setHeight(100)
-                                ),
+                                SizedBox(height: ScreenUtil().setHeight(100)),
                                 Row(
                                   children: <Widget>[
                                     Expanded(

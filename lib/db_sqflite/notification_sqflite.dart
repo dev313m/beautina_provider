@@ -1,5 +1,5 @@
-import 'package:beauty_order_provider/models/notification.dart';
-import 'package:beauty_order_provider/prefrences/last_notification_date.dart';
+import 'package:beautina_provider/models/notification.dart';
+import 'package:beautina_provider/prefrences/last_notification_date.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';

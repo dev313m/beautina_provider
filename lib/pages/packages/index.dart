@@ -1,16 +1,16 @@
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/constants/duration.dart';
-import 'package:beauty_order_provider/constants/resolution.dart';
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/pages/dates/functions.dart';
-import 'package:beauty_order_provider/pages/dates/index.dart';
-import 'package:beauty_order_provider/pages/my_salon/beauty_provider_page/index.dart';
-import 'package:beauty_order_provider/pages/my_salon/shared_mysalon.dart';
-import 'package:beauty_order_provider/pages/my_salon/ui_choose_service.dart';
-import 'package:beauty_order_provider/pages/my_salon/ui_how_I_look.dart';
-import 'package:beauty_order_provider/pages/packages/constants.dart';
-import 'package:beauty_order_provider/pages/root/constants.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/duration.dart';
+import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/pages/dates/functions.dart';
+import 'package:beautina_provider/pages/dates/index.dart';
+import 'package:beautina_provider/pages/my_salon/beauty_provider_page/index.dart';
+import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/pages/my_salon/ui_choose_service.dart';
+import 'package:beautina_provider/pages/my_salon/ui_how_I_look.dart';
+import 'package:beautina_provider/pages/packages/constants.dart';
+import 'package:beautina_provider/pages/root/constants.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:credit_card/credit_card_model.dart';
 import 'package:credit_card/flutter_credit_card.dart';
@@ -169,7 +169,8 @@ class _PagePackageState extends State<PagePackage> {
                                   ],
                                 ),
                                 AnimatedSwitcher(
-                                    duration: Duration(milliseconds: durationCalender),
+                                    duration: Duration(
+                                        milliseconds: durationCalender),
                                     child: showPay ? WidgetPay() : SizedBox())
                               ],
                             ),

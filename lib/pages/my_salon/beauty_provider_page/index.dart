@@ -1,13 +1,13 @@
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/constants/duration.dart';
-import 'package:beauty_order_provider/constants/resolution.dart';
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/pages/my_salon/beauty_provider_page/constants.dart';
-import 'package:beauty_order_provider/pages/my_salon/beauty_provider_page/functions.dart';
-import 'package:beauty_order_provider/pages/my_salon/beauty_provider_page/ui.dart';
-import 'package:beauty_order_provider/pages/root/constants.dart';
-import 'package:beauty_order_provider/reusables/divider.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/constants/duration.dart';
+import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/pages/my_salon/beauty_provider_page/constants.dart';
+import 'package:beautina_provider/pages/my_salon/beauty_provider_page/functions.dart';
+import 'package:beautina_provider/pages/my_salon/beauty_provider_page/ui.dart';
+import 'package:beautina_provider/pages/root/constants.dart';
+import 'package:beautina_provider/reusables/divider.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 

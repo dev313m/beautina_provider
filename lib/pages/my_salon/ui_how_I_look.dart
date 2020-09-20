@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:beauty_order_provider/constants/app_colors.dart';
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/reusables/text.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
@@ -192,7 +192,6 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                               SizedBox(
                                 height: 15,
                               ),
-                            
                               Row(
                                 children: <Widget>[
                                   Expanded(

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:beauty_order_provider/prefrences/services.dart';
+import 'package:beautina_provider/prefrences/services.dart';
 import 'package:http/http.dart' as http;
 
 var SALON_SERVICES = 'https://app-beautyorder.uc.r.appspot.com/salon_services';

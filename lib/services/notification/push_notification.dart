@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:beauty_order_provider/db_sqflite/notification_sqflite.dart';
+import 'package:beautina_provider/db_sqflite/notification_sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
-import 'package:beauty_order_provider/models/notification.dart' as noti;
+import 'package:beautina_provider/models/notification.dart' as noti;
 
 class PushNotification {
   final FirebaseMessaging _fcmFore = FirebaseMessaging();

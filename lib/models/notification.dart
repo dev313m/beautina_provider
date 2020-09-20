@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/prefrences/default_page.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/prefrences/default_page.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:async';
@@ -25,11 +25,10 @@ class MyNotification {
   String _image = '';
   String from_name;
   String client_id;
-  Timestamp t; 
-  
+  Timestamp t;
+
   MyNotification.empty();
   MyNotification.fromFirebase(Map<String, dynamic> map) {
-    
     _title = map['title'] ?? '';
     _describ = map['describ'] ?? '';
     from_name = map['from_name'] ?? "";
@@ -178,7 +177,8 @@ Future<List<MyNotification>> dbServerloadAllNewNotification(
   QuerySnapshot querySnapshot = await Firestore.instance
       .collection('notifications')
       .where("client_id", isEqualTo: client_id)
-      .where('create_date', isGreaterThan: date).orderBy('create_date' )
+      .where('create_date', isGreaterThan: date)
+      .orderBy('create_date')
       .getDocuments();
 
   return compute(computeMe, querySnapshot);
@@ -206,7 +206,8 @@ Future<List<MyNotification>> dbServerloadAllNotification() async {
 
   QuerySnapshot snapshot = await Firestore.instance
       .collection('notifications')
-      .where('client_id', isEqualTo: client_id).orderBy('create_date' )
+      .where('client_id', isEqualTo: client_id)
+      .orderBy('create_date')
       .getDocuments();
 
   return compute(parseNewList, snapshot);

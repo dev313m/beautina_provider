@@ -1,4 +1,4 @@
-# beauty_order_provider
+# beautina_provider
 
 A new Flutter project.
 

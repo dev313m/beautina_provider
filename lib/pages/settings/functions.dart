@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:beauty_order_provider/constants/countries.dart';
+import 'package:beautina_provider/constants/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:provider/provider.dart';

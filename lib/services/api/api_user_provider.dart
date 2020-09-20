@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:beauty_order_provider/models/beauty_provider.dart';
-import 'package:beauty_order_provider/prefrences/sharedUserProvider.dart';
-import 'package:beauty_order_provider/services/api/post.dart';
+import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/services/api/post.dart';
 import 'package:http/http.dart' as http;
- 
-final ERROR= "حدث خطأ ما، الرجاء المحاولة مجددا";
+
+final ERROR = "حدث خطأ ما، الرجاء المحاولة مجددا";
 String URL_ADD_NEW_USER =
     'https://app-beautyorder.uc.r.appspot.com/beauty_providers/login';
 String URL_UPDATE_USER =

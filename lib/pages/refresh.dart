@@ -1,6 +1,6 @@
-import 'package:beauty_order_provider/pages/dates/shared_variables_order.dart';
-import 'package:beauty_order_provider/pages/my_salon/shared_mysalon.dart';
-import 'package:beauty_order_provider/pages/root/shared_variable_root.dart';
+import 'package:beautina_provider/pages/dates/shared_variables_order.dart';
+import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/pages/root/shared_variable_root.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
