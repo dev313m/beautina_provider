@@ -10,6 +10,7 @@ import 'package:home_indicator/home_indicator.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  //just be aware here.
   WidgetsFlutterBinding.ensureInitialized();
 
   bool registered = await sharedGetRegestered();
