@@ -78,7 +78,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
       DateTime dbDate = f.client_order_date;
       DateTime date = DateTime.utc(dbDate.year, dbDate.month, dbDate.day);
       // events[date] = events[date] == null ? [f] : events[date]
-      //   ..add(f);
+      //  ..add(f);
 
       if (events[date] == null)
         events[date] = [f];
