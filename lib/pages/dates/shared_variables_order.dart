@@ -8,6 +8,19 @@ class SharedOrder with ChangeNotifier {
   bool build = true;
   // the required to download month
   int month = DateTime.now().toLocal().month;
+
+  //Animating availablity switch
+  bool isShowAvailableWidget = true;
+
+  DateTime _calanderChosenDay = DateTime.now();
+
+  DateTime get calanderChosenDay => _calanderChosenDay;
+
+  set calanderChosenDay(DateTime calanderChosenDay) {
+    _calanderChosenDay = calanderChosenDay;
+    notifyListeners();
+  }
+
   bool _isLoading = true;
   List<Order> comingConfirmedList = [];
   String lastDoc = '';
@@ -65,8 +78,7 @@ class SharedOrder with ChangeNotifier {
     try {
       // await Future.delayed(Duration(seconds: 5));
 
-      orderList =
-          await getOrders(day: DateTime.now().toLocal().day, month: month);
+      orderList = await getOrders(day: DateTime.now().toLocal().day, month: month);
       comingConfirmedList = await getComingConfirmed();
 
       if (orderList.length != 0) lastDoc = orderList.last.doc_id;
@@ -88,8 +100,7 @@ class SharedOrder with ChangeNotifier {
             item.client_order_date.month == DateTime.now().toLocal().month &&
             item.client_order_date.day == DateTime.now().toLocal().day &&
             item.client_order_date.year == DateTime.now().toLocal().year)
-        .where(
-            (item) => item.status == 3 || item.status == 0 || item.status == 1)
+        .where((item) => item.status == 3 || item.status == 0 || item.status == 1)
         .toList();
 
     // toConfirmList = orderList

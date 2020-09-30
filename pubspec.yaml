@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   provider: 3.2.0
-  flare_flutter: ^2.0.1
+  flare_flutter: ^2.0.6
   firebase_auth: ^0.15.0+1
   flutter_screenutil: ^1.1.0
   google_sign_in: ^4.0.14
@@ -66,7 +66,9 @@ dependencies:
   apple_sign_in: ^0.1.0
   flutter_cache_manager: ^1.2.2
   google_fonts_arabic: ^1.1.7
-
+  dio_http_cache: 
+  dio: 
+  timeline_editor: ^0.3.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -111,6 +113,7 @@ flutter:
    - assets/images/gift.png
    - assets/rive/night.flr
    - assets/rive/notification.flr
+   - assets/rive/lock.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

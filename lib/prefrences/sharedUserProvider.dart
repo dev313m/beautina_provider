@@ -5,14 +5,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 // [id, name, phone, city, country]
-Future<Null> sharedUserProviderSet(
-    {@required ModelBeautyProvider beautyProvider}) async {
+Future<Null> sharedUserProviderSet({@required ModelBeautyProvider beautyProvider}) async {
   if (beautyProvider.tokenId == '' || beautyProvider.tokenId == null) {
     ModelBeautyProvider bp = await sharedUserProviderGetInfo();
     beautyProvider.tokenId = bp.tokenId;
   }
+  Map<String, dynamic> fixedMap = beautyProvider.getMap();
+  fixedMap['busy_dates'] = beautyProvider.busyDates.map((e) {
+    Map<String, String> busyDate = {'from': e['from'].toString(), 'to': e['to'].toString()};
+    return busyDate;
+  }).toList();
 
-  String jsonUser = json.encode(beautyProvider.getMap());
+  String jsonUser = json.encode(fixedMap);
 
   // List<String> userInfo = [
   //   user.auth_id,

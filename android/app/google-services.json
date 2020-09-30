@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "763645979803-ceuu27qvaimepfn2uoqv2pdsk4tcpiqb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.beautina",
+            "certificate_hash": "53bf057b39dbd8499f3d4011b3e55237170b6cc1"
+          }
+        },
+        {
+          "client_id": "763645979803-rvfac3o9dknn525d5mombcni2ekquker.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.beautina",
+            "certificate_hash": "9507c7bbdd97435115719a8c1cd2d56da9e23561"
+          }
+        },
+        {
           "client_id": "763645979803-34pt3o85m0ndg094erqqobg27bh4le6n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -52,7 +68,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "763645979803-7d8u1hoc7s5s0rh0p2kcrm20769j8j68.apps.googleusercontent.com",
+              "client_id": "763645979803-g2j6qjh5938l7a15hp447vlo3801hc3j.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -74,6 +90,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "763645979803-chkfun1bgnte4m87e9c8iedvmpamabt9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.salon",
+            "certificate_hash": "53bf057b39dbd8499f3d4011b3e55237170b6cc1"
+          }
+        },
+        {
+          "client_id": "763645979803-8rhucicafblvfiqjp886tf8pne8dadti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beautina.salon",
+            "certificate_hash": "9507c7bbdd97435115719a8c1cd2d56da9e23561"
+          }
+        },
         {
           "client_id": "763645979803-a4bdprvv62ch78k90eqsabjrik8m1bej.apps.googleusercontent.com",
           "client_type": 1,
@@ -112,7 +144,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "763645979803-7d8u1hoc7s5s0rh0p2kcrm20769j8j68.apps.googleusercontent.com",
+              "client_id": "763645979803-g2j6qjh5938l7a15hp447vlo3801hc3j.apps.googleusercontent.com",
               "client_type": 3
             },
             {

@@ -5,7 +5,7 @@
 class ModelBeautyProvider {
   static int TYPE_SALON = 1;
   static int TYPE_INDIVIDUAL = 1;
-
+  List<Map<String, DateTime>> busyDates; // Date that provider is not available for order
   int type; //whether it was a salon or a simple woman 1 for salon
   bool _available;
   String _image;
@@ -90,6 +90,7 @@ class ModelBeautyProvider {
       String name,
       int points,
       String tokenId,
+      List<Map<String, DateTime>> busyDates,
       int favorite_count,
       String auth_login,
       double rating,
@@ -111,6 +112,7 @@ class ModelBeautyProvider {
         this.favorite_count = favorite_count,
         this._points = points,
         this.type = type,
+        this.busyDates = busyDates,
         this.tokenId = tokenId,
         this._rating = rating,
         this.auth_login = auth_login,
@@ -135,6 +137,8 @@ class ModelBeautyProvider {
     map['tokenId'] = this.tokenId ?? '';
     map['image'] = this._image ?? '';
     map['package'] = this.package ?? {};
+    map['busy_dates'] = this.busyDates ?? [];
+
     map['intro'] = this._intro ?? '';
     map['favorite_count'] = this.favorite_count ?? 0;
     map['location'] = this._location ?? [];
@@ -180,11 +184,16 @@ class ModelBeautyProvider {
     _likes = data['likes'] ?? 0;
     _achieved = data['_achieved'] ?? 0;
     _uid = data['_id'] ?? '';
+    busyDates = getBustyDates(data['busy_dates']);
+
     _token = data['token'] ?? '';
-    servicespro = data['services'] == null
-        ? {}
-        : Map<String, dynamic>.from(data['services']);
+    servicespro = data['services'] == null ? {} : Map<String, dynamic>.from(data['services']);
     // getAllServices(servicespro);
+  }
+
+  List<Map<String, DateTime>> getBustyDates(List<dynamic> myList) {
+    return myList.length == 0 ? [] : myList.map((dateObject) => {'from': DateTime.parse(dateObject['from']), 'to': DateTime.parse(dateObject['to'])}).toList();
+    // .cast<List<Map<String, DateTime>>>();
   }
 
   // getAllServices(Map<String, dynamic> servicess) {

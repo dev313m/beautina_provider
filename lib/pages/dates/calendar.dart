@@ -1,8 +1,11 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/pages/dates/constants.dart';
+import 'package:beautina_provider/pages/dates/functions.dart';
 import 'package:beautina_provider/pages/dates/shared_variables_order.dart';
+import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
@@ -17,9 +20,18 @@ class Calender extends StatefulWidget {
 }
 
 class _CalenderState extends State<Calender> with TickerProviderStateMixin {
-  CalendarController _calendarController;
   int month;
+
   AnimationController _animationController;
+  CalendarController _calendarController;
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _calendarController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -33,15 +45,34 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
     _calendarController = CalendarController();
   }
 
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _calendarController.dispose();
-    super.dispose();
+  Map<DateTime, List<dynamic>> getBusyDatesEvents() {
+    Map<DateTime, List<dynamic>> events = {};
+
+    Provider.of<SharedSalon>(context).beautyProvider.busyDates.forEach((f) {
+      DateTime fromDate = DateTime.utc(f['from'].year, f['from'].month, f['from'].day);
+      DateTime toDate = f['to'];
+      if (events[fromDate] == null) events[fromDate] = [];
+
+      //if there is only one day add it
+      if (fromDate == toDate)
+        events[fromDate] = events[fromDate]..add(Order(status: -1));
+      else {
+        //add first day in the range
+        events[fromDate] = events[fromDate]..add(Order(status: -1));
+        int i = 1;
+        // add all the days in the range
+        while (fromDate.add(Duration(days: i)).isBefore(toDate)) {
+          if (events[fromDate.add(Duration(days: i))] == null) events[fromDate.add(Duration(days: i))] = [];
+          events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]..add(Order(status: -1));
+          i++;
+        }
+      }
+    });
+    return events;
   }
 
   Map<DateTime, List<dynamic>> getEvents(List<Order> orders) {
-    Map<DateTime, List<dynamic>> events = {};
+    Map<DateTime, List<dynamic>> events = getBusyDatesEvents();
 
     Provider.of<SharedOrder>(context).orderList.forEach((f) {
       DateTime dbDate = f.client_order_date;
@@ -57,6 +88,30 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
     return events;
   }
 
+  Widget _buildEventsMarker(DateTime date, List events, Color color) {
+    return Container(
+      width: ScreenUtil().setWidth(30),
+      height: ScreenUtil().setWidth(30),
+      child: ClipOval(
+        child: AnimatedContainer(
+          padding: EdgeInsets.all(ScreenUtil().setWidth(5)),
+          duration: const Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+            // shape: BoxShape.rectangle,
+            color: _calendarController.isSelected(date) ? color : _calendarController.isToday(date) ? Colors.brown[300] : color,
+          ),
+          // width: ScreenUtil().setWidth(16),
+          // height: ScreenUtil().setWidth(16),
+          child: Center(
+            child: ExtendedText(
+              string: '${events.length}',
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -68,19 +123,21 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
               TableCalendar(
                 calendarController: _calendarController,
                 events: getEvents(Provider.of<SharedOrder>(context).orderList),
+                availableGestures: AvailableGestures.horizontalSwipe,
                 // holidays: getEvents(Provider.of<SharedOrder>(context).orderList),
                 headerVisible: true,
+                initialCalendarFormat: CalendarFormat.month,
+
                 onDaySelected: (date, events) async {
                   List<Order> list = events.cast();
-                  Provider.of<SharedOrder>(context).listOfDay = [];
-                  await Future.delayed(Duration(seconds: 1));
+                  Provider.of<SharedOrder>(context).calanderChosenDay = date;
 
-                  Provider.of<SharedOrder>(context).listOfDay = list
-                      .where((item) =>
-                          item.status == 0 ||
-                          item.status == 1 ||
-                          item.status == 3)
-                      .toList();
+                  Provider.of<SharedOrder>(context).listOfDay = [];
+                  Provider.of<SharedOrder>(context).isShowAvailableWidget = false;
+                  await Future.delayed(Duration(milliseconds: 200));
+                  Provider.of<SharedOrder>(context).isShowAvailableWidget = true;
+
+                  Provider.of<SharedOrder>(context).listOfDay = list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList();
                 },
                 calendarStyle: CalendarStyle(
                   // selectedColor: Colors.deepOrange[400],
@@ -101,9 +158,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   // month = time.month;
                 },
                 headerStyle: HeaderStyle(
-                  formatButtonTextStyle: TextStyle().copyWith(
-                      color: CalendarColors.header,
-                      fontSize: ExtendedText.defaultFont),
+                  formatButtonTextStyle: TextStyle().copyWith(color: CalendarColors.header, fontSize: ExtendedText.defaultFont),
                   formatButtonDecoration: BoxDecoration(
                     color: CalendarColors.headerContainer,
                     borderRadius: BorderRadius.circular(16.0),
@@ -112,45 +167,48 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
 
                 formatAnimation: FormatAnimation.slide,
                 builders: CalendarBuilders(
-                  selectedDayBuilder: (context, date, _) {
+                  selectedDayBuilder: (context, date, list) {
                     return FadeTransition(
-                      opacity: Tween(begin: 0.0, end: 1.0)
-                          .animate(_animationController),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: CalendarColors.todayContainer,
-                            borderRadius: BorderRadius.circular(9)),
-                        // margin: const EdgeInsets.all(4.0),
-                        padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-                        width: ScreenUtil().setWidth(100),
-                        height: ScreenUtil().setHeight(100),
-                        child: ExtendedText(
-                          string: '${date.day}',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.left,
-                          fontSize: ExtendedText.bigFont,
-                          fontColor: Colors.white,
-                          // style: TextStyle().copyWith(fontSize: 16.0),
-                        ),
+                      opacity: Tween(begin: 0.0, end: 1.0).animate(_animationController),
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(color: CalendarColors.todayContainer, borderRadius: BorderRadius.circular(9)),
+                            // margin: const EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.only(top: 5.0, left: 6.0),
+                            width: ScreenUtil().setWidth(100),
+                            height: ScreenUtil().setHeight(100),
+                            child: ExtendedText(
+                              string: '${date.day}',
+                              textDirection: TextDirection.ltr,
+                              textAlign: TextAlign.left,
+                              fontSize: ExtendedText.bigFont,
+                              fontColor: Colors.white,
+                              // style: TextStyle().copyWith(fontSize: 16.0),
+                            ),
+                          ),
+                          if (list != null)
+                            if (list.where((element) => element.status == -1).length > 0)
+                              Align(
+                                alignment: Alignment.center,
+                                child: Icon(CommunityMaterialIcons.lock),
+                              )
+                        ],
                       ),
                     );
                   },
                   markersBuilder: (context, date, events, holidays) {
                     final children = <Widget>[];
-                    List<dynamic> newOrders =
-                        events.where((event) => event.status == 0).toList();
-                    List<dynamic> acceptedOrder =
-                        events.where((event) => event.status == 1).toList();
-                    List<dynamic> approvedOrder =
-                        events.where((event) => event.status == 3).toList();
+                    List<dynamic> newOrders = events.where((event) => event.status == 0).toList();
+                    List<dynamic> acceptedOrder = events.where((event) => event.status == 1).toList();
+                    List<dynamic> approvedOrder = events.where((event) => event.status == 3).toList();
 
                     if (newOrders.isNotEmpty) {
                       children.add(
                         Positioned(
                           left: 0,
                           bottom: 0,
-                          child: _buildEventsMarker(
-                              date, newOrders, CalendarColors.bottomLeft),
+                          child: _buildEventsMarker(date, newOrders, CalendarColors.bottomLeft),
                         ),
                       );
                     }
@@ -172,8 +230,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                         Positioned(
                           right: 0,
                           top: 0,
-                          child: _buildEventsMarker(
-                              date, approvedOrder, CalendarColors.topNoti),
+                          child: _buildEventsMarker(date, approvedOrder, CalendarColors.topNoti),
                         ),
                       );
                     }
@@ -183,38 +240,36 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   dayBuilder: (_, date, list) {
                     // if(newOrders ==null || acceptedOrder ==null || approvedOrder == null)
                     if (list == null) list = [];
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: list
-                                      .where((item) =>
-                                          item.status == 0 ||
-                                          item.status == 1 ||
-                                          item.status == 3)
-                                      .toList()
-                                      .length ==
-                                  0
-                              ? CalendarColors.empty
-                              : CalendarColors.eventColor,
-                          borderRadius: BorderRadius.circular(9)),
-                      margin: const EdgeInsets.all(4.0),
-                      padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-                      width: ScreenUtil().setWidth(100),
-                      height: ScreenUtil().setHeight(100),
-                      child: ExtendedText(
-                        string: '${date.day}',
-                        textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.left,
-                        fontSize: ExtendedText.bigFont,
-                        fontColor: Colors.white38,
-                        // style: TextStyle().copyWith(fontSize: 16.0),
-                      ),
+                    return Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList().length == 0 ? CalendarColors.empty : CalendarColors.eventColor,
+                              borderRadius: BorderRadius.circular(9)),
+                          margin: const EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.only(top: 5.0, left: 6.0),
+                          width: ScreenUtil().setWidth(100),
+                          height: ScreenUtil().setHeight(100),
+                          child: ExtendedText(
+                            string: '${date.day}',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.left,
+                            fontSize: ExtendedText.bigFont,
+                            fontColor: Colors.white38,
+                            // style: TextStyle().copyWith(fontSize: 16.0),
+                          ),
+                        ),
+                        if (list.where((element) => element.status == -1).length > 0)
+                          Align(
+                            alignment: Alignment.center,
+                            child: Icon(CommunityMaterialIcons.lock),
+                          )
+                      ],
                     );
                   },
                   todayDayBuilder: (context, date, _) {
                     return Container(
-                      decoration: BoxDecoration(
-                          color: CalendarColors.todayContainer,
-                          borderRadius: BorderRadius.circular(9)),
+                      decoration: BoxDecoration(color: CalendarColors.todayContainer, borderRadius: BorderRadius.circular(9)),
                       margin: const EdgeInsets.all(4.0),
                       padding: const EdgeInsets.only(top: 5.0, left: 6.0),
                       width: ScreenUtil().setWidth(100),
@@ -239,34 +294,31 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                       )
                     : SizedBox(),
               ),
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  // height: 50,
+                  // left: MediaQuery.of(context).size.width / 2 - ScreenUtil().setWidth(ConstDateSizes.reloadLeft),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(9), bottomRight: Radius.circular(9)),
+                    // color: Colors.pink,
+                    child: Material(
+                      color: Colors.purple,
+                      child: IconButton(
+                          color: Colors.white,
+                          disabledColor: Colors.brown,
+                          icon: Icon(CommunityMaterialIcons.reload),
+                          highlightColor: Colors.deepOrangeAccent,
+                          focusColor: Colors.deepOrangeAccent,
+                          hoverColor: Colors.deepOrangeAccent,
+                          splashColor: Colors.pink,
+                          onPressed: () async {
+                            Provider.of<SharedOrder>(context).isLoading = true;
+                            await pagesRefresh(context);
+                          }),
+                    ),
+                  )),
             ],
           )),
-    );
-  }
-
-  Widget _buildEventsMarker(DateTime date, List events, Color color) {
-    return Container(
-      width: ScreenUtil().setWidth(30),
-      height: ScreenUtil().setWidth(30),
-      child: ClipOval(
-        child: AnimatedContainer(
-          padding: EdgeInsets.all(ScreenUtil().setWidth(5)),
-          duration: const Duration(milliseconds: 300),
-          decoration: BoxDecoration(
-            // shape: BoxShape.rectangle,
-            color: _calendarController.isSelected(date)
-                ? color
-                : _calendarController.isToday(date) ? Colors.brown[300] : color,
-          ),
-          // width: ScreenUtil().setWidth(16),
-          // height: ScreenUtil().setWidth(16),
-          child: Center(
-            child: ExtendedText(
-              string: '${events.length}',
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

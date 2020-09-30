@@ -9,10 +9,12 @@ import 'package:beautina_provider/pages/dates/ui.dart';
 import 'package:beautina_provider/pages/dates/ui_order_list_page.dart';
 import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
 import 'package:beautina_provider/pages/my_salon/ui_how_I_look.dart';
+import 'package:beautina_provider/pages/root/constants.dart';
 import 'package:beautina_provider/pages/root/shared_variable_root.dart';
 import 'package:beautina_provider/reusables/loading.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -37,8 +39,7 @@ class WidgetGetAllList extends StatelessWidget {
       // ...snapshot.map((order) => order.status == 5? WidgetRating(order: order,):  )
 
       Column(
-        children: List.generate(snapshot.length,
-            (index) => JustOrderWidget(order: snapshot[index])).toList(),
+        children: List.generate(snapshot.length, (index) => JustOrderWidget(order: snapshot[index])).toList(),
       )
     ]);
   }
@@ -88,9 +89,7 @@ class _WidgetFutureListState extends State<WidgetFutureList> {
         ),
       );
     else
-      return WidgetGetAllList(
-          snapshot:
-              getFilteredList(sharedOrder.orderList, sharedOrder.filterIndex));
+      return WidgetGetAllList(snapshot: getFilteredList(sharedOrder.orderList, sharedOrder.filterIndex));
   }
 }
 
@@ -99,8 +98,7 @@ class DatePage extends StatefulWidget {
   _DatePageState createState() => _DatePageState();
 }
 
-class _DatePageState extends State<DatePage>
-    with AutomaticKeepAliveClientMixin<DatePage> {
+class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<DatePage> {
   double currentScroll = 0;
 
   ///
@@ -137,11 +135,9 @@ class _DatePageState extends State<DatePage>
     filterBool = [false, false, false, false, false, true];
     scrollController = ScrollController();
     scrollController.addListener(() async {
-      if (scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse)
+      if (scrollController.position.userScrollDirection == ScrollDirection.reverse)
         Provider.of<SharedRoot>(context).hideBars = true;
-      else if (Provider.of<SharedRoot>(context).hideBars)
-        Provider.of<SharedRoot>(context).hideBars = false;
+      else if (Provider.of<SharedRoot>(context).hideBars) Provider.of<SharedRoot>(context).hideBars = false;
       // if (scrollController.position.maxScrollExtent ==
       //         scrollController.position.pixels &&
       //     !dataLoading) {
@@ -206,9 +202,7 @@ class _DatePageState extends State<DatePage>
                             child: Center(
                               child: Container(
                                 // width: ScreenUtil().setWidth(200),
-                                decoration: BoxDecoration(
-                                    color: ConstDatesColors.topBtns,
-                                    borderRadius: BorderRadius.circular(9)),
+                                decoration: BoxDecoration(color: ConstDatesColors.topBtns, borderRadius: BorderRadius.circular(9)),
                                 height: ScreenUtil().setHeight(100),
                                 child: Center(
                                   child: ExtendedText(
@@ -221,9 +215,7 @@ class _DatePageState extends State<DatePage>
                           ),
                           scaleCoefficient: 0.85,
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) =>
-                                    OrderListFinishedPage(heroTag: 'bbb')));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
                           },
                         ),
                       ),
@@ -243,9 +235,7 @@ class _DatePageState extends State<DatePage>
                               child: Hero(
                                 tag: 'newOrders',
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: ConstDatesColors.topBtns,
-                                      borderRadius: BorderRadius.circular(9)),
+                                  decoration: BoxDecoration(color: ConstDatesColors.topBtns, borderRadius: BorderRadius.circular(9)),
                                   height: ScreenUtil().setHeight(100),
                                   child: Center(
                                     child: ExtendedText(
@@ -259,8 +249,7 @@ class _DatePageState extends State<DatePage>
                           ),
                           scaleCoefficient: 0.85,
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => OrderListPage()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListPage()));
                           },
                         ),
                         Align(
@@ -269,15 +258,10 @@ class _DatePageState extends State<DatePage>
                             child: Container(
                                 width: ScreenUtil().setWidth(30),
                                 height: ScreenUtil().setHeight(30),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.red),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.red),
                                 child: Center(
                                   child: ExtendedText(
-                                    string: Provider.of<SharedOrder>(context)
-                                        .comingConfirmedList
-                                        .length
-                                        .toString(),
+                                    string: Provider.of<SharedOrder>(context).comingConfirmedList.length.toString(),
                                   ),
                                 )),
                           ),
@@ -291,7 +275,7 @@ class _DatePageState extends State<DatePage>
               // key: Key('uiniv'),
               TutorialCalendar(),
 
-              // key: Key('uiniv'),
+              // key: Key('uiniv')
 
               OrdersList(ordersList: sharedOrder.listOfDay, hero: '1'),
 
@@ -299,30 +283,6 @@ class _DatePageState extends State<DatePage>
               SizedBox(height: ScreenUtil().setHeight(200))
             ],
           ),
-          Positioned(
-              bottom: ScreenUtil().setHeight(ConstDateSizes.reloadBottom),
-              width: ScreenUtil().setWidth(ConstDateSizes.reloadWidth),
-              // height: 50,
-              left: MediaQuery.of(context).size.width / 2 -
-                  ScreenUtil().setWidth(ConstDateSizes.reloadLeft),
-              child: ClipOval(
-                // color: Colors.pink,
-                child: Material(
-                  color: Colors.purple,
-                  child: IconButton(
-                      color: Colors.white,
-                      disabledColor: Colors.brown,
-                      icon: Icon(CommunityMaterialIcons.reload),
-                      highlightColor: Colors.deepOrangeAccent,
-                      focusColor: Colors.deepOrangeAccent,
-                      hoverColor: Colors.deepOrangeAccent,
-                      splashColor: Colors.pink,
-                      onPressed: () async {
-                        Provider.of<SharedOrder>(context).isLoading = true;
-                        await pagesRefresh(context);
-                      }),
-                ),
-              )),
         ],
       ),
     );
@@ -383,9 +343,7 @@ class _OrdersListState extends State<OrdersList> {
                                 ),
                               ), onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => PageOrderDetail(
-                                  order: widget.ordersList[index],
-                                  heroTag: widget.ordersList[index].doc_id),
+                              builder: (_) => PageOrderDetail(order: widget.ordersList[index], heroTag: widget.ordersList[index].doc_id),
                             ));
                           }),
                           Column(
@@ -393,8 +351,7 @@ class _OrdersListState extends State<OrdersList> {
                             children: <Widget>[
                               ExtendedText(string: getText(index)),
                               ExtendedText(
-                                string:
-                                    'السعر: ${widget.ordersList[index].total_price}',
+                                string: 'السعر: ${widget.ordersList[index].total_price}',
                                 textAlign: TextAlign.right,
                               ),
                               Row(
@@ -402,19 +359,15 @@ class _OrdersListState extends State<OrdersList> {
                                 children: <Widget>[
                                   Builder(builder: (_) {
                                     List<String> list = [];
-                                    Map<String, dynamic> mapper =
-                                        Provider.of<SharedSalon>(context)
-                                            .providedServices;
+                                    Map<String, dynamic> mapper = Provider.of<SharedSalon>(context).providedServices;
 
-                                    widget.ordersList[index].services
-                                        .forEach((k, v) {
+                                    widget.ordersList[index].services.forEach((k, v) {
                                       v.forEach((kk, vv) {
                                         if (k == 'other')
                                           list.add(kk.toString());
                                         else {
                                           try {
-                                            list.add(mapper['services'][k]
-                                                ['items'][kk]['ar']);
+                                            list.add(mapper['services'][k]['items'][kk]['ar']);
                                           } catch (e) {
                                             list.add(k.toString());
                                           }
@@ -452,10 +405,7 @@ class _OrdersListState extends State<OrdersList> {
   }
 
   String getText(int index) {
-    if (widget.ordersList[index].client_order_date
-            .isBefore(DateTime.now().toLocal()) &&
-        (widget.ordersList[index].status == 3 ||
-            widget.ordersList[index].status == 8))
+    if (widget.ordersList[index].client_order_date.isBefore(DateTime.now().toLocal()) && (widget.ordersList[index].status == 3 || widget.ordersList[index].status == 8))
       return 'مرحبا، نرجو تأكيد اتمام العملية  (${widget.ordersList[index].client_name})  ${getDate(widget.ordersList[index].client_order_date)}';
     else
       return '${getOrderStatus(widget.ordersList[index].status)} (${widget.ordersList[index].client_name})  ${getDate(widget.ordersList[index].client_order_date)}';

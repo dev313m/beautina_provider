@@ -16,10 +16,7 @@ void main() async {
   bool registered = await sharedGetRegestered();
 
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.black));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent, systemNavigationBarIconBrightness: Brightness.dark, systemNavigationBarColor: Colors.black));
   await HomeIndicator.hide();
 
   return runApp(MyApp(

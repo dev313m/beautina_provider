@@ -49,11 +49,9 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse)
+      if (_scrollController.position.userScrollDirection == ScrollDirection.reverse)
         Provider.of<SharedRoot>(context).hideBars = true;
-      else if (Provider.of<SharedRoot>(context).hideBars)
-        Provider.of<SharedRoot>(context).hideBars = false;
+      else if (Provider.of<SharedRoot>(context).hideBars) Provider.of<SharedRoot>(context).hideBars = false;
     });
     // initBeautyProvider();
   }
@@ -74,12 +72,10 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
               physics: AlwaysScrollableScrollPhysics(),
               children: <Widget>[
                 Container(
-                  height:
-                      ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
+                  height: ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
                 ),
                 Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(33)),
+                    padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(33)),
                     decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.3),
                         // image: AssetImage(assetName),
@@ -90,13 +86,11 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           onTap: () async {
                             File file = await imageChoose();
                             if (await file.exists() == false) return;
-                            DefaultCacheManager manager =
-                                new DefaultCacheManager();
+                            DefaultCacheManager manager = new DefaultCacheManager();
                             manager.emptyCache();
                             imageLoad = true;
                             setState(() {});
-                            bool response =
-                                await imageUpload(file, beautyProvider.uid);
+                            bool response = await imageUpload(file, beautyProvider.uid);
                             if (response) {
                               try {
                                 // imageCache.clear();
@@ -125,8 +119,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                                         ? Loading()
                                         : MyImage(
                                             key: ValueKey('imagelk'),
-                                            url:
-                                                'https://resorthome.000webhostapp.com/upload/${beautyProvider.uid}.jpg',
+                                            url: 'https://resorthome.000webhostapp.com/upload/${beautyProvider.uid}.jpg',
                                           ))),
                           ),
                         ),
@@ -134,8 +127,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           padding: EdgeInsets.all(ScreenUtil().setHeight(10)),
                           child: RatingBar.readOnly(
                             maxRating: 5,
-                            initialRating: (beautyProvider.points /
-                                beautyProvider.achieved),
+                            initialRating: (beautyProvider.points / beautyProvider.achieved),
                             filledIcon: CommunityMaterialIcons.heart,
                             emptyIcon: CommunityMaterialIcons.heart_outline,
                             halfFilledIcon: CommunityMaterialIcons.heart_half,
@@ -158,9 +150,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                             InfoItem(
                               icon: CommunityMaterialIcons.certificate,
                               title: 'الطلبات المنجزة',
-                              value: beautyProvider.achieved < 100
-                                  ? 'اقل من 100 طلب'
-                                  : 'اكثر من ${beautyProvider.achieved % 100} طلب',
+                              value: beautyProvider.achieved < 100 ? 'اقل من 100 طلب' : 'اكثر من ${beautyProvider.achieved % 100} طلب',
                             ),
                             CustomDivider(),
                             InfoItem(
@@ -178,19 +168,11 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                         ),
                       ],
                     )),
-                if (Provider.of<SharedSalon>(context)
-                        .beautyProvider
-                        .location
-                        .length !=
-                    2)
+                if (Provider.of<SharedSalon>(context).beautyProvider.location.length != 2)
                   SizedBox(
                     height: ScreenUtil().setHeight(10),
                   ),
-                if (Provider.of<SharedSalon>(context)
-                        .beautyProvider
-                        .location
-                        .length !=
-                    2)
+                if (Provider.of<SharedSalon>(context).beautyProvider.location.length != 2)
                   Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -198,12 +180,9 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                       ),
                       child: Column(
                         children: <Widget>[
-                          Icon(Icons.error_outline,
-                              color: Colors.red,
-                              size: ScreenUtil().setHeight(200)),
+                          Icon(Icons.error_outline, color: Colors.red, size: ScreenUtil().setHeight(200)),
                           ExtendedText(
-                            string:
-                                'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه',
+                            string: 'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه',
                             fontSize: ExtendedText.xbigFont,
                           )
                         ],
@@ -213,9 +192,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                 ),
                 Container(
                   height: ScreenUtil().setHeight(ConstRootSizes.topContainer),
-                  decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(16)),
+                  decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(16)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -226,8 +203,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           fontSize: ExtendedText.xbigFont,
                         )),
                       ),
-                      ExtendedText(
-                          string: '(اضغط على المصباح لإخفاء ظهورك عند البحث)'),
+                      ExtendedText(string: '(اضغط على المصباح لإخفاء ظهورك عند البحث)'),
                       ExtendedText(
                         string: '',
                       ),
@@ -253,16 +229,13 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                              * 2- update and save in shared
                              * 3- get shared and notifylisteners
                              */
-                            ModelBeautyProvider mbp =
-                                await sharedUserProviderGetInfo();
+                            ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
 
-                            await apiBeautyProviderUpdate(
-                                mbp..available = !mbp.available);
+                            await apiBeautyProviderUpdate(mbp..available = !mbp.available);
 
                             // Provider.of<SharedSalon>(context).beautyProvider = mbp;
                             // setState(() {});
-                            Provider.of<SharedSalon>(context).beautyProvider =
-                                await sharedUserProviderGetInfo();
+                            Provider.of<SharedSalon>(context).beautyProvider = await sharedUserProviderGetInfo();
                             // var don;
                           } catch (e) {
                             showToast('حدث خطأ اثناء التحديث');
@@ -275,9 +248,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                             FlareActor(
                               'assets/rive/bulb.flr',
 
-                              animation: beautyProvider.available
-                                  ? 'lightOn'
-                                  : 'lightOff',
+                              animation: beautyProvider.available ? 'lightOn' : 'lightOff',
                               shouldClip: false,
                               snapToEnd: false,
                               // controller: ,
@@ -305,17 +276,10 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
-                if (Provider.of<SharedSalon>(context)
-                    .providedServices
-                    .containsKey('services'))
-                  if (Provider.of<SharedSalon>(context)
-                          .providedServices['services']
-                          .keys
-                          .length !=
-                      0)
+                if (Provider.of<SharedSalon>(context).providedServices.containsKey('services'))
+                  if (Provider.of<SharedSalon>(context).providedServices['services'].keys.length != 0)
                     WidgetAddService(
-                      mapServices: Provider.of<SharedSalon>(context)
-                          .providedServices['services'],
+                      mapServices: Provider.of<SharedSalon>(context).providedServices['services'],
                     ),
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
@@ -408,9 +372,7 @@ class WidgetHowLookSearch extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          PageHowILookSearch(beautyProvider: beautyProvider)),
+                  MaterialPageRoute(builder: (context) => PageHowILookSearch(beautyProvider: beautyProvider)),
                 );
               },
             ),
@@ -502,8 +464,7 @@ class InfoItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String value;
-  const InfoItem({Key key, this.icon, this.title, this.value})
-      : super(key: key);
+  const InfoItem({Key key, this.icon, this.title, this.value}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -512,10 +473,7 @@ class InfoItem extends StatelessWidget {
       // height: ScreenUtil().setHeight(200),
       child: Column(
         children: <Widget>[
-          ExtendedText(
-              string: title,
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.rtl),
+          ExtendedText(string: title, textAlign: TextAlign.center, textDirection: TextDirection.rtl),
           Icon(
             icon,
             size: ScreenUtil().setSp(60),
