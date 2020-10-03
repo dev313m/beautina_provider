@@ -99,35 +99,37 @@ class _JustOrderWidgetState extends State<JustOrderWidget> {
                   SizedBox(
                     height: ScreenUtil().setHeight(10),
                   ),
-                  Container(
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      reverse: true,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          ToggleButtons(
-                              children: [ExtendedText(string: 'بيت الزبون'), ExtendedText(string: 'مكاني'), ExtendedText(string: 'الكل')],
-                              borderRadius: BorderRadius.circular(9),
-                              onPressed: (index) {},
-                              isSelected: [false, false, false]..[widget.order.who_come] = true),
-                          // ...widget.order.services.map((service) {
-                          //   return singleService(service);
-                          // }).toList(),
-                          SizedBox(
-                            width: ScreenUtil().setWidth(100),
-                          ),
-                          ExtendedText(
-                            string: 'مكان العملية:',
-                            fontSize: ExtendedText.bigFont,
-                            textDirection: TextDirection.rtl,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+
+                  ///[todo] add it later location feature
+                  // Container(
+                  //   width: double.infinity,
+                  //   child: SingleChildScrollView(
+                  //     scrollDirection: Axis.horizontal,
+                  //     reverse: true,
+                  //     child: Row(
+                  //       mainAxisSize: MainAxisSize.max,
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: <Widget>[
+                  //         ToggleButtons(
+                  //             children: [ExtendedText(string: 'بيت الزبون'), ExtendedText(string: 'مكاني'), ExtendedText(string: 'الكل')],
+                  //             borderRadius: BorderRadius.circular(9),
+                  //             onPressed: (index) {},
+                  //             isSelected: [false, false, false]..[widget.order.who_come] = true),
+                  //         // ...widget.order.services.map((service) {
+                  //         //   return singleService(service);
+                  //         // }).toList(),
+                  //         SizedBox(
+                  //           width: ScreenUtil().setWidth(100),
+                  //         ),
+                  //         ExtendedText(
+                  //           string: 'مكان العملية:',
+                  //           fontSize: ExtendedText.bigFont,
+                  //           textDirection: TextDirection.rtl,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   OrderDetails(
                     date: widget.order.client_order_date,
                     location: widget.order.provider_location,

@@ -21,7 +21,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:spring_button/spring_button.dart';
 
 class FutureList extends StatefulWidget {
@@ -342,9 +344,13 @@ class _OrdersListState extends State<OrdersList> {
                                   height: ScreenUtil().setWidth(100),
                                 ),
                               ), onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => PageOrderDetail(order: widget.ordersList[index], heroTag: widget.ordersList[index].doc_id),
-                            ));
+                            showCupertinoModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.black87,
+                              bounce: true,
+                              elevation: 22,
+                              builder: (_, __) => PageOrderDetail(order: widget.ordersList[index], heroTag: widget.ordersList[index].doc_id),
+                            );
                           }),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,

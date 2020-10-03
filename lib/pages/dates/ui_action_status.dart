@@ -7,8 +7,12 @@ import 'package:beautina_provider/pages/dates/functions.dart';
 import 'package:beautina_provider/pages/dates/ui.dart';
 import 'package:beautina_provider/reusables/animated_buttons.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/reusables/toast.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_duration_picker/flutter_duration_picker.dart';
+import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WidgetAction extends StatelessWidget {
@@ -21,21 +25,16 @@ class WidgetAction extends StatelessWidget {
       return WidgetNewOrder(order: order);
     else if (order.status == 1) // order approved by provider
       return WidgetWaitingCustomer(order: order);
-    else if (order.status == 2 ||
-        order.status == 4) //order is canceled by customer
+    else if (order.status == 2 || order.status == 4) //order is canceled by customer
       return WidgetCanceledOrder(order: order);
     else if (order.status == 3) // order is confirmed by costomer
     {
-      if (order.client_order_date.month == DateTime.now().month &&
-          DateTime.now().day == order.client_order_date.day)
+      if (order.client_order_date.month == DateTime.now().month && DateTime.now().day == order.client_order_date.day)
         return WidgetFinish(
           order: order,
         );
       return WidgetConfirmedOrder(order: order);
-    } else if (order.status == 5 ||
-        order.status == 6 ||
-        order.status == 7 ||
-        order.status == 8) return WidgetOnlyDisplay(order: order);
+    } else if (order.status == 5 || order.status == 6 || order.status == 7 || order.status == 8) return WidgetOnlyDisplay(order: order);
     return SizedBox();
   }
 }
@@ -84,18 +83,26 @@ class WidgetConfirmedOrder extends StatelessWidget {
   }
 }
 
-class WidgetNewOrder extends StatelessWidget {
+class WidgetNewOrder extends StatefulWidget {
   final Order order;
-  final String providerNotes = '';
 
   const WidgetNewOrder({Key key, this.order}) : super(key: key);
+
+  @override
+  _WidgetNewOrderState createState() => _WidgetNewOrderState();
+}
+
+class _WidgetNewOrderState extends State<WidgetNewOrder> {
+  final String providerNotes = '';
+
+  Duration orderDuration = Duration();
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(0)),
         child: Column(
           children: <Widget>[
             ClipRRect(
@@ -105,7 +112,7 @@ class WidgetNewOrder extends StatelessWidget {
                 maxLines: 3,
                 style: TextStyle(color: Colors.white),
                 onChanged: (str) {
-                  order.provider_notes = str;
+                  widget.order.provider_notes = str;
                 },
                 decoration: InputDecoration(
                   hintText: 'ملاحظات (اختياري)',
@@ -118,30 +125,119 @@ class WidgetNewOrder extends StatelessWidget {
                 ),
               ),
             ),
-            AnimatedSubmitButton(
-              color: ConstDatesColors.confirmBtn,
-              height: ScreenUtil().setHeight(100),
-              width: ScreenResolution.width,
-              insideWidget: ExtendedText(
-                string: 'قبول',
-                fontSize: ExtendedText.bigFont,
-              ),
-              splashColor: Colors.teal,
-              animationDuration: Duration(milliseconds: durationCalender),
-              function: getFunctionAccept(order, context),
+            Row(
+              children: [
+                ExtendedText(string: 'المدة المتوقعة للطلب:  '),
+                IconButton(
+                  icon: Icon(Icons.watch),
+                  onPressed: () {
+                    Picker picker;
+
+                    picker = Picker(
+                        // backgroundColor: Colors.pink.withOpacity(0.3),
+                        adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
+                          const NumberPickerColumn(begin: 0, end: 60, suffix: Text(' دق'), jump: 15),
+                          const NumberPickerColumn(begin: 0, end: 12, suffix: Text(' ساعات'), columnFlex: 2),
+                        ]),
+                        delimiter: <PickerDelimiter>[
+                          PickerDelimiter(
+                            child: Container(
+                              width: 30.0.h,
+                              alignment: Alignment.center,
+                              child: Icon(Icons.more_vert),
+                            ),
+                          )
+                        ],
+                        hideHeader: false,
+                        confirmTextStyle: TextStyle(inherit: false, color: Colors.red, fontSize: 22),
+                        // title: Text(
+                        //   'الوقت المتوقع لإنهاء الخدمة',
+                        //   textAlign: TextAlign.right,
+                        // ),
+                        containerColor: Colors.pink,
+                        selectedTextStyle: TextStyle(color: Colors.blue),
+                        onConfirm: (Picker picker, List<int> value) {
+                          // You get your duration here
+                          orderDuration = Duration(hours: picker.getSelectedValues()[1], minutes: picker.getSelectedValues()[0]);
+                          // picker.doCancel(context);
+
+                          // showToast(orderDuration.inMinutes.toString());
+                          setState(() {});
+                        },
+                        cancel: IconButton(
+                          icon: Icon(
+                            Icons.cancel,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            picker.doCancel(context);
+                          },
+                        ),
+                        confirm: IconButton(
+                          icon: Icon(
+                            Icons.done,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () {
+                            picker.doConfirm(context);
+                          },
+                        ),
+                        cancelTextStyle: TextStyle(color: Colors.red),
+                        textStyle: TextStyle(color: Colors.blue));
+                    picker.showModal(context);
+                  },
+                ),
+                ExtendedText(
+                  string: " ${(orderDuration.inHours).toString()} ساعة ",
+                ),
+                ExtendedText(
+                  string: " ${(orderDuration.inMinutes.remainder(60)).toString()} دقيقة ",
+                )
+                // DurationPicker(
+                //   duration: orderDuration,
+                //   height: 400.h,
+                //   width: 400.w,
+                //   onChange: (val) {
+                //     setState(() {
+                //       orderDuration = val;
+                //     });
+                //   },
+                //   snapToMins: 5.0,
+                // )
+              ],
             ),
-            AnimatedSubmitButton(
-              color: ConstDatesColors.cancelBtn,
-              height: ScreenUtil().setHeight(100),
-              width: ScreenResolution.width,
-              insideWidget: ExtendedText(
-                string: 'رفض',
-                fontSize: ExtendedText.bigFont,
-              ),
-              splashColor: AppColors.blue,
-              animationDuration: Duration(milliseconds: 700),
-              function: getFunctionReject(order, context),
-            )
+            Row(
+              children: [
+                Expanded(
+                  child: AnimatedSubmitButton(
+                    color: ConstDatesColors.confirmBtn,
+                    height: ScreenUtil().setHeight(100),
+                    width: ScreenResolution.width / 3,
+                    insideWidget: ExtendedText(
+                      string: 'قبول',
+                      fontSize: ExtendedText.bigFont,
+                    ),
+                    splashColor: Colors.teal,
+                    animationDuration: Duration(milliseconds: durationCalender),
+                    function: getFunctionAccept(widget.order, context),
+                  ),
+                ),
+                Expanded(
+                  child: AnimatedSubmitButton(
+                    color: ConstDatesColors.cancelBtn,
+                    height: ScreenUtil().setHeight(100),
+                    width: ScreenResolution.width / 3,
+                    insideWidget: ExtendedText(
+                      string: 'رفض',
+                      fontSize: ExtendedText.bigFont,
+                    ),
+                    splashColor: AppColors.blue,
+                    animationDuration: Duration(milliseconds: 700),
+                    function: getFunctionReject(widget.order, context),
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),

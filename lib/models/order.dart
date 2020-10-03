@@ -4,6 +4,9 @@ class Order {
   String _doc_id;
   String _beauty_provider;
 
+  ///order duration is calculated here in minutes
+  ///and represents the duration to finish a specific order
+  double order_duration;
   DateTime evaluation_date;
   double provider_response_time;
   String provider_notes;
@@ -40,40 +43,25 @@ class Order {
 
   Order.fromMap(Map<String, dynamic> data) {
     client_id = data['client_id'];
-    creation_data = data['creation_data'] == null
-        ? null
-        : DateTime.parse(data['creation_data']);
-    evaluation_date = data['evaluation_date'] == null
-        ? null
-        : DateTime.parse(data['evaluation_date']);
+    creation_data = data['creation_data'] == null ? null : DateTime.parse(data['creation_data']);
+    evaluation_date = data['evaluation_date'] == null ? null : DateTime.parse(data['evaluation_date']);
     doc_id = data['_id'];
+    order_duration = data['_order_duration'];
     provider_notes = data['provider_notes'] ?? '';
 
     beauty_provider = data['beauty_provider'];
     city = data['city'];
-    client_cancel_date = data['client_cancel_date'] == null
-        ? null
-        : DateTime.parse(data['client_cancel_date']);
+    client_cancel_date = data['client_cancel_date'] == null ? null : DateTime.parse(data['client_cancel_date']);
     client_location = data['client_location'];
-    client_order_date = data['client_order_date'] == null
-        ? null
-        : DateTime.parse(data['client_order_date']);
-    client_submit_order_date = data['client_submit_order_date'] == null
-        ? null
-        : DateTime.parse(data['client_submit_order_date']);
+    client_order_date = data['client_order_date'] == null ? null : DateTime.parse(data['client_order_date']);
+    client_submit_order_date = data['client_submit_order_date'] == null ? null : DateTime.parse(data['client_submit_order_date']);
     country = data['country'];
-    finish_date = data['finish_date'] == null
-        ? null
-        : DateTime.parse(data['finish_date']);
+    finish_date = data['finish_date'] == null ? null : DateTime.parse(data['finish_date']);
     client_phone = data['client_phone'];
     provider_phone = data['provider_phone'];
-    provider_agree_date = data['provider_agree_date'] == null
-        ? null
-        : DateTime.parse(data['provider_agree_date']);
+    provider_agree_date = data['provider_agree_date'] == null ? null : DateTime.parse(data['provider_agree_date']);
     provider_location = data['provider_location'];
-    provider_refuse_date = data['provider_refuse_date'] == null
-        ? null
-        : DateTime.parse(data['provider_refuse_date']);
+    provider_refuse_date = data['provider_refuse_date'] == null ? null : DateTime.parse(data['provider_refuse_date']);
     client_name = data['client_name'];
     provider_name = data['provider_name'];
     tokens = data['tokens'];
@@ -100,6 +88,7 @@ class Order {
       @required String country,
       @required DateTime finish_date,
       DateTime provider_agree_date,
+      double order_duration,
       @required List<dynamic> provider_location,
       DateTime provider_refuse_date,
       @required List<String> tokens,
@@ -119,6 +108,7 @@ class Order {
         this.evaluation_date = evaluation_date,
         this._beauty_provider = beauty_provider,
         this._city = city,
+        this.order_duration = order_duration,
         this.creation_data = creation_date,
         this._client_cancel_date = client_cancel_date,
         this._client_location = client_location,
@@ -149,10 +139,8 @@ class Order {
     map['creation_data'] = creation_data.toString();
     map['city'] = _city;
     map['provider_notes'] ?? provider_notes;
-    if (provider_agree_date != null)
-      map['provider_agree_date'] = provider_agree_date.toString();
-    if (provider_refuse_date != null)
-      map['provider_refuse_date'] = provider_refuse_date.toString();
+    if (provider_agree_date != null) map['provider_agree_date'] = provider_agree_date.toString();
+    if (provider_refuse_date != null) map['provider_refuse_date'] = provider_refuse_date.toString();
     if (finish_date != null) map['finish_date'] = finish_date;
     map['evaluation_date'] = evaluation_date.toString();
     map['client_location'] = _client_location;
@@ -173,6 +161,7 @@ class Order {
     map['beauty_provider'] = _beauty_provider;
     map['finish_date'] = finish_date.toString();
     map['client_id'] = client_id;
+    map['order_duration'] = order_duration;
     return map;
   }
 
