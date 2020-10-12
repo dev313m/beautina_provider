@@ -25,8 +25,7 @@ class RootPage extends StatefulWidget {
   _RootPage createState() => _RootPage();
 }
 
-class _RootPage extends State<RootPage>
-    with AutomaticKeepAliveClientMixin<RootPage> {
+class _RootPage extends State<RootPage> with AutomaticKeepAliveClientMixin<RootPage> {
   @override
   void dispose() {
     super.dispose();
@@ -62,8 +61,7 @@ class Index extends StatefulWidget {
   _Index createState() => _Index();
 }
 
-class _Index extends State<Index>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+class _Index extends State<Index> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   PushNotification pu = PushNotification();
   PreloadPageController _pageController;
 
@@ -80,9 +78,7 @@ class _Index extends State<Index>
   void initState() {
     super.initState();
 
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
+    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if (result.index == ConnectivityResult.none.index) {
         noInternet = true;
       } else {
@@ -211,14 +207,12 @@ class _Index extends State<Index>
                             Colors.transparent,
                             Colors.black,
                           ],
-                        ).createShader(
-                            Rect.fromLTWH(0, 0, rect.width, rect.height));
+                        ).createShader(Rect.fromLTWH(0, 0, rect.width, rect.height));
                       },
                       blendMode: BlendMode.overlay,
                       child: Container(
                         color: Colors.transparent,
-                        height:
-                            ScreenUtil().setHeight(ConstRootSizes.navigation),
+                        height: ScreenUtil().setHeight(ConstRootSizes.navigation),
                         width: ScreenResolution.width,
                         child: AnimatedSwitcher(
                           duration: Duration(milliseconds: 500),
@@ -227,12 +221,10 @@ class _Index extends State<Index>
                               : CurvedNavigationBar(
                                   backgroundColor: Colors.transparent,
                                   index: pageIndex,
-                                  height: ScreenUtil()
-                                      .setHeight(ConstRootSizes.navigation),
+                                  height: ScreenUtil().setHeight(ConstRootSizes.navigation),
                                   items: <Widget>[
                                     Icon(CommunityMaterialIcons.settings,
-                                        size: iconSize,
-                                        color: ConstRootColors.icons),
+                                        size: iconSize, color: ConstRootColors.icons),
                                     Stack(
                                       overflow: Overflow.visible,
                                       fit: StackFit.passthrough,
@@ -246,8 +238,7 @@ class _Index extends State<Index>
                                             )),
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
                                             Padding(
                                               padding: EdgeInsets.fromLTRB(
@@ -257,43 +248,28 @@ class _Index extends State<Index>
                                                   ScreenUtil().setHeight(40)),
                                               child: Align(
                                                 alignment: Alignment.topCenter,
-                                                child: Provider.of<SharedRoot>(
-                                                                context)
+                                                child: Provider.of<SharedRoot>(context)
                                                             .notificationList
-                                                            .where((n) =>
-                                                                n.status == 0)
+                                                            .where((n) => n.status == 0)
                                                             .length !=
                                                         0
                                                     ? new Container(
-                                                        padding:
-                                                            EdgeInsets.all(2),
-                                                        decoration:
-                                                            new BoxDecoration(
+                                                        padding: EdgeInsets.all(2),
+                                                        decoration: new BoxDecoration(
                                                           color: Colors.red,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(6),
+                                                          borderRadius: BorderRadius.circular(6),
                                                         ),
-                                                        constraints:
-                                                            BoxConstraints(
-                                                          minWidth: ScreenUtil()
-                                                              .setWidth(14),
-                                                          minHeight:
-                                                              ScreenUtil()
-                                                                  .setHeight(
-                                                                      14),
+                                                        constraints: BoxConstraints(
+                                                          minWidth: ScreenUtil().setWidth(14),
+                                                          minHeight: ScreenUtil().setHeight(14),
                                                         ),
                                                         child: ExtendedText(
-                                                          string: Provider.of<
-                                                                      SharedRoot>(
-                                                                  context)
+                                                          string: Provider.of<SharedRoot>(context)
                                                               .notificationList
-                                                              .where((n) =>
-                                                                  n.status == 0)
+                                                              .where((n) => n.status == 0)
                                                               .length
                                                               .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                          textAlign: TextAlign.center,
                                                         ),
                                                       )
                                                     : SizedBox(),
@@ -315,15 +291,13 @@ class _Index extends State<Index>
                                     // ),
 
                                     Icon(CommunityMaterialIcons.spa_outline,
-                                        size: iconSize,
-                                        color: ConstRootColors.icons),
+                                        size: iconSize, color: ConstRootColors.icons),
                                     // Icon(Icons.live_tv, size: iconSize, color: iconColors),
                                   ],
                                   color: Color(0xff0d3c61),
                                   buttonBackgroundColor: Color(0xff0d3c61),
                                   animationCurve: Curves.easeInOut,
-                                  animationDuration:
-                                      Duration(milliseconds: 600),
+                                  animationDuration: Duration(milliseconds: 600),
                                   onTap: (index) {
                                     setState(() {
                                       getPageCntrl(context).jumpToPage(index);
@@ -345,8 +319,7 @@ class _Index extends State<Index>
                                 height: ScreenUtil().setHeight(170),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(25),
-                                    color:
-                                        AppColors.blueOpcity.withOpacity(0.9)),
+                                    color: AppColors.blueOpcity.withOpacity(0.9)),
                                 child: Center(
                                     child: AnimatedSwitcher(
                                   // key: ValueKey('any'),
@@ -375,13 +348,9 @@ class _Index extends State<Index>
       );
     else if (pageIndex == 1)
       return ExtendedText(
-          key: ValueKey('value2'),
-          string: '~ الاشعارات ~',
-          fontSize: ExtendedText.xbigFont);
+          key: ValueKey('value2'), string: '~ الاشعارات ~', fontSize: ExtendedText.xbigFont);
     else
       return ExtendedText(
-          key: ValueKey('value3'),
-          string: '~ الاعدادات ~',
-          fontSize: ExtendedText.xbigFont);
+          key: ValueKey('value3'), string: '~ الاعدادات ~', fontSize: ExtendedText.xbigFont);
   }
 }

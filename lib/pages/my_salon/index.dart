@@ -51,7 +51,8 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection == ScrollDirection.reverse)
         Provider.of<SharedRoot>(context).hideBars = true;
-      else if (Provider.of<SharedRoot>(context).hideBars) Provider.of<SharedRoot>(context).hideBars = false;
+      else if (Provider.of<SharedRoot>(context).hideBars)
+        Provider.of<SharedRoot>(context).hideBars = false;
     });
     // initBeautyProvider();
   }
@@ -119,7 +120,8 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                                         ? Loading()
                                         : MyImage(
                                             key: ValueKey('imagelk'),
-                                            url: 'https://resorthome.000webhostapp.com/upload/${beautyProvider.uid}.jpg',
+                                            url:
+                                                'https://resorthome.000webhostapp.com/upload/${beautyProvider.uid}.jpg',
                                           ))),
                           ),
                         ),
@@ -150,7 +152,9 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                             InfoItem(
                               icon: CommunityMaterialIcons.certificate,
                               title: 'الطلبات المنجزة',
-                              value: beautyProvider.achieved < 100 ? 'اقل من 100 طلب' : 'اكثر من ${beautyProvider.achieved % 100} طلب',
+                              value: beautyProvider.achieved < 100
+                                  ? 'اقل من 100 طلب'
+                                  : 'اكثر من ${beautyProvider.achieved % 100} طلب',
                             ),
                             CustomDivider(),
                             InfoItem(
@@ -180,9 +184,11 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                       ),
                       child: Column(
                         children: <Widget>[
-                          Icon(Icons.error_outline, color: Colors.red, size: ScreenUtil().setHeight(200)),
+                          Icon(Icons.error_outline,
+                              color: Colors.red, size: ScreenUtil().setHeight(200)),
                           ExtendedText(
-                            string: 'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه',
+                            string:
+                                'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه',
                             fontSize: ExtendedText.xbigFont,
                           )
                         ],
@@ -192,7 +198,9 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                 ),
                 Container(
                   height: ScreenUtil().setHeight(ConstRootSizes.topContainer),
-                  decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(16)),
+                  decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(16)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -203,9 +211,9 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           fontSize: ExtendedText.xbigFont,
                         )),
                       ),
-                      ExtendedText(string: '(اضغط على المصباح لإخفاء ظهورك عند البحث)'),
                       ExtendedText(
-                        string: '',
+                        string: '(اضغط على المصباح لإخفاء ظهورك عند البحث)',
+                        fontColor: ExtendedText.brightColors2,
                       ),
                     ],
                   ),
@@ -235,7 +243,8 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
 
                             // Provider.of<SharedSalon>(context).beautyProvider = mbp;
                             // setState(() {});
-                            Provider.of<SharedSalon>(context).beautyProvider = await sharedUserProviderGetInfo();
+                            Provider.of<SharedSalon>(context).beautyProvider =
+                                await sharedUserProviderGetInfo();
                             // var don;
                           } catch (e) {
                             showToast('حدث خطأ اثناء التحديث');
@@ -277,7 +286,8 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                   height: ScreenUtil().setHeight(10),
                 ),
                 if (Provider.of<SharedSalon>(context).providedServices.containsKey('services'))
-                  if (Provider.of<SharedSalon>(context).providedServices['services'].keys.length != 0)
+                  if (Provider.of<SharedSalon>(context).providedServices['services'].keys.length !=
+                      0)
                     WidgetAddService(
                       mapServices: Provider.of<SharedSalon>(context).providedServices['services'],
                     ),
@@ -372,7 +382,8 @@ class WidgetHowLookSearch extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => PageHowILookSearch(beautyProvider: beautyProvider)),
+                  MaterialPageRoute(
+                      builder: (context) => PageHowILookSearch(beautyProvider: beautyProvider)),
                 );
               },
             ),
@@ -473,7 +484,8 @@ class InfoItem extends StatelessWidget {
       // height: ScreenUtil().setHeight(200),
       child: Column(
         children: <Widget>[
-          ExtendedText(string: title, textAlign: TextAlign.center, textDirection: TextDirection.rtl),
+          ExtendedText(
+              string: title, textAlign: TextAlign.center, textDirection: TextDirection.rtl),
           Icon(
             icon,
             size: ScreenUtil().setSp(60),

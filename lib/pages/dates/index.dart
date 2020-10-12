@@ -41,7 +41,8 @@ class WidgetGetAllList extends StatelessWidget {
       // ...snapshot.map((order) => order.status == 5? WidgetRating(order: order,):  )
 
       Column(
-        children: List.generate(snapshot.length, (index) => JustOrderWidget(order: snapshot[index])).toList(),
+        children: List.generate(snapshot.length, (index) => JustOrderWidget(order: snapshot[index]))
+            .toList(),
       )
     ]);
   }
@@ -91,7 +92,8 @@ class _WidgetFutureListState extends State<WidgetFutureList> {
         ),
       );
     else
-      return WidgetGetAllList(snapshot: getFilteredList(sharedOrder.orderList, sharedOrder.filterIndex));
+      return WidgetGetAllList(
+          snapshot: getFilteredList(sharedOrder.orderList, sharedOrder.filterIndex));
   }
 }
 
@@ -139,7 +141,8 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
     scrollController.addListener(() async {
       if (scrollController.position.userScrollDirection == ScrollDirection.reverse)
         Provider.of<SharedRoot>(context).hideBars = true;
-      else if (Provider.of<SharedRoot>(context).hideBars) Provider.of<SharedRoot>(context).hideBars = false;
+      else if (Provider.of<SharedRoot>(context).hideBars)
+        Provider.of<SharedRoot>(context).hideBars = false;
       // if (scrollController.position.maxScrollExtent ==
       //         scrollController.position.pixels &&
       //     !dataLoading) {
@@ -204,7 +207,9 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                             child: Center(
                               child: Container(
                                 // width: ScreenUtil().setWidth(200),
-                                decoration: BoxDecoration(color: ConstDatesColors.topBtns, borderRadius: BorderRadius.circular(9)),
+                                decoration: BoxDecoration(
+                                    color: ConstDatesColors.topBtns,
+                                    borderRadius: BorderRadius.circular(9)),
                                 height: ScreenUtil().setHeight(100),
                                 child: Center(
                                   child: ExtendedText(
@@ -217,7 +222,8 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                           ),
                           scaleCoefficient: 0.85,
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
                           },
                         ),
                       ),
@@ -237,7 +243,9 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                               child: Hero(
                                 tag: 'newOrders',
                                 child: Container(
-                                  decoration: BoxDecoration(color: ConstDatesColors.topBtns, borderRadius: BorderRadius.circular(9)),
+                                  decoration: BoxDecoration(
+                                      color: ConstDatesColors.topBtns,
+                                      borderRadius: BorderRadius.circular(9)),
                                   height: ScreenUtil().setHeight(100),
                                   child: Center(
                                     child: ExtendedText(
@@ -251,7 +259,8 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                           ),
                           scaleCoefficient: 0.85,
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListPage()));
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (_) => OrderListPage()));
                           },
                         ),
                         Align(
@@ -260,10 +269,14 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                             child: Container(
                                 width: ScreenUtil().setWidth(30),
                                 height: ScreenUtil().setHeight(30),
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.red),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5), color: Colors.red),
                                 child: Center(
                                   child: ExtendedText(
-                                    string: Provider.of<SharedOrder>(context).comingConfirmedList.length.toString(),
+                                    string: Provider.of<SharedOrder>(context)
+                                        .comingConfirmedList
+                                        .length
+                                        .toString(),
                                   ),
                                 )),
                           ),
@@ -344,14 +357,22 @@ class _OrdersListState extends State<OrdersList> {
                                   height: ScreenUtil().setWidth(100),
                                 ),
                               ), onTap: () {
-                            showCupertinoModalBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.black87,
-                              bounce: true,
-                              elevation: 22,
-                              builder: (_, __) => PageOrderDetail(order: widget.ordersList[index], heroTag: widget.ordersList[index].doc_id),
-                            );
-                          }),
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => PageOrderDetail(
+                                  order: widget.ordersList[index],
+                                  heroTag: widget.ordersList[index].doc_id),
+                            ));
+                          }
+                              // showCupertinoModalBottomSheet(
+                              //   context: context,
+                              //   backgroundColor: Colors.black87,
+                              //   bounce: true,
+                              //   elevation: 22,
+                              //   builder: (_, __) => PageOrderDetail(
+                              //       order: widget.ordersList[index],
+                              //       heroTag: widget.ordersList[index].doc_id),
+                              // );
+                              ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
@@ -365,7 +386,8 @@ class _OrdersListState extends State<OrdersList> {
                                 children: <Widget>[
                                   Builder(builder: (_) {
                                     List<String> list = [];
-                                    Map<String, dynamic> mapper = Provider.of<SharedSalon>(context).providedServices;
+                                    Map<String, dynamic> mapper =
+                                        Provider.of<SharedSalon>(context).providedServices;
 
                                     widget.ordersList[index].services.forEach((k, v) {
                                       v.forEach((kk, vv) {
@@ -411,7 +433,8 @@ class _OrdersListState extends State<OrdersList> {
   }
 
   String getText(int index) {
-    if (widget.ordersList[index].client_order_date.isBefore(DateTime.now().toLocal()) && (widget.ordersList[index].status == 3 || widget.ordersList[index].status == 8))
+    if (widget.ordersList[index].client_order_date.isBefore(DateTime.now().toLocal()) &&
+        (widget.ordersList[index].status == 3 || widget.ordersList[index].status == 8))
       return 'مرحبا، نرجو تأكيد اتمام العملية  (${widget.ordersList[index].client_name})  ${getDate(widget.ordersList[index].client_order_date)}';
     else
       return '${getOrderStatus(widget.ordersList[index].status)} (${widget.ordersList[index].client_name})  ${getDate(widget.ordersList[index].client_order_date)}';

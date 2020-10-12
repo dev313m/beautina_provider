@@ -38,152 +38,158 @@ class _JustOrderWidgetState extends State<JustOrderWidget> {
       padding: EdgeInsets.only(top: 4),
       child: Container(
         width: ScreenResolution.width,
-        decoration: BoxDecoration(color: AppColors.blueOpcity, borderRadius: BorderRadius.circular(20)),
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                    width: ScreenResolution.width,
-                    height: ScreenUtil().setHeight(100),
-                    decoration: BoxDecoration(
-                      color: ConstDatesColors.orderContainerTitle,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Center(
-                        child: ExtendedText(
-                      string: '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
-                      fontSize: ExtendedText.bigFont,
-                      // style: TextStyle(color: Colors.white),
-                    )),
-                  ),
-                  SizedBox(height: ScreenUtil().setHeight(30)),
-                  CustomPaint(
-                    willChange: false,
-                    isComplex: true,
-                    // willChange: false,
-                    // isComplex: false,
-                    size: Size(ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
-                    painter: MyPainter(step: getStep(widget.order.status)),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      reverse: true,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          AllSingleServiceWidget(
-                            services: widget.order.services,
-                          ),
-                          // ...widget.order.services.map((service) {
-                          //   return singleService(service);
-                          // }).toList(),
-                          SizedBox(
-                            width: ScreenUtil().setWidth(100),
-                          ),
-                          ExtendedText(
-                            string: 'الخدمات المطلوبة:',
-                            fontSize: ExtendedText.bigFont,
-                            textDirection: TextDirection.rtl,
-                          ),
-                        ],
+        decoration:
+            BoxDecoration(color: AppColors.blueOpcity, borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                width: ScreenResolution.width,
+                height: ScreenUtil().setHeight(100),
+                decoration: BoxDecoration(
+                  color: ConstDatesColors.orderContainerTitle,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Center(
+                    child: ExtendedText(
+                  string: '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
+                  fontSize: ExtendedText.bigFont,
+                  // style: TextStyle(color: Colors.white),
+                )),
+              ),
+              SizedBox(height: ScreenUtil().setHeight(30)),
+              CustomPaint(
+                willChange: false,
+                isComplex: true,
+                // willChange: false,
+                // isComplex: false,
+                size: Size(ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
+                painter: MyPainter(step: getStep(widget.order.status)),
+              ),
+              Container(
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      AllSingleServiceWidget(
+                        services: widget.order.services,
                       ),
-                    ),
+                      // ...widget.order.services.map((service) {
+                      //   return singleService(service);
+                      // }).toList(),
+                      SizedBox(
+                        width: ScreenUtil().setWidth(100),
+                      ),
+                      ExtendedText(
+                        string: 'الخدمات المطلوبة:',
+                        fontSize: ExtendedText.bigFont,
+                        textDirection: TextDirection.rtl,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(10),
-                  ),
+                ),
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
+              ),
 
-                  ///[todo] add it later location feature
-                  // Container(
-                  //   width: double.infinity,
-                  //   child: SingleChildScrollView(
-                  //     scrollDirection: Axis.horizontal,
-                  //     reverse: true,
-                  //     child: Row(
-                  //       mainAxisSize: MainAxisSize.max,
-                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //       children: <Widget>[
-                  //         ToggleButtons(
-                  //             children: [ExtendedText(string: 'بيت الزبون'), ExtendedText(string: 'مكاني'), ExtendedText(string: 'الكل')],
-                  //             borderRadius: BorderRadius.circular(9),
-                  //             onPressed: (index) {},
-                  //             isSelected: [false, false, false]..[widget.order.who_come] = true),
-                  //         // ...widget.order.services.map((service) {
-                  //         //   return singleService(service);
-                  //         // }).toList(),
-                  //         SizedBox(
-                  //           width: ScreenUtil().setWidth(100),
-                  //         ),
-                  //         ExtendedText(
-                  //           string: 'مكان العملية:',
-                  //           fontSize: ExtendedText.bigFont,
-                  //           textDirection: TextDirection.rtl,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  OrderDetails(
-                    date: widget.order.client_order_date,
-                    location: widget.order.provider_location,
-                    phoneNum: widget.order.provider_phone,
-                    price: widget.order.total_price,
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(20),
-                  ),
-                  Wrap(
-                    // crossAxisAlignment: WrapCrossAlignment.start,
+              ///[todo] add it later location feature
+              // Container(
+              //   width: double.infinity,
+              //   child: SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     reverse: true,
+              //     child: Row(
+              //       mainAxisSize: MainAxisSize.max,
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: <Widget>[
+              //         ToggleButtons(
+              //             children: [ExtendedText(string: 'بيت الزبون'), ExtendedText(string: 'مكاني'), ExtendedText(string: 'الكل')],
+              //             borderRadius: BorderRadius.circular(9),
+              //             onPressed: (index) {},
+              //             isSelected: [false, false, false]..[widget.order.who_come] = true),
+              //         // ...widget.order.services.map((service) {
+              //         //   return singleService(service);
+              //         // }).toList(),
+              //         SizedBox(
+              //           width: ScreenUtil().setWidth(100),
+              //         ),
+              //         ExtendedText(
+              //           string: 'مكان العملية:',
+              //           fontSize: ExtendedText.bigFont,
+              //           textDirection: TextDirection.rtl,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              OrderDetails(
+                date: widget.order.client_order_date,
+                location: widget.order.provider_location,
+                phoneNum: widget.order.provider_phone,
+                price: widget.order.total_price,
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(20),
+              ),
+              Wrap(
+                // crossAxisAlignment: WrapCrossAlignment.start,
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  ExtendedText(
+                    string: 'ملاحظاتي:',
+                    fontSize: ExtendedText.bigFont,
                     textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      ExtendedText(
-                        string: 'ملاحظاتي:',
-                        fontSize: ExtendedText.bigFont,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      Container(
-                        child: ExtendedText(
-                          string: widget.order.order_info == '' ? 'لايوجد' : widget.order.order_info,
-                          fontSize: ExtendedText.bigFont,
-                        ),
-                      ),
-                      SizedBox(width: ScreenUtil().setWidth(10)),
-                    ],
                   ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(10),
+                  Container(
+                    child: ExtendedText(
+                      string: widget.order.order_info == '' ? 'لايوجد' : widget.order.order_info,
+                      fontSize: ExtendedText.bigFont,
+                    ),
                   ),
-                  Wrap(
-                    // crossAxisAlignment: WrapCrossAlignment.start,
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      ExtendedText(
-                        string: 'ملاحظات الخبيرة:',
-                        fontSize: ExtendedText.bigFont,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      Container(
-                        child: ExtendedText(
-                          string: widget.order.provider_notes == '' ? 'لايوجد' : widget.order.provider_notes,
-                          fontSize: ExtendedText.bigFont,
-                        ),
-                      ),
-                      SizedBox(width: ScreenUtil().setWidth(10)),
-                    ],
-                  ),
-                  WidgetAction(order: widget.order)
+                  SizedBox(width: ScreenUtil().setWidth(10)),
                 ],
               ),
-            ),
-            // darkenWidget(widget.order.status)
-          ],
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
+              ),
+              Wrap(
+                // crossAxisAlignment: WrapCrossAlignment.start,
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  ExtendedText(
+                    string: 'ملاحظات الخبيرة:',
+                    fontSize: ExtendedText.bigFont,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  widget.order.provider_notes == ''
+                      ? Container(
+                          child: ExtendedText(
+                            string: widget.order.provider_notes == ''
+                                ? 'لايوجد'
+                                : widget.order.provider_notes,
+                            fontSize: ExtendedText.bigFont,
+                          ),
+                        )
+                      : SizedBox(),
+                  SizedBox(width: ScreenUtil().setWidth(10)),
+                ],
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              WidgetAction(order: widget.order),
+              SizedBox(
+                height: 80.h,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -244,10 +250,14 @@ class OrderDetails extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            muteRowCell(phoneNum, 'تحدث الان', Icons.message, ConstDatesColors.details, getWhatsappFunction(phoneNum)),
-            muteRowCell('', 'ذهاب الآن', Icons.edit_location, ConstDatesColors.details, getLaunchMapFunction(location)),
-            muteRowCell(price.toString() + ' SR', 'السعر', Icons.attach_money, ConstDatesColors.details, () {}),
-            muteRowCell(getDateString(date), 'وقت الموعد', Icons.date_range, ConstDatesColors.details, getWhatsappFunction(phoneNum)),
+            muteRowCell(phoneNum, 'تحدث الان', Icons.message, ConstDatesColors.details,
+                getWhatsappFunction(phoneNum)),
+            muteRowCell('', 'ذهاب الآن', Icons.edit_location, ConstDatesColors.details,
+                getLaunchMapFunction(location)),
+            muteRowCell(price.toString() + ' SR', 'السعر', Icons.attach_money,
+                ConstDatesColors.details, () {}),
+            muteRowCell(getDateString(date), 'وقت الموعد', Icons.date_range,
+                ConstDatesColors.details, getWhatsappFunction(phoneNum)),
             Text(
               'معلومات الخدمه:',
               textDirection: TextDirection.rtl,
@@ -337,7 +347,8 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
                       await apiBeautyProviderUpdate(mbp..busyDates = newBusyDates);
 
                       Provider.of<SharedSalon>(context).beautyProvider = mbp;
-                      Provider.of<SharedSalon>(context).beautyProvider = await sharedUserProviderGetInfo();
+                      Provider.of<SharedSalon>(context).beautyProvider =
+                          await sharedUserProviderGetInfo();
 
                       isAvailabilityChecked = false;
                       checkAvalability(widget.changableAvailableDate);
@@ -378,7 +389,8 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     );
   }
 
-  List<Map<String, DateTime>> changeAvaDates(DateTime requiredDate, ModelBeautyProvider modelBeautyProvider) {
+  List<Map<String, DateTime>> changeAvaDates(
+      DateTime requiredDate, ModelBeautyProvider modelBeautyProvider) {
     List<Map<String, DateTime>> newBusyDates;
     DateTime fixedDate = DateTime(requiredDate.year, requiredDate.month, requiredDate.day);
 
@@ -386,11 +398,14 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     ///This is to remove any old date
     ///
     if (available)
-      newBusyDates = modelBeautyProvider.busyDates..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
+      newBusyDates = modelBeautyProvider.busyDates
+        ..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
     else
       newBusyDates = modelBeautyProvider.busyDates
         ..removeWhere((element) {
-          if (element['from'].year == requiredDate.year && element['from'].month == requiredDate.month && element['from'].day == requiredDate.day) return true;
+          if (element['from'].year == requiredDate.year &&
+              element['from'].month == requiredDate.month &&
+              element['from'].day == requiredDate.day) return true;
           return false;
         });
 
@@ -416,7 +431,8 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     ModelBeautyProvider beautyProvider = Provider.of<SharedSalon>(context).beautyProvider;
     List<Map<String, DateTime>> busyDates = beautyProvider.busyDates;
     busyDates.forEach((element) {
-      if (requiredDate.isAfter(element['from'].subtract(Duration(minutes: 1))) && requiredDate.isBefore(element['to'])) availableDate = false;
+      if (requiredDate.isAfter(element['from'].subtract(Duration(minutes: 1))) &&
+          requiredDate.isBefore(element['to'])) availableDate = false;
     });
     isAvailabilityChecked = true;
     setState(() {

@@ -2,6 +2,7 @@ import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/pages/notification/index.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
@@ -21,66 +22,6 @@ class WidgetServices extends StatefulWidget {
 }
 
 class _WidgetServicesState extends State<WidgetServices> {
-  List<Widget> getWidgetList() {
-    Map<String, dynamic> mapper =
-        Provider.of<SharedSalon>(context).providedServices;
-    List<Widget> list = [];
-
-    widget.mapServices.forEach((k, v) {
-      Map<String, dynamic> testValue = mapper['services'];
-      if (testValue.containsKey(k)) if (testValue[k]
-          .containsKey('items')) if (testValue[k].containsKey('ar')) {
-        list.add(SizedBox(height: ScreenUtil().setHeight(10)));
-
-        list.add(
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            reverse: true,
-            child: Row(
-              // key: ValueKey('s'),
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-
-              children: <Widget>[
-                ...getRowWidgets(v, k),
-                TitleWidget(
-                  image: mapper['services'][k]['ar'],
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-    });
-    return list;
-  }
-
-  List<Widget> getRowWidgets(dynamic services, dynamic category) {
-    Map<String, dynamic> mapper =
-        Provider.of<SharedSalon>(context).providedServices;
-    List<Widget> list = [];
-    services.forEach((k, v) {
-      Map<String, dynamic> testValue = mapper['services'];
-      if (testValue.containsKey(category)) if (testValue[category].containsKey(
-          'items')) if (testValue[category]['items'].containsKey(k))
-        list.add(SingleService(
-          serviceName: category == "other"
-              ? k
-              : mapper['services'][category]['items'][k]['ar']?.toString(),
-          prices: v,
-          serviceCode: k,
-          serviceRoot: category,
-          // priceBefore: v[0].toString(),
-          // priceAfter: v[1]?.toString() ?? v[0].toString(),
-        ));
-      list.add(SizedBox(
-        width: ScreenUtil().setWidth(10),
-      ));
-    });
-
-    return list;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -99,13 +40,93 @@ class _WidgetServicesState extends State<WidgetServices> {
           Container(
               height: ScreenUtil().setHeight(100),
               child: Center(
-                  child: ExtendedText(
-                      string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
-          if (getWidgetList().length == 0)
+                  child: ExtendedText(string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
+          ExtendedText(
+            string: '(قائمة خدماتك، ويمكنك حذف الخدمات من هنا)',
+            fontColor: ExtendedText.brightColors2,
+          ),
+
+          if (widget.mapServices.keys.length > 0)
+            ListView.builder(
+              itemCount: widget.mapServices.keys.length,
+              scrollDirection: Axis.vertical,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+
+              padding: EdgeInsets.all(5.w),
+              addRepaintBoundaries: true,
+              itemBuilder: (_, index) {
+                Map<String, dynamic> allDefaultServicesMap =
+                    Provider.of<SharedSalon>(context).providedServices['services'];
+                // List<Widget> list = [];
+                String mainServiceKey = widget.mapServices.keys.toList()[index];
+
+                if (mainServiceKey == 'other')
+                  return Container(
+                    height: 158.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      reverse: true,
+                      itemBuilder: (_, rowIndex) {
+                        String itemKey = widget.mapServices['other'].keys.toList()[rowIndex];
+
+                        return SingleService(
+                          serviceName: itemKey,
+                          prices: widget.mapServices['other'][itemKey],
+                          serviceCode: itemKey,
+                          serviceRoot: mainServiceKey,
+                          // priceBefore: v[0].toString(),
+                          // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                        );
+                      },
+                      itemCount: widget.mapServices[mainServiceKey].keys.length,
+                    ),
+                  );
+
+                if (allDefaultServicesMap
+                    .containsKey(
+                        mainServiceKey)) if (allDefaultServicesMap[mainServiceKey].containsKey(
+                    'items')) if (allDefaultServicesMap[mainServiceKey].containsKey('ar'))
+                  return Container(
+                    height: 158.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      reverse: true,
+                      itemBuilder: (_, rowIndex) {
+                        String itemKey = widget.mapServices[mainServiceKey].keys.toList()[rowIndex];
+
+                        if (allDefaultServicesMap[mainServiceKey]['items'].containsKey(itemKey))
+                          return SingleService(
+                            serviceName: allDefaultServicesMap[mainServiceKey]['items'][itemKey]
+                                    ['ar']
+                                ?.toString(),
+                            prices: widget.mapServices[mainServiceKey][itemKey],
+                            serviceCode: itemKey,
+                            serviceRoot: mainServiceKey,
+                            // priceBefore: v[0].toString(),
+                            // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                          );
+                        return SizedBox();
+                      },
+                      itemCount: widget.mapServices[mainServiceKey].keys.length,
+                    ),
+                  );
+                return SizedBox();
+              },
+
+              // return list;
+
+              addAutomaticKeepAlives: true,
+            ),
+
+          if (widget.mapServices.keys.length == 0)
             ExtendedText(
               string: "لم تقومي بإضافة اي خدمة",
             ),
-          ...getWidgetList(),
+
+          // ...getWidgetList(),
           SizedBox(height: ScreenUtil().setHeight(70))
         ],
       ),
@@ -180,8 +201,7 @@ class _SingleServiceState extends State<SingleService> {
           Expanded(
             child: Row(
               children: <Widget>[
-                if (widget.prices.length > 1)
-                  ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
+                if (widget.prices.length > 1) ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
                 ExtendedText(string: 'السعر: ${widget.prices[0]}   '),
               ],
             ),
@@ -214,8 +234,7 @@ class _SingleServiceState extends State<SingleService> {
                   duration: Duration(milliseconds: durationCalender),
                   child: loading
                       ? Loading()
-                      : Icon(CommunityMaterialIcons.delete_circle,
-                          color: Colors.white70)))
+                      : Icon(CommunityMaterialIcons.delete_circle, color: Colors.white70)))
         ],
       ),
     );

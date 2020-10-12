@@ -43,21 +43,15 @@ class _PhoneTextFieldUIState extends State<PhoneTextFieldUI> {
       },
       decoration: InputDecoration(
         fillColor: Colors.blue,
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Colors.blue)),
         prefixIcon: Icon(
           Icons.phone,
           color: Colors.blue,
         ),
         labelText: '+966',
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: Colors.pink)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25.0)), borderSide: BorderSide(color: Colors.pink)),
         labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: Colors.pink)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25.0)), borderSide: BorderSide(color: Colors.pink)),
       ),
     );
   }
@@ -78,13 +72,9 @@ class CodeTextField extends StatelessWidget {
       },
       decoration: InputDecoration(
         labelText: 'Code',
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: Colors.green)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25.0)), borderSide: BorderSide(color: Colors.green)),
         labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: Colors.green)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25.0)), borderSide: BorderSide(color: Colors.green)),
       ),
     );
   }
@@ -141,18 +131,7 @@ class TextHolder extends StatelessWidget {
   final Color backgroundColor;
   final Widget iconWidget;
   final EdgeInsetsGeometry edgeInsetsGeometry;
-  TextHolder(
-      {Key key,
-      this.backgroundColor,
-      this.edgeInsetsGeometry,
-      this.iconWidget,
-      this.textWidget,
-      this.borderRadius,
-      this.width,
-      this.height,
-      this.borderColor,
-      this.function})
-      : super(key: key);
+  TextHolder({Key key, this.backgroundColor, this.edgeInsetsGeometry, this.iconWidget, this.textWidget, this.borderRadius, this.width, this.height, this.borderColor, this.function}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

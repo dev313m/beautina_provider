@@ -34,9 +34,9 @@ class BeautyTextfieldT extends StatefulWidget {
       this.margin = const EdgeInsets.all(10),
       this.obscureText = false,
       this.helperText = '',
-      this.backgroundColor = const Color(0xff111823),
+      this.backgroundColor = const Color(0xFF2B0B3A),
       this.cornerRadius = const BorderRadius.all(Radius.circular(10)),
-      this.textColor = const Color(0xff5c5bb0),
+      this.textColor = const Color(0xFF9A9A2D),
       this.accentColor = Colors.white,
       this.placeholder = "Placeholder",
       this.isShadow = true,
@@ -77,12 +77,12 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
       // margin: widget.margin,
       // alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          boxShadow: widget.isShadow
-              ? [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)]
-              : BoxShadow(spreadRadius: 0, blurRadius: 0),
+          boxShadow: widget.isShadow ? [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)] : BoxShadow(spreadRadius: 0, blurRadius: 0),
           borderRadius: widget.cornerRadius,
           color: widget.suffixIcon == null
-              ? isFocus ? widget.accentColor : widget.backgroundColor
+              ? isFocus
+                  ? widget.accentColor
+                  : widget.backgroundColor
               : widget.backgroundColor),
       child: Center(
         child: TextField(

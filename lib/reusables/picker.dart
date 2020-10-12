@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
 cityPicker({@required Function onConfirm, @required BuildContext context}) {
+  FocusScope.of(context).requestFocus(new FocusNode());
+
   Picker picker = Picker(
-      adapter: PickerDataAdapter<String>(
-          isArray: false,
-          pickerdata: JsonDecoder().convert(Countries.countriesList)),
+      adapter: PickerDataAdapter<String>(isArray: false, pickerdata: JsonDecoder().convert(Countries.countriesList)),
       changeToFirst: true,
       // cancel: Padding(
       //   padding: const EdgeInsets.all(8.0),

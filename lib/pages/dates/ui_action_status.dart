@@ -29,12 +29,14 @@ class WidgetAction extends StatelessWidget {
       return WidgetCanceledOrder(order: order);
     else if (order.status == 3) // order is confirmed by costomer
     {
-      if (order.client_order_date.month == DateTime.now().month && DateTime.now().day == order.client_order_date.day)
+      if (order.client_order_date.month == DateTime.now().month &&
+          DateTime.now().day == order.client_order_date.day)
         return WidgetFinish(
           order: order,
         );
       return WidgetConfirmedOrder(order: order);
-    } else if (order.status == 5 || order.status == 6 || order.status == 7 || order.status == 8) return WidgetOnlyDisplay(order: order);
+    } else if (order.status == 5 || order.status == 6 || order.status == 7 || order.status == 8)
+      return WidgetOnlyDisplay(order: order);
     return SizedBox();
   }
 }
@@ -94,6 +96,7 @@ class WidgetNewOrder extends StatefulWidget {
 
 class _WidgetNewOrderState extends State<WidgetNewOrder> {
   final String providerNotes = '';
+  TextEditingController durationTextFieldController = TextEditingController(text: 'لم يتم التحديد');
 
   Duration orderDuration = Duration();
 
@@ -116,95 +119,102 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                 },
                 decoration: InputDecoration(
                   hintText: 'ملاحظات (اختياري)',
+                  filled: true,
+                  fillColor: Colors.white24,
                   hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   icon: Icon(CommunityMaterialIcons.pen),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  fillColor: Colors.white,
+                  // fillColor: Colors.white,
                 ),
               ),
             ),
-            Row(
-              children: [
-                ExtendedText(string: 'المدة المتوقعة للطلب:  '),
-                IconButton(
-                  icon: Icon(Icons.watch),
-                  onPressed: () {
-                    Picker picker;
+            Container(
+                width: double.infinity,
+                child: ExtendedText(string: 'المدة المتوقعة للطلب:  ', textAlign: TextAlign.right)),
+            Container(
+              // width: 200.w,
+              child: TextField(
+                controller: durationTextFieldController,
+                readOnly: true,
+                onTap: () {
+                  Picker picker;
 
-                    picker = Picker(
-                        // backgroundColor: Colors.pink.withOpacity(0.3),
-                        adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
-                          const NumberPickerColumn(begin: 0, end: 60, suffix: Text(' دق'), jump: 15),
-                          const NumberPickerColumn(begin: 0, end: 12, suffix: Text(' ساعات'), columnFlex: 2),
-                        ]),
-                        delimiter: <PickerDelimiter>[
-                          PickerDelimiter(
-                            child: Container(
-                              width: 30.0.h,
-                              alignment: Alignment.center,
-                              child: Icon(Icons.more_vert),
-                            ),
-                          )
-                        ],
-                        hideHeader: false,
-                        confirmTextStyle: TextStyle(inherit: false, color: Colors.red, fontSize: 22),
-                        // title: Text(
-                        //   'الوقت المتوقع لإنهاء الخدمة',
-                        //   textAlign: TextAlign.right,
-                        // ),
-                        containerColor: Colors.pink,
-                        selectedTextStyle: TextStyle(color: Colors.blue),
-                        onConfirm: (Picker picker, List<int> value) {
-                          // You get your duration here
-                          orderDuration = Duration(hours: picker.getSelectedValues()[1], minutes: picker.getSelectedValues()[0]);
-                          // picker.doCancel(context);
+                  picker = Picker(
+                      // backgroundColor: Colors.pink.withOpacity(0.3),
+                      adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
+                        const NumberPickerColumn(begin: 0, end: 60, suffix: Text(' دق'), jump: 15),
+                        const NumberPickerColumn(
+                            begin: 0, end: 12, suffix: Text(' ساعات'), columnFlex: 2),
+                      ]),
+                      delimiter: <PickerDelimiter>[
+                        PickerDelimiter(
+                          child: Container(
+                            width: 30.0.h,
+                            alignment: Alignment.center,
+                            child: Icon(Icons.more_vert),
+                          ),
+                        )
+                      ],
+                      hideHeader: false,
+                      confirmTextStyle: TextStyle(inherit: false, color: Colors.red, fontSize: 22),
+                      // title: Text(
+                      //   'الوقت المتوقع لإنهاء الخدمة',
+                      //   textAlign: TextAlign.right,
+                      // ),
+                      containerColor: Colors.pink,
+                      selectedTextStyle: TextStyle(color: Colors.blue),
+                      onConfirm: (Picker picker, List<int> value) {
+                        // You get your duration here
+                        orderDuration = Duration(
+                            hours: picker.getSelectedValues()[1],
+                            minutes: picker.getSelectedValues()[0]);
+                        // picker.doCancel(context);
+                        durationTextFieldController.text =
+                            " ${(orderDuration.inHours).toString()} ساعة ${(orderDuration.inMinutes.remainder(60)).toString()} دقيقة ";
+                        // showToast(orderDuration.inMinutes.toString());
 
-                          // showToast(orderDuration.inMinutes.toString());
-                          setState(() {});
+                        widget.order.order_duration = orderDuration.inMinutes.toDouble();
+                        setState(() {});
+                      },
+                      cancel: IconButton(
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          picker.doCancel(context);
                         },
-                        cancel: IconButton(
-                          icon: Icon(
-                            Icons.cancel,
-                            color: Colors.red,
-                          ),
-                          onPressed: () {
-                            picker.doCancel(context);
-                          },
+                      ),
+                      confirm: IconButton(
+                        icon: Icon(
+                          Icons.done,
+                          color: Colors.blue,
                         ),
-                        confirm: IconButton(
-                          icon: Icon(
-                            Icons.done,
-                            color: Colors.blue,
-                          ),
-                          onPressed: () {
-                            picker.doConfirm(context);
-                          },
-                        ),
-                        cancelTextStyle: TextStyle(color: Colors.red),
-                        textStyle: TextStyle(color: Colors.blue));
-                    picker.showModal(context);
-                  },
+                        onPressed: () {
+                          picker.doConfirm(context);
+                        },
+                      ),
+                      cancelTextStyle: TextStyle(color: Colors.red),
+                      textStyle: TextStyle(color: Colors.blue));
+                  picker.showModal(context);
+                },
+                decoration: InputDecoration(
+                  hintText:
+                      ' ${(orderDuration.inHours).toString()} ساعة ${(orderDuration.inMinutes.remainder(60)).toString()} دقيقة ',
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
+                  icon: Icon(CommunityMaterialIcons.watch),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  fillColor: Colors.white70,
                 ),
-                ExtendedText(
-                  string: " ${(orderDuration.inHours).toString()} ساعة ",
-                ),
-                ExtendedText(
-                  string: " ${(orderDuration.inMinutes.remainder(60)).toString()} دقيقة ",
-                )
-                // DurationPicker(
-                //   duration: orderDuration,
-                //   height: 400.h,
-                //   width: 400.w,
-                //   onChange: (val) {
-                //     setState(() {
-                //       orderDuration = val;
-                //     });
-                //   },
-                //   snapToMins: 5.0,
-                // )
-              ],
+              ),
+            ),
+            SizedBox(
+              height: 100.h,
             ),
             Row(
               children: [

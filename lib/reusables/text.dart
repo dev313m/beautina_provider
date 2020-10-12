@@ -16,17 +16,12 @@ class ExtendedText extends StatelessWidget {
   final TextDirection textDirection;
   final TextAlign textAlign;
   static const brightColor = Colors.white;
+  static Color brightColors2 = Colors.white.withOpacity(0.8);
   static const darkColor = Color(0xff37474f);
   static final colorFull = Colors.pink;
   final Color fontColor;
   final String string;
-  const ExtendedText(
-      {Key key,
-      this.textAlign = TextAlign.center,
-      this.textDirection = TextDirection.rtl,
-      this.fontColor = brightColor,
-      this.fontSize = defaultFont,
-      @required this.string})
+  const ExtendedText({Key key, this.textAlign = TextAlign.center, this.textDirection = TextDirection.rtl, this.fontColor = brightColor, this.fontSize = defaultFont, @required this.string})
       : super(key: key);
 
   @override

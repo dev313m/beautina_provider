@@ -33,8 +33,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
   double priceAfter = 0;
   String otherServiceName = '';
   String chosenService = '';
-  final RoundedLoadingButtonController _btnController =
-      new RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
   bool showOther = false; //show adding other service
   List<DropdownMenuItem> subCategoryList = [];
@@ -116,12 +115,17 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                 string: '~ اضافة الخدمات ~',
                 fontSize: ExtendedText.xbigFont,
               ),
+              SizedBox(height: ScreenUtil().setHeight(30.h)),
+
+              ExtendedText(
+                  string:
+                      '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)'),
 
               SizedBox(height: ScreenUtil().setHeight(30)),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Consumer<SharedSalon>(builder: (_, sharedSalon, child) {
-                  iniSubCategory();
+                  // iniSubCategory();
                   return ToggleButtons(
                       children: categoryWidgetList,
                       isSelected: selectedCategory,
@@ -131,8 +135,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                       renderBorder: false,
                       onPressed: (index) {
                         indexCategory = index;
-                        selectedCategory =
-                            selectedCategory.map((f) => false).toList();
+                        selectedCategory = selectedCategory.map((f) => false).toList();
                         iniSubCategory();
                         selectedCategory[index] = true;
                         showOther = false;
@@ -156,14 +159,14 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                 borderRadius: BorderRadius.circular(14),
                 child: Container(
                   padding: EdgeInsets.only(
-                      left: ScreenUtil().setWidth(19),
-                      right: ScreenUtil().setWidth(19)),
+                      left: ScreenUtil().setWidth(19), right: ScreenUtil().setWidth(19)),
                   decoration: BoxDecoration(
                     color: AppColors.purpleColor,
                   ),
                   height: ScreenUtil().setHeight(100),
                   child: DropdownButton(
                     items: subCategoryList,
+
                     focusColor: AppColors.purpleColor,
 
                     elevation: 39,
@@ -185,7 +188,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                     hint: ExtendedText(string: 'اختاري الخدمة'),
                     // elevation: 40,
                     style: TextStyle(
-                      color: AppColors.purpleColor,
+                      color: AppColors.pinkBright,
                     ),
                     icon: Icon(CommunityMaterialIcons.arrow_down_drop_circle),
                     isExpanded: true,
@@ -221,6 +224,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                   onChanged: (String s) {
                     priceAfter = double.parse(s);
                   },
+                  textStyle: TextStyle(color: AppColors.pinkBright),
                   prefixIcon: Icon(
                     Icons.attach_money,
                     color: AppColors.pinkBright,
@@ -293,12 +297,10 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                     if (checkFields()) {
                       _btnController.start();
 
-                      ModelBeautyProvider bp =
-                          await sharedUserProviderGetInfo();
+                      ModelBeautyProvider bp = await sharedUserProviderGetInfo();
                       try {
                         Provider.of<SharedSalon>(context).beautyProvider =
-                            await apiBeautyProviderUpdate(
-                                bp..servicespro = getNewMap());
+                            await apiBeautyProviderUpdate(bp..servicespro = getNewMap());
                         // setState(() {});
                         showToast('تمت الاضافة بنجاح');
                         _btnController.success();
@@ -327,16 +329,13 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
   }
 
   Map<String, dynamic> getNewMap() {
-    ModelBeautyProvider beautyProvider =
-        Provider.of<SharedSalon>(context).beautyProvider;
-    Map<String, dynamic> map =
-        new Map<String, dynamic>.of(beautyProvider.servicespro);
+    ModelBeautyProvider beautyProvider = Provider.of<SharedSalon>(context).beautyProvider;
+    Map<String, dynamic> map = new Map<String, dynamic>.of(beautyProvider.servicespro);
     Map<String, dynamic> newMap = copyDeepMap(map);
 
     if (!showOther) {
       List<String> services = chosenService.split('-');
-      List<double> numbers =
-          priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+      List<double> numbers = priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
 
       if (newMap[services[0]] == null)
         newMap[services[0]] = {services[1]: numbers};
@@ -345,8 +344,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
     } else {
       if (newMap['other'] == null)
         newMap['other'] = {
-          otherServiceName:
-              priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
+          otherServiceName: priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
         };
       else
         newMap['other'][otherServiceName] =
