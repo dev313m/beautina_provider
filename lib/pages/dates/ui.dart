@@ -261,6 +261,7 @@ class OrderDetails extends StatelessWidget {
             Text(
               'معلومات الخدمه:',
               textDirection: TextDirection.rtl,
+              style: TextStyle(color: ExtendedText.brightColor),
             ),
           ],
         ),
