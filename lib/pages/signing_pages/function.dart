@@ -12,6 +12,7 @@ import 'package:beautina_provider/reusables/picker.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/api/api_provided_services.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
+import 'package:beautina_provider/services/auth/apple_auth.dart';
 import 'package:beautina_provider/services/auth/auth.dart';
 import 'package:beautina_provider/services/auth/google_auth.dart';
 import 'package:beautina_provider/services/notification/token.dart';
@@ -22,6 +23,41 @@ import 'package:provider/provider.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
 SmsAuth smsAuth = SmsAuth();
+
+loginWithApple(BuildContext context) async {
+  if (!isNameChosen(context)) return;
+  if (Provider.of<SignInSharedVariable>(context).city == null) {
+    throw Exception('الرجاء اختيار المنطقة');
+  }
+  if (Provider.of<SignInSharedVariable>(context).accountType == -1) {
+    throw Exception('الرجاء اختيار نوع الحساب');
+  }
+  // animationController.forward();
+  smsAuth.phoneNum = Countries.phoneCode[
+          Provider.of<SignInSharedVariable>(context).city.elementAt(0)] +
+      Provider.of<SignInSharedVariable>(context).phoneNum;
+
+  // Function success = () {
+  //   Provider.of<SignInSharedVariable>(context).showCode = true;
+  //   animationController.reverse();
+  //   showToast('الرجاء ادراج الكود من الرساله');
+  // };
+
+  // Function error = () {
+  //   animationController.reverse();
+  //   showToast('حدث خطأ ما، الرجاء المحاولة لاحقا');
+  // };
+  // await smsAuth.verifyPhone(error, success);
+  String result;
+  try {
+    result = await signInWithApple();
+    // showToast(result);
+  } catch (e) {
+    showToast(e.toString());
+    // animationController.reverse();
+  }
+  if (result != null) await saveUserData(context);
+}
 
 loginWithGoogle(BuildContext context) async {
   if (!isNameChosen(context)) return;

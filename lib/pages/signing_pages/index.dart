@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/pages/root/constants.dart';
 import 'package:beautina_provider/pages/signing_pages/constants.dart';
@@ -7,6 +9,7 @@ import 'package:beautina_provider/pages/signing_pages/ui.dart';
 import 'package:beautina_provider/reusables/beauty_textfield.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/services/auth/apple_auth.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
@@ -116,7 +119,11 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                 children: <Widget>[
                                   Container(
                                     width: double.infinity,
-                                    child: Text('Beautina', style: GoogleFonts.pacifico(fontSize: ExtendedText.xbigFont, fontWeight: FontWeight.bold, color: ExtendedText.colorFull)
+                                    child: Text('Beautina',
+                                        style: GoogleFonts.pacifico(
+                                            fontSize: ExtendedText.xbigFont,
+                                            fontWeight: FontWeight.bold,
+                                            color: ExtendedText.colorFull)
 
                                         // TextStyle(
                                         //     fontSize: ExtendedText.xbigFont,
@@ -159,13 +166,16 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                     textDirection: TextDirection.rtl,
                     child: BeautyTextfieldT(
                       enabled: true,
-                      textStyle: TextStyle(fontSize: ExtendedText.defaultFont, color: ExtendedText.darkColor),
+                      textStyle: TextStyle(
+                          fontSize: ExtendedText.defaultFont,
+                          color: ExtendedText.darkColor),
                       // fontWeight: 2,
                       // maxLength: 30,
                       onChanged: (text) {
                         saveName(context, text);
                       },
-                      height: ScreenUtil().setHeight(ConstLoginSizes.nameTextHeight),
+                      height: ScreenUtil()
+                          .setHeight(ConstLoginSizes.nameTextHeight),
                       // textBaseline: TextBaseline.alphabetic,
                       inputType: TextInputType.text,
                       duration: Duration(seconds: 1),
@@ -185,8 +195,10 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                         function: () {
                           showPicker(context, _globalKey);
                         },
-                        edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 22),
-                        height: ScreenUtil().setHeight(ConstLoginSizes.regionHeight),
+                        edgeInsetsGeometry:
+                            EdgeInsets.symmetric(horizontal: 22),
+                        height: ScreenUtil()
+                            .setHeight(ConstLoginSizes.regionHeight),
                         iconWidget: Icon(
                           CommunityMaterialIcons.home_city_outline,
                           size: ScreenUtil().setSp(40),
@@ -221,12 +233,15 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                         color: Colors.blue.withOpacity(0.5),
                         child: ToggleButtons(
                           onPressed: (index) {
-                            showAlert(context, msg: 'لايمكنك تغيير نوع الحساب لاحقا', dismiss: 'تم');
+                            showAlert(context,
+                                msg: 'لايمكنك تغيير نوع الحساب لاحقا',
+                                dismiss: 'تم');
                             accountTypeBool = [false, false];
                             accountTypeBool[index] = true;
                             setState(() {});
                             // showToast(index.toString());
-                            Provider.of<SignInSharedVariable>(context).accountType = index == 1 ? 1 : 0;
+                            Provider.of<SignInSharedVariable>(context)
+                                .accountType = index == 1 ? 1 : 0;
                           },
 
                           // color: Colors.blue,
@@ -275,79 +290,96 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                   // ),
 
                   Container(
-                      padding: EdgeInsets.only(top: ScreenUtil().setHeight(240), left: ScreenUtil().setWidth(20), right: ScreenUtil().setWidth(20)),
+                      padding: EdgeInsets.only(
+                          top: ScreenUtil().setHeight(240),
+                          left: ScreenUtil().setWidth(20),
+                          right: ScreenUtil().setWidth(20)),
                       child: Column(
                         children: <Widget>[
-                          Provider.of<SignInSharedVariable>(context).phoneNum.length != 9
-                              ? SizedBox()
-                              : loading
-                                  ? CircularProgressIndicator(
-                                      backgroundColor: Colors.orangeAccent,
-                                    )
-                                  : Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
-                                      Expanded(
-                                        child: InkWell(
-                                          onTap: () async {
-                                            setState(() {
-                                              loading = true;
-                                            });
-                                            try {
-                                              await loginWithGoogle(context);
-                                            } catch (e) {
-                                              showToast(e.toString());
-                                            }
-                                            setState(() {
-                                              loading = false;
-                                            });
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(25),
-                                            child: Container(
-                                              color: ConstLoginColors.google,
-                                              child: Padding(
-                                                padding: EdgeInsets.all(ScreenUtil().setHeight(16)),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    ExtendedText(
-                                                      string: 'التسجيل بواسطة جوجل',
-                                                      fontSize: ExtendedText.xbigFont,
-                                                    ),
-                                                    Icon(
-                                                      CommunityMaterialIcons.google,
-                                                      color: Colors.white,
-                                                    )
-                                                  ],
+                          if (Provider.of<SignInSharedVariable>(context)
+                                  .phoneNum
+                                  .length !=
+                              9)
+                            SizedBox()
+                          else if (loading)
+                            CircularProgressIndicator(
+                              backgroundColor: Colors.orangeAccent,
+                            )
+                          else
+                            Platform.isAndroid
+                                ? Expanded(
+                                    child: InkWell(
+                                      onTap: () async {
+                                        setState(() {
+                                          loading = true;
+                                        });
+                                        try {
+                                          await loginWithGoogle(context);
+                                        } catch (e) {
+                                          showToast(e.toString());
+                                        }
+                                        setState(() {
+                                          loading = false;
+                                        });
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(25),
+                                        child: Container(
+                                          color: ConstLoginColors.google,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                ScreenUtil().setHeight(16)),
+                                            child: Column(
+                                              children: <Widget>[
+                                                ExtendedText(
+                                                  string: 'التسجيل بواسطة جوجل',
+                                                  fontSize:
+                                                      ExtendedText.xbigFont,
                                                 ),
-                                              ),
+                                                Icon(
+                                                  CommunityMaterialIcons.google,
+                                                  color: Colors.white,
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(
-                                      //   width: ScreenUtil().setWidth(8),
-                                      // ),
-                                      // ClipRRect(
-                                      //   borderRadius:
-                                      //       BorderRadius.circular(12),
-                                      //   child: Container(
-                                      //     color: ConstLoginColors.apple,
-                                      //     child: Padding(
-                                      //       padding: EdgeInsets.all(
-                                      //           ScreenUtil().setHeight(16)),
-                                      //       child: Column(
-                                      //         children: <Widget>[
-                                      //           Text('التسجيل بواسطة ابل'),
-                                      //           Icon(
-                                      //             CommunityMaterialIcons
-                                      //                 .apple,
-                                      //             color: Colors.white,
-                                      //           )
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // )
-                                    ]),
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        loading = true;
+                                      });
+                                      try {
+                                        await loginWithApple(context);
+                                      } catch (e) {
+                                        showToast(e.toString());
+                                      }
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Container(
+                                        color: ConstLoginColors.apple,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                              ScreenUtil().setHeight(16)),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text('التسجيل بواسطة ابل'),
+                                              Icon(
+                                                CommunityMaterialIcons.apple,
+                                                color: Colors.white,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )),
                           // AnimatedSubmitButton(
                           //     animationDuration: Duration(seconds: 1),
                           //     color: Colors.green,

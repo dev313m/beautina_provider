@@ -40,7 +40,8 @@ class _WidgetServicesState extends State<WidgetServices> {
           Container(
               height: ScreenUtil().setHeight(100),
               child: Center(
-                  child: ExtendedText(string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
+                  child: ExtendedText(
+                      string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
           ExtendedText(
             string: '(قائمة خدماتك، ويمكنك حذف الخدمات من هنا)',
             fontColor: ExtendedText.brightColors2,
@@ -57,7 +58,8 @@ class _WidgetServicesState extends State<WidgetServices> {
               addRepaintBoundaries: true,
               itemBuilder: (_, index) {
                 Map<String, dynamic> allDefaultServicesMap =
-                    Provider.of<SharedSalon>(context).providedServices['services'];
+                    Provider.of<SharedSalon>(context)
+                        .providedServices['services'];
                 // List<Widget> list = [];
                 String mainServiceKey = widget.mapServices.keys.toList()[index];
 
@@ -69,15 +71,19 @@ class _WidgetServicesState extends State<WidgetServices> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       itemBuilder: (_, rowIndex) {
-                        String itemKey = widget.mapServices['other'].keys.toList()[rowIndex];
+                        String itemKey =
+                            widget.mapServices['other'].keys.toList()[rowIndex];
 
-                        return SingleService(
-                          serviceName: itemKey,
-                          prices: widget.mapServices['other'][itemKey],
-                          serviceCode: itemKey,
-                          serviceRoot: mainServiceKey,
-                          // priceBefore: v[0].toString(),
-                          // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                        return Padding(
+                          padding: EdgeInsets.all(8.0.h),
+                          child: SingleService(
+                            serviceName: itemKey,
+                            prices: widget.mapServices['other'][itemKey],
+                            serviceCode: itemKey,
+                            serviceRoot: mainServiceKey,
+                            // priceBefore: v[0].toString(),
+                            // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                          ),
                         );
                       },
                       itemCount: widget.mapServices[mainServiceKey].keys.length,
@@ -85,9 +91,11 @@ class _WidgetServicesState extends State<WidgetServices> {
                   );
 
                 if (allDefaultServicesMap
+                    .containsKey(mainServiceKey)) if (allDefaultServicesMap[
+                        mainServiceKey]
                     .containsKey(
-                        mainServiceKey)) if (allDefaultServicesMap[mainServiceKey].containsKey(
-                    'items')) if (allDefaultServicesMap[mainServiceKey].containsKey('ar'))
+                        'items')) if (allDefaultServicesMap[mainServiceKey]
+                    .containsKey('ar'))
                   return Container(
                     height: 158.h,
                     child: ListView.builder(
@@ -95,18 +103,24 @@ class _WidgetServicesState extends State<WidgetServices> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       itemBuilder: (_, rowIndex) {
-                        String itemKey = widget.mapServices[mainServiceKey].keys.toList()[rowIndex];
+                        String itemKey = widget.mapServices[mainServiceKey].keys
+                            .toList()[rowIndex];
 
-                        if (allDefaultServicesMap[mainServiceKey]['items'].containsKey(itemKey))
-                          return SingleService(
-                            serviceName: allDefaultServicesMap[mainServiceKey]['items'][itemKey]
-                                    ['ar']
-                                ?.toString(),
-                            prices: widget.mapServices[mainServiceKey][itemKey],
-                            serviceCode: itemKey,
-                            serviceRoot: mainServiceKey,
-                            // priceBefore: v[0].toString(),
-                            // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                        if (allDefaultServicesMap[mainServiceKey]['items']
+                            .containsKey(itemKey))
+                          return Padding(
+                            padding: EdgeInsets.all(8.0.h),
+                            child: SingleService(
+                              serviceName: allDefaultServicesMap[mainServiceKey]
+                                      ['items'][itemKey]['ar']
+                                  ?.toString(),
+                              prices: widget.mapServices[mainServiceKey]
+                                  [itemKey],
+                              serviceCode: itemKey,
+                              serviceRoot: mainServiceKey,
+                              // priceBefore: v[0].toString(),
+                              // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                            ),
                           );
                         return SizedBox();
                       },
@@ -201,7 +215,8 @@ class _SingleServiceState extends State<SingleService> {
           Expanded(
             child: Row(
               children: <Widget>[
-                if (widget.prices.length > 1) ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
+                if (widget.prices.length > 1)
+                  ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
                 ExtendedText(string: 'السعر: ${widget.prices[0]}   '),
               ],
             ),
@@ -234,7 +249,8 @@ class _SingleServiceState extends State<SingleService> {
                   duration: Duration(milliseconds: durationCalender),
                   child: loading
                       ? Loading()
-                      : Icon(CommunityMaterialIcons.delete_circle, color: Colors.white70)))
+                      : Icon(CommunityMaterialIcons.delete_circle,
+                          color: Colors.white70)))
         ],
       ),
     );

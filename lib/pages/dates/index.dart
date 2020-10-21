@@ -21,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:spring_button/spring_button.dart';
@@ -41,8 +40,8 @@ class WidgetGetAllList extends StatelessWidget {
       // ...snapshot.map((order) => order.status == 5? WidgetRating(order: order,):  )
 
       Column(
-        children: List.generate(snapshot.length, (index) => JustOrderWidget(order: snapshot[index]))
-            .toList(),
+        children: List.generate(snapshot.length,
+            (index) => JustOrderWidget(order: snapshot[index])).toList(),
       )
     ]);
   }
@@ -93,7 +92,8 @@ class _WidgetFutureListState extends State<WidgetFutureList> {
       );
     else
       return WidgetGetAllList(
-          snapshot: getFilteredList(sharedOrder.orderList, sharedOrder.filterIndex));
+          snapshot:
+              getFilteredList(sharedOrder.orderList, sharedOrder.filterIndex));
   }
 }
 
@@ -102,7 +102,8 @@ class DatePage extends StatefulWidget {
   _DatePageState createState() => _DatePageState();
 }
 
-class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<DatePage> {
+class _DatePageState extends State<DatePage>
+    with AutomaticKeepAliveClientMixin<DatePage> {
   double currentScroll = 0;
 
   ///
@@ -139,7 +140,8 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
     filterBool = [false, false, false, false, false, true];
     scrollController = ScrollController();
     scrollController.addListener(() async {
-      if (scrollController.position.userScrollDirection == ScrollDirection.reverse)
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse)
         Provider.of<SharedRoot>(context).hideBars = true;
       else if (Provider.of<SharedRoot>(context).hideBars)
         Provider.of<SharedRoot>(context).hideBars = false;
@@ -223,7 +225,8 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                           scaleCoefficient: 0.85,
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
+                                builder: (_) =>
+                                    OrderListFinishedPage(heroTag: 'bbb')));
                           },
                         ),
                       ),
@@ -259,8 +262,8 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                           ),
                           scaleCoefficient: 0.85,
                           onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (_) => OrderListPage()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => OrderListPage()));
                           },
                         ),
                         Align(
@@ -270,7 +273,8 @@ class _DatePageState extends State<DatePage> with AutomaticKeepAliveClientMixin<
                                 width: ScreenUtil().setWidth(30),
                                 height: ScreenUtil().setHeight(30),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5), color: Colors.red),
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.red),
                                 child: Center(
                                   child: ExtendedText(
                                     string: Provider.of<SharedOrder>(context)
@@ -378,7 +382,8 @@ class _OrdersListState extends State<OrdersList> {
                             children: <Widget>[
                               ExtendedText(string: getText(index)),
                               ExtendedText(
-                                string: 'السعر: ${widget.ordersList[index].total_price}',
+                                string:
+                                    'السعر: ${widget.ordersList[index].total_price}',
                                 textAlign: TextAlign.right,
                               ),
                               Row(
@@ -387,15 +392,18 @@ class _OrdersListState extends State<OrdersList> {
                                   Builder(builder: (_) {
                                     List<String> list = [];
                                     Map<String, dynamic> mapper =
-                                        Provider.of<SharedSalon>(context).providedServices;
+                                        Provider.of<SharedSalon>(context)
+                                            .providedServices;
 
-                                    widget.ordersList[index].services.forEach((k, v) {
+                                    widget.ordersList[index].services
+                                        .forEach((k, v) {
                                       v.forEach((kk, vv) {
                                         if (k == 'other')
                                           list.add(kk.toString());
                                         else {
                                           try {
-                                            list.add(mapper['services'][k]['items'][kk]['ar']);
+                                            list.add(mapper['services'][k]
+                                                ['items'][kk]['ar']);
                                           } catch (e) {
                                             list.add(k.toString());
                                           }
@@ -433,8 +441,10 @@ class _OrdersListState extends State<OrdersList> {
   }
 
   String getText(int index) {
-    if (widget.ordersList[index].client_order_date.isBefore(DateTime.now().toLocal()) &&
-        (widget.ordersList[index].status == 3 || widget.ordersList[index].status == 8))
+    if (widget.ordersList[index].client_order_date
+            .isBefore(DateTime.now().toLocal()) &&
+        (widget.ordersList[index].status == 3 ||
+            widget.ordersList[index].status == 8))
       return 'مرحبا، نرجو تأكيد اتمام العملية  (${widget.ordersList[index].client_name})  ${getDate(widget.ordersList[index].client_order_date)}';
     else
       return '${getOrderStatus(widget.ordersList[index].status)} (${widget.ordersList[index].client_name})  ${getDate(widget.ordersList[index].client_order_date)}';

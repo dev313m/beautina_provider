@@ -5,7 +5,8 @@
 class ModelBeautyProvider {
   static int TYPE_SALON = 1;
   static int TYPE_INDIVIDUAL = 1;
-  List<Map<String, DateTime>> busyDates; // Date that provider is not available for order
+  List<Map<String, DateTime>>
+      busyDates; // Date that provider is not available for order
   int type; //whether it was a salon or a simple woman 1 for salon
   bool _available;
   String _image;
@@ -131,7 +132,7 @@ class ModelBeautyProvider {
 
   Map<String, dynamic> getMap() {
     Map<String, dynamic> map = new Map<String, dynamic>();
-    // map['type']= this.type;
+    map['type'] = this.type;
     map['available'] = this._available ?? true;
     map['auth_login'] = this.auth_login ?? '';
     map['tokenId'] = this.tokenId ?? '';
@@ -174,7 +175,8 @@ class ModelBeautyProvider {
     _points = data['points'] ?? 0;
     package = data['package'] ?? {};
     visitors = data['visitors'] ?? 0;
-    _register_date = DateTime.parse(data['reg_date']) ?? DateTime.now().toLocal();
+    _register_date =
+        DateTime.parse(data['reg_date']) ?? DateTime.now().toLocal();
     _rating = data['rating'].toDouble() ?? 0;
     _username = data['username'] ?? '';
     // _prices = Map<String, dynamic>.from(data['prices']);
@@ -187,12 +189,21 @@ class ModelBeautyProvider {
     busyDates = getBustyDates(data['busy_dates']);
 
     _token = data['token'] ?? '';
-    servicespro = data['services'] == null ? {} : Map<String, dynamic>.from(data['services']);
+    servicespro = data['services'] == null
+        ? {}
+        : Map<String, dynamic>.from(data['services']);
     // getAllServices(servicespro);
   }
 
   List<Map<String, DateTime>> getBustyDates(List<dynamic> myList) {
-    return myList.length == 0 ? [] : myList.map((dateObject) => {'from': DateTime.parse(dateObject['from']), 'to': DateTime.parse(dateObject['to'])}).toList();
+    return myList.length == 0
+        ? []
+        : myList
+            .map((dateObject) => {
+                  'from': DateTime.parse(dateObject['from']),
+                  'to': DateTime.parse(dateObject['to'])
+                })
+            .toList();
     // .cast<List<Map<String, DateTime>>>();
   }
 

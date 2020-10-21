@@ -1,4 +1,4 @@
-package com.beautina.salon
+package com.beautina.service_provider
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity

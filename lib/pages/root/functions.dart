@@ -2,22 +2,18 @@ import 'package:beautina_provider/db_sqflite/notification_sqflite.dart';
 import 'package:beautina_provider/pages/dates/index.dart';
 import 'package:beautina_provider/pages/my_salon/index.dart';
 import 'package:beautina_provider/pages/notification/index.dart';
-import 'package:beautina_provider/pages/packages/index.dart';
 import 'package:beautina_provider/pages/root/shared_variable_root.dart';
 import 'package:beautina_provider/pages/root/ui.dart';
 import 'package:beautina_provider/pages/settings/index.dart';
-import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/services/api/api_user_provider.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/models/notification.dart' as noti;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 ///This will return the list of pages that appears in the main menu of the app
 List<Widget> getMainPages() {
@@ -62,22 +58,21 @@ int getNewCounterNotification(List<noti.MyNotification> n) {
 
 versionCheck(BuildContext context) async {
   await Future.delayed(Duration(seconds: 4));
-  onAlertWithCustomContentPressed(context);
+  // onAlertWithCustomContentPressed(context);
 
   //Get Current installed version of app
   final PackageInfo info = await PackageInfo.fromPlatform();
   double currentVersion = double.parse(info.version.trim().replaceAll(".", ""));
 
   //Get Latest version info from firebase config
-  final RemoteConfig remoteConfig = await RemoteConfig.instance;
 
   try {
     // Using default duration to force fetching from remote server.
-    await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-    await remoteConfig.activateFetched();
-    remoteConfig.getString('version');
-    double newVersion = double.parse(
-        remoteConfig.getString('version').trim().replaceAll(".", ""));
+    http.Response respond = await http.get(
+        'https://resorthome.000webhostapp.com/version_service_provider.php');
+    final String nowVersion = respond.body;
+
+    double newVersion = double.parse(nowVersion.trim().replaceAll(".", ""));
     if (newVersion > currentVersion) {
       onAlertWithCustomContentPressed(context);
     }

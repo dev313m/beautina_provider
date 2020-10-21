@@ -4,13 +4,13 @@ import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/app_url.dart';
 import 'package:beautina_provider/pages/root/functions.dart';
 import 'package:beautina_provider/reusables/text.dart';
-import 'package:community_material_icon/community_material_icon.dart';
-
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+final String GOOGLE_APP_URL =
+    'http://play.google.com/store/apps/details?id=com.google.android.apps.maps';
 onAlertWithCustomImagePressed(context) {
   Alert(
     context: context,
@@ -27,6 +27,7 @@ onAlertWithCustomContentPressed(context) {
   var alertStyle = AlertStyle(
       animationType: AnimationType.fromTop,
       isCloseButton: false,
+      isButtonVisible: true,
       isOverlayTapDismiss: false,
       descStyle: TextStyle(
           fontWeight: FontWeight.bold,
@@ -44,7 +45,11 @@ onAlertWithCustomContentPressed(context) {
   // Alert dialog using custom alert style
   Alert(
       context: context,
+      closeFunction: () {
+        print('im here');
+      },
       style: alertStyle,
+      onWillPopActive: true,
       title: "يوجد تحديث جديد",
       content: Column(
         children: <Widget>[
@@ -62,7 +67,7 @@ onAlertWithCustomContentPressed(context) {
         DialogButton(
           width: ScreenUtil().setWidth(150),
           onPressed: () {
-            var url = '';
+            var url = GOOGLE_APP_URL;
             url = Platform.isIOS ? APP_URL_IOS : APP_URL_ANRROID;
             launchURL(url);
           },

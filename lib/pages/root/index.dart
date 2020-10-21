@@ -25,7 +25,8 @@ class RootPage extends StatefulWidget {
   _RootPage createState() => _RootPage();
 }
 
-class _RootPage extends State<RootPage> with AutomaticKeepAliveClientMixin<RootPage> {
+class _RootPage extends State<RootPage>
+    with AutomaticKeepAliveClientMixin<RootPage> {
   @override
   void dispose() {
     super.dispose();
@@ -61,7 +62,8 @@ class Index extends StatefulWidget {
   _Index createState() => _Index();
 }
 
-class _Index extends State<Index> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+class _Index extends State<Index>
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   PushNotification pu = PushNotification();
   PreloadPageController _pageController;
 
@@ -78,7 +80,9 @@ class _Index extends State<Index> with SingleTickerProviderStateMixin, WidgetsBi
   void initState() {
     super.initState();
 
-    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
       if (result.index == ConnectivityResult.none.index) {
         noInternet = true;
       } else {
@@ -92,7 +96,7 @@ class _Index extends State<Index> with SingleTickerProviderStateMixin, WidgetsBi
     asynInit();
     setPushNotification();
     //gettting the update
-    // versionCheck(context);
+    versionCheck(context);
     _pages = getMainPages();
   }
 
@@ -105,6 +109,12 @@ class _Index extends State<Index> with SingleTickerProviderStateMixin, WidgetsBi
     FirebaseMessaging _fcmFore = FirebaseMessaging();
     _fcmFore.getToken().then((token) {
       print('token is: ' + token);
+    });
+
+    _fcmFore.requestNotificationPermissions(
+        IosNotificationSettings(sound: true, badge: true, alert: true));
+    _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
     });
     _fcmFore.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -171,163 +181,197 @@ class _Index extends State<Index> with SingleTickerProviderStateMixin, WidgetsBi
             primary: false,
             resizeToAvoidBottomPadding: false,
             backgroundColor: AppColors.purpleColor,
-            body: Stack(
-              children: <Widget>[
-                // FlareActor(
-                //   'assets/rive/favoritebg.flr',
-                //   fit: BoxFit.fitHeight,
-                //   animation: 'rotate',
-                // ),
-                PreloadPageView(
-                  children: _pages,
-                  controller: getPageCntrl(context),
-                  preloadPagesCount: 2,
-                  physics: AlwaysScrollableScrollPhysics(),
+            body: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              child: Stack(
+                children: <Widget>[
+                  // FlareActor(
+                  //   'assets/rive/favoritebg.flr',
+                  //   fit: BoxFit.fitHeight,
+                  //   animation: 'rotate',
+                  // ),
+                  PreloadPageView(
+                    children: _pages,
+                    controller: getPageCntrl(context),
+                    preloadPagesCount: 2,
+                    physics: AlwaysScrollableScrollPhysics(),
 
-                  ///the oage controller is shared bt all the pages so  they can all use it.
-                  scrollDirection: Axis.horizontal,
-                  onPageChanged: (index) {
-                    if (Provider.of<SharedRoot>(context).hideBars == true)
-                      Provider.of<SharedRoot>(context).hideBars = false;
+                    ///the oage controller is shared bt all the pages so  they can all use it.
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index) {
+                      if (Provider.of<SharedRoot>(context).hideBars == true)
+                        Provider.of<SharedRoot>(context).hideBars = false;
 
-                    setState(() {
-                      pageIndex = index;
-                    });
-                  },
-                  pageSnapping: true,
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ShaderMask(
-                      shaderCallback: (rect) {
-                        return LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black,
-                          ],
-                        ).createShader(Rect.fromLTWH(0, 0, rect.width, rect.height));
-                      },
-                      blendMode: BlendMode.overlay,
-                      child: Container(
-                        color: Colors.transparent,
-                        height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-                        width: ScreenResolution.width,
-                        child: AnimatedSwitcher(
+                      setState(() {
+                        pageIndex = index;
+                      });
+                    },
+                    pageSnapping: true,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ShaderMask(
+                        shaderCallback: (rect) {
+                          return LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black,
+                            ],
+                          ).createShader(
+                              Rect.fromLTWH(0, 0, rect.width, rect.height));
+                        },
+                        blendMode: BlendMode.overlay,
+                        child: Container(
+                          color: Colors.transparent,
+                          height:
+                              ScreenUtil().setHeight(ConstRootSizes.navigation),
+                          width: ScreenResolution.width,
+                          child: AnimatedSwitcher(
+                            duration: Duration(milliseconds: 500),
+                            child: Provider.of<SharedRoot>(context).hideBars
+                                ? SizedBox()
+                                : CurvedNavigationBar(
+                                    backgroundColor: Colors.transparent,
+                                    index: pageIndex,
+                                    height: ScreenUtil()
+                                        .setHeight(ConstRootSizes.navigation),
+                                    items: <Widget>[
+                                      Icon(CommunityMaterialIcons.settings,
+                                          size: iconSize,
+                                          color: ConstRootColors.icons),
+                                      Stack(
+                                        overflow: Overflow.visible,
+                                        fit: StackFit.passthrough,
+                                        children: <Widget>[
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                Icons.notifications,
+                                                size: iconSize,
+                                                color: ConstRootColors.icons,
+                                              )),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    ScreenUtil().setHeight(40),
+                                                    0,
+                                                    0,
+                                                    ScreenUtil().setHeight(40)),
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Provider.of<SharedRoot>(
+                                                                  context)
+                                                              .notificationList
+                                                              .where((n) =>
+                                                                  n.status == 0)
+                                                              .length !=
+                                                          0
+                                                      ? new Container(
+                                                          padding:
+                                                              EdgeInsets.all(2),
+                                                          decoration:
+                                                              new BoxDecoration(
+                                                            color: Colors.red,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minWidth:
+                                                                ScreenUtil()
+                                                                    .setWidth(
+                                                                        14),
+                                                            minHeight:
+                                                                ScreenUtil()
+                                                                    .setHeight(
+                                                                        14),
+                                                          ),
+                                                          child: ExtendedText(
+                                                            string: Provider.of<
+                                                                        SharedRoot>(
+                                                                    context)
+                                                                .notificationList
+                                                                .where((n) =>
+                                                                    n.status ==
+                                                                    0)
+                                                                .length
+                                                                .toString(),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        )
+                                                      : SizedBox(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Icon(
+                                        Icons.date_range,
+                                        size: iconSize,
+                                        color: ConstRootColors.icons,
+                                      ),
+                                      // Icon(
+                                      //   CommunityMaterialIcons.gift,
+                                      //   size: iconSize,
+                                      //   color: ConstRootColors.icons,
+                                      // ),
+
+                                      Icon(CommunityMaterialIcons.spa_outline,
+                                          size: iconSize,
+                                          color: ConstRootColors.icons),
+                                      // Icon(Icons.live_tv, size: iconSize, color: iconColors),
+                                    ],
+                                    color: Color(0xff0d3c61),
+                                    buttonBackgroundColor: Color(0xff0d3c61),
+                                    animationCurve: Curves.easeInOut,
+                                    animationDuration:
+                                        Duration(milliseconds: 600),
+                                    onTap: (index) {
+                                      setState(() {
+                                        getPageCntrl(context).jumpToPage(index);
+                                      });
+                                    },
+                                  ),
+                          ),
+                        )),
+                  ),
+                  noInternet ? WidgetNoConnection() : SizedBox(),
+                  Align(
+                      alignment: Alignment.topCenter,
+                      child: AnimatedSwitcher(
                           duration: Duration(milliseconds: 500),
                           child: Provider.of<SharedRoot>(context).hideBars
                               ? SizedBox()
-                              : CurvedNavigationBar(
-                                  backgroundColor: Colors.transparent,
-                                  index: pageIndex,
-                                  height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-                                  items: <Widget>[
-                                    Icon(CommunityMaterialIcons.settings,
-                                        size: iconSize, color: ConstRootColors.icons),
-                                    Stack(
-                                      overflow: Overflow.visible,
-                                      fit: StackFit.passthrough,
-                                      children: <Widget>[
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              Icons.notifications,
-                                              size: iconSize,
-                                              color: ConstRootColors.icons,
-                                            )),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  ScreenUtil().setHeight(40),
-                                                  0,
-                                                  0,
-                                                  ScreenUtil().setHeight(40)),
-                                              child: Align(
-                                                alignment: Alignment.topCenter,
-                                                child: Provider.of<SharedRoot>(context)
-                                                            .notificationList
-                                                            .where((n) => n.status == 0)
-                                                            .length !=
-                                                        0
-                                                    ? new Container(
-                                                        padding: EdgeInsets.all(2),
-                                                        decoration: new BoxDecoration(
-                                                          color: Colors.red,
-                                                          borderRadius: BorderRadius.circular(6),
-                                                        ),
-                                                        constraints: BoxConstraints(
-                                                          minWidth: ScreenUtil().setWidth(14),
-                                                          minHeight: ScreenUtil().setHeight(14),
-                                                        ),
-                                                        child: ExtendedText(
-                                                          string: Provider.of<SharedRoot>(context)
-                                                              .notificationList
-                                                              .where((n) => n.status == 0)
-                                                              .length
-                                                              .toString(),
-                                                          textAlign: TextAlign.center,
-                                                        ),
-                                                      )
-                                                    : SizedBox(),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Icon(
-                                      Icons.date_range,
-                                      size: iconSize,
-                                      color: ConstRootColors.icons,
-                                    ),
-                                    // Icon(
-                                    //   CommunityMaterialIcons.gift,
-                                    //   size: iconSize,
-                                    //   color: ConstRootColors.icons,
-                                    // ),
-
-                                    Icon(CommunityMaterialIcons.spa_outline,
-                                        size: iconSize, color: ConstRootColors.icons),
-                                    // Icon(Icons.live_tv, size: iconSize, color: iconColors),
-                                  ],
-                                  color: Color(0xff0d3c61),
-                                  buttonBackgroundColor: Color(0xff0d3c61),
-                                  animationCurve: Curves.easeInOut,
-                                  animationDuration: Duration(milliseconds: 600),
-                                  onTap: (index) {
-                                    setState(() {
-                                      getPageCntrl(context).jumpToPage(index);
-                                    });
-                                  },
-                                ),
-                        ),
-                      )),
-                ),
-                noInternet ? WidgetNoConnection() : SizedBox(),
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: AnimatedSwitcher(
-                        duration: Duration(milliseconds: 500),
-                        child: Provider.of<SharedRoot>(context).hideBars
-                            ? SizedBox()
-                            : Container(
-                                width: double.infinity,
-                                height: ScreenUtil().setHeight(170),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: AppColors.blueOpcity.withOpacity(0.9)),
-                                child: Center(
-                                    child: AnimatedSwitcher(
-                                  // key: ValueKey('any'),
-                                  duration: Duration(milliseconds: 500),
-                                  child: getTitleWidget(context),
-                                )),
-                              ))),
-              ],
+                              : Container(
+                                  width: double.infinity,
+                                  height: ScreenUtil().setHeight(170),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: AppColors.blueOpcity
+                                          .withOpacity(0.9)),
+                                  child: Center(
+                                      child: AnimatedSwitcher(
+                                    // key: ValueKey('any'),
+                                    duration: Duration(milliseconds: 500),
+                                    child: getTitleWidget(context),
+                                  )),
+                                ))),
+                ],
+              ),
             )),
       ),
     );
@@ -348,9 +392,13 @@ class _Index extends State<Index> with SingleTickerProviderStateMixin, WidgetsBi
       );
     else if (pageIndex == 1)
       return ExtendedText(
-          key: ValueKey('value2'), string: '~ الاشعارات ~', fontSize: ExtendedText.xbigFont);
+          key: ValueKey('value2'),
+          string: '~ الاشعارات ~',
+          fontSize: ExtendedText.xbigFont);
     else
       return ExtendedText(
-          key: ValueKey('value3'), string: '~ الاعدادات ~', fontSize: ExtendedText.xbigFont);
+          key: ValueKey('value3'),
+          string: '~ الاعدادات ~',
+          fontSize: ExtendedText.xbigFont);
   }
 }

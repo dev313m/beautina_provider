@@ -33,7 +33,11 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
   double priceAfter = 0;
   String otherServiceName = '';
   String chosenService = '';
-  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
+  bool isShowPrice = false;
+
+  bool isMainServiceChosen = false;
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
 
   bool showOther = false; //show adding other service
   List<DropdownMenuItem> subCategoryList = [];
@@ -88,7 +92,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
       );
       selectedCategory.add(false);
     });
-    selectedCategory[0] = true;
+    selectedCategory[0] = false;
   }
 
   @override
@@ -135,7 +139,8 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                       renderBorder: false,
                       onPressed: (index) {
                         indexCategory = index;
-                        selectedCategory = selectedCategory.map((f) => false).toList();
+                        selectedCategory =
+                            selectedCategory.map((f) => false).toList();
                         iniSubCategory();
                         selectedCategory[index] = true;
                         showOther = false;
@@ -147,56 +152,68 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                           showOther = true;
                           String msg =
                               "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
+
                           showAlert(context, msg: msg, dismiss: 'تم');
                         }
+
+                        if (index == selectedCategory.length - 1) {
+                          isMainServiceChosen = false;
+                        } else
+                          isMainServiceChosen = true;
+                        isShowPrice = false;
 
                         setState(() {});
                       });
                 }),
               ),
               SizedBox(height: ScreenUtil().setHeight(15)),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      left: ScreenUtil().setWidth(19), right: ScreenUtil().setWidth(19)),
-                  decoration: BoxDecoration(
-                    color: AppColors.purpleColor,
-                  ),
-                  height: ScreenUtil().setHeight(100),
-                  child: DropdownButton(
-                    items: subCategoryList,
 
-                    focusColor: AppColors.purpleColor,
-
-                    elevation: 39,
-                    // autofocus: true,
-                    onChanged: (item) {
-                      chosenService = item;
-                      setState(() {
-                        value = item;
-                      });
-
-                      // newMap[item.split('-')[0]] = item.split('-')[1];
-                    },
-                    // elevation: 20,
-                    // isDense: true,
-                    // selectedItemBuilder: (context) {
-                    //   return [];
-                    // },
-                    value: value,
-                    hint: ExtendedText(string: 'اختاري الخدمة'),
-                    // elevation: 40,
-                    style: TextStyle(
-                      color: AppColors.pinkBright,
+              if (isMainServiceChosen)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(14),
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: ScreenUtil().setWidth(19),
+                        right: ScreenUtil().setWidth(19)),
+                    decoration: BoxDecoration(
+                      color: AppColors.purpleColor,
                     ),
-                    icon: Icon(CommunityMaterialIcons.arrow_down_drop_circle),
-                    isExpanded: true,
+                    height: ScreenUtil().setHeight(100),
+                    child: DropdownButton(
+                      items: subCategoryList,
 
-                    underline: Text(''),
+                      focusColor: AppColors.purpleColor,
+
+                      elevation: 39,
+                      // autofocus: true,
+                      onChanged: (item) {
+                        isShowPrice = true;
+                        // if (item == 'other') showOther = true;
+                        chosenService = item;
+                        setState(() {
+                          value = item;
+                        });
+
+                        // newMap[item.split('-')[0]] = item.split('-')[1];
+                      },
+                      // elevation: 20,
+                      // isDense: true,
+                      // selectedItemBuilder: (context) {
+                      //   return [];
+                      // },
+                      value: value,
+                      hint: ExtendedText(string: 'اختاري الخدمة'),
+                      // elevation: 40,
+                      style: TextStyle(
+                        color: AppColors.pinkBright,
+                      ),
+                      icon: Icon(CommunityMaterialIcons.arrow_down_drop_circle),
+                      isExpanded: true,
+
+                      underline: Text(''),
+                    ),
                   ),
                 ),
-              ),
               if (showOther)
                 Directionality(
                   textDirection: TextDirection.rtl,
@@ -205,34 +222,39 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                     height: ScreenUtil().setHeight(100),
                     onChanged: (str) {
                       otherServiceName = str;
+                      isShowPrice = true;
+                      setState(() {});
                     },
                     prefixIcon: Icon(
                       CommunityMaterialIcons.ticket,
                       color: AppColors.pinkBright,
                     ),
                     placeholder: 'اسم الخدمة',
+                    textStyle: TextStyle(color: AppColors.pinkBright),
                     inputType: TextInputType.text,
                   ),
                 ),
               SizedBox(height: ScreenUtil().setHeight(17)),
 
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: BeautyTextfieldT(
-                  width: ScreenUtil().setHeight(200),
-                  height: ScreenUtil().setHeight(90),
-                  onChanged: (String s) {
-                    priceAfter = double.parse(s);
-                  },
-                  textStyle: TextStyle(color: AppColors.pinkBright),
-                  prefixIcon: Icon(
-                    Icons.attach_money,
-                    color: AppColors.pinkBright,
+              if (isShowPrice)
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: BeautyTextfieldT(
+                    width: ScreenUtil().setHeight(200),
+                    height: ScreenUtil().setHeight(90),
+                    onChanged: (String s) {
+                      priceAfter = double.parse(s);
+                    },
+                    textStyle: TextStyle(color: AppColors.pinkBright),
+                    prefixIcon: Icon(
+                      Icons.attach_money,
+                      color: AppColors.pinkBright,
+                    ),
+                    placeholder: 'السعر',
+                    onSubmitted: (tex) {},
+                    inputType: TextInputType.number,
                   ),
-                  placeholder: 'السعر',
-                  inputType: TextInputType.number,
                 ),
-              ),
 
               SizedBox(height: ScreenUtil().setHeight(17)),
               // Row(
@@ -297,10 +319,12 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                     if (checkFields()) {
                       _btnController.start();
 
-                      ModelBeautyProvider bp = await sharedUserProviderGetInfo();
+                      ModelBeautyProvider bp =
+                          await sharedUserProviderGetInfo();
                       try {
                         Provider.of<SharedSalon>(context).beautyProvider =
-                            await apiBeautyProviderUpdate(bp..servicespro = getNewMap());
+                            await apiBeautyProviderUpdate(
+                                bp..servicespro = getNewMap());
                         // setState(() {});
                         showToast('تمت الاضافة بنجاح');
                         _btnController.success();
@@ -329,13 +353,16 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
   }
 
   Map<String, dynamic> getNewMap() {
-    ModelBeautyProvider beautyProvider = Provider.of<SharedSalon>(context).beautyProvider;
-    Map<String, dynamic> map = new Map<String, dynamic>.of(beautyProvider.servicespro);
+    ModelBeautyProvider beautyProvider =
+        Provider.of<SharedSalon>(context).beautyProvider;
+    Map<String, dynamic> map =
+        new Map<String, dynamic>.of(beautyProvider.servicespro);
     Map<String, dynamic> newMap = copyDeepMap(map);
 
     if (!showOther) {
       List<String> services = chosenService.split('-');
-      List<double> numbers = priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+      List<double> numbers =
+          priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
 
       if (newMap[services[0]] == null)
         newMap[services[0]] = {services[1]: numbers};
@@ -344,7 +371,8 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
     } else {
       if (newMap['other'] == null)
         newMap['other'] = {
-          otherServiceName: priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
+          otherServiceName:
+              priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
         };
       else
         newMap['other'][otherServiceName] =
