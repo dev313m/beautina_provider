@@ -291,7 +291,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
 
                   Container(
                       padding: EdgeInsets.only(
-                          top: ScreenUtil().setHeight(240),
+                          top: ScreenUtil().setHeight(30),
                           left: ScreenUtil().setWidth(20),
                           right: ScreenUtil().setWidth(20)),
                       child: Column(
@@ -307,53 +307,13 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                             )
                           else
                             Platform.isAndroid
-                                ? Expanded(
-                                    child: InkWell(
-                                      onTap: () async {
-                                        setState(() {
-                                          loading = true;
-                                        });
-                                        try {
-                                          await loginWithGoogle(context);
-                                        } catch (e) {
-                                          showToast(e.toString());
-                                        }
-                                        setState(() {
-                                          loading = false;
-                                        });
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(25),
-                                        child: Container(
-                                          color: ConstLoginColors.google,
-                                          child: Padding(
-                                            padding: EdgeInsets.all(
-                                                ScreenUtil().setHeight(16)),
-                                            child: Column(
-                                              children: <Widget>[
-                                                ExtendedText(
-                                                  string: 'التسجيل بواسطة جوجل',
-                                                  fontSize:
-                                                      ExtendedText.xbigFont,
-                                                ),
-                                                Icon(
-                                                  CommunityMaterialIcons.google,
-                                                  color: Colors.white,
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : InkWell(
+                                ? InkWell(
                                     onTap: () async {
                                       setState(() {
                                         loading = true;
                                       });
                                       try {
-                                        await loginWithApple(context);
+                                        await loginWithGoogle(context);
                                       } catch (e) {
                                         showToast(e.toString());
                                       }
@@ -362,33 +322,84 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                       });
                                     },
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(25),
                                       child: Container(
-                                        color: ConstLoginColors.apple,
+                                        color: ConstLoginColors.google,
                                         child: Padding(
                                           padding: EdgeInsets.all(
                                               ScreenUtil().setHeight(16)),
                                           child: Column(
                                             children: <Widget>[
-                                              Text('التسجيل بواسطة ابل'),
+                                              ExtendedText(
+                                                string: 'التسجيل بواسطة جوجل',
+                                                fontSize: ExtendedText.xbigFont,
+                                              ),
                                               Icon(
-                                                CommunityMaterialIcons.apple,
+                                                CommunityMaterialIcons.google,
                                                 color: Colors.white,
                                               )
                                             ],
                                           ),
                                         ),
                                       ),
-                                    )),
-                          // AnimatedSubmitButton(
-                          //     animationDuration: Duration(seconds: 1),
-                          //     color: Colors.green,
-                          //     height: screenHeight / 10,
-                          //     insideWidget: Text('الدخول بحساب جوجل'),
-                          //     splashColor: Colors.blue,
-                          //     width: screenWidth / 1.2,
-                          //     function: onConfirmPhoneNumber(context),
-                          //   )
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      InkWell(
+                                          onTap: () async {
+                                            setState(() {
+                                              loading = true;
+                                            });
+                                            try {
+                                              await loginWithApple(context);
+                                            } catch (e) {
+                                              showToast(e.toString());
+                                            }
+                                            setState(() {
+                                              loading = false;
+                                            });
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            child: Container(
+                                              color: ConstLoginColors.apple,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(
+                                                    ScreenUtil().setHeight(16)),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      'التسجيل بواسطة ابل',
+                                                      style: TextStyle(
+                                                          // fontSize: 19,
+                                                          color: Colors.white),
+                                                    ),
+                                                    Icon(
+                                                      CommunityMaterialIcons
+                                                          .apple,
+                                                      color: Colors.white,
+                                                      // size: 35,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          '( يجب اضافة صلاحية دخول الايميل )',
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 10),
+                                          // fontColor: Colors.white,
+                                          // fontSize: ExtendedText.smallFont,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                           SizedBox(
                             height: ScreenUtil().setHeight(20),
                           ),

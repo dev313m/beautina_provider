@@ -111,8 +111,8 @@ class _Index extends State<Index>
       print('token is: ' + token);
     });
 
-    _fcmFore.requestNotificationPermissions(
-        IosNotificationSettings(sound: true, badge: true, alert: true));
+    _fcmFore.requestNotificationPermissions(IosNotificationSettings(
+        sound: true, badge: true, alert: true, provisional: false));
     _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
