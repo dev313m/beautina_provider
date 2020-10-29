@@ -49,7 +49,8 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection == ScrollDirection.reverse)
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse)
         Provider.of<SharedRoot>(context).hideBars = true;
       else if (Provider.of<SharedRoot>(context).hideBars)
         Provider.of<SharedRoot>(context).hideBars = false;
@@ -73,10 +74,12 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
               physics: AlwaysScrollableScrollPhysics(),
               children: <Widget>[
                 Container(
-                  height: ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
+                  height:
+                      ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
                 ),
                 Container(
-                    padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(33)),
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(33)),
                     decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.3),
                         // image: AssetImage(assetName),
@@ -87,11 +90,13 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           onTap: () async {
                             File file = await imageChoose();
                             if (await file.exists() == false) return;
-                            DefaultCacheManager manager = new DefaultCacheManager();
+                            DefaultCacheManager manager =
+                                new DefaultCacheManager();
                             manager.emptyCache();
                             imageLoad = true;
                             setState(() {});
-                            bool response = await imageUpload(file, beautyProvider.uid);
+                            bool response =
+                                await imageUpload(file, beautyProvider.uid);
                             if (response) {
                               try {
                                 // imageCache.clear();
@@ -129,7 +134,8 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           padding: EdgeInsets.all(ScreenUtil().setHeight(10)),
                           child: RatingBar.readOnly(
                             maxRating: 5,
-                            initialRating: (beautyProvider.points / beautyProvider.achieved),
+                            initialRating: (beautyProvider.points /
+                                beautyProvider.achieved),
                             filledIcon: CommunityMaterialIcons.heart,
                             emptyIcon: CommunityMaterialIcons.heart_outline,
                             halfFilledIcon: CommunityMaterialIcons.heart_half,
@@ -172,11 +178,19 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                         ),
                       ],
                     )),
-                if (Provider.of<SharedSalon>(context).beautyProvider.location.length != 2)
+                if (Provider.of<SharedSalon>(context)
+                        .beautyProvider
+                        .location
+                        .length !=
+                    2)
                   SizedBox(
                     height: ScreenUtil().setHeight(10),
                   ),
-                if (Provider.of<SharedSalon>(context).beautyProvider.location.length != 2)
+                if (Provider.of<SharedSalon>(context)
+                        .beautyProvider
+                        .location
+                        .length !=
+                    2)
                   Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -185,7 +199,8 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                       child: Column(
                         children: <Widget>[
                           Icon(Icons.error_outline,
-                              color: Colors.red, size: ScreenUtil().setHeight(200)),
+                              color: Colors.red,
+                              size: ScreenUtil().setHeight(200)),
                           ExtendedText(
                             string:
                                 'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه',
@@ -237,9 +252,11 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                              * 2- update and save in shared
                              * 3- get shared and notifylisteners
                              */
-                            ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
+                            ModelBeautyProvider mbp =
+                                await sharedUserProviderGetInfo();
 
-                            await apiBeautyProviderUpdate(mbp..available = !mbp.available);
+                            await apiBeautyProviderUpdate(
+                                mbp..available = !mbp.available);
 
                             // Provider.of<SharedSalon>(context).beautyProvider = mbp;
                             // setState(() {});
@@ -257,7 +274,9 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                             FlareActor(
                               'assets/rive/bulb.flr',
 
-                              animation: beautyProvider.available ? 'lightOn' : 'lightOff',
+                              animation: beautyProvider.available
+                                  ? 'lightOn'
+                                  : 'lightOff',
                               shouldClip: false,
                               snapToEnd: false,
                               // controller: ,
@@ -285,11 +304,17 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
-                if (Provider.of<SharedSalon>(context).providedServices.containsKey('services'))
-                  if (Provider.of<SharedSalon>(context).providedServices['services'].keys.length !=
+                if (Provider.of<SharedSalon>(context)
+                    .providedServices
+                    .containsKey('services'))
+                  if (Provider.of<SharedSalon>(context)
+                          .providedServices['services']
+                          .keys
+                          .length !=
                       0)
                     WidgetAddService(
-                      mapServices: Provider.of<SharedSalon>(context).providedServices['services'],
+                      mapServices: Provider.of<SharedSalon>(context)
+                          .providedServices['services'],
                     ),
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
@@ -309,23 +334,10 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: ShaderMask(
-              shaderCallback: (rect) {
-                return LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black,
-                  ],
-                ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-              },
-              blendMode: BlendMode.overlay,
-              child: Container(
-                color: Colors.transparent,
-                height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-                width: ScreenResolution.width,
-              ),
+            child: Container(
+              color: Colors.transparent,
+              height: ScreenUtil().setHeight(ConstRootSizes.navigation),
+              width: ScreenResolution.width,
             ),
           ),
         ],
@@ -383,7 +395,8 @@ class WidgetHowLookSearch extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => PageHowILookSearch(beautyProvider: beautyProvider)),
+                      builder: (context) =>
+                          PageHowILookSearch(beautyProvider: beautyProvider)),
                 );
               },
             ),
@@ -475,7 +488,8 @@ class InfoItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String value;
-  const InfoItem({Key key, this.icon, this.title, this.value}) : super(key: key);
+  const InfoItem({Key key, this.icon, this.title, this.value})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -485,7 +499,9 @@ class InfoItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ExtendedText(
-              string: title, textAlign: TextAlign.center, textDirection: TextDirection.rtl),
+              string: title,
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl),
           Icon(
             icon,
             size: ScreenUtil().setSp(60),

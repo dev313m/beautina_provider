@@ -70,8 +70,9 @@ class _OrderListPageState extends State<OrderListPage> {
                     shrinkWrap: true,
                     itemBuilder: (_, index) {
                       return JustOrderWidget(
-                        order:
-                            sharedOrder.orderList.where((item) => item.status == 3).toList()[index],
+                        order: sharedOrder.orderList
+                            .where((item) => item.status == 3)
+                            .toList()[index],
                       );
                     },
                   ),
@@ -99,27 +100,14 @@ class _OrderListPageState extends State<OrderListPage> {
                 )),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ShaderMask(
-                shaderCallback: (rect) {
-                  return LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black,
-                    ],
-                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                },
-                blendMode: BlendMode.overlay,
-                child: Container(
-                  color: Colors.transparent,
-                  height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-                  width: ScreenResolution.width,
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Container(
+            //     color: Colors.transparent,
+            //     height: ScreenUtil().setHeight(ConstRootSizes.navigation),
+            //     width: ScreenResolution.width,
+            //   ),
+            // ),
           ],
         ),
       );
@@ -165,7 +153,10 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                   ),
                   ListView.builder(
                     itemCount: sharedOrder.orderList
-                        .where((item) => item.status != 0 && item.status != 1 && item.status != 3)
+                        .where((item) =>
+                            item.status != 0 &&
+                            item.status != 1 &&
+                            item.status != 3)
                         .toList()
                         .length,
                     physics: NeverScrollableScrollPhysics(),
@@ -173,8 +164,10 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                     itemBuilder: (_, index) {
                       return JustOrderWidget(
                         order: sharedOrder.orderList
-                            .where(
-                                (item) => item.status != 0 && item.status != 1 && item.status != 3)
+                            .where((item) =>
+                                item.status != 0 &&
+                                item.status != 1 &&
+                                item.status != 3)
                             .toList()[index],
                       );
                     },
@@ -203,27 +196,14 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                 )),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ShaderMask(
-                shaderCallback: (rect) {
-                  return LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black,
-                    ],
-                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                },
-                blendMode: BlendMode.overlay,
-                child: Container(
-                  color: Colors.transparent,
-                  height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-                  width: ScreenResolution.width,
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Container(
+            //     color: Colors.transparent,
+            //     height: ScreenUtil().setHeight(ConstRootSizes.navigation),
+            //     width: ScreenResolution.width,
+            //   ),
+            // ),
           ],
         ),
       );
@@ -269,8 +249,8 @@ class _PageOrderDetailState extends State<PageOrderDetail> {
                     )),
                   ),
                   JustOrderWidget(
-                      order: sharedOrder.orderList
-                          .firstWhere((item) => item.doc_id == widget.order.doc_id))
+                      order: sharedOrder.orderList.firstWhere(
+                          (item) => item.doc_id == widget.order.doc_id))
                 ],
               ),
             ),
@@ -295,27 +275,14 @@ class _PageOrderDetailState extends State<PageOrderDetail> {
                 )),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ShaderMask(
-                shaderCallback: (rect) {
-                  return LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black,
-                    ],
-                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                },
-                blendMode: BlendMode.overlay,
-                child: Container(
-                  color: Colors.transparent,
-                  height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-                  width: ScreenResolution.width,
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Container(
+            //     color: Colors.transparent,
+            //     height: ScreenUtil().setHeight(ConstRootSizes.navigation),
+            //     width: ScreenResolution.width,
+            //   ),
+            // ),
           ],
         ),
       );

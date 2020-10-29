@@ -180,27 +180,6 @@ class _PagePackageState extends State<PagePackage> {
               );
             }),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ShaderMask(
-              shaderCallback: (rect) {
-                return LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black,
-                  ],
-                ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-              },
-              blendMode: BlendMode.overlay,
-              child: Container(
-                color: Colors.transparent,
-                height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-                width: ScreenResolution.width,
-              ),
-            ),
-          ),
         ],
       );
     });

@@ -10,7 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 final String GOOGLE_APP_URL =
-    'http://play.google.com/store/apps/details?id=com.google.android.apps.maps';
+    'http://play.google.com/store/apps/details?id=com.beautina.service_provider';
+final String APPLE_APP_URL =
+    'https://apps.apple.com/us/app/beautina.service-provider/id1536944501';
 onAlertWithCustomImagePressed(context) {
   Alert(
     context: context,
@@ -67,8 +69,8 @@ onAlertWithCustomContentPressed(context) {
         DialogButton(
           width: ScreenUtil().setWidth(150),
           onPressed: () {
-            var url = GOOGLE_APP_URL;
-            url = Platform.isIOS ? APP_URL_IOS : APP_URL_ANRROID;
+            var url;
+            url = Platform.isIOS ? APPLE_APP_URL : GOOGLE_APP_URL;
             launchURL(url);
           },
           color: AppColors.blue,

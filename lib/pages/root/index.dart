@@ -213,141 +213,119 @@ class _Index extends State<Index>
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: ShaderMask(
-                        shaderCallback: (rect) {
-                          return LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black,
-                            ],
-                          ).createShader(
-                              Rect.fromLTWH(0, 0, rect.width, rect.height));
-                        },
-                        blendMode: BlendMode.overlay,
-                        child: Container(
-                          color: Colors.transparent,
-                          height:
-                              ScreenUtil().setHeight(ConstRootSizes.navigation),
-                          width: ScreenResolution.width,
-                          child: AnimatedSwitcher(
-                            duration: Duration(milliseconds: 500),
-                            child: Provider.of<SharedRoot>(context).hideBars
-                                ? SizedBox()
-                                : CurvedNavigationBar(
-                                    backgroundColor: Colors.transparent,
-                                    index: pageIndex,
-                                    height: ScreenUtil()
-                                        .setHeight(ConstRootSizes.navigation),
-                                    items: <Widget>[
-                                      Icon(CommunityMaterialIcons.settings,
-                                          size: iconSize,
-                                          color: ConstRootColors.icons),
-                                      Stack(
-                                        overflow: Overflow.visible,
-                                        fit: StackFit.passthrough,
+                    child: Container(
+                      color: Colors.transparent,
+                      height: ScreenUtil().setHeight(ConstRootSizes.navigation),
+                      width: ScreenResolution.width,
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 500),
+                        child: Provider.of<SharedRoot>(context).hideBars
+                            ? SizedBox()
+                            : CurvedNavigationBar(
+                                backgroundColor: Colors.transparent,
+                                index: pageIndex,
+                                height: ScreenUtil()
+                                    .setHeight(ConstRootSizes.navigation),
+                                items: <Widget>[
+                                  Icon(CommunityMaterialIcons.settings,
+                                      size: iconSize,
+                                      color: ConstRootColors.icons),
+                                  Stack(
+                                    overflow: Overflow.visible,
+                                    fit: StackFit.passthrough,
+                                    children: <Widget>[
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            Icons.notifications,
+                                            size: iconSize,
+                                            color: ConstRootColors.icons,
+                                          )),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Align(
-                                              alignment: Alignment.center,
-                                              child: Icon(
-                                                Icons.notifications,
-                                                size: iconSize,
-                                                color: ConstRootColors.icons,
-                                              )),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    ScreenUtil().setHeight(40),
-                                                    0,
-                                                    0,
-                                                    ScreenUtil().setHeight(40)),
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.topCenter,
-                                                  child: Provider.of<SharedRoot>(
-                                                                  context)
-                                                              .notificationList
-                                                              .where((n) =>
-                                                                  n.status == 0)
-                                                              .length !=
-                                                          0
-                                                      ? new Container(
-                                                          padding:
-                                                              EdgeInsets.all(2),
-                                                          decoration:
-                                                              new BoxDecoration(
-                                                            color: Colors.red,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        6),
-                                                          ),
-                                                          constraints:
-                                                              BoxConstraints(
-                                                            minWidth:
-                                                                ScreenUtil()
-                                                                    .setWidth(
-                                                                        14),
-                                                            minHeight:
-                                                                ScreenUtil()
-                                                                    .setHeight(
-                                                                        14),
-                                                          ),
-                                                          child: ExtendedText(
-                                                            string: Provider.of<
-                                                                        SharedRoot>(
-                                                                    context)
-                                                                .notificationList
-                                                                .where((n) =>
-                                                                    n.status ==
-                                                                    0)
-                                                                .length
-                                                                .toString(),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        )
-                                                      : SizedBox(),
-                                                ),
-                                              ),
-                                            ],
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                ScreenUtil().setHeight(40),
+                                                0,
+                                                0,
+                                                ScreenUtil().setHeight(40)),
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Provider.of<SharedRoot>(
+                                                              context)
+                                                          .notificationList
+                                                          .where((n) =>
+                                                              n.status == 0)
+                                                          .length !=
+                                                      0
+                                                  ? new Container(
+                                                      padding:
+                                                          EdgeInsets.all(2),
+                                                      decoration:
+                                                          new BoxDecoration(
+                                                        color: Colors.red,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                        minWidth: ScreenUtil()
+                                                            .setWidth(14),
+                                                        minHeight: ScreenUtil()
+                                                            .setHeight(14),
+                                                      ),
+                                                      child: ExtendedText(
+                                                        string: Provider.of<
+                                                                    SharedRoot>(
+                                                                context)
+                                                            .notificationList
+                                                            .where((n) =>
+                                                                n.status == 0)
+                                                            .length
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    )
+                                                  : SizedBox(),
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      Icon(
-                                        Icons.date_range,
-                                        size: iconSize,
-                                        color: ConstRootColors.icons,
-                                      ),
-                                      // Icon(
-                                      //   CommunityMaterialIcons.gift,
-                                      //   size: iconSize,
-                                      //   color: ConstRootColors.icons,
-                                      // ),
-
-                                      Icon(CommunityMaterialIcons.spa_outline,
-                                          size: iconSize,
-                                          color: ConstRootColors.icons),
-                                      // Icon(Icons.live_tv, size: iconSize, color: iconColors),
                                     ],
-                                    color: Color(0xff0d3c61),
-                                    buttonBackgroundColor: Color(0xff0d3c61),
-                                    animationCurve: Curves.easeInOut,
-                                    animationDuration:
-                                        Duration(milliseconds: 600),
-                                    onTap: (index) {
-                                      setState(() {
-                                        getPageCntrl(context).jumpToPage(index);
-                                      });
-                                    },
                                   ),
-                          ),
-                        )),
+                                  Icon(
+                                    Icons.date_range,
+                                    size: iconSize,
+                                    color: ConstRootColors.icons,
+                                  ),
+                                  // Icon(
+                                  //   CommunityMaterialIcons.gift,
+                                  //   size: iconSize,
+                                  //   color: ConstRootColors.icons,
+                                  // ),
+
+                                  Icon(CommunityMaterialIcons.spa_outline,
+                                      size: iconSize,
+                                      color: ConstRootColors.icons),
+                                  // Icon(Icons.live_tv, size: iconSize, color: iconColors),
+                                ],
+                                color: Color(0xff0d3c61),
+                                buttonBackgroundColor: Color(0xff0d3c61),
+                                animationCurve: Curves.easeInOut,
+                                animationDuration: Duration(milliseconds: 600),
+                                onTap: (index) {
+                                  setState(() {
+                                    getPageCntrl(context).jumpToPage(index);
+                                  });
+                                },
+                              ),
+                      ),
+                    ),
                   ),
                   noInternet ? WidgetNoConnection() : SizedBox(),
                   Align(
