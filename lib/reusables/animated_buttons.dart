@@ -7,7 +7,7 @@ class AnimatedSubmitButton extends StatefulWidget {
   final double width;
   final Widget insideWidget;
   final Duration animationDuration;
-  final Color splashColor; 
+  final Color splashColor;
   AnimatedSubmitButton(
       {Key key,
       this.splashColor,
@@ -34,8 +34,7 @@ class _AnimatedSubmitButtonState extends State<AnimatedSubmitButton>
         upperBound: widget.width - widget.height,
         lowerBound: 1);
     animationController.addListener(() async {
-      this.setState(() {
-      });
+      this.setState(() {});
     });
     super.initState();
   }
@@ -53,7 +52,7 @@ class _AnimatedSubmitButtonState extends State<AnimatedSubmitButton>
       height: widget.height,
       width: widget.width - animationController.value,
       child: Material(
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.circular(9.0),
         shadowColor: widget.color.withAlpha(99),
         color: widget.color,
         elevation: 7.0,

@@ -1,8 +1,9 @@
-import 'package:beautina_provider/pages/dates/shared_variables_order.dart';
-import 'package:beautina_provider/pages/my_salon/shared_mysalon.dart';
-import 'package:beautina_provider/pages/root/index.dart';
-import 'package:beautina_provider/pages/root/shared_variable_root.dart';
-import 'package:beautina_provider/pages/signing_pages/index.dart';
+import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
+import 'package:beautina_provider/screens/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/screens/root/index.dart';
+import 'package:beautina_provider/screens/root/vm/vm_data.dart';
+import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
+import 'package:beautina_provider/screens/signing_pages/index.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -36,8 +37,11 @@ class MyApp extends StatelessWidget {
     return registered != null
         ? MultiProvider(
             providers: [
-              ChangeNotifierProvider<SharedRoot>(
-                builder: (_) => SharedRoot(build: true),
+              ChangeNotifierProvider<VMRootData>(
+                builder: (_) => VMRootData(build: true),
+              ),
+              ChangeNotifierProvider<VMRootUi>(
+                builder: (_) => VMRootUi(),
               ),
               ChangeNotifierProvider<SharedOrder>(
                 builder: (_) => SharedOrder(build: true),
@@ -65,8 +69,11 @@ class MyApp extends StatelessWidget {
           )
         : MultiProvider(
             providers: [
-              ChangeNotifierProvider<SharedRoot>(
-                builder: (_) => SharedRoot(build: false),
+              ChangeNotifierProvider<VMRootData>(
+                builder: (_) => VMRootData(build: false),
+              ),
+              ChangeNotifierProvider<VMRootUi>(
+                builder: (_) => VMRootUi(),
               ),
               ChangeNotifierProvider<SharedSalon>(
                 builder: (_) => SharedSalon(build: false),
