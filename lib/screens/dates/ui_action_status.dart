@@ -113,7 +113,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
         child: Column(
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.circular(9),
+              borderRadius: BorderRadius.circular(12),
               child: TextField(
                 maxLength: 250,
                 maxLines: 3,
@@ -128,7 +128,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                   hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   icon: Icon(CommunityMaterialIcons.pen),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   // fillColor: Colors.white,
                 ),
@@ -219,7 +219,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                   icon: Icon(CommunityMaterialIcons.watch),
                   filled: true,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   fillColor: Colors.white70,
                 ),
@@ -304,7 +304,7 @@ class WidgetFinish extends StatelessWidget {
         child: Column(
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.circular(9),
+              borderRadius: BorderRadius.circular(12),
               child: TextField(
                 maxLength: 250,
                 maxLines: 3,
@@ -317,7 +317,7 @@ class WidgetFinish extends StatelessWidget {
                   hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   icon: Icon(CommunityMaterialIcons.pen),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   fillColor: Colors.white,
                 ),

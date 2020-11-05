@@ -7,6 +7,6 @@ class ConstRootColors {
 
 class ConstRootSizes {
   static const navigation = 83;
-  static const navigation_ios = 120;
+  static const navigation_ios = 140;
   static const topContainer = 170;
 }

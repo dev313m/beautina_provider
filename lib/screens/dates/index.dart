@@ -185,7 +185,7 @@ class _DatePageState extends State<DatePage>
               //       padding: EdgeInsets.all(ScreenUtil().setWidth(20)),
               //       decoration: BoxDecoration(
               //           color: AppColors.purpleColor,
-              //           borderRadius: BorderRadius.circular(9)),
+              //           borderRadius: BorderRadius.circular(12)),
               //       child: Column(
               //         children: <Widget>[
               //           ExtendedText(
@@ -202,7 +202,7 @@ class _DatePageState extends State<DatePage>
                     child: Hero(
                       tag: 'bbb',
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(9),
+                        borderRadius: BorderRadius.circular(12),
                         child: SpringButton(
                           SpringButtonType.WithOpacity,
                           Container(
@@ -212,7 +212,7 @@ class _DatePageState extends State<DatePage>
                                 // width: ScreenUtil().setWidth(200),
                                 decoration: BoxDecoration(
                                     color: ConstDatesColors.topBtns,
-                                    borderRadius: BorderRadius.circular(9)),
+                                    borderRadius: BorderRadius.circular(12)),
                                 height: ScreenUtil().setHeight(100),
                                 child: Center(
                                   child: ExtendedText(
@@ -249,7 +249,7 @@ class _DatePageState extends State<DatePage>
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: ConstDatesColors.topBtns,
-                                      borderRadius: BorderRadius.circular(9)),
+                                      borderRadius: BorderRadius.circular(12)),
                                   height: ScreenUtil().setHeight(100),
                                   child: Center(
                                     child: ExtendedText(
@@ -335,7 +335,7 @@ class _OrdersListState extends State<OrdersList> {
                   padding: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9),
+                      borderRadius: BorderRadius.circular(12),
                       color: ConstDatesColors.littleList.withAlpha(200),
                     ),
                     // height: ScreenUtil().setHeight(210),
@@ -351,7 +351,7 @@ class _OrdersListState extends State<OrdersList> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white38,
-                                    borderRadius: BorderRadius.circular(9),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Center(
                                     child: ExtendedText(

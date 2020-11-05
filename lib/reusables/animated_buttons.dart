@@ -52,7 +52,7 @@ class _AnimatedSubmitButtonState extends State<AnimatedSubmitButton>
       height: widget.height,
       width: widget.width - animationController.value,
       child: Material(
-        borderRadius: BorderRadius.circular(9.0),
+        borderRadius: BorderRadius.circular(12),
         shadowColor: widget.color.withAlpha(99),
         color: widget.color,
         elevation: 7.0,

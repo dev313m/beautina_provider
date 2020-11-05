@@ -46,7 +46,7 @@ class _OrderListPageState extends State<OrderListPage> {
                     width: double.infinity,
                     height: ScreenUtil().setHeight(220),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9),
+                      borderRadius: BorderRadius.circular(12),
                       // color: AppColors.blueOpcity.withOpacity(0.9)
                     ),
                     child: Center(
@@ -86,7 +86,7 @@ class _OrderListPageState extends State<OrderListPage> {
                 width: double.infinity,
                 height: ScreenUtil().setHeight(170),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9),
+                  borderRadius: BorderRadius.circular(12),
                   color: ConstDatesColors.topBtns,
                 ),
                 child: Center(
@@ -142,7 +142,7 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                     width: double.infinity,
                     height: ScreenUtil().setHeight(220),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9),
+                      borderRadius: BorderRadius.circular(12),
                       // color: AppColors.blueOpcity.withOpacity(0.9)
                     ),
                     child: Center(
@@ -182,7 +182,7 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                 width: double.infinity,
                 height: ScreenUtil().setHeight(170),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9),
+                  borderRadius: BorderRadius.circular(12),
                   color: AppColors.pinkBright,
                 ),
                 child: Center(
@@ -239,7 +239,7 @@ class _PageOrderDetailState extends State<PageOrderDetail> {
                     width: double.infinity,
                     height: ScreenUtil().setHeight(220),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9),
+                      borderRadius: BorderRadius.circular(12),
                       // color: AppColors.blueOpcity.withOpacity(0.9)
                     ),
                     child: Center(
@@ -261,7 +261,7 @@ class _PageOrderDetailState extends State<PageOrderDetail> {
                 width: double.infinity,
                 height: ScreenUtil().setHeight(170),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9),
+                  borderRadius: BorderRadius.circular(12),
                   color: Colors.white38,
                 ),
                 child: Center(

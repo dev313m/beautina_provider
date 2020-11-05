@@ -131,7 +131,7 @@ class OrderButton extends StatelessWidget {
       width: _width / 3,
       height: _width / 8,
       child: Material(
-        borderRadius: BorderRadius.circular(9.0),
+        borderRadius: BorderRadius.circular(12),
         shadowColor: Colors.greenAccent,
         color: AppColors.pinkOpcity,
         child: InkWell(

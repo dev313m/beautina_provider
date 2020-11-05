@@ -169,7 +169,7 @@ class _PageSettingsState extends State<PageSettings> {
                         Container(
                           padding: EdgeInsets.all(ScreenUtil().setWidth(30)),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(9),
+                              borderRadius: BorderRadius.circular(12),
                               color: Colors.white24),
                           child: Form(
                             key: _formKey,
@@ -190,7 +190,7 @@ class _PageSettingsState extends State<PageSettings> {
                                         TextStyle(color: AppColors.blueOpcity),
                                     border: new OutlineInputBorder(
                                       borderRadius: const BorderRadius.all(
-                                        const Radius.circular(9.0),
+                                        const Radius.circular(12),
                                       ),
                                       // gapPadding: ScreenUtil().setWidth(20)
                                     ),
@@ -303,7 +303,7 @@ class _PageSettingsState extends State<PageSettings> {
                             width: double.infinity,
                             padding: EdgeInsets.all(ScreenUtil().setWidth(30)),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(9),
+                                borderRadius: BorderRadius.circular(12),
                                 color: Colors.white24),
                             child: Column(
                               children: <Widget>[
@@ -317,7 +317,7 @@ class _PageSettingsState extends State<PageSettings> {
                                   height: ScreenUtil().setHeight(40),
                                 ),
                                 ClipRRect(
-                                    borderRadius: BorderRadius.circular(9),
+                                    borderRadius: BorderRadius.circular(12),
                                     child: Container(
                                       child: Material(
                                         color: AppColors.pinkBright,
@@ -368,7 +368,7 @@ class _PageSettingsState extends State<PageSettings> {
                                   ],
                                 ),
                                 ClipRRect(
-                                    borderRadius: BorderRadius.circular(9),
+                                    borderRadius: BorderRadius.circular(12),
                                     child: Container(
                                       child: Material(
                                         color: AppColors.pinkBright,
@@ -452,7 +452,7 @@ class _PageSettingsState extends State<PageSettings> {
                             padding: EdgeInsets.symmetric(
                                 vertical: ScreenUtil().setWidth(30)),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(9),
+                                borderRadius: BorderRadius.circular(12),
                                 color: Colors.white24),
                             child: Column(
                               children: <Widget>[

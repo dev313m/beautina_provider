@@ -122,7 +122,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
       child: Container(
           color: CalendarColors.container,
           child: Stack(
@@ -177,7 +177,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                       fontSize: ExtendedText.defaultFont),
                   formatButtonDecoration: BoxDecoration(
                     color: CalendarColors.headerContainer,
-                    borderRadius: BorderRadius.circular(9.0),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
 
@@ -192,7 +192,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                           Container(
                             decoration: BoxDecoration(
                                 color: CalendarColors.todayContainer,
-                                borderRadius: BorderRadius.circular(9)),
+                                borderRadius: BorderRadius.circular(12)),
                             // margin: const EdgeInsets.all(4.0),
                             padding: const EdgeInsets.only(top: 5.0, left: 6.0),
                             width: ScreenUtil().setWidth(100),
@@ -281,7 +281,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                                       0
                                   ? CalendarColors.empty
                                   : CalendarColors.eventColor,
-                              borderRadius: BorderRadius.circular(9)),
+                              borderRadius: BorderRadius.circular(12)),
                           margin: const EdgeInsets.all(4.0),
                           padding: const EdgeInsets.only(top: 5.0, left: 6.0),
                           width: ScreenUtil().setWidth(100),
@@ -310,7 +310,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                     return Container(
                       decoration: BoxDecoration(
                           color: CalendarColors.todayContainer,
-                          borderRadius: BorderRadius.circular(9)),
+                          borderRadius: BorderRadius.circular(12)),
                       margin: const EdgeInsets.all(4.0),
                       padding: const EdgeInsets.only(top: 5.0, left: 6.0),
                       width: ScreenUtil().setWidth(100),
@@ -341,8 +341,8 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   // left: MediaQuery.of(context).size.width / 2 - ScreenUtil().setWidth(ConstDateSizes.reloadLeft),
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(9),
-                        bottomRight: Radius.circular(9)),
+                        topLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12)),
                     // color: Colors.pink,
                     child: Material(
                       color: Colors.purple,

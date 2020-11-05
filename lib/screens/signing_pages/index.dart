@@ -167,7 +167,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                 duration: Duration(seconds: 1),
                 prefixIcon: Icon(Icons.info_outline),
                 width: 0,
-                cornerRadius: BorderRadius.circular(9),
+                cornerRadius: BorderRadius.circular(12),
                 placeholder: ' الاسم',
                 wordSpacing: 2,
               ),
@@ -177,7 +177,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                 TextHolder(
                   backgroundColor: ConstLoginColors.regionColor,
                   borderColor: ConstLoginColors.regionColor,
-                  borderRadius: BorderRadius.circular(9),
+                  borderRadius: BorderRadius.circular(12),
                   function: () {
                     showPicker(context, _globalKey);
                   },
@@ -210,7 +210,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
             ),
             Center(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(9),
+                borderRadius: BorderRadius.circular(12),
                 child: Container(
                   height: ScreenUtil().setHeight(100),
                   // width: ScreenUtil().setWidth(200),
@@ -232,7 +232,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                     color: Colors.blue.withOpacity(0.6),
                     fillColor: Colors.blue,
 
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(12),
                     children: <Widget>[
                       Container(
                           width: ScreenUtil().setWidth(340),
@@ -305,7 +305,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                 });
                               },
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(9),
+                                borderRadius: BorderRadius.circular(12),
                                 child: Container(
                                   color: ConstLoginColors.google,
                                   child: Padding(
@@ -344,7 +344,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                       });
                                     },
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(9),
+                                      borderRadius: BorderRadius.circular(12),
                                       child: Container(
                                         color: Colors.white,
                                         child: Row(

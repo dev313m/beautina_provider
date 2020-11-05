@@ -84,7 +84,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                     decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.3),
                         // image: AssetImage(assetName),
-                        borderRadius: BorderRadius.circular(9)),
+                        borderRadius: BorderRadius.circular(12)),
                     child: Column(
                       children: <Widget>[
                         InkWell(
@@ -202,10 +202,13 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           Icon(Icons.error_outline,
                               color: Colors.red,
                               size: ScreenUtil().setHeight(200)),
-                          ExtendedText(
-                            string:
-                                'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه',
-                            fontSize: ExtendedText.xbigFont,
+                          Padding(
+                            child: ExtendedText(
+                              string:
+                                  'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه',
+                              fontSize: ExtendedText.xbigFont,
+                            ),
+                            padding: EdgeInsets.all(8.h),
                           )
                         ],
                       )),
@@ -216,7 +219,7 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                   height: ScreenUtil().setHeight(ConstRootSizes.topContainer),
                   decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(9)),
+                      borderRadius: BorderRadius.circular(12)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -227,10 +230,13 @@ class _PageSalonState extends State<PageSalon> with ContractSalon {
                           fontSize: ExtendedText.xbigFont,
                         )),
                       ),
-                      ExtendedText(
-                        string: '(اضغط على المصباح لإخفاء ظهورك عند البحث)',
-                        fontColor: ExtendedText.brightColors2,
-                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.w),
+                        child: ExtendedText(
+                          string: '(اضغط على المصباح لإخفاء ظهورك عند البحث)',
+                          fontColor: ExtendedText.brightColors2,
+                        ),
+                      )
                     ],
                   ),
                 ),

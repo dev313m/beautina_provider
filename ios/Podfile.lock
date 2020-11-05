@@ -330,7 +330,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - geolocator (5.3.0):
+  - "geolocator (6.0.0+4)":
     - Flutter
   - google_sign_in (0.0.1):
     - Flutter
@@ -403,8 +403,6 @@ PODS:
   - image_picker (0.0.1):
     - Flutter
   - leveldb-library (1.22)
-  - location_permissions (2.0.5):
-    - Flutter
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
     - nanopb/encode (= 1.30906.0)
@@ -439,7 +437,6 @@ DEPENDENCIES:
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - home_indicator (from `.symlinks/plugins/home_indicator/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
-  - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -504,8 +501,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/home_indicator/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
-  location_permissions:
-    :path: ".symlinks/plugins/location_permissions/ios"
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
   path_provider:
@@ -542,7 +537,7 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  geolocator: 7cdcf71180b80913b3cd84ab715d3b5365b378af
+  geolocator: 1ae40084cc6c1586ce5ad12cfc3fd38c64d05f2f
   google_sign_in: 6bd214b9c154f881422f5fe27b66aaa7bbd580cc
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
@@ -555,7 +550,6 @@ SPEC CHECKSUMS:
   home_indicator: 60c6a4b60d17173cd164c112eb9be37055b23af8
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  location_permissions: 4a49d4e5bec5b653643e551ab77963cc99bb0e4a
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

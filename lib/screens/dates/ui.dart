@@ -51,7 +51,7 @@ class _JustOrderWidgetState extends State<JustOrderWidget> {
                 height: ScreenUtil().setHeight(100),
                 decoration: BoxDecoration(
                   color: ConstDatesColors.orderContainerTitle,
-                  borderRadius: BorderRadius.circular(9),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
                     child: ExtendedText(
@@ -114,7 +114,7 @@ class _JustOrderWidgetState extends State<JustOrderWidget> {
               //       children: <Widget>[
               //         ToggleButtons(
               //             children: [ExtendedText(string: 'بيت الزبون'), ExtendedText(string: 'مكاني'), ExtendedText(string: 'الكل')],
-              //             borderRadius: BorderRadius.circular(9),
+              //             borderRadius: BorderRadius.circular(12),
               //             onPressed: (index) {},
               //             isSelected: [false, false, false]..[widget.order.who_come] = true),
               //         // ...widget.order.services.map((service) {
@@ -280,7 +280,7 @@ class OrderDetails extends StatelessWidget {
 Widget darkenWidget(int status) {
   if (status != 0 && status != 1 && status != 3)
     return ClipRRect(
-      borderRadius: BorderRadius.circular(9),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         color: Colors.black.withOpacity(0.4),
         height: ScreenResolution.height / 2.2,
@@ -316,7 +316,7 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     return Container(
       width: 200.sp,
 
-      // decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(9)),
+      // decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(12)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

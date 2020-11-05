@@ -72,7 +72,7 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
               child: Ink(
                 decoration: BoxDecoration(
                     color: ConstSalonColors.beautyContainer,
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
                           blurRadius: 2,
@@ -105,7 +105,7 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                       // );
                     },
                     highlightColor: Colors.transparent,
-                    borderRadius: new BorderRadius.circular(9),
+                    borderRadius: new BorderRadius.circular(12),
                     splashColor: Colors.pink,
                     child: Container(
                       height: ScreenUtil().setHeight(
@@ -399,7 +399,7 @@ class _RoundWithCircleContainerStateN
               child: Ink(
                 decoration: BoxDecoration(
                     color: ConstSalonColors.beautyContainer,
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
                           blurRadius: 2,
@@ -432,7 +432,7 @@ class _RoundWithCircleContainerStateN
                       // );
                     },
                     highlightColor: Colors.transparent,
-                    borderRadius: new BorderRadius.circular(9),
+                    borderRadius: new BorderRadius.circular(12),
                     splashColor: Colors.pink,
                     child: Container(
                       height: ScreenUtil().setHeight(

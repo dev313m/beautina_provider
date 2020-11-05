@@ -18,12 +18,12 @@ class NotificationUI extends StatelessWidget {
           ? AppColors.blue.withAlpha(200)
           : AppColors.blue.withOpacity(0.1),
       borderOnForeground: true,
-      borderRadius: BorderRadius.circular(9.0),
+      borderRadius: BorderRadius.circular(12),
       shadowColor: Theme.of(context).canvasColor,
       child: InkWell(
         onTap: () {},
         highlightColor: Colors.transparent,
-        borderRadius: new BorderRadius.circular(9),
+        borderRadius: new BorderRadius.circular(12),
         splashColor: Colors.pink,
         child: Padding(
           padding: EdgeInsets.all(ScreenUtil().setHeight(8)), //
@@ -104,12 +104,12 @@ class BroadcastUI extends StatelessWidget {
             ? AppColors.pinkBright.withAlpha(200)
             : AppColors.pinkBright.withOpacity(0.5),
         borderOnForeground: true,
-        borderRadius: BorderRadius.circular(9.0),
+        borderRadius: BorderRadius.circular(12),
         shadowColor: Theme.of(context).canvasColor,
         child: InkWell(
           onTap: () {},
           highlightColor: Colors.transparent,
-          borderRadius: new BorderRadius.circular(9),
+          borderRadius: new BorderRadius.circular(12),
           splashColor: Colors.pink,
           child: Padding(
             padding: EdgeInsets.all(ScreenUtil().setHeight(8)), //

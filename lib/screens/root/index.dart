@@ -2,6 +2,8 @@ import 'dart:async';
 // import 'dart:html';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/global_utils/widgets/blur_container.dart'
+    as global;
 import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
@@ -105,6 +107,8 @@ class _Index extends State<Index>
 
   asynInit() async {
     timeago.setLocaleMessages('ar', timeago.ArMessages());
+    await Future.delayed(Duration(milliseconds: 300));
+    initNotFuture(context);
     // await pu.startForeground(context, () {});
   }
 
@@ -119,6 +123,7 @@ class _Index extends State<Index>
     _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
+
     _fcmFore.configure(
       onMessage: (Map<String, dynamic> message) async {
         // await onNotificationMessage(message['data']['doc_id']);
@@ -127,6 +132,10 @@ class _Index extends State<Index>
         // pagesRefresh(context);
       },
       onResume: (Map<String, dynamic> message) async {
+        refreshResume(context);
+        // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
+      },
+      onBackgroundMessage: (Map<String, dynamic> message) async {
         refreshResume(context);
         // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
       },
@@ -342,19 +351,24 @@ class _Index extends State<Index>
                           duration: Duration(milliseconds: 500),
                           child: Provider.of<VMRootUi>(context).hideBars
                               ? SizedBox()
-                              : Container(
-                                  width: double.infinity,
-                                  height: ScreenUtil().setHeight(170),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: AppColors.blueOpcity
-                                          .withOpacity(0.9)),
-                                  child: Center(
-                                      child: AnimatedSwitcher(
-                                    // key: ValueKey('any'),
-                                    duration: Duration(milliseconds: 500),
-                                    child: getTitleWidget(context),
-                                  )),
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Container(
+                                    height: ScreenUtil().setHeight(170),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          // borderRadius: BorderRadius.circular(20),
+                                          color: AppColors.blueOpcity
+                                              .withOpacity(0.9)),
+                                      child: Center(
+                                          child: AnimatedSwitcher(
+                                        // key: ValueKey('any'),
+                                        duration: Duration(milliseconds: 500),
+                                        child: getTitleWidget(context),
+                                      )),
+                                    ),
+                                  ),
                                 ))),
                 ],
               ),

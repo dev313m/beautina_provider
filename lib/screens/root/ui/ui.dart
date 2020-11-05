@@ -37,7 +37,7 @@ onAlertWithCustomContentPressed(context) {
           color: ExtendedText.brightColor),
       animationDuration: Duration(milliseconds: 400),
       alertBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(9.0),
+        borderRadius: BorderRadius.circular(12),
       ),
       backgroundColor: AppColors.purpleColor,
       titleStyle: TextStyle(

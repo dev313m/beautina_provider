@@ -44,7 +44,7 @@ class _PhoneTextFieldUIState extends State<PhoneTextFieldUI> {
       decoration: InputDecoration(
         fillColor: Colors.blue,
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(9),
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: Colors.blue)),
         prefixIcon: Icon(
           Icons.phone,
@@ -52,11 +52,11 @@ class _PhoneTextFieldUIState extends State<PhoneTextFieldUI> {
         ),
         labelText: '+966',
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(color: Colors.pink)),
         labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(color: Colors.pink)),
       ),
     );
@@ -79,11 +79,11 @@ class CodeTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: 'Code',
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(color: Colors.green)),
         labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(color: Colors.green)),
       ),
     );

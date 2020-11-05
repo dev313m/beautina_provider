@@ -201,7 +201,7 @@ class _SingleServiceState extends State<SingleService> {
           right: ScreenUtil().setWidth(15)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: Colors.blue.withOpacity(0.5),
+        color: Colors.blue.withOpacity(0.5 ),
       ),
 
       // padding: EdgeInsets.all(ScreenUtil().setWidth(20)),

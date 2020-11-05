@@ -14,7 +14,7 @@ class TutorialCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(bottom: Radius.circular(9)),
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
       child: Container(
         color: CalendarColors.container,
         height: ScreenUtil().setHeight(300),
@@ -65,7 +65,7 @@ class TutorialCalendar extends StatelessWidget {
                                 child: Container(
                               decoration: BoxDecoration(
                                   color: CalendarColors.eventColor,
-                                  borderRadius: BorderRadius.circular(9)),
+                                  borderRadius: BorderRadius.circular(12)),
                               height: ScreenUtil().setWidth(90),
                               width: ScreenUtil().setWidth(90),
                               child: Align(

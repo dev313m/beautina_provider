@@ -30,7 +30,7 @@ showAlert(context, {@required String msg, @required String dismiss}) {
           color: ExtendedText.brightColor),
       animationDuration: Duration(milliseconds: durationCalender),
       alertBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(9.0),
+        borderRadius: BorderRadius.circular(12),
       ),
       backgroundColor: AppColors.purpleColor,
       titleStyle: TextStyle(
