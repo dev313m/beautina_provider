@@ -1,62 +1,18 @@
-import 'package:beautina_provider/db_sqflite/notification_sqflite.dart';
-import 'package:beautina_provider/screens/dates/index.dart';
-import 'package:beautina_provider/screens/my_salon/index.dart';
-import 'package:beautina_provider/screens/notification/index.dart';
+import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data.dart';
 import 'package:beautina_provider/screens/root/ui/ui.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
-import 'package:beautina_provider/screens/settings/index.dart';
-import 'package:beautina_provider/reusables/toast.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
-import 'package:preload_page_view/preload_page_view.dart';
 import 'package:provider/provider.dart';
-import 'package:beautina_provider/models/notification.dart' as noti;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:timeago/timeago.dart' as timeago;
 
-///This will return the list of pages that appears in the main menu of the app
-List<Widget> getMainPages() {
-  List<Widget> _pages = [
-    PageSettings(),
-    NotificationPage(),
-    DatePage(),
-    // PagePackage(),
-    PageSalon(),
-  ];
-  return _pages;
-}
-
-///This controls the movement of the mainpages inside the app
-// PreloadPageController getPageCntrl(BuildContext context) {
-//   return Provider.of<VMRootData>(context).getPageRootPageCntr();
-// }
-
-Future onNotificationMessage(String id) async {
-  await saveNotificationToMySql(id);
-  return null;
-}
-
-Future saveNotificationToMySql(String id) async {
-  try {
-    // noti.MyNotification notification = await dbServerloadNotification(id);
-    NotificationHelper _notificationHelper = NotificationHelper();
-    await _notificationHelper.initializeDatabase().then((data) async {
-      // await _notificationHelper.insertNotification(notification);
-      // print('it is added!');
-      return null;
-    });
-  } catch (e) {
-    showToast(e.toString());
-  }
-}
-
-int getNewCounterNotification(List<noti.MyNotification> n) {
-  int counter = n.where((n) => n.status == 0).length;
-  return counter;
-}
-
+/// Version checker between the current and the http request of the saved one in server
 versionCheck(BuildContext context) async {
   await Future.delayed(Duration(seconds: 4));
   // onAlertWithCustomContentPressed(context);
@@ -66,7 +22,6 @@ versionCheck(BuildContext context) async {
   double currentVersion = double.parse(info.version.trim().replaceAll(".", ""));
 
   //Get Latest version info from firebase config
-
   try {
     // Using default duration to force fetching from remote server.
     http.Response respond = await http.get(
@@ -94,7 +49,10 @@ launchURL(String url) async {
   }
 }
 
-initNotFuture(BuildContext context) async {
+///if the notificaton page visited:
+///1- clear the numbers on the notification
+///2- set a flag to await the process to finish [[isVisitedPage]]
+onNotificationPageVisited(BuildContext context) async {
   VMRootUi vmRootUi = Provider.of<VMRootUi>(context);
   VMRootData vmRootData = Provider.of<VMRootData>(context);
   vmRootUi.pageController.addListener(() async {
@@ -110,4 +68,63 @@ initNotFuture(BuildContext context) async {
       // _notificationHelper.updateNotification();
     }
   });
+}
+
+///Listern if the connection is lost to the internetw
+listenToInternet(BuildContext context) {
+  StreamSubscription<ConnectivityResult> subscription;
+
+  subscription =
+      Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    if (result.index == ConnectivityResult.none.index) {
+      Provider.of<VMRootUi>(context).isNoInternet = true;
+      // isNoInternet = true;
+    } else {
+      Provider.of<VMRootUi>(context).isNoInternet = false;
+
+      // refreshApp(context);
+      // isNoInternet = false;
+    }
+  });
+}
+
+/// initialize timeago string
+initTimeString() {
+  timeago.setLocaleMessages('ar', timeago.ArMessages());
+}
+
+/// Take an action if app life cycle changes,
+/// [[todo]] must be checked if context is ready.. !
+lifeCycleChangeAction(AppLifecycleState state, BuildContext context) {
+  switch (state) {
+    case AppLifecycleState.inactive:
+      print("Inactive");
+      break;
+    case AppLifecycleState.paused:
+      print("Paused");
+      break;
+    case AppLifecycleState.resumed:
+      refreshResume(context);
+      break;
+    case AppLifecycleState.detached:
+      print("Suspending");
+      break;
+  }
+}
+
+///To check if the user on the root screen, it will go otherwise it will move
+///the user to root screen
+Future<bool> willExitApp(BuildContext context) async {
+  if (Provider.of<VMRootUi>(context).pageController.page != 3) {
+    Provider.of<VMRootUi>(context).pageController.jumpToPage(3);
+
+    return false;
+  }
+  return true;
+}
+
+///This method to close keyboard whenever a user click on not keyboard
+
+closeKeyboard(BuildContext context) {
+  FocusScope.of(context).requestFocus(new FocusNode());
 }

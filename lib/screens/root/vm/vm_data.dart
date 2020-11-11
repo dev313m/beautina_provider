@@ -6,21 +6,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class VMRootData with ChangeNotifier {
+  ///initialize requests flag
   bool build = true;
+
+  ///list of all saved notifications
   List<noti.MyNotification> _notificationList = [];
+
+  /// sqlite database class initializer
   NotificationHelper _notificationHelper;
+
+  /// The date of last notifications recieved.
   DateTime lastNotifyDate;
-  // PreloadPageController pageController;
-  // List<Widget> pages;
-  // bool _hideBars = false;
 
-  // bool get hideBars => _hideBars;
-
-  // set hideBars(bool hideBars) {
-  //   _hideBars = hideBars;
-  //   notifyListeners();
-  // }
-
+  /// If the initilizing is required do two things:
+  ///     1- Get saved notification list from sqlite.
+  ///     2- Send a request to recieve new notfications and then update the list.
   VMRootData({this.build = true}) {
     if (build) {
       // initNotFuture();
@@ -35,9 +35,14 @@ class VMRootData with ChangeNotifier {
     initNotificationDb();
   }
 
+  /// Get new notifications and update sqlite and refresh list.
+  ///
   ///1- Get last notification date to get new ones
+  ///
   ///2- Order new notifications from the server
+  ///
   ///3- Save result to SQFLite
+  ///
   ///4- Notify and update interface
 
   initNotificationDb() async {
@@ -67,17 +72,21 @@ class VMRootData with ChangeNotifier {
   //   notifyListeners();
   // }
 
+  /// Get new notifications from the sercer and update sqlite and refresh list.
+
   refreshList() async {
     await getNotificationList();
     notifyListeners();
   }
 
+  /// initialize sqlite and get saved notifications.
   initialize() async {
     _notificationHelper = NotificationHelper();
     await _notificationHelper.initializeDatabase();
     await getNotificationList();
   }
 
+  /// get sqlite stored notfications and update the list
   Future getNotificationList() async {
     _notificationList = await _notificationHelper.getNotificationList();
     notifyListeners();

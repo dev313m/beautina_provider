@@ -3,25 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 class VMRootUi with ChangeNotifier {
+  ///Page controller of all the app pages
   PreloadPageController pageController = PreloadPageController(
     initialPage: 3,
     keepPage: true,
   );
-  List<Widget> pages;
-  bool _hideBars = false;
-  bool isVisitedPage = false; //if notification page is visited
+  int pageIndex = 3;
 
+  ///Sliding pages of the app
+  List<Widget> pages;
+
+  /// Hide appbar top and buttom flag
+  bool _hideBars = false;
+
+  ///if notification page is visited flag
+  bool isVisitedPage = false;
+
+  ///If there is no internet flag
+  bool _isNoInternet = false;
+
+  ///Getters
+  ///
+  ///
+  bool get isNoInternet => _isNoInternet;
   bool get hideBars => _hideBars;
+  PreloadPageController getPageRootPageCntr() => pageController;
+
+  ///setters
 
   set hideBars(bool hideBars) {
     _hideBars = hideBars;
     notifyListeners();
   }
 
-  // navigateBtwPages(BuildContext context, int index) {
-  //   pageController.jumpTo(index.toDouble());
-  //   notifyListeners();
-  // }
-
-  PreloadPageController getPageRootPageCntr() => pageController;
+  set isNoInternet(bool isNoInternet) {
+    _isNoInternet = isNoInternet;
+    notifyListeners();
+  }
 }

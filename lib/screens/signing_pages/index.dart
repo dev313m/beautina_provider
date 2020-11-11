@@ -1,7 +1,4 @@
 import 'dart:io';
-
-import 'package:beautina_provider/constants/resolution.dart';
-import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:beautina_provider/screens/signing_pages/constants.dart';
 import 'package:beautina_provider/screens/signing_pages/function.dart';
 import 'package:beautina_provider/screens/signing_pages/shared_variable.dart';
@@ -9,7 +6,6 @@ import 'package:beautina_provider/screens/signing_pages/ui.dart';
 import 'package:beautina_provider/reusables/beauty_textfield.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/services/auth/apple_auth.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
@@ -29,7 +25,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 720, height: 1496, allowFontScaling: true);
+    ScreenUtil.init(context,
+        designSize: Size(720, 1496), allowFontScaling: true);
 
     return ChangeNotifierProvider(
       builder: (_) => SignInSharedVariable(),

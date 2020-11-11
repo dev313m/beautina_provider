@@ -214,7 +214,7 @@ saveAllServicesMapper() async {
 routeToRoot(BuildContext context) {
   refreshApp(context);
   Navigator.pushReplacement(context,
-      PageTransition(type: PageTransitionType.fade, child: RootPage()));
+      PageTransition(type: PageTransitionType.fade, child: PageRoot()));
 }
 
 showPicker(BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {

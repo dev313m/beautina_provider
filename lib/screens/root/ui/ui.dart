@@ -81,28 +81,3 @@ onAlertWithCustomContentPressed(context) {
         )
       ]).show();
 }
-
-class WidgetNoConnection extends StatelessWidget {
-  const WidgetNoConnection({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(13),
-          color: Colors.black.withOpacity(0.5),
-        ),
-        height: MediaQuery.of(context).size.width / 4,
-        width: MediaQuery.of(context).size.width / 4,
-        child: FlareActor(
-          'assets/rive/noconnection.flr',
-          fit: BoxFit.fitWidth,
-          alignment: Alignment.bottomCenter,
-          animation: 'no_netwrok',
-        ),
-      ),
-    );
-  }
-}
