@@ -9,13 +9,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class NotificationPage extends StatefulWidget {
+class PageNotification extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _NotificationPage();
+  State<StatefulWidget> createState() => _PageNotification();
 }
 
-class _NotificationPage extends State<NotificationPage> {
-  double currentScroll = 0;
+class _PageNotification extends State<PageNotification> {
   @override
   void initState() {
     super.initState();

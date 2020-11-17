@@ -43,7 +43,7 @@ class _PageRoot extends State<PageRoot>
 
     _pages = [
       PageSettings(),
-      NotificationPage(),
+      PageNotification(),
       DatePage(),
       // PagePackage(),
       PageSalon(),
@@ -92,7 +92,7 @@ class _PageRoot extends State<PageRoot>
         child: Scaffold(
             primary: false,
             resizeToAvoidBottomPadding: false,
-            backgroundColor: AppColors.purpleColor,
+            backgroundColor: scafoldBackgroundColor,
             body: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -164,3 +164,7 @@ class _PageRoot extends State<PageRoot>
 
 /// [Durations] */
 const int onNotificationClickDuration = 1;
+
+///[Colors] */
+///
+final Color scafoldBackgroundColor = AppColors.purpleColor;
