@@ -8,47 +8,16 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:beautina_provider/screens/notification/functions.dart';
+import 'package:beautina_provider/screens/notification/ui/funny_animation.dart';
 
 class PageNotification extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _PageNotification();
+  _PageNotification createState() => _PageNotification();
 }
 
-class _PageNotification extends State<PageNotification> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    // _animationController.dispose();
-  }
-
-  @override
-  Widget build(context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Index(),
-    );
-  }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
-}
-
-class Index extends StatefulWidget {
-  @override
-  _Index createState() => _Index();
-}
-
-class _Index extends State<Index> with AutomaticKeepAliveClientMixin<Index> {
-  Widget upperW;
-  // AnimationController _animationController;
-  // Animation _animation;
+class _PageNotification extends State<PageNotification>
+    with AutomaticKeepAliveClientMixin<PageNotification> {
   ScrollController _scrollController;
   double currentScroll = 0;
 
@@ -66,22 +35,10 @@ class _Index extends State<Index> with AutomaticKeepAliveClientMixin<Index> {
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse)
-        Provider.of<VMRootUi>(context).hideBars = true;
-      else if (Provider.of<VMRootUi>(context).hideBars)
-        Provider.of<VMRootUi>(context).hideBars = false;
+      bool hideBars = Provider.of<VMRootUi>(context).hideBars;
+      onScrollAction(_scrollController, hideBars, context,
+          onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
-    // _animationController =
-    //     new AnimationController(vsync: this, duration: Duration(seconds: 2));
-    // _animation = CurvedAnimation(
-    //     parent: _animationController,
-    //     curve: Curves.easeInToLinear,
-    //     reverseCurve: Curves.easeOutBack);
-    // _animationController.addListener(() {
-    //   this.setState(() {});
-    // });
-    // _animationController.forward();
   }
 
   @override
@@ -90,8 +47,7 @@ class _Index extends State<Index> with AutomaticKeepAliveClientMixin<Index> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        await Provider.of<VMRootData>(context).refreshList();
-
+        await Provider.of<VMRootData>(context).refreshNotificationList();
         return;
       },
       child: ListView(
@@ -100,22 +56,7 @@ class _Index extends State<Index> with AutomaticKeepAliveClientMixin<Index> {
           SizedBox(
             height: ScreenUtil().setHeight(180),
           ),
-          // SliverToBoxAdapter(
-          //     child: WidgetTitlePage(
-          //   title: '~ الاشعارات ~',
-          // )),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(17),
-            child: Container(
-              height: ScreenUtil().setHeight(500),
-              color: AppColors.purpleColor,
-              child: FlareActor(
-                'assets/rive/notification.flr',
-                animation: 'active',
-                // color: Colors.black.withOpacity(0.2),
-              ),
-            ),
-          ),
+          WdgtNotificationAnimation(),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),

@@ -60,7 +60,7 @@ class VMRootData with ChangeNotifier {
 
       newList.forEach((dbNotification) async {
         await _notificationHelper.insertNotification(dbNotification);
-        refreshList();
+        refreshNotificationList();
       });
     } catch (e) {
       // showToast(e.toString());
@@ -74,7 +74,7 @@ class VMRootData with ChangeNotifier {
 
   /// Get new notifications from the sercer and update sqlite and refresh list.
 
-  refreshList() async {
+  refreshNotificationList() async {
     await getNotificationList();
     notifyListeners();
   }

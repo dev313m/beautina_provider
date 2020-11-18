@@ -63,7 +63,7 @@ onNotificationPageVisited(BuildContext context) async {
       await vmRootData.notificationHelper.initializeDatabase().then((d) {
         vmRootData.notificationHelper
             .updateListToRead(vmRootData.notificationList);
-        vmRootData.refreshList();
+        vmRootData.refreshNotificationList();
       });
       // _notificationHelper.updateNotification();
     }
