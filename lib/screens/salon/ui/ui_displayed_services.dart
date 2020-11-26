@@ -29,7 +29,10 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white38,
-      padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(10), left: ScreenUtil().setWidth(10), right: ScreenUtil().setWidth(10)),
+      padding: EdgeInsets.only(
+          bottom: ScreenUtil().setWidth(10),
+          left: ScreenUtil().setWidth(10),
+          right: ScreenUtil().setWidth(10)),
       child: Column(
         // key: ValueKey('value'),
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -38,7 +41,9 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
         children: <Widget>[
           Container(
               height: ScreenUtil().setHeight(100),
-              child: Center(child: ExtendedText(string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
+              child: Center(
+                  child: ExtendedText(
+                      string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
           ExtendedText(
             string: '(قائمة خدماتك، ويمكنك حذف الخدمات من هنا)',
             fontColor: ExtendedText.brightColors2,
@@ -54,7 +59,9 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
               padding: EdgeInsets.all(5.w),
               addRepaintBoundaries: true,
               itemBuilder: (_, index) {
-                Map<String, dynamic> allDefaultServicesMap = Provider.of<VMSalonData>(context).providedServices['services'];
+                Map<String, dynamic> allDefaultServicesMap =
+                    Provider.of<VMSalonData>(context)
+                        .providedServices['services'];
                 // List<Widget> list = [];
                 String mainServiceKey = mapServices.keys.toList()[index];
 
@@ -66,7 +73,8 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       itemBuilder: (_, rowIndex) {
-                        String itemKey = mapServices['other'].keys.toList()[rowIndex];
+                        String itemKey =
+                            mapServices['other'].keys.toList()[rowIndex];
 
                         return Padding(
                           padding: EdgeInsets.all(8.0.h),
@@ -84,8 +92,12 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                     ),
                   );
 
-                if (allDefaultServicesMap.containsKey(mainServiceKey)) if (allDefaultServicesMap[mainServiceKey]
-                    .containsKey('items')) if (allDefaultServicesMap[mainServiceKey].containsKey('ar'))
+                if (allDefaultServicesMap
+                    .containsKey(mainServiceKey)) if (allDefaultServicesMap[
+                        mainServiceKey]
+                    .containsKey(
+                        'items')) if (allDefaultServicesMap[mainServiceKey]
+                    .containsKey('ar'))
                   return Container(
                     height: 158.h,
                     child: ListView.builder(
@@ -93,13 +105,17 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       itemBuilder: (_, rowIndex) {
-                        String itemKey = mapServices[mainServiceKey].keys.toList()[rowIndex];
+                        String itemKey =
+                            mapServices[mainServiceKey].keys.toList()[rowIndex];
 
-                        if (allDefaultServicesMap[mainServiceKey]['items'].containsKey(itemKey))
+                        if (allDefaultServicesMap[mainServiceKey]['items']
+                            .containsKey(itemKey))
                           return Padding(
                             padding: EdgeInsets.all(8.0.h),
                             child: SingleService(
-                              serviceName: allDefaultServicesMap[mainServiceKey]['items'][itemKey]['ar']?.toString(),
+                              serviceName: allDefaultServicesMap[mainServiceKey]
+                                      ['items'][itemKey]['ar']
+                                  ?.toString(),
                               prices: mapServices[mainServiceKey][itemKey],
                               serviceCode: itemKey,
                               serviceRoot: mainServiceKey,
@@ -133,36 +149,19 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
   }
 }
 
-class TitleWidget extends StatelessWidget {
-  final image;
-  const TitleWidget({Key key, this.image}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-            // padding: EdgeInsets.all(ScreenUtil().setWidth(30)),
-            decoration: BoxDecoration(
-              color: AppColors.purpleColor,
-            ),
-            height: ScreenUtil().setHeight(120),
-            width: ScreenUtil().setHeight(120),
-            child: Center(
-                child: ExtendedText(
-              string: image,
-              fontSize: ExtendedText.bigFont,
-            ))));
-  }
-}
-
 class SingleService extends StatefulWidget {
   final String serviceName;
   final String serviceRoot;
   final String serviceCode;
   final List<dynamic> prices;
 
-  const SingleService({Key key, this.prices, this.serviceName, @required this.serviceRoot, @required this.serviceCode}) : super(key: key);
+  const SingleService(
+      {Key key,
+      this.prices,
+      this.serviceName,
+      @required this.serviceRoot,
+      @required this.serviceCode})
+      : super(key: key);
 
   @override
   _SingleServiceState createState() => _SingleServiceState();
@@ -174,7 +173,10 @@ class _SingleServiceState extends State<SingleService> {
   Widget build(BuildContext context) {
     return Container(
       height: ScreenUtil().setHeight(120),
-      padding: EdgeInsets.only(top: ScreenUtil().setWidth(15), left: ScreenUtil().setWidth(15), right: ScreenUtil().setWidth(15)),
+      padding: EdgeInsets.only(
+          top: ScreenUtil().setWidth(15),
+          left: ScreenUtil().setWidth(15),
+          right: ScreenUtil().setWidth(15)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         color: Colors.blue.withOpacity(0.5),
@@ -191,39 +193,48 @@ class _SingleServiceState extends State<SingleService> {
           Expanded(
             child: Row(
               children: <Widget>[
-                if (widget.prices.length > 1) ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
+                if (widget.prices.length > 1)
+                  ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
                 ExtendedText(string: 'السعر: ${widget.prices[0]}   '),
               ],
             ),
           ),
           InkWell(
               onTap: () async {
-                /**
-                         * 1- get now beautyProvider from shared
-                         * 2- update and save in shared
-                         * 3- get shared and notifylisteners
-                         */
-                ModelBeautyProvider bp = await sharedUserProviderGetInfo();
-
-                //2
-                Map<String, dynamic> newMap = bp.servicespro;
-                newMap[widget.serviceRoot].remove(widget.serviceCode);
-                try {
-                  loading = true;
-                  setState(() {});
-                  Provider.of<VMSalonData>(context).beautyProvider = await apiBeautyProviderUpdate(bp..servicespro = newMap);
-                  showToast('تم التحديث');
-                } catch (e) {
-                  showToast('حدثت مشكلة، لم يتم التحديث');
-                }
-                loading = false;
-                setState(() {});
+                await removeServiceByCodeAndUpdate();
               },
               child: AnimatedSwitcher(
                   duration: Duration(milliseconds: durationCalender),
-                  child: loading ? Loading() : Icon(CommunityMaterialIcons.delete_circle, color: Colors.white70)))
+                  child: loading
+                      ? Loading()
+                      : Icon(CommunityMaterialIcons.delete_circle,
+                          color: Colors.white70)))
         ],
       ),
     );
+  }
+
+  ///
+  ///                     * 1- get now beautyProvider from shared
+  ///                     * 2- update and save in shared
+  ///                     * 3- get shared and notifylisteners
+  ///                    */
+  removeServiceByCodeAndUpdate() async {
+    ModelBeautyProvider bp = await sharedUserProviderGetInfo();
+
+    //2
+    Map<String, dynamic> newMap = bp.servicespro;
+    newMap[widget.serviceRoot].remove(widget.serviceCode);
+    try {
+      loading = true;
+      setState(() {});
+      Provider.of<VMSalonData>(context).beautyProvider =
+          await apiBeautyProviderUpdate(bp..servicespro = newMap);
+      showToast('تم التحديث');
+    } catch (e) {
+      showToast('حدثت مشكلة، لم يتم التحديث');
+    }
+    loading = false;
+    setState(() {});
   }
 }
