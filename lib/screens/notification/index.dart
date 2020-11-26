@@ -55,7 +55,7 @@ class _PageNotification extends State<PageNotification>
           SizedBox(
             height: topTabSize.sh,
           ),
-          WdgtNotificationAnimation(),
+          WdgtNotificationAnimation(key: ValueKey('flower')),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),

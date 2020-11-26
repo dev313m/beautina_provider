@@ -8,7 +8,6 @@ import 'package:beautina_provider/screens/signing_pages/index.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_indicator/home_indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +19,9 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, systemNavigationBarIconBrightness: Brightness.dark, systemNavigationBarColor: Colors.black));
+      statusBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.black));
   await HomeIndicator.hide();
 
   return runApp(MyApp(
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
               ),
               ChangeNotifierProvider<VMSalonData>(
                 builder: (_) => VMSalonData(build: true),
+              ),
+              ChangeNotifierProvider<VMSettingsData>(
+                builder: (_) => VMSettingsData(),
               ),
             ],
             child: MaterialApp(
@@ -81,7 +85,8 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider<SharedOrder>(
                 builder: (_) => SharedOrder(build: false),
               ),
-              ChangeNotifierProvider<VMSettingsData>(create: (_) => VMSettingsData())
+              ChangeNotifierProvider<VMSettingsData>(
+                  create: (_) => VMSettingsData())
             ],
             child: MaterialApp(
               title: 'Flutter Demo',

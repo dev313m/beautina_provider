@@ -1,7 +1,6 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WdgtNotificationAnimation extends StatefulWidget {
@@ -22,7 +21,7 @@ class _WdgtNotificationAnimationState extends State<WdgtNotificationAnimation> {
         color: AppColors.purpleColor,
         child: FlareActor(
           'assets/rive/notification.flr',
-          animation: 'active',
+          animation: 'flower',
           // color: Colors.black.withOpacity(0.2),
         ),
       ),

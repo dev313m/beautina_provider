@@ -5,7 +5,6 @@ import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/divider.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/salon/index.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/services/api/image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -21,7 +20,8 @@ class WdgtSalonProfileDetails extends StatefulWidget {
   WdgtSalonProfileDetails({Key key}) : super(key: key);
 
   @override
-  _WdgtSalonProfileDetailsState createState() => _WdgtSalonProfileDetailsState();
+  _WdgtSalonProfileDetailsState createState() =>
+      _WdgtSalonProfileDetailsState();
 }
 
 class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
@@ -77,7 +77,8 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                             ? Loading()
                             : MyImage(
                                 key: ValueKey('imagelk'),
-                                url: 'https://resorthome.000webhostapp.com/upload/${beautyProvider.uid}.jpg',
+                                url:
+                                    'https://resorthome.000webhostapp.com/upload/${beautyProvider.uid}.jpg',
                               ))),
               ),
             ),
@@ -85,7 +86,8 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
               padding: EdgeInsets.all(ScreenUtil().setHeight(10)),
               child: RatingBar.readOnly(
                 maxRating: 5,
-                initialRating: (beautyProvider.points / beautyProvider.achieved),
+                initialRating:
+                    (beautyProvider.points / beautyProvider.achieved),
                 filledIcon: CommunityMaterialIcons.heart,
                 emptyIcon: CommunityMaterialIcons.heart_outline,
                 halfFilledIcon: CommunityMaterialIcons.heart_half,
@@ -108,7 +110,9 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                 InfoItem(
                   icon: CommunityMaterialIcons.certificate,
                   title: 'الطلبات المنجزة',
-                  value: beautyProvider.achieved < 100 ? 'اقل من 100 طلب' : 'اكثر من ${beautyProvider.achieved % 100} طلب',
+                  value: beautyProvider.achieved < 100
+                      ? 'اقل من 100 طلب'
+                      : 'اكثر من ${beautyProvider.achieved % 100} طلب',
                 ),
                 CustomDivider(),
                 InfoItem(
@@ -133,7 +137,8 @@ class InfoItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String value;
-  const InfoItem({Key key, this.icon, this.title, this.value}) : super(key: key);
+  const InfoItem({Key key, this.icon, this.title, this.value})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +147,10 @@ class InfoItem extends StatelessWidget {
       // height: ScreenUtil().setHeight(200),
       child: Column(
         children: <Widget>[
-          ExtendedText(string: title, textAlign: TextAlign.center, textDirection: TextDirection.rtl),
+          ExtendedText(
+              string: title,
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl),
           Icon(
             icon,
             size: ScreenUtil().setSp(60),
@@ -176,7 +184,7 @@ class MyImage extends StatelessWidget {
       },
       errorWidget: (_, __, ___) {
         return Image.asset(
-          'assets/images/default.jpg',
+          'assets/images/default.png',
           height: ScreenUtil().setHeight(399),
           width: ScreenUtil().setHeight(399),
           fit: BoxFit.cover,

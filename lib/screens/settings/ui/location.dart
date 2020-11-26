@@ -1,12 +1,14 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
+import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class WdgtSettingsLocation extends StatefulWidget {
@@ -18,17 +20,25 @@ class WdgtSettingsLocation extends StatefulWidget {
 
 class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
   bool loadingLocation = false;
+  ModelBeautyProvider beautyProvider;
+  VMSettingsData vmSettingsData;
 
   @override
   Widget build(BuildContext context) {
+    vmSettingsData = Provider.of<VMSettingsData>(context);
+    beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
     return Container(
         width: double.infinity,
         padding: EdgeInsets.all(allContainerPadding),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(allContainerRadius), color: allContainerBgColor),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(allContainerRadius),
+            color: allContainerBgColor),
         child: Column(
           children: <Widget>[
-            Icon(CommunityMaterialIcons.map_marker_check, color: iconColor, size: overviewIconSize),
-            ExtendedText(string: locationDetails, fontSize: ExtendedText.xbigFont),
+            Icon(CommunityMaterialIcons.map_marker_check,
+                color: iconColor, size: overviewIconSize),
+            ExtendedText(
+                string: locationDetails, fontSize: ExtendedText.xbigFont),
             SizedBox(
               height: btwOverviewxRest,
             ),
@@ -66,12 +76,16 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
               children: <Widget>[
                 Chip(
                     label: ExtendedText(
-                  string: vmSettingsData.city == null ? beautyProvider.city : vmSettingsData.country,
+                  string: vmSettingsData.city == null
+                      ? beautyProvider.city
+                      : vmSettingsData.country,
                   fontColor: Colors.black,
                 )),
                 Chip(
                     label: ExtendedText(
-                  string: vmSettingsData.country == null ? beautyProvider.country : vmSettingsData.city,
+                  string: vmSettingsData.country == null
+                      ? beautyProvider.country
+                      : vmSettingsData.city,
                   fontColor: Colors.black,
                 ))
               ],
@@ -175,5 +189,3 @@ final String updateStr = 'تحديث';
 ///[borderradius]
 ///
 double allContainerRadius = 12;
-ModelBeautyProvider beautyProvider;
-VMSettingsData vmSettingsData;

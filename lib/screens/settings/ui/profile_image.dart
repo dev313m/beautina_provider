@@ -4,6 +4,7 @@ import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/salon/index.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
 import 'package:beautina_provider/services/api/image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -11,12 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
+import 'package:provider/provider.dart';
 
 class WdgtSettingsProfileImage extends StatefulWidget {
   WdgtSettingsProfileImage({Key key}) : super(key: key);
 
   @override
-  _WdgtSettingsProfileImageState createState() => _WdgtSettingsProfileImageState();
+  _WdgtSettingsProfileImageState createState() =>
+      _WdgtSettingsProfileImageState();
 }
 
 class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
@@ -28,6 +31,8 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
 
   @override
   Widget build(BuildContext context) {
+    beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
+    vmSettingsData = Provider.of<VMSettingsData>(context);
     return Column(
       children: [
         ExtendedText(string: strProfileEdit, fontSize: ExtendedText.xbigFont),
@@ -51,7 +56,8 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
                             children: <Widget>[
                               MyImage(
                                 key: ValueKey('imagelk'),
-                                url: '$imageUrl/${beautyProvider.uid}.$imageExtension',
+                                url:
+                                    '$imageUrl${beautyProvider.uid}$imageExtension',
                               ),
                               Align(
                                 alignment: Alignment.bottomCenter,

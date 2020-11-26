@@ -39,6 +39,7 @@ class _PageSettingsState extends State<PageSettings> {
 
   @override
   Widget build(BuildContext context) {
+    vmSettingsData = Provider.of<VMSettingsData>(context);
     return Scaffold(
         key: vmSettingsData.globalKey,
         backgroundColor: Colors.transparent,

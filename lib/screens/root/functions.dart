@@ -1,3 +1,4 @@
+import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data.dart';
 import 'package:beautina_provider/screens/root/ui/ui.dart';
@@ -151,4 +152,13 @@ onScrollAction(
     onScrollDown(context);
   else if (Provider.of<VMRootUi>(context).hideBars && !hideBars)
     onScrollUp(context);
+}
+
+
+
+///This function updates beautyProvider[user] 
+updateUserData(BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {
+
+
+
 }
