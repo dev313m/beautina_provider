@@ -1,6 +1,4 @@
 //Colors
-
-import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ConstNotiColors {

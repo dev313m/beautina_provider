@@ -1,14 +1,13 @@
-import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/screens/notification/ui.dart';
+import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:beautina_provider/screens/notification/functions.dart';
+import 'package:beautina_provider/screens/notification/ui/notification_item.dart';
+import 'package:beautina_provider/screens/notification/ui/broadcast.dart';
+
 import 'package:beautina_provider/screens/notification/ui/funny_animation.dart';
 
 class PageNotification extends StatefulWidget {
@@ -54,7 +53,7 @@ class _PageNotification extends State<PageNotification>
         controller: _scrollController,
         children: <Widget>[
           SizedBox(
-            height: ScreenUtil().setHeight(180),
+            height: topTabSize.sh,
           ),
           WdgtNotificationAnimation(),
           ListView.builder(
@@ -62,30 +61,24 @@ class _PageNotification extends State<PageNotification>
             physics: NeverScrollableScrollPhysics(),
             itemCount: Provider.of<VMRootData>(context).notificationList.length,
             itemBuilder: (_, index) {
-              return Padding(
-                padding: EdgeInsets.only(top: ScreenUtil().setWidth(4)),
-                child: Provider.of<VMRootData>(context)
-                            .notificationList
-                            .elementAt(index)
-                            .type ==
-                        ''
-                    ? Container(
-                        height: 200.h,
-                        child: NotificationUI(
-                          notification: Provider.of<VMRootData>(context)
-                              .notificationList
-                              .elementAt(index),
-                        ),
-                      )
-                    : BroadcastUI(
-                        notification: Provider.of<VMRootData>(context)
-                            .notificationList
-                            .elementAt(index)),
-              );
+              return Provider.of<VMRootData>(context)
+                          .notificationList
+                          .elementAt(index)
+                          .type ==
+                      ''
+                  ? WdgtNotificationItem(
+                      notification: Provider.of<VMRootData>(context)
+                          .notificationList
+                          .elementAt(index),
+                    )
+                  : WdgtNotificationBroadcast(
+                      notification: Provider.of<VMRootData>(context)
+                          .notificationList
+                          .elementAt(index));
             },
           ),
           SizedBox(
-            height: ScreenUtil().setHeight(100),
+            height: bottomNavPadding.sh,
           )
         ],
       ),
@@ -95,14 +88,9 @@ class _PageNotification extends State<PageNotification>
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-
-  // List<Widget> getNotifyList(){
-  //   if(inheritNotification.notificationList.length == 0)
-  //     return [CircularProgressIndicator(
-  //       backgroundColor: Colors.purple,
-  //     )];
-  //     return [
-  //       NotificationUI(notification: inh,)
-  //     ];
-  // }
 }
+
+///[sizes]
+///
+const double topTabSize = 0.1;
+const double bottomNavPadding = 0.1;

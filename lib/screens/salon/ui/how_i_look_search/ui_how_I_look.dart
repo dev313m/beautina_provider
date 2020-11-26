@@ -3,18 +3,29 @@ import 'dart:math';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:rating_bar/rating_bar.dart';
 
-class PageHowILookSearch extends StatelessWidget {
-  final ModelBeautyProvider beautyProvider;
-  const PageHowILookSearch({Key key, this.beautyProvider}) : super(key: key);
+class PageHowILookSearch extends StatefulWidget {
+  const PageHowILookSearch({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _PageHowILookSearchState createState() => _PageHowILookSearchState();
+}
+
+class _PageHowILookSearchState extends State<PageHowILookSearch> {
+  ModelBeautyProvider beautyProvider;
 
   @override
   Widget build(BuildContext context) {
+    beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
     return Column(
       children: <Widget>[
         SizedBox(
@@ -44,18 +55,10 @@ class RoundWithCircleContainer extends StatefulWidget {
   final ModelBeautyProvider modelBeautyProvider;
   // final DocumentSnapshot snapshot;
 
-  RoundWithCircleContainer(
-      {@required this.desc,
-      this.img,
-      this.name,
-      this.star,
-      this.price,
-      this.beforePrice,
-      this.modelBeautyProvider});
+  RoundWithCircleContainer({@required this.desc, this.img, this.name, this.star, this.price, this.beforePrice, this.modelBeautyProvider});
 
   @override
-  _RoundWithCircleContainerState createState() =>
-      _RoundWithCircleContainerState();
+  _RoundWithCircleContainerState createState() => _RoundWithCircleContainerState();
 }
 
 class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
@@ -70,20 +73,14 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
             color: Colors.transparent,
             child: Center(
               child: Ink(
-                decoration: BoxDecoration(
+                decoration: BoxDecoration(color: ConstSalonColors.beautyContainer, borderRadius: BorderRadius.circular(12), boxShadow: [
+                  BoxShadow(blurRadius: 2, spreadRadius: 2, color: ConstSalonColors.beautyBorder),
+                  BoxShadow(
+                    blurRadius: 2,
+                    spreadRadius: 2,
                     color: ConstSalonColors.beautyContainer,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 2,
-                          spreadRadius: 2,
-                          color: ConstSalonColors.beautyBorder),
-                      BoxShadow(
-                        blurRadius: 2,
-                        spreadRadius: 2,
-                        color: ConstSalonColors.beautyContainer,
-                      ),
-                    ]),
+                  ),
+                ]),
                 child: Padding(
                   padding: const EdgeInsets.all(0.0), //
                   child: InkWell(
@@ -108,12 +105,10 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                     borderRadius: new BorderRadius.circular(12),
                     splashColor: Colors.pink,
                     child: Container(
-                      height: ScreenUtil().setHeight(
-                          ConstSalonSizes.containerTotalHeight + 100),
+                      height: ScreenUtil().setHeight(ConstSalonSizes.containerTotalHeight + 100),
                       constraints: BoxConstraints(
                           // minHeight: ScreenUtil().setHeight(500),
-                          maxHeight: ScreenUtil()
-                              .setHeight(ConstSalonSizes.containerTotalHeight)),
+                          maxHeight: ScreenUtil().setHeight(ConstSalonSizes.containerTotalHeight)),
                       child: Stack(
                         children: <Widget>[
                           Column(
@@ -136,22 +131,13 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                               SizedBox(height: 4),
                               Center(
                                 child: Container(
-                                    height: ScreenUtil()
-                                        .setHeight(ConstSalonSizes.imageHeight),
-                                    width: ScreenUtil()
-                                        .setHeight(ConstSalonSizes.imageHeight),
+                                    height: ScreenUtil().setHeight(ConstSalonSizes.imageHeight),
+                                    width: ScreenUtil().setHeight(ConstSalonSizes.imageHeight),
                                     decoration: new BoxDecoration(
                                         shape: BoxShape.circle,
                                         boxShadow: [
-                                          BoxShadow(
-                                              blurRadius: 5,
-                                              color: AppColors.purpleColor,
-                                              spreadRadius: 5),
-                                          BoxShadow(
-                                              blurRadius: 20,
-                                              color:
-                                                  ConstSalonColors.beautyImage,
-                                              spreadRadius: 0.005)
+                                          BoxShadow(blurRadius: 5, color: AppColors.purpleColor, spreadRadius: 5),
+                                          BoxShadow(blurRadius: 20, color: ConstSalonColors.beautyImage, spreadRadius: 0.005)
                                         ],
                                         image: new DecorationImage(
                                             fit: BoxFit.cover,
@@ -160,9 +146,7 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                                             )))),
                               ),
                               ExtendedText(
-                                  string: widget.modelBeautyProvider.type
-                                              .toString() ==
-                                          '0'
+                                  string: widget.modelBeautyProvider.type.toString() == '0'
                                       ? ConstSalonStrings.typeExpert
                                       : ConstSalonStrings.typeSalon,
                                   fontColor: Colors.pink,
@@ -176,17 +160,12 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                               ),
                               Center(
                                 child: RatingBar.readOnly(
-                                  size: ScreenUtil()
-                                      .setHeight(ConstSalonSizes.star),
-                                  initialRating:
-                                      widget.modelBeautyProvider.rating /
-                                          widget.modelBeautyProvider.voter,
+                                  size: ScreenUtil().setHeight(ConstSalonSizes.star),
+                                  initialRating: widget.modelBeautyProvider.rating / widget.modelBeautyProvider.voter,
                                   maxRating: 5,
-                                  emptyIcon:
-                                      CommunityMaterialIcons.heart_outline,
+                                  emptyIcon: CommunityMaterialIcons.heart_outline,
                                   filledIcon: CommunityMaterialIcons.heart,
-                                  halfFilledIcon:
-                                      CommunityMaterialIcons.heart_half,
+                                  halfFilledIcon: CommunityMaterialIcons.heart_half,
                                 ),
                               ),
                               SizedBox(
@@ -195,8 +174,7 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                               Row(
                                 children: <Widget>[
                                   Expanded(
-                                    child: Visibility(
-                                        visible: true, child: SizedBox()),
+                                    child: Visibility(visible: true, child: SizedBox()),
                                   ),
                                 ],
                               ),
@@ -208,12 +186,9 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: ScreenUtil().setWidth(22),
-                                            right: ScreenUtil().setWidth(22)),
+                                        padding: EdgeInsets.only(left: ScreenUtil().setWidth(22), right: ScreenUtil().setWidth(22)),
                                         child: ExtendedText(
-                                          string:
-                                              widget.modelBeautyProvider.intro,
+                                          string: widget.modelBeautyProvider.intro,
                                           fontSize: ExtendedText.bigFont,
                                           // overflow: TextOverflow
                                           //     .fade, // it wont aloow the the text to go in a new line
@@ -249,8 +224,7 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                                     children: <Widget>[
                                       Text(
                                         '${444}',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                       )
                                       // RichText(
                                       //   text: TextSpan(
@@ -291,10 +265,7 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                                     children: <Widget>[
                                       Text(
                                         '${333} SR',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            decoration:
-                                                TextDecoration.lineThrough),
+                                        style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.lineThrough),
                                       )
                                     ],
                                   ),
@@ -326,18 +297,9 @@ class _RoundWithCircleContainerState extends State<RoundWithCircleContainer> {
                                       ),
                                       RichText(
                                         text: TextSpan(
-                                            text:
-                                                ConstSalonStrings.offerSpecial,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10),
-                                            children: [
-                                              TextSpan(
-                                                  text: '\n${400} ',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ]),
+                                            text: ConstSalonStrings.offerSpecial,
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                                            children: [TextSpan(text: '\n${400} ', style: TextStyle(fontWeight: FontWeight.bold))]),
                                       ),
                                     ],
                                   ),
@@ -371,21 +333,13 @@ class RoundWithCircleContainerNoOffer extends StatefulWidget {
   // final DocumentSnapshot snapshot;
 
   RoundWithCircleContainerNoOffer(
-      {@required this.desc,
-      this.img,
-      this.name,
-      this.star,
-      this.price,
-      this.beforePrice,
-      this.modelBeautyProvider});
+      {@required this.desc, this.img, this.name, this.star, this.price, this.beforePrice, this.modelBeautyProvider});
 
   @override
-  _RoundWithCircleContainerStateN createState() =>
-      _RoundWithCircleContainerStateN();
+  _RoundWithCircleContainerStateN createState() => _RoundWithCircleContainerStateN();
 }
 
-class _RoundWithCircleContainerStateN
-    extends State<RoundWithCircleContainerNoOffer> {
+class _RoundWithCircleContainerStateN extends State<RoundWithCircleContainerNoOffer> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -397,20 +351,14 @@ class _RoundWithCircleContainerStateN
             color: Colors.transparent,
             child: Center(
               child: Ink(
-                decoration: BoxDecoration(
+                decoration: BoxDecoration(color: ConstSalonColors.beautyContainer, borderRadius: BorderRadius.circular(12), boxShadow: [
+                  BoxShadow(blurRadius: 2, spreadRadius: 2, color: ConstSalonColors.beautyBorder),
+                  BoxShadow(
+                    blurRadius: 2,
+                    spreadRadius: 2,
                     color: ConstSalonColors.beautyContainer,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 2,
-                          spreadRadius: 2,
-                          color: ConstSalonColors.beautyBorder),
-                      BoxShadow(
-                        blurRadius: 2,
-                        spreadRadius: 2,
-                        color: ConstSalonColors.beautyContainer,
-                      ),
-                    ]),
+                  ),
+                ]),
                 child: Padding(
                   padding: const EdgeInsets.all(0.0), //
                   child: InkWell(
@@ -435,12 +383,10 @@ class _RoundWithCircleContainerStateN
                     borderRadius: new BorderRadius.circular(12),
                     splashColor: Colors.pink,
                     child: Container(
-                      height: ScreenUtil().setHeight(
-                          ConstSalonSizes.containerTotalHeight + 100),
+                      height: ScreenUtil().setHeight(ConstSalonSizes.containerTotalHeight + 100),
                       constraints: BoxConstraints(
                           // minHeight: ScreenUtil().setHeight(500),
-                          maxHeight: ScreenUtil()
-                              .setHeight(ConstSalonSizes.containerTotalHeight)),
+                          maxHeight: ScreenUtil().setHeight(ConstSalonSizes.containerTotalHeight)),
                       child: Stack(
                         children: <Widget>[
                           Column(
@@ -463,22 +409,13 @@ class _RoundWithCircleContainerStateN
                               SizedBox(height: 4),
                               Center(
                                 child: Container(
-                                    height: ScreenUtil()
-                                        .setHeight(ConstSalonSizes.imageHeight),
-                                    width: ScreenUtil()
-                                        .setHeight(ConstSalonSizes.imageHeight),
+                                    height: ScreenUtil().setHeight(ConstSalonSizes.imageHeight),
+                                    width: ScreenUtil().setHeight(ConstSalonSizes.imageHeight),
                                     decoration: new BoxDecoration(
                                         shape: BoxShape.circle,
                                         boxShadow: [
-                                          BoxShadow(
-                                              blurRadius: 5,
-                                              color: AppColors.purpleColor,
-                                              spreadRadius: 5),
-                                          BoxShadow(
-                                              blurRadius: 20,
-                                              color:
-                                                  ConstSalonColors.beautyImage,
-                                              spreadRadius: 0.005)
+                                          BoxShadow(blurRadius: 5, color: AppColors.purpleColor, spreadRadius: 5),
+                                          BoxShadow(blurRadius: 20, color: ConstSalonColors.beautyImage, spreadRadius: 0.005)
                                         ],
                                         image: new DecorationImage(
                                             fit: BoxFit.cover,
@@ -487,9 +424,7 @@ class _RoundWithCircleContainerStateN
                                             )))),
                               ),
                               ExtendedText(
-                                  string: widget.modelBeautyProvider.type
-                                              .toString() ==
-                                          '0'
+                                  string: widget.modelBeautyProvider.type.toString() == '0'
                                       ? ConstSalonStrings.typeExpert
                                       : ConstSalonStrings.typeSalon,
                                   fontColor: Colors.pink,
@@ -503,17 +438,12 @@ class _RoundWithCircleContainerStateN
                               ),
                               Center(
                                 child: RatingBar.readOnly(
-                                  size: ScreenUtil()
-                                      .setHeight(ConstSalonSizes.star),
-                                  initialRating:
-                                      widget.modelBeautyProvider.rating /
-                                          widget.modelBeautyProvider.voter,
+                                  size: ScreenUtil().setHeight(ConstSalonSizes.star),
+                                  initialRating: widget.modelBeautyProvider.rating / widget.modelBeautyProvider.voter,
                                   maxRating: 5,
-                                  emptyIcon:
-                                      CommunityMaterialIcons.heart_outline,
+                                  emptyIcon: CommunityMaterialIcons.heart_outline,
                                   filledIcon: CommunityMaterialIcons.heart,
-                                  halfFilledIcon:
-                                      CommunityMaterialIcons.heart_half,
+                                  halfFilledIcon: CommunityMaterialIcons.heart_half,
                                 ),
                               ),
                               SizedBox(
@@ -522,8 +452,7 @@ class _RoundWithCircleContainerStateN
                               Row(
                                 children: <Widget>[
                                   Expanded(
-                                    child: Visibility(
-                                        visible: true, child: SizedBox()),
+                                    child: Visibility(visible: true, child: SizedBox()),
                                   ),
                                 ],
                               ),
@@ -535,12 +464,9 @@ class _RoundWithCircleContainerStateN
                                   children: <Widget>[
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: ScreenUtil().setWidth(22),
-                                            right: ScreenUtil().setWidth(22)),
+                                        padding: EdgeInsets.only(left: ScreenUtil().setWidth(22), right: ScreenUtil().setWidth(22)),
                                         child: ExtendedText(
-                                          string:
-                                              widget.modelBeautyProvider.intro,
+                                          string: widget.modelBeautyProvider.intro,
                                           fontSize: ExtendedText.bigFont,
                                           // overflow: TextOverflow
                                           //     .fade, // it wont aloow the the text to go in a new line
@@ -576,8 +502,7 @@ class _RoundWithCircleContainerStateN
                                     children: <Widget>[
                                       Text(
                                         '${444}',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                       )
                                       // RichText(
                                       //   text: TextSpan(

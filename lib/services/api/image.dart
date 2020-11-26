@@ -3,16 +3,18 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
+///Upload file server
 final url = 'https://resorthome.000webhostapp.com/image.php';
 // File file;
 
+///Picking an image from device and returning the file as [file]
 Future<File> imageChoose() async {
   return await ImagePicker.pickImage(source: ImageSource.gallery);
 // file = await ImagePicker.pickImage(source: ImageSource.gallery);
 }
 
-Future<bool> imageUpload(File file, String name,
-    {Function onSuccess, Function onError}) async {
+///Take Image file and Image name then upload it, true if success, false else
+Future<bool> imageUpload(File file, String name, {Function onSuccess, Function onError}) async {
   if (file == null) return false;
   String base64Image = base64Encode(file.readAsBytesSync());
   String ext = file.path.split(".").last;

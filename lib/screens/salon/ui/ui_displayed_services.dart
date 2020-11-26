@@ -1,8 +1,7 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/screens/my_salon/shared_mysalon.dart';
-import 'package:beautina_provider/screens/notification/index.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
@@ -13,24 +12,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 
-class WidgetServices extends StatefulWidget {
-  final Map<String, dynamic> mapServices;
-  WidgetServices({Key key, this.mapServices}) : super(key: key);
+class WdgtSalonMyServices extends StatefulWidget {
+  // final Map<String, dynamic> mapServices;
+  WdgtSalonMyServices({Key key}) : super(key: key);
 
   @override
-  _WidgetServicesState createState() => _WidgetServicesState();
+  _WdgtSalonMyServicesState createState() => _WdgtSalonMyServicesState();
 }
 
-class _WidgetServicesState extends State<WidgetServices> {
+class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
+  Map<String, dynamic> mapServices;
+
   @override
   Widget build(BuildContext context) {
+    mapServices = Provider.of<VMSalonData>(context).beautyProvider.servicespro;
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white38,
-      padding: EdgeInsets.only(
-          bottom: ScreenUtil().setWidth(10),
-          left: ScreenUtil().setWidth(10),
-          right: ScreenUtil().setWidth(10)),
+      padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(10), left: ScreenUtil().setWidth(10), right: ScreenUtil().setWidth(10)),
       child: Column(
         // key: ValueKey('value'),
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,17 +38,15 @@ class _WidgetServicesState extends State<WidgetServices> {
         children: <Widget>[
           Container(
               height: ScreenUtil().setHeight(100),
-              child: Center(
-                  child: ExtendedText(
-                      string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
+              child: Center(child: ExtendedText(string: ' ~ خدماتي ~', fontSize: ExtendedText.xbigFont))),
           ExtendedText(
             string: '(قائمة خدماتك، ويمكنك حذف الخدمات من هنا)',
             fontColor: ExtendedText.brightColors2,
           ),
 
-          if (widget.mapServices.keys.length > 0)
+          if (mapServices.keys.length > 0)
             ListView.builder(
-              itemCount: widget.mapServices.keys.length,
+              itemCount: mapServices.keys.length,
               scrollDirection: Axis.vertical,
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -57,11 +54,9 @@ class _WidgetServicesState extends State<WidgetServices> {
               padding: EdgeInsets.all(5.w),
               addRepaintBoundaries: true,
               itemBuilder: (_, index) {
-                Map<String, dynamic> allDefaultServicesMap =
-                    Provider.of<SharedSalon>(context)
-                        .providedServices['services'];
+                Map<String, dynamic> allDefaultServicesMap = Provider.of<VMSalonData>(context).providedServices['services'];
                 // List<Widget> list = [];
-                String mainServiceKey = widget.mapServices.keys.toList()[index];
+                String mainServiceKey = mapServices.keys.toList()[index];
 
                 if (mainServiceKey == 'other')
                   return Container(
@@ -71,14 +66,13 @@ class _WidgetServicesState extends State<WidgetServices> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       itemBuilder: (_, rowIndex) {
-                        String itemKey =
-                            widget.mapServices['other'].keys.toList()[rowIndex];
+                        String itemKey = mapServices['other'].keys.toList()[rowIndex];
 
                         return Padding(
                           padding: EdgeInsets.all(8.0.h),
                           child: SingleService(
                             serviceName: itemKey,
-                            prices: widget.mapServices['other'][itemKey],
+                            prices: mapServices['other'][itemKey],
                             serviceCode: itemKey,
                             serviceRoot: mainServiceKey,
                             // priceBefore: v[0].toString(),
@@ -86,16 +80,12 @@ class _WidgetServicesState extends State<WidgetServices> {
                           ),
                         );
                       },
-                      itemCount: widget.mapServices[mainServiceKey].keys.length,
+                      itemCount: mapServices[mainServiceKey].keys.length,
                     ),
                   );
 
-                if (allDefaultServicesMap
-                    .containsKey(mainServiceKey)) if (allDefaultServicesMap[
-                        mainServiceKey]
-                    .containsKey(
-                        'items')) if (allDefaultServicesMap[mainServiceKey]
-                    .containsKey('ar'))
+                if (allDefaultServicesMap.containsKey(mainServiceKey)) if (allDefaultServicesMap[mainServiceKey]
+                    .containsKey('items')) if (allDefaultServicesMap[mainServiceKey].containsKey('ar'))
                   return Container(
                     height: 158.h,
                     child: ListView.builder(
@@ -103,19 +93,14 @@ class _WidgetServicesState extends State<WidgetServices> {
                       scrollDirection: Axis.horizontal,
                       reverse: true,
                       itemBuilder: (_, rowIndex) {
-                        String itemKey = widget.mapServices[mainServiceKey].keys
-                            .toList()[rowIndex];
+                        String itemKey = mapServices[mainServiceKey].keys.toList()[rowIndex];
 
-                        if (allDefaultServicesMap[mainServiceKey]['items']
-                            .containsKey(itemKey))
+                        if (allDefaultServicesMap[mainServiceKey]['items'].containsKey(itemKey))
                           return Padding(
                             padding: EdgeInsets.all(8.0.h),
                             child: SingleService(
-                              serviceName: allDefaultServicesMap[mainServiceKey]
-                                      ['items'][itemKey]['ar']
-                                  ?.toString(),
-                              prices: widget.mapServices[mainServiceKey]
-                                  [itemKey],
+                              serviceName: allDefaultServicesMap[mainServiceKey]['items'][itemKey]['ar']?.toString(),
+                              prices: mapServices[mainServiceKey][itemKey],
                               serviceCode: itemKey,
                               serviceRoot: mainServiceKey,
                               // priceBefore: v[0].toString(),
@@ -124,7 +109,7 @@ class _WidgetServicesState extends State<WidgetServices> {
                           );
                         return SizedBox();
                       },
-                      itemCount: widget.mapServices[mainServiceKey].keys.length,
+                      itemCount: mapServices[mainServiceKey].keys.length,
                     ),
                   );
                 return SizedBox();
@@ -135,7 +120,7 @@ class _WidgetServicesState extends State<WidgetServices> {
               addAutomaticKeepAlives: true,
             ),
 
-          if (widget.mapServices.keys.length == 0)
+          if (mapServices.keys.length == 0)
             ExtendedText(
               string: "لم تقومي بإضافة اي خدمة",
             ),
@@ -177,13 +162,7 @@ class SingleService extends StatefulWidget {
   final String serviceCode;
   final List<dynamic> prices;
 
-  const SingleService(
-      {Key key,
-      this.prices,
-      this.serviceName,
-      @required this.serviceRoot,
-      @required this.serviceCode})
-      : super(key: key);
+  const SingleService({Key key, this.prices, this.serviceName, @required this.serviceRoot, @required this.serviceCode}) : super(key: key);
 
   @override
   _SingleServiceState createState() => _SingleServiceState();
@@ -195,13 +174,10 @@ class _SingleServiceState extends State<SingleService> {
   Widget build(BuildContext context) {
     return Container(
       height: ScreenUtil().setHeight(120),
-      padding: EdgeInsets.only(
-          top: ScreenUtil().setWidth(15),
-          left: ScreenUtil().setWidth(15),
-          right: ScreenUtil().setWidth(15)),
+      padding: EdgeInsets.only(top: ScreenUtil().setWidth(15), left: ScreenUtil().setWidth(15), right: ScreenUtil().setWidth(15)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: Colors.blue.withOpacity(0.5 ),
+        color: Colors.blue.withOpacity(0.5),
       ),
 
       // padding: EdgeInsets.all(ScreenUtil().setWidth(20)),
@@ -215,8 +191,7 @@ class _SingleServiceState extends State<SingleService> {
           Expanded(
             child: Row(
               children: <Widget>[
-                if (widget.prices.length > 1)
-                  ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
+                if (widget.prices.length > 1) ExtendedText(string: 'قبل: ${widget.prices[1]}   '),
                 ExtendedText(string: 'السعر: ${widget.prices[0]}   '),
               ],
             ),
@@ -236,8 +211,7 @@ class _SingleServiceState extends State<SingleService> {
                 try {
                   loading = true;
                   setState(() {});
-                  Provider.of<SharedSalon>(context).beautyProvider =
-                      await apiBeautyProviderUpdate(bp..servicespro = newMap);
+                  Provider.of<VMSalonData>(context).beautyProvider = await apiBeautyProviderUpdate(bp..servicespro = newMap);
                   showToast('تم التحديث');
                 } catch (e) {
                   showToast('حدثت مشكلة، لم يتم التحديث');
@@ -247,10 +221,7 @@ class _SingleServiceState extends State<SingleService> {
               },
               child: AnimatedSwitcher(
                   duration: Duration(milliseconds: durationCalender),
-                  child: loading
-                      ? Loading()
-                      : Icon(CommunityMaterialIcons.delete_circle,
-                          color: Colors.white70)))
+                  child: loading ? Loading() : Icon(CommunityMaterialIcons.delete_circle, color: Colors.white70)))
         ],
       ),
     );

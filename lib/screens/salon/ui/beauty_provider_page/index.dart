@@ -2,9 +2,9 @@ import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/screens/my_salon/beauty_provider_page/constants.dart';
-import 'package:beautina_provider/screens/my_salon/beauty_provider_page/functions.dart';
-import 'package:beautina_provider/screens/my_salon/beauty_provider_page/ui.dart';
+import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/constants.dart';
+import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/functions.dart';
+import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/ui.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:beautina_provider/reusables/divider.dart';
 import 'package:beautina_provider/reusables/text.dart';
@@ -25,9 +25,7 @@ class BeautyProviderPage extends StatefulWidget {
   ModelBeautyProvider modelBeautyProvider;
   bool withHero = true;
   String uid = ''; //if we want to get from database
-  BeautyProviderPage(
-      {this.modelBeautyProvider, this.withHero = true, this.uid = '', Key key})
-      : super(key: key);
+  BeautyProviderPage({this.modelBeautyProvider, this.withHero = true, this.uid = '', Key key}) : super(key: key);
 
   @override
   _BeautyProviderPageState createState() => _BeautyProviderPageState();
@@ -56,8 +54,7 @@ class _BeautyProviderPageState extends State<BeautyProviderPage> {
 class Index extends StatefulWidget {
   final ModelBeautyProvider modelBeautyProvider;
   bool withHero = true;
-  Index({this.modelBeautyProvider, @required this.withHero, Key key})
-      : super(key: key);
+  Index({this.modelBeautyProvider, @required this.withHero, Key key}) : super(key: key);
 
   @override
   _Index createState() => _Index();
@@ -126,13 +123,11 @@ class _Index extends State<Index> with TickerProviderStateMixin {
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: [Colors.black, Colors.transparent],
-                                  ).createShader(Rect.fromLTRB(
-                                      0, 0, rect.width, rect.height));
+                                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                                 },
                                 blendMode: BlendMode.dstIn,
                                 child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://resorthome.000webhostapp.com/upload/${widget.modelBeautyProvider.uid}.jpg',
+                                  imageUrl: 'https://resorthome.000webhostapp.com/upload/${widget.modelBeautyProvider.uid}.jpg',
                                   fit: BoxFit.cover,
                                   width: MediaQuery.of(context).size.width,
                                 ),
@@ -157,18 +152,15 @@ class _Index extends State<Index> with TickerProviderStateMixin {
                                   // Colors.black,
                                   // Colors.transparent,
                                 ],
-                              ).createShader(
-                                  Rect.fromLTRB(0, 0, rect.width, rect.height));
+                              ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                             },
                             blendMode: BlendMode.dstIn,
                             child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: ScreenUtil().setHeight(33)),
+                                padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(33)),
                                 decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.1),
                                   // image: AssetImage(assetName),
-                                  borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(14)),
+                                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(14)),
                                 ),
                                 child: Column(
                                   children: <Widget>[
@@ -177,77 +169,54 @@ class _Index extends State<Index> with TickerProviderStateMixin {
                                       fontSize: ExtendedText.bigFont,
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.all(
-                                          ScreenUtil().setHeight(10)),
+                                      padding: EdgeInsets.all(ScreenUtil().setHeight(10)),
                                       child: RatingBar.readOnly(
                                         maxRating: 5,
-                                        initialRating:
-                                            (widget.modelBeautyProvider.points /
-                                                widget.modelBeautyProvider
-                                                    .achieved),
-                                        filledIcon:
-                                            CommunityMaterialIcons.heart,
-                                        emptyIcon: CommunityMaterialIcons
-                                            .heart_outline,
-                                        halfFilledIcon:
-                                            CommunityMaterialIcons.heart_half,
+                                        initialRating: (widget.modelBeautyProvider.points / widget.modelBeautyProvider.achieved),
+                                        filledIcon: CommunityMaterialIcons.heart,
+                                        emptyIcon: CommunityMaterialIcons.heart_outline,
+                                        halfFilledIcon: CommunityMaterialIcons.heart_half,
                                         isHalfAllowed: true,
                                         filledColor: Colors.amber,
                                         size: ScreenUtil().setSp(39),
                                       ),
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
 
                                       // childAspectRatio: 0.3,
                                       children: <Widget>[
                                         InfoItem(
                                           icon: CommunityMaterialIcons.gift,
                                           title: 'التقييمات',
-                                          value: widget
-                                              .modelBeautyProvider.voter
-                                              .toString()
-                                              .toString(),
+                                          value: widget.modelBeautyProvider.voter.toString().toString(),
                                         ),
                                         CustomDivider(),
                                         InfoItem(
                                           icon: CommunityMaterialIcons.book,
                                           title: 'الطلبات المنجزة',
-                                          value: widget
-                                              .modelBeautyProvider.achieved
-                                              .toString(),
+                                          value: widget.modelBeautyProvider.achieved.toString(),
                                         ),
                                         CustomDivider(),
                                         InkWell(
                                           onTap: () {
-                                            getLaunchMapFunction(widget
-                                                .modelBeautyProvider
-                                                .location)();
+                                            getLaunchMapFunction(widget.modelBeautyProvider.location)();
                                           },
                                           child: InfoItem(
-                                            icon:
-                                                CommunityMaterialIcons.map_plus,
+                                            icon: CommunityMaterialIcons.map_plus,
                                             title: 'الموقع',
-                                            value: widget
-                                                .modelBeautyProvider.city
-                                                .toString(),
+                                            value: widget.modelBeautyProvider.city.toString(),
                                           ),
                                         ),
                                         CustomDivider(),
                                         InkWell(
                                           onTap: () {
-                                            getWhatsappFunction(widget
-                                                .modelBeautyProvider
-                                                .username)();
+                                            getWhatsappFunction(widget.modelBeautyProvider.username)();
                                           },
                                           child: InfoItem(
-                                            icon:
-                                                CommunityMaterialIcons.whatsapp,
+                                            icon: CommunityMaterialIcons.whatsapp,
                                             title: 'الجوال',
-                                            value: widget
-                                                .modelBeautyProvider.username
-                                                .toString(),
+                                            value: widget.modelBeautyProvider.username.toString(),
                                           ),
                                         ),
                                       ],
@@ -317,8 +286,7 @@ class _Index extends State<Index> with TickerProviderStateMixin {
                           Colors.transparent,
                           Colors.black,
                         ],
-                      ).createShader(
-                          Rect.fromLTRB(0, 0, rect.width, rect.height));
+                      ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                     },
                     blendMode: BlendMode.overlay,
                     child: Container(
@@ -331,8 +299,7 @@ class _Index extends State<Index> with TickerProviderStateMixin {
               ],
             ),
             extendBody: true,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           ),
         ),
       ],
@@ -344,8 +311,7 @@ class InfoItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String value;
-  const InfoItem({Key key, this.icon, this.title, this.value})
-      : super(key: key);
+  const InfoItem({Key key, this.icon, this.title, this.value}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -354,10 +320,7 @@ class InfoItem extends StatelessWidget {
       // height: ScreenUtil().setHeight(200),
       child: Column(
         children: <Widget>[
-          ExtendedText(
-              string: title,
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.rtl),
+          ExtendedText(string: title, textAlign: TextAlign.center, textDirection: TextDirection.rtl),
           Icon(
             icon,
             size: ScreenUtil().setSp(60),

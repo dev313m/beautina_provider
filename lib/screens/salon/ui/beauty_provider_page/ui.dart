@@ -1,18 +1,15 @@
 // import 'dart:js';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/screens/my_salon/beauty_provider_page/constants.dart';
-import 'package:beautina_provider/screens/my_salon/beauty_provider_page/functions.dart';
+import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/constants.dart';
+import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/functions.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 Widget beautyProviderName(ModelBeautyProvider modelBeautyProvider) {
-  return ExtendedText(
-      string: modelBeautyProvider.name,
-      fontSize: ExtendedText.bigFont,
-      fontColor: Colors.pink);
+  return ExtendedText(string: modelBeautyProvider.name, fontSize: ExtendedText.bigFont, fontColor: Colors.pink);
 }
 
 class OrderUi {
@@ -23,8 +20,7 @@ class OrderUi {
         Expanded(
           child: Text(
             _orderFunctions.infoStr + modelBeautyProvider.name,
-            overflow: TextOverflow
-                .fade, // it wont aloow the the text to go in a new line
+            overflow: TextOverflow.fade, // it wont aloow the the text to go in a new line
             style: TextStyle(fontSize: 13.0, fontFamily: 'Tajawal'),
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.right,
@@ -34,14 +30,10 @@ class OrderUi {
     );
   }
 
-  Widget muteRowCell(String count, String type, IconData icon, Color color,
-          Function function) =>
-      Container(
+  Widget muteRowCell(String count, String type, IconData icon, Color color, Function function) => Container(
         width: ScreenUtil().setWidth(140),
         padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(color: Colors.blue.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
         child: new Column(
           children: <Widget>[
             IconButton(
@@ -80,8 +72,7 @@ class RowCell extends StatefulWidget {
   final String type;
   final IconData icon;
   final Color color;
-  RowCell({Key key, this.color, this.count, this.icon, this.type})
-      : super(key: key);
+  RowCell({Key key, this.color, this.count, this.icon, this.type}) : super(key: key);
 
   _RowCellState createState() => _RowCellState();
 }
@@ -174,17 +165,13 @@ class CircleTransWidget extends StatelessWidget {
               img,
             ),
           ),
-          gradient: LinearGradient(
-              begin: FractionalOffset.centerRight,
-              end: FractionalOffset.centerLeft,
-              colors: [
-                Colors.blue,
-                Colors.yellow.withAlpha(9),
-              ],
-              stops: [
-                0.0,
-                0.9
-              ])),
+          gradient: LinearGradient(begin: FractionalOffset.centerRight, end: FractionalOffset.centerLeft, colors: [
+            Colors.blue,
+            Colors.yellow.withAlpha(9),
+          ], stops: [
+            0.0,
+            0.9
+          ])),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/screens/my_salon/shared_mysalon.dart';
-import 'package:beautina_provider/screens/root/vm/vm_data.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/reusables/text.dart';
@@ -9,25 +8,31 @@ import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:spring_button/spring_button.dart';
 
-class WidgetAddService extends StatefulWidget {
+class WdgtSalonAddService extends StatefulWidget {
   final Map<String, dynamic> mapServices;
-  WidgetAddService({Key key, this.mapServices}) : super(key: key);
+  WdgtSalonAddService({Key key, this.mapServices}) : super(key: key);
 
   @override
-  _WidgetAddServiceState createState() => _WidgetAddServiceState();
+  _WdgtSalonAddServiceState createState() => _WdgtSalonAddServiceState();
 }
 
-class _WidgetAddServiceState extends State<WidgetAddService> {
+class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   String value;
-  List<bool> selectedCategory;
+
+  ///This is a list of bool represents selected category in the toggleButtons
+  List<bool> toggleSelectBoolList;
+  Map<String, dynamic> mapServices;
 
   List<Widget> categoryWidgetList;
-  int indexCategory = 0;
+
+  ///The index of the category e.g. ['hair','henna'] when user clicks henna the index is 0
+  ///So we can get subCategory
+  // int indexCategory = 0;
   bool loading = false;
   double priceBefore = 0;
   double priceAfter = 0;
@@ -35,75 +40,51 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
   String chosenService = '';
   bool isShowPrice = false;
 
+  ///Check if toggle buttons list flag;
+  bool isToggleButtonsSet = false;
+
   bool isMainServiceChosen = false;
-  final RoundedLoadingButtonController _btnController =
-      new RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
   bool showOther = false; //show adding other service
-  List<DropdownMenuItem> subCategoryList = [];
-  // Map<int,String> categoryMapper={};
 
-  iniSubCategory() {
-    value = null;
+  ///This is a list of DropdownMenuItem base on a selected category from the toggleButtons
+  ///The default is [] so there is no items in the dropdownMenu
+  List<Map<String, String>> subCategoryList = [];
+
+  setSubCategoryDropdownMenu(int indexCategory) {
     subCategoryList = [];
-
     if (indexCategory == null) return;
     String categoryKey = widget.mapServices.keys.toList()[indexCategory];
-    Map<String, dynamic> allServices =
-        Provider.of<SharedSalon>(context).providedServices['services'];
+    Map<String, dynamic> allServices = Provider.of<VMSalonData>(context).providedServices['services'];
     widget.mapServices[categoryKey]['items']?.forEach((k, v) {
-      subCategoryList.add(DropdownMenuItem(
-        child: Text(allServices[categoryKey]['items'][k]['ar']),
-        value: '$categoryKey-$k',
-      ));
+      subCategoryList.add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
     });
   }
 
-  // iniSubCategoryMapper(){
-  //   int index = 0;
-  //   widget.mapServices.forEach((k, v) {
+  ///Listen to togglebuttons chosen index and update showing of
+  ///other
+  otherOptionChosenListener(int indexOfToggleBotton) {
+    showOther = false;
 
-  //     categoryMapper[index]  = k;
-
-  //   });
-  //   return subCategoryList;
-
-  // }
-
-  categoryItems() {
-    categoryWidgetList = [];
-    selectedCategory = [];
-
-    widget.mapServices.forEach((k, v) {
-      categoryWidgetList.add(
-        Container(
-            color: AppColors.purpleColor.withOpacity(0.6),
-            width: ScreenUtil().setWidth(100),
-            height: ScreenUtil().setWidth(100),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: ExtendedText(
-                  string: v['ar'],
-                  fontSize: ExtendedText.bigFont,
-                ),
-              ),
-            )),
-      );
-      selectedCategory.add(false);
-    });
-    selectedCategory[0] = false;
+    if (indexOfToggleBotton == toggleSelectBoolList.length - 1) {
+      showOther = true;
+      String msg = "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
+      showAlert(context, msg: msg, dismiss: 'تم');
+    }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    categoryItems();
-    // iniSubCategory();
+  ///Update the toggleButtons bar to show the selected category
+
+  toggleButtonUiUpdater(int indexToggleButton) {
+    toggleSelectBoolList = toggleSelectBoolList.map((f) => false).toList();
+    isToggleButtonsSet = true;
+    toggleSelectBoolList[indexToggleButton] = true;
   }
 
   @override
   Widget build(BuildContext context) {
+    mapServices = Provider.of<VMSalonData>(context).providedServices['services'];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ClipRRect(
@@ -121,99 +102,88 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
               ),
               SizedBox(height: ScreenUtil().setHeight(30.h)),
 
-              ExtendedText(
-                  string:
-                      '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)'),
+              ExtendedText(string: '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)'),
 
               SizedBox(height: ScreenUtil().setHeight(30)),
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Consumer<SharedSalon>(builder: (_, sharedSalon, child) {
-                  // iniSubCategory();
-                  return ToggleButtons(
-                      children: categoryWidgetList,
-                      isSelected: selectedCategory,
+                  scrollDirection: Axis.horizontal,
+                  child: ToggleButtons(
+                      children: mapServices.entries
+                          .toList()
+                          .map((e) => e.value['ar'])
+                          .toList()
+                          .map((e) => WdgtSalonServiceItem(serviceName: e))
+                          .toList(),
+                      //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
+
+                      isSelected: !isToggleButtonsSet
+                          ? toggleSelectBoolList = mapServices.entries.toList().map((e) => false).toList()
+                          : toggleSelectBoolList,
                       borderRadius: BorderRadius.circular(14),
                       fillColor: Colors.pink,
                       selectedColor: Colors.pink,
                       renderBorder: false,
                       onPressed: (index) {
-                        indexCategory = index;
-                        selectedCategory =
-                            selectedCategory.map((f) => false).toList();
-                        iniSubCategory();
-                        selectedCategory[index] = true;
-                        showOther = false;
+                        toggleButtonUiUpdater(index);
+                        setSubCategoryDropdownMenu(index);
+                        otherOptionChosenListener(index);
+                        clearFields();
+                        _showPicker();
 
-                        chosenService = '';
-                        otherServiceName = '';
-
-                        if (index == selectedCategory.length - 1) {
-                          showOther = true;
-                          String msg =
-                              "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
-
-                          showAlert(context, msg: msg, dismiss: 'تم');
-                        }
-
-                        if (index == selectedCategory.length - 1) {
+                        if (index == toggleSelectBoolList.length - 1) {
                           isMainServiceChosen = false;
                         } else
                           isMainServiceChosen = true;
                         isShowPrice = false;
 
                         setState(() {});
-                      });
-                }),
-              ),
+                      })),
               SizedBox(height: ScreenUtil().setHeight(15)),
 
-              if (isMainServiceChosen)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: ScreenUtil().setWidth(19),
-                        right: ScreenUtil().setWidth(19)),
-                    decoration: BoxDecoration(
-                      color: AppColors.purpleColor,
-                    ),
-                    height: ScreenUtil().setHeight(100),
-                    child: DropdownButton(
-                      items: subCategoryList,
+              // if (isMainServiceChosen)
+              //   ClipRRect(
+              //     borderRadius: BorderRadius.circular(14),
+              //     child: Container(
+              //       padding: EdgeInsets.only(left: ScreenUtil().setWidth(19), right: ScreenUtil().setWidth(19)),
+              //       decoration: BoxDecoration(
+              //         color: AppColors.purpleColor,
+              //       ),
+              //       height: ScreenUtil().setHeight(100),
+              //       child: DropdownButton(
+              //         items: subCategoryList,
 
-                      focusColor: AppColors.purpleColor,
+              //         focusColor: AppColors.purpleColor,
 
-                      elevation: 39,
-                      // autofocus: true,
-                      onChanged: (item) {
-                        isShowPrice = true;
-                        // if (item == 'other') showOther = true;
-                        chosenService = item;
-                        setState(() {
-                          value = item;
-                        });
+              //         elevation: 39,
+              //         // autofocus: true,
+              //         onChanged: (item) {
+              //           isShowPrice = true;
+              //           // if (item == 'other') showOther = true;
+              //           chosenService = item;
+              //           setState(() {
+              //             value = item;
+              //           });
 
-                        // newMap[item.split('-')[0]] = item.split('-')[1];
-                      },
-                      // elevation: 20,
-                      // isDense: true,
-                      // selectedItemBuilder: (context) {
-                      //   return [];
-                      // },
-                      value: value,
-                      hint: ExtendedText(string: 'اختاري الخدمة'),
-                      // elevation: 40,
-                      style: TextStyle(
-                        color: AppColors.pinkBright,
-                      ),
-                      icon: Icon(CommunityMaterialIcons.arrow_down_drop_circle),
-                      isExpanded: true,
+              //           // newMap[item.split('-')[0]] = item.split('-')[1];
+              //         },
+              //         // elevation: 20,
+              //         // isDense: true,
+              //         // selectedItemBuilder: (context) {
+              //         //   return [];
+              //         // },
+              //         value: value,
+              //         hint: ExtendedText(string: 'اختاري الخدمة'),
+              //         // elevation: 40,
+              //         style: TextStyle(
+              //           color: AppColors.pinkBright,
+              //         ),
+              //         icon: Icon(CommunityMaterialIcons.arrow_down_drop_circle),
+              //         isExpanded: true,
 
-                      underline: Text(''),
-                    ),
-                  ),
-                ),
+              //         underline: Text(''),
+              //       ),
+              //     ),
+              //   ),
               if (showOther)
                 Directionality(
                   textDirection: TextDirection.rtl,
@@ -277,7 +247,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
               //       ),
 
               //     SizedBox(width: ScreenUtil().setWidth(17)),
-              //     Consumer<SharedSalon>(builder: (_, sharedSalon, child) {
+              //     Consumer<VMSalonData>(builder: (_, VMSalonData, child) {
               //       return BeautyTextfieldT(
               //         width: ScreenUtil().setWidth(343),
               //         height: ScreenUtil().setHeight(90),
@@ -285,12 +255,12 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
               //           Icons.money_off,
               //           color: AppColors.pinkBright,
               //         ),
-              //         enabled: checkPackage(sharedSalon.beautyProvider.package),
+              //         enabled: checkPackage(VMSalonData.beautyProvider.package),
               //         onChanged: (String s) {
               //           priceBefore = double.parse(s);
               //         },
               //         placeholder:
-              //             checkPackage(sharedSalon.beautyProvider.package)
+              //             checkPackage(VMSalonData.beautyProvider.package)
               //                 ? 'السعر قبل العرض'
               //                 : "السعر قبل (يجب تفعيل الباقة)",
               //         inputType: TextInputType.number,
@@ -319,12 +289,9 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                     if (checkFields()) {
                       _btnController.start();
 
-                      ModelBeautyProvider bp =
-                          await sharedUserProviderGetInfo();
+                      ModelBeautyProvider bp = await sharedUserProviderGetInfo();
                       try {
-                        Provider.of<SharedSalon>(context).beautyProvider =
-                            await apiBeautyProviderUpdate(
-                                bp..servicespro = getNewMap());
+                        Provider.of<VMSalonData>(context).beautyProvider = await apiBeautyProviderUpdate(bp..servicespro = getNewMap());
                         // setState(() {});
                         showToast('تمت الاضافة بنجاح');
                         _btnController.success();
@@ -337,7 +304,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
                         _btnController.reset();
                       }
 
-                      resetFields();
+                      clearFields();
                     }
                     _btnController.reset();
                   },
@@ -352,17 +319,74 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
     );
   }
 
+  void _showPicker() {
+    PickerController pickerController = PickerController(
+      count: 1,
+      // selectedItems: [5, 2, 1],
+    );
+
+    PickerViewPopup.showMode(PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
+        controller: pickerController,
+        context: context,
+        title: Text(
+          'فرعيات الخدمة',
+          style: TextStyle(fontSize: 14),
+        ),
+        cancel: Text(
+          'cancel',
+          style: TextStyle(color: Colors.grey),
+        ),
+        onCancel: () {
+          // Scaffold.of(context).showSnackBar(SnackBar(content: Text('AlertDialogPicker.cancel')));
+        },
+        confirm: Text(
+          'confirm',
+          style: TextStyle(color: Colors.blue),
+        ),
+        onConfirm: (controller) {
+          var chosen = controller.selectedRowAt(section: 0);
+          isShowPrice = true;
+
+          // if (item == 'other') showOther = true;
+          chosenService = subCategoryList[chosen].entries.first.value;
+          setState(() {
+            value = subCategoryList[chosen].entries.first.value;
+          });
+
+          // newMap[item.split('-')[0]] = item.split('-')[1];
+          // List<int> selectedItems = [];
+          // selectedItems.add(controller.selectedRowAt(section: 0));
+          // selectedItems.add(controller.selectedRowAt(section: 1));
+          // selectedItems.add(controller.selectedRowAt(section: 2));
+
+          // Scaffold.of(context).showSnackBar(SnackBar(content: Text('AlertDialogPicker.selected:$selectedItems')));
+        },
+        builder: (context, popup) {
+          return Container(
+            height: 150,
+            child: popup,
+          );
+        },
+        itemExtent: 40,
+        numberofRowsAtSection: (section) {
+          return 10;
+        },
+        itemBuilder: (section, row) {
+          return Text(
+            subCategoryList[row].entries.first.key,
+            style: TextStyle(fontSize: 12),
+          );
+        });
+  }
+
   Map<String, dynamic> getNewMap() {
-    ModelBeautyProvider beautyProvider =
-        Provider.of<SharedSalon>(context).beautyProvider;
-    Map<String, dynamic> map =
-        new Map<String, dynamic>.of(beautyProvider.servicespro);
+    ModelBeautyProvider beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
+    Map<String, dynamic> map = new Map<String, dynamic>.of(beautyProvider.servicespro);
     Map<String, dynamic> newMap = copyDeepMap(map);
 
     if (!showOther) {
       List<String> services = chosenService.split('-');
-      List<double> numbers =
-          priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+      List<double> numbers = priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
 
       if (newMap[services[0]] == null)
         newMap[services[0]] = {services[1]: numbers};
@@ -371,17 +395,16 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
     } else {
       if (newMap['other'] == null)
         newMap['other'] = {
-          otherServiceName:
-              priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
+          otherServiceName: priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
         };
       else
-        newMap['other'][otherServiceName] =
-            priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+        newMap['other'][otherServiceName] = priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
     }
     return newMap;
   }
 
-  resetFields() {
+  ///Clear all textFields
+  clearFields() {
     chosenService = '';
     otherServiceName = '';
   }
@@ -409,8 +432,7 @@ class _WidgetAddServiceState extends State<WidgetAddService> {
 
 /// if he is valid with this package true else false;
 bool checkPackage(Map<String, dynamic> package) {
-  if (package['01'] != null) if (DateTime.parse(package['01']['to'])
-      .isAfter(DateTime.now().toLocal())) return true;
+  if (package['01'] != null) if (DateTime.parse(package['01']['to']).isAfter(DateTime.now().toLocal())) return true;
 
   return false;
 }
@@ -423,4 +445,27 @@ Map<String, dynamic> copyDeepMap(Map<String, dynamic> map) {
   });
 
   return newMap;
+}
+
+class WdgtSalonServiceItem extends StatelessWidget {
+  final String serviceName;
+
+  const WdgtSalonServiceItem({Key key, @required this.serviceName}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: AppColors.purpleColor.withOpacity(0.6),
+        width: ScreenUtil().setWidth(100),
+        height: ScreenUtil().setWidth(100),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: ExtendedText(
+              string: serviceName,
+              fontSize: ExtendedText.bigFont,
+            ),
+          ),
+        ));
+  }
 }

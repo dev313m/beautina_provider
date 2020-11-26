@@ -5,8 +5,8 @@
 class ModelBeautyProvider {
   static int TYPE_SALON = 1;
   static int TYPE_INDIVIDUAL = 1;
-  List<Map<String, DateTime>>
-      busyDates; // Date that provider is not available for order
+  List<Map<String, DateTime>> busyDates =
+      []; // Date that provider is not available for order
   int type; //whether it was a salon or a simple woman 1 for salon
   bool _available;
   String _image;
@@ -15,7 +15,7 @@ class ModelBeautyProvider {
   List<dynamic> _location;
   String _name;
   int _voter;
-  String _uid;
+  String _uid = '';
   String tokenId; // this is the jwt token for authority
   int _achieved;
   String auth_login; // only one time firebase token for login

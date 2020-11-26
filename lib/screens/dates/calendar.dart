@@ -3,7 +3,7 @@ import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
-import 'package:beautina_provider/screens/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,9 +48,8 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
   Map<DateTime, List<dynamic>> getBusyDatesEvents() {
     Map<DateTime, List<dynamic>> events = {};
 
-    Provider.of<SharedSalon>(context).beautyProvider.busyDates.forEach((f) {
-      DateTime fromDate =
-          DateTime.utc(f['from'].year, f['from'].month, f['from'].day);
+    Provider.of<VMSalonData>(context).beautyProvider.busyDates.forEach((f) {
+      DateTime fromDate = DateTime.utc(f['from'].year, f['from'].month, f['from'].day);
       DateTime toDate = f['to'];
       if (events[fromDate] == null) events[fromDate] = [];
 
@@ -63,10 +62,8 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
         int i = 1;
         // add all the days in the range
         while (fromDate.add(Duration(days: i)).isBefore(toDate)) {
-          if (events[fromDate.add(Duration(days: i))] == null)
-            events[fromDate.add(Duration(days: i))] = [];
-          events[fromDate.add(Duration(days: i))] =
-              events[fromDate.add(Duration(days: i))]..add(Order(status: -1));
+          if (events[fromDate.add(Duration(days: i))] == null) events[fromDate.add(Duration(days: i))] = [];
+          events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]..add(Order(status: -1));
           i++;
         }
       }
@@ -141,18 +138,12 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   Provider.of<SharedOrder>(context).calanderChosenDay = date;
 
                   Provider.of<SharedOrder>(context).listOfDay = [];
-                  Provider.of<SharedOrder>(context).isShowAvailableWidget =
-                      false;
+                  Provider.of<SharedOrder>(context).isShowAvailableWidget = false;
                   await Future.delayed(Duration(milliseconds: 200));
-                  Provider.of<SharedOrder>(context).isShowAvailableWidget =
-                      true;
+                  Provider.of<SharedOrder>(context).isShowAvailableWidget = true;
 
-                  Provider.of<SharedOrder>(context).listOfDay = list
-                      .where((item) =>
-                          item.status == 0 ||
-                          item.status == 1 ||
-                          item.status == 3)
-                      .toList();
+                  Provider.of<SharedOrder>(context).listOfDay =
+                      list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList();
                 },
                 calendarStyle: CalendarStyle(
                   // selectedColor: Colors.deepOrange[400],
@@ -173,9 +164,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   // month = time.month;
                 },
                 headerStyle: HeaderStyle(
-                  formatButtonTextStyle: TextStyle().copyWith(
-                      color: CalendarColors.header,
-                      fontSize: ExtendedText.defaultFont),
+                  formatButtonTextStyle: TextStyle().copyWith(color: CalendarColors.header, fontSize: ExtendedText.defaultFont),
                   formatButtonDecoration: BoxDecoration(
                     color: CalendarColors.headerContainer,
                     borderRadius: BorderRadius.circular(12),
@@ -186,14 +175,11 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                 builders: CalendarBuilders(
                   selectedDayBuilder: (context, date, list) {
                     return FadeTransition(
-                      opacity: Tween(begin: 0.0, end: 1.0)
-                          .animate(_animationController),
+                      opacity: Tween(begin: 0.0, end: 1.0).animate(_animationController),
                       child: Stack(
                         children: [
                           Container(
-                            decoration: BoxDecoration(
-                                color: CalendarColors.todayContainer,
-                                borderRadius: BorderRadius.circular(12)),
+                            decoration: BoxDecoration(color: CalendarColors.todayContainer, borderRadius: BorderRadius.circular(12)),
                             // margin: const EdgeInsets.all(4.0),
                             padding: const EdgeInsets.only(top: 5.0, left: 6.0),
                             width: ScreenUtil().setWidth(100),
@@ -208,10 +194,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                             ),
                           ),
                           if (list != null)
-                            if (list
-                                    .where((element) => element.status == -1)
-                                    .length >
-                                0)
+                            if (list.where((element) => element.status == -1).length > 0)
                               Align(
                                 alignment: Alignment.center,
                                 child: Icon(CommunityMaterialIcons.lock),
@@ -222,20 +205,16 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   },
                   markersBuilder: (context, date, events, holidays) {
                     final children = <Widget>[];
-                    List<dynamic> newOrders =
-                        events.where((event) => event.status == 0).toList();
-                    List<dynamic> acceptedOrder =
-                        events.where((event) => event.status == 1).toList();
-                    List<dynamic> approvedOrder =
-                        events.where((event) => event.status == 3).toList();
+                    List<dynamic> newOrders = events.where((event) => event.status == 0).toList();
+                    List<dynamic> acceptedOrder = events.where((event) => event.status == 1).toList();
+                    List<dynamic> approvedOrder = events.where((event) => event.status == 3).toList();
 
                     if (newOrders.isNotEmpty) {
                       children.add(
                         Positioned(
                           left: 0,
                           bottom: 0,
-                          child: _buildEventsMarker(
-                              date, newOrders, CalendarColors.bottomLeft),
+                          child: _buildEventsMarker(date, newOrders, CalendarColors.bottomLeft),
                         ),
                       );
                     }
@@ -257,8 +236,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                         Positioned(
                           right: 0,
                           top: 0,
-                          child: _buildEventsMarker(
-                              date, approvedOrder, CalendarColors.topNoti),
+                          child: _buildEventsMarker(date, approvedOrder, CalendarColors.topNoti),
                         ),
                       );
                     }
@@ -272,14 +250,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: list
-                                          .where((item) =>
-                                              item.status == 0 ||
-                                              item.status == 1 ||
-                                              item.status == 3)
-                                          .toList()
-                                          .length ==
-                                      0
+                              color: list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList().length == 0
                                   ? CalendarColors.empty
                                   : CalendarColors.eventColor,
                               borderRadius: BorderRadius.circular(12)),
@@ -296,10 +267,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                             // style: TextStyle().copyWith(fontSize: 16.0),
                           ),
                         ),
-                        if (list
-                                .where((element) => element.status == -1)
-                                .length >
-                            0)
+                        if (list.where((element) => element.status == -1).length > 0)
                           Align(
                             alignment: Alignment.center,
                             child: Icon(CommunityMaterialIcons.lock),
@@ -309,9 +277,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   },
                   todayDayBuilder: (context, date, _) {
                     return Container(
-                      decoration: BoxDecoration(
-                          color: CalendarColors.todayContainer,
-                          borderRadius: BorderRadius.circular(12)),
+                      decoration: BoxDecoration(color: CalendarColors.todayContainer, borderRadius: BorderRadius.circular(12)),
                       margin: const EdgeInsets.all(4.0),
                       padding: const EdgeInsets.only(top: 5.0, left: 6.0),
                       width: ScreenUtil().setWidth(100),
@@ -341,9 +307,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                   // height: 50,
                   // left: MediaQuery.of(context).size.width / 2 - ScreenUtil().setWidth(ConstDateSizes.reloadLeft),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12)),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
                     // color: Colors.pink,
                     child: Material(
                       color: Colors.purple,

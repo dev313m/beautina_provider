@@ -1,5 +1,4 @@
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/screens/signing_pages/function.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/auth/google_auth.dart';

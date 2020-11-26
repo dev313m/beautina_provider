@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter/rendering.dart';
 
 /// Version checker between the current and the http request of the saved one in server
 versionCheck(BuildContext context) async {
@@ -127,4 +128,27 @@ Future<bool> willExitApp(BuildContext context) async {
 
 closeKeyboard(BuildContext context) {
   FocusScope.of(context).requestFocus(new FocusNode());
+}
+
+///Hide bar when scroll down
+Function onScrollDown = (BuildContext context) {
+  Provider.of<VMRootUi>(context).hideBars = true;
+};
+
+///Show bar when scroll up
+
+Function onScrollUp = (BuildContext context) {
+  Provider.of<VMRootUi>(context).hideBars = false;
+};
+
+///Take an action when scrolling down or up
+onScrollAction(
+    ScrollController scrollController, bool hideBars, BuildContext context,
+    {Function onScrolldown, Function onScrollUp}) {
+  if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse &&
+      hideBars)
+    onScrollDown(context);
+  else if (Provider.of<VMRootUi>(context).hideBars && !hideBars)
+    onScrollUp(context);
 }

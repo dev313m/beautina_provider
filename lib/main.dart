@@ -1,8 +1,9 @@
 import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
-import 'package:beautina_provider/screens/my_salon/shared_mysalon.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/root/index.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
+import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
 import 'package:beautina_provider/screens/signing_pages/index.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.black));
+      statusBarColor: Colors.transparent, systemNavigationBarIconBrightness: Brightness.dark, systemNavigationBarColor: Colors.black));
   await HomeIndicator.hide();
 
   return runApp(MyApp(
@@ -35,7 +34,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return registered != null
         ? MultiProvider(
             providers: [
@@ -48,8 +46,8 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider<SharedOrder>(
                 builder: (_) => SharedOrder(build: true),
               ),
-              ChangeNotifierProvider<SharedSalon>(
-                builder: (_) => SharedSalon(build: true),
+              ChangeNotifierProvider<VMSalonData>(
+                builder: (_) => VMSalonData(build: true),
               ),
             ],
             child: MaterialApp(
@@ -77,12 +75,13 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider<VMRootUi>(
                 builder: (_) => VMRootUi(),
               ),
-              ChangeNotifierProvider<SharedSalon>(
-                builder: (_) => SharedSalon(build: false),
+              ChangeNotifierProvider<VMSalonData>(
+                builder: (_) => VMSalonData(build: false),
               ),
               ChangeNotifierProvider<SharedOrder>(
                 builder: (_) => SharedOrder(build: false),
               ),
+              ChangeNotifierProvider<VMSettingsData>(create: (_) => VMSettingsData())
             ],
             child: MaterialApp(
               title: 'Flutter Demo',

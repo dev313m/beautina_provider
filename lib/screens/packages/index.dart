@@ -1,17 +1,13 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
-import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/dates/index.dart';
-import 'package:beautina_provider/screens/my_salon/beauty_provider_page/index.dart';
-import 'package:beautina_provider/screens/my_salon/shared_mysalon.dart';
-import 'package:beautina_provider/screens/my_salon/ui_choose_service.dart';
-import 'package:beautina_provider/screens/my_salon/ui_how_I_look.dart';
+import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/index.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
+import 'package:beautina_provider/screens/salon/ui/how_i_look_search/ui_how_I_look.dart';
 import 'package:beautina_provider/screens/packages/constants.dart';
-import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:beautina_provider/reusables/text.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:credit_card/credit_card_model.dart';
 import 'package:credit_card/flutter_credit_card.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -33,7 +29,7 @@ class _PagePackageState extends State<PagePackage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SharedSalon>(builder: (_, sharedSalon, child) {
+    return Consumer<VMSalonData>(builder: (_, VMSalonData, child) {
       return Stack(
         children: <Widget>[
           Scaffold(
@@ -46,7 +42,7 @@ class _PagePackageState extends State<PagePackage> {
                   SizedBox(
                     height: ScreenUtil().setHeight(200),
                   ),
-                  !checkPackage(sharedSalon.beautyProvider.package)
+                  !checkPackage(VMSalonData.beautyProvider.package)
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(14),
                           child: Container(
@@ -58,11 +54,10 @@ class _PagePackageState extends State<PagePackage> {
                                   string: 'انت مشترك في باقة اضافة التخفيضات',
                                   fontSize: ExtendedText.xbigFont,
                                 ),
-                                Icon(Icons.subtitles,
-                                    size: ScreenUtil().setSp(200)),
+                                Icon(Icons.subtitles, size: ScreenUtil().setSp(200)),
                                 ExtendedText(
                                   string:
-                                      'ينتهي الاشتراك في: ${getDateString(DateTime.parse(sharedSalon.beautyProvider.package['01']['to']))}',
+                                      'ينتهي الاشتراك في: ${getDateString(DateTime.parse(VMSalonData.beautyProvider.package['01']['to']))}',
                                 )
                               ],
                             ),
@@ -107,8 +102,7 @@ class _PagePackageState extends State<PagePackage> {
                                     //   color: Colors.pinkAccent,
                                     // ),
                                     Padding(
-                                      padding: EdgeInsets.all(
-                                          ScreenUtil().setHeight(8)),
+                                      padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
                                       child: Wrap(
                                         children: <Widget>[
                                           ExtendedText(
@@ -143,8 +137,7 @@ class _PagePackageState extends State<PagePackage> {
                                         child: SpringButton(
                                           SpringButtonType.OnlyScale,
                                           ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(14),
+                                            borderRadius: BorderRadius.circular(14),
                                             child: Ink(
                                               // width: 200,
                                               child: Material(
@@ -152,8 +145,7 @@ class _PagePackageState extends State<PagePackage> {
                                                 child: Center(
                                                     child: ExtendedText(
                                                   string: 'تفعيل 99\$ دولار',
-                                                  fontSize:
-                                                      ExtendedText.bigFont,
+                                                  fontSize: ExtendedText.bigFont,
                                                 )),
                                               ),
                                             ),
@@ -169,9 +161,7 @@ class _PagePackageState extends State<PagePackage> {
                                   ],
                                 ),
                                 AnimatedSwitcher(
-                                    duration: Duration(
-                                        milliseconds: durationCalender),
-                                    child: showPay ? WidgetPay() : SizedBox())
+                                    duration: Duration(milliseconds: durationCalender), child: showPay ? WidgetPay() : SizedBox())
                               ],
                             ),
                           ),
@@ -201,8 +191,7 @@ class _WidgetPayState extends State<WidgetPay> {
   String cardHolderName = '';
   String cvvCode = '';
   bool showBackView = false;
-  RoundedLoadingButtonController _roundedLoadingButtonController =
-      RoundedLoadingButtonController();
+  RoundedLoadingButtonController _roundedLoadingButtonController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -218,8 +207,7 @@ class _WidgetPayState extends State<WidgetPay> {
                   expiryDate: expiryDate,
                   cardHolderName: cardHolderName,
                   cvvCode: cvvCode,
-                  showBackView:
-                      showBackView, //true when you want to show cvv(back) view
+                  showBackView: showBackView, //true when you want to show cvv(back) view
                 ),
               ),
               Expanded(
@@ -288,12 +276,11 @@ class WidgetHowLook extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  ModelBeautyProvider modelBeautyProvider =
-                      Provider.of<SharedSalon>(context).beautyProvider;
+                  // ModelBeautyProvider modelBeautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => PageHowILookSearch(
-                              beautyProvider: modelBeautyProvider,
+                            // beautyProvider: modelBeautyProvider,
                             )),
                   );
                 },
@@ -327,8 +314,7 @@ class WidgetHowLook extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  ModelBeautyProvider modelBeautyProvider =
-                      Provider.of<SharedSalon>(context).beautyProvider;
+                  ModelBeautyProvider modelBeautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => BeautyProviderPage(

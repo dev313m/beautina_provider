@@ -1,13 +1,12 @@
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/screens/my_salon/functions.dart';
+import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/prefrences/services.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/api/api_provided_services.dart';
-import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:flutter/foundation.dart';
 
-class SharedSalon with ChangeNotifier {
+class VMSalonData with ChangeNotifier {
   bool build = true;
   ModelBeautyProvider _beautyProvider;
   Map<String, dynamic> _providedServices = {};
@@ -26,7 +25,7 @@ class SharedSalon with ChangeNotifier {
     notifyListeners();
   }
 
-  SharedSalon({this.build = true}) {
+  VMSalonData({this.build = true}) {
     if (build) init();
   }
 
