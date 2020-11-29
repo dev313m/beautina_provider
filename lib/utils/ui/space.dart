@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+///This represents the heights inside the sizedBox
+class BoxHeight {
+  ///Space btw containers
+  static final double heightBtwContainers = 10.h;
+
+  ///Space above submit button
+  static final double heightBtwSubmitButton = 15.h;
+
+  ///Space before and after title
+  static final double heightBtwTitle = 20.h;
+}
+
+/// This widget puts verticval box for spacing purpuses
+class GWdgtSizedBoxY extends StatelessWidget {
+  final height;
+  const GWdgtSizedBoxY({Key key, this.height}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+    );
+  }
+}

@@ -1,4 +1,3 @@
-import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/calendar.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
@@ -8,22 +7,15 @@ import 'package:beautina_provider/screens/dates/tutorial.dart';
 import 'package:beautina_provider/screens/dates/ui.dart';
 import 'package:beautina_provider/screens/dates/ui_order_list_page.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
-import 'package:beautina_provider/screens/salon/ui/how_i_look_search/ui_how_I_look.dart';
-import 'package:beautina_provider/screens/root/utils/constants.dart';
-import 'package:beautina_provider/screens/root/vm/vm_data.dart';
 import 'package:beautina_provider/reusables/loading.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
-import 'package:community_material_icon/community_material_icon.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:spring_button/spring_button.dart';
 
 class FutureList extends StatefulWidget {

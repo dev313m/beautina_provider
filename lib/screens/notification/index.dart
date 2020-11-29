@@ -15,8 +15,7 @@ class PageNotification extends StatefulWidget {
   _PageNotification createState() => _PageNotification();
 }
 
-class _PageNotification extends State<PageNotification>
-    with AutomaticKeepAliveClientMixin<PageNotification> {
+class _PageNotification extends State<PageNotification> with AutomaticKeepAliveClientMixin<PageNotification> {
   ScrollController _scrollController;
   double currentScroll = 0;
 
@@ -35,8 +34,7 @@ class _PageNotification extends State<PageNotification>
 
     _scrollController.addListener(() {
       bool hideBars = Provider.of<VMRootUi>(context).hideBars;
-      onScrollAction(_scrollController, hideBars, context,
-          onScrollUp: onScrollUp, onScrolldown: onScrollDown);
+      onScrollAction(_scrollController, hideBars, context, onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
   }
 
@@ -53,7 +51,7 @@ class _PageNotification extends State<PageNotification>
         controller: _scrollController,
         children: <Widget>[
           SizedBox(
-            height: topTabSize.sh,
+            height: topTabSize,
           ),
           WdgtNotificationAnimation(key: ValueKey('flower')),
           ListView.builder(
@@ -61,24 +59,15 @@ class _PageNotification extends State<PageNotification>
             physics: NeverScrollableScrollPhysics(),
             itemCount: Provider.of<VMRootData>(context).notificationList.length,
             itemBuilder: (_, index) {
-              return Provider.of<VMRootData>(context)
-                          .notificationList
-                          .elementAt(index)
-                          .type ==
-                      ''
+              return Provider.of<VMRootData>(context).notificationList.elementAt(index).type == ''
                   ? WdgtNotificationItem(
-                      notification: Provider.of<VMRootData>(context)
-                          .notificationList
-                          .elementAt(index),
+                      notification: Provider.of<VMRootData>(context).notificationList.elementAt(index),
                     )
-                  : WdgtNotificationBroadcast(
-                      notification: Provider.of<VMRootData>(context)
-                          .notificationList
-                          .elementAt(index));
+                  : WdgtNotificationBroadcast(notification: Provider.of<VMRootData>(context).notificationList.elementAt(index));
             },
           ),
           SizedBox(
-            height: bottomNavPadding.sh,
+            height: bottomNavPadding,
           )
         ],
       ),
@@ -92,5 +81,5 @@ class _PageNotification extends State<PageNotification>
 
 ///[sizes]
 ///
-const double topTabSize = 0.1;
-const double bottomNavPadding = 0.1;
+final double topTabSize = 0.1.sh;
+final double bottomNavPadding = 0.1.sh;

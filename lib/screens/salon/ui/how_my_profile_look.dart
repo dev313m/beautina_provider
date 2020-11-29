@@ -1,12 +1,25 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/index.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+///[colors]
+Color colorContainerBg = Colors.white38;
+Color colorIcon = Colors.purple;
+
+///[size]
+double sizeIcon = ScreenUtil().setSp(300);
+
+/// [radius]
+const double radiusContainer = 14;
+
+/// [String]
+final strHowILook = 'كيف تظهر صفحتي';
 
 class WdgtSalonHowLookProfile extends StatefulWidget {
   const WdgtSalonHowLookProfile({
@@ -23,10 +36,10 @@ class _WdgtSalonHowLookProfileState extends State<WdgtSalonHowLookProfile> {
   Widget build(BuildContext context) {
     modelBeautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
     return ClipRRect(
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(radiusContainer),
       child: Container(
         child: Material(
-          color: Colors.white24,
+          color: colorContainerBg,
           child: Ink(
             width: double.infinity,
             child: InkWell(
@@ -34,15 +47,14 @@ class _WdgtSalonHowLookProfileState extends State<WdgtSalonHowLookProfile> {
                 children: <Widget>[
                   Expanded(
                     child: Center(
-                        child: ExtendedText(
-                      string: 'كيف تظهر صفحتي',
-                      fontSize: ExtendedText.bigFont,
+                        child: GWdgtTextTitle(
+                      string: strHowILook,
                     )),
                   ),
                   Icon(
                     CommunityMaterialIcons.store,
-                    size: ScreenUtil().setSp(300),
-                    color: AppColors.purpleColor,
+                    size: sizeIcon,
+                    color: colorIcon,
                   ),
                 ],
               ),

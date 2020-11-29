@@ -2,14 +2,45 @@ import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+/// [radius]
+const double radiusButton = 14;
+const double radiusContainer = 14;
+
+///[edge]
+double edgeMainContainer = 15.h;
+double edgeMainText = 8.h;
+
+///[colors]
+Color colorContainerBg = Colors.white38;
+Color colorSubmitButton = Colors.blue;
+Color colorTitleFont = Colors.white;
+Color colorToggle = Colors.black;
+Color colorToggleSplash = Colors.black;
+
+///[Strings]
+final strAddingNewService = '~ اضافة الخدمات ~';
+final strAddingNewServiceDetails = '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)';
+final strServiceName = 'اسم الخدمة';
+final strServicePrice = 'السعر';
+final strAddingOtherAlert = "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
+final strAdd = 'اضافة';
+final strDone = 'تم';
+final strSubcategory = 'فرعيات الخدمة';
+final strCancel = 'عودة';
+final strValidChooseServiceName = 'يجب اختيار اسم الخدمة';
+final strValidChooseService = 'يجب اختيار خدمة';
+final strValidPrice = 'يجب وضع ملبغ الخدمة';
+final strValidOffer = 'سعر العرض يجب ان يكون اقل من سعر قبل العرض';
 
 class WdgtSalonAddService extends StatefulWidget {
   // final Map<String, dynamic> mapServices;
@@ -48,8 +79,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   ///Check if toggle buttons list flag;
   bool isToggleButtonsSet = false;
   // bool isMainServiceChosen = false;
-  final RoundedLoadingButtonController _btnController =
-      new RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
   /// * 1- show adding other service
   /// * 2- When adding new service in getNewServiceProvider method it decides
@@ -62,30 +92,26 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
   @override
   Widget build(BuildContext context) {
-    mapServices =
-        Provider.of<VMSalonData>(context).providedServices['services'];
+    mapServices = Provider.of<VMSalonData>(context).providedServices['services'];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(radiusContainer),
         child: Container(
-          padding: EdgeInsets.all(ScreenUtil().setWidth(8)),
-          color: Colors.white38,
+          padding: EdgeInsets.all(edgeMainContainer),
+          color: colorContainerBg,
           // height: ScreenUtil().setHeight(400),
           child: Column(
             children: <Widget>[
-              SizedBox(height: ScreenUtil().setHeight(30)),
-              ExtendedText(
-                string: '~ اضافة الخدمات ~',
-                fontSize: ExtendedText.xbigFont,
+              GWdgtSizedBoxY(height: BoxHeight.heightBtwTitle),
+              GWdgtTextTitle(
+                string: strAddingNewService,
               ),
-              SizedBox(height: ScreenUtil().setHeight(30.h)),
+              GWdgtSizedBoxY(height: BoxHeight.heightBtwContainers),
 
-              ExtendedText(
-                  string:
-                      '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)'),
+              GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
 
-              SizedBox(height: ScreenUtil().setHeight(30)),
+              GWdgtSizedBoxY(height: BoxHeight.heightBtwTitle),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: ToggleButtons(
@@ -98,12 +124,9 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                       //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
 
                       isSelected: !isToggleButtonsSet
-                          ? toggleSelectBoolList = mapServices.entries
-                              .toList()
-                              .map((e) => false)
-                              .toList()
+                          ? toggleSelectBoolList = mapServices.entries.toList().map((e) => false).toList()
                           : toggleSelectBoolList,
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(radiusContainer),
                       fillColor: Colors.pink,
                       selectedColor: Colors.pink,
                       renderBorder: false,
@@ -113,14 +136,13 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                         otherOptionChosenListener(index);
                         clearFields();
 
-                        if (index != toggleSelectBoolList.length - 1)
-                          _showPicker();
+                        if (index != toggleSelectBoolList.length - 1) _showPicker();
 
                         isShowPrice = false;
 
                         setState(() {});
                       })),
-              SizedBox(height: ScreenUtil().setHeight(15)),
+              GWdgtSizedBoxY(height: BoxHeight.heightBtwContainers),
               if (showOther)
                 Directionality(
                   textDirection: TextDirection.rtl,
@@ -136,7 +158,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                       CommunityMaterialIcons.ticket,
                       color: AppColors.pinkBright,
                     ),
-                    placeholder: 'اسم الخدمة',
+                    placeholder: strServiceName,
                     textStyle: TextStyle(color: AppColors.pinkBright),
                     inputType: TextInputType.text,
                   ),
@@ -157,7 +179,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                       Icons.attach_money,
                       color: AppColors.pinkBright,
                     ),
-                    placeholder: 'السعر',
+                    placeholder: strServicePrice,
                     onSubmitted: (tex) {},
                     inputType: TextInputType.number,
                   ),
@@ -207,26 +229,20 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
               // ),
               SizedBox(height: ScreenUtil().setHeight(17)),
               ClipRRect(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(radiusButton),
                 child: RoundedLoadingButton(
                   child: Container(
                       decoration: BoxDecoration(
                         color: Colors.blue,
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(radiusButton),
                       ),
                       height: 58,
                       width: double.infinity,
-                      child: Center(child: ExtendedText(string: 'اضافة'))),
+                      child: Center(child: GWdgtTextButton(string: strAdd))),
                   onPressed: () async {
                     if (checkFields()) {
                       await updateProviderServices(
-                          context,
-                          showOther,
-                          chosenService,
-                          priceBefore,
-                          priceAfter,
-                          otherServiceName,
-                          _btnController);
+                          context, showOther, chosenService, priceBefore, priceAfter, otherServiceName, _btnController);
                       clearFields();
                     }
 
@@ -247,11 +263,9 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
     subCategoryList = [];
     if (indexCategory == null) return;
     String categoryKey = mapServices.keys.toList()[indexCategory];
-    Map<String, dynamic> allServices =
-        Provider.of<VMSalonData>(context).providedServices['services'];
+    Map<String, dynamic> allServices = Provider.of<VMSalonData>(context).providedServices['services'];
     mapServices[categoryKey]['items']?.forEach((k, v) {
-      subCategoryList
-          .add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
+      subCategoryList.add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
     });
   }
 
@@ -262,9 +276,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
     if (indexOfToggleBotton == toggleSelectBoolList.length - 1) {
       showOther = true;
-      String msg =
-          "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
-      showAlert(context, msg: msg, dismiss: 'تم');
+      String msg = strAddingOtherAlert;
+      showAlert(context, msg: msg, dismiss: strDone);
     }
   }
 
@@ -284,24 +297,20 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
       // selectedItems: [5, 2, 1],
     );
 
-    PickerViewPopup.showMode(
-        PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
+    PickerViewPopup.showMode(PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
         controller: pickerController,
         context: context,
-        title: Text(
-          'فرعيات الخدمة',
-          style: TextStyle(fontSize: 14),
+        title: GWdgtTextTitleDesc(
+          string: strSubcategory,
         ),
-        cancel: Text(
-          'cancel',
-          style: TextStyle(color: Colors.grey),
+        cancel: GWdgtTextPickerCancel(
+          string: strCancel,
         ),
         onCancel: () {
           // Scaffold.of(context).showSnackBar(SnackBar(content: Text('AlertDialogPicker.cancel')));
         },
-        confirm: Text(
-          'confirm',
-          style: TextStyle(color: Colors.blue),
+        confirm: GWdgtTextPickerSubmit(
+          string: strDone,
         ),
         onConfirm: (controller) {
           var chosen = controller.selectedRowAt(section: 0);
@@ -325,9 +334,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
         },
         itemBuilder: (section, row) {
           String value = subCategoryList[row].keys.first;
-          return Text(
-            value,
-            style: TextStyle(fontSize: 12),
+          return GWdgtTextTitleDesc(
+            string: value,
           );
         });
   }
@@ -341,19 +349,19 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   ///This will validate the fields before saving data to database
   bool checkFields() {
     if (showOther) if (otherServiceName == '' || otherServiceName == null) {
-      showToast('يجب اختيار اسم الخدمة');
+      showToast(strValidChooseServiceName);
       return false;
     }
     if (!showOther) if (chosenService == '' || chosenService == null) {
-      showToast('يجب اختيار خدمة');
+      showToast(strValidChooseService);
       return false;
     }
     if (priceAfter == 0) {
-      showToast('يجب وضع ملبغ الخدمة');
+      showToast(strValidPrice);
       return false;
     }
     if (priceBefore != 0 && priceAfter >= priceBefore) {
-      showToast('سعر العرض يجب ان يكون اقل من سعر قبل العرض');
+      showToast(strValidOffer);
       return false;
     }
     return true;
@@ -365,8 +373,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 class WdgtSalonServiceItem extends StatelessWidget {
   final String serviceName;
 
-  const WdgtSalonServiceItem({Key key, @required this.serviceName})
-      : super(key: key);
+  const WdgtSalonServiceItem({Key key, @required this.serviceName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -377,9 +384,8 @@ class WdgtSalonServiceItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
-            child: ExtendedText(
+            child: GWdgtTextToggle(
               string: serviceName,
-              fontSize: ExtendedText.bigFont,
             ),
           ),
         ));
@@ -388,8 +394,7 @@ class WdgtSalonServiceItem extends StatelessWidget {
 
 /// if he is valid with this package true else false;
 bool checkPackage(Map<String, dynamic> package) {
-  if (package['01'] != null) if (DateTime.parse(package['01']['to'])
-      .isAfter(DateTime.now().toLocal())) return true;
+  if (package['01'] != null) if (DateTime.parse(package['01']['to']).isAfter(DateTime.now().toLocal())) return true;
 
   return false;
 }
