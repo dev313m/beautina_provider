@@ -117,7 +117,7 @@ lifeCycleChangeAction(AppLifecycleState state, BuildContext context) {
 ///To check if the user on the root screen, it will go otherwise it will move
 ///the user to root screen
 Future<bool> willExitApp(BuildContext context) async {
-  if (Provider.of<VMRootUi>(context).pageController.page != 3) {
+  if (Provider.of<VMRootUi>(context).pageController.page.round() != 3) {
     Provider.of<VMRootUi>(context).pageController.jumpToPage(3);
 
     return false;
@@ -154,11 +154,6 @@ onScrollAction(
     onScrollUp(context);
 }
 
-
-
-///This function updates beautyProvider[user] 
-updateUserData(BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {
-
-
-
-}
+///This function updates beautyProvider[user]
+updateUserData(
+    BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {}
