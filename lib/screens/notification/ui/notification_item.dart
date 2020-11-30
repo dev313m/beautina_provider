@@ -30,7 +30,7 @@ class WdgtNotificationItem extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(ScreenUtil().setHeight(8)), //
               child: Container(
-                // height: 250,
+                height: 250,
                 // constraints: BoxConstraints(minHeight: 120, maxHeight: 200),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

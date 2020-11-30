@@ -52,21 +52,7 @@ Function getFunctionReject(Order order, BuildContext context) {
     ac.forward();
     try {
       await apiOrderReject(order);
-
-      // apiNotificationAdd(MyNotification(
-      //     client_id: order.client_id,
-      //     createDate: DateTime.now().toString(),
-      //     describ: 'قامت ${order.client_name} بإلغاء الطلب، الله كريم',
-      //     from_token: '',
-      //     to_token: order.tokens.elementAt(0),
-      //     icon: '',
-      //     image: '',
-      //     title: 'الغاء الطلب',
-      //     type: '0')
-      //   ..toFirestoreMap());
-      // ac.reverse();
       await refreshList(context);
-
       showToast('تم الغاء الطلب شكرا لتنبيهك');
       // print('Stream is hersa ');
     } catch (e) {

@@ -20,9 +20,11 @@ final POST_GET_URL_CONFIRMED =
 final POST_REJECT_URL =
     'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/reject';
 
-final POST_ACCEPT_URL =
+// ignore: non_constant_identifier_names
+final String POST_ACCEPT_URL =
     'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/accept';
 
+// ignore: non_constant_identifier_names
 final POST_FINISHED_INCOMPLETE =
     'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/finished_incomplete';
 
