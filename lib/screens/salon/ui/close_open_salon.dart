@@ -7,6 +7,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// [radius]
 const double radiusContainer = 14;
@@ -25,8 +26,8 @@ final strFlareAnimationFinish = 'lightOff';
 Color colorContainerBg = Colors.white38;
 
 ///[Size]
-double flareHeightSize;
-double flareWidthSize;
+double flareHeightSize = 300.h;
+double flareWidthSize = 300.h;
 
 class WdgtSalonCloseOpenSalon extends StatefulWidget {
   WdgtSalonCloseOpenSalon({Key key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/root/index.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data.dart';
@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider<VMRootUi>(
                 builder: (_) => VMRootUi(),
               ),
-              ChangeNotifierProvider<SharedOrder>(
-                builder: (_) => SharedOrder(build: true),
+              ChangeNotifierProvider<VmDateData>(
+                builder: (_) => VmDateData(build: true),
               ),
               ChangeNotifierProvider<VMSalonData>(
                 builder: (_) => VMSalonData(build: true),
@@ -71,8 +71,8 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider<VMSalonData>(
                 builder: (_) => VMSalonData(build: false),
               ),
-              ChangeNotifierProvider<SharedOrder>(
-                builder: (_) => SharedOrder(build: false),
+              ChangeNotifierProvider<VmDateData>(
+                builder: (_) => VmDateData(build: false),
               ),
               ChangeNotifierProvider<VMSettingsData>(create: (_) => VMSettingsData())
             ],

@@ -147,8 +147,6 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                 Directionality(
                   textDirection: TextDirection.rtl,
                   child: BeautyTextfieldT(
-                    width: ScreenUtil().setWidth(300),
-                    height: ScreenUtil().setHeight(100),
                     onChanged: (str) {
                       otherServiceName = str;
                       isShowPrice = true;
@@ -158,7 +156,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                       CommunityMaterialIcons.ticket,
                       color: AppColors.pinkBright,
                     ),
-                    placeholder: strServiceName,
+                    // placeholder: strServiceName,
+                    helperText: strServiceName,
                     textStyle: TextStyle(color: AppColors.pinkBright),
                     inputType: TextInputType.text,
                   ),
@@ -169,18 +168,16 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                 Directionality(
                   textDirection: TextDirection.rtl,
                   child: BeautyTextfieldT(
-                    width: ScreenUtil().setHeight(200),
-                    height: ScreenUtil().setHeight(90),
+                    // height: ScreenUtil().setHeight(90),
                     onChanged: (String s) {
                       priceAfter = double.parse(s);
                     },
                     textStyle: TextStyle(color: AppColors.pinkBright),
-                    prefixIcon: Icon(
+                    suffixIcon: Icon(
                       Icons.attach_money,
                       color: AppColors.pinkBright,
                     ),
                     placeholder: strServicePrice,
-                    onSubmitted: (tex) {},
                     inputType: TextInputType.number,
                   ),
                 ),

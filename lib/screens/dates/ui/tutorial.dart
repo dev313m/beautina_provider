@@ -1,13 +1,13 @@
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
-import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/dates/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class TutorialCalendar extends StatelessWidget {
-  const TutorialCalendar({
+class WdgtDateTutorialCalendar extends StatelessWidget {
+  const WdgtDateTutorialCalendar({
     Key key,
   }) : super(key: key);
 
@@ -44,14 +44,9 @@ class TutorialCalendar extends StatelessWidget {
                         string: 'تعليمات:',
                         fontSize: ExtendedText.bigFont,
                       ),
-                      ExtendedText(
-                          string: '- اضغط على اليوم لتظهر المواعيد بالاسفل'),
-                      ExtendedText(
-                          string:
-                              '- الطلبات المقبولة يجب تأكيدها عند الظهور بالاعلى'),
-                      ExtendedText(
-                          string:
-                              '- فضلا يرجى تأكيد الطلبات التامة عند الظهور بالأعلى'),
+                      ExtendedText(string: '- اضغط على اليوم لتظهر المواعيد بالاسفل'),
+                      ExtendedText(string: '- الطلبات المقبولة يجب تأكيدها عند الظهور بالاعلى'),
+                      ExtendedText(string: '- فضلا يرجى تأكيد الطلبات التامة عند الظهور بالأعلى'),
                       SizedBox(
                         height: 40.sp,
                       ),
@@ -63,16 +58,13 @@ class TutorialCalendar extends StatelessWidget {
                           children: <Widget>[
                             Align(
                                 child: Container(
-                              decoration: BoxDecoration(
-                                  color: CalendarColors.eventColor,
-                                  borderRadius: BorderRadius.circular(12)),
+                              decoration: BoxDecoration(color: CalendarColors.eventColor, borderRadius: BorderRadius.circular(12)),
                               height: ScreenUtil().setWidth(90),
                               width: ScreenUtil().setWidth(90),
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Padding(
-                                  padding:
-                                      EdgeInsets.all(ScreenUtil().setHeight(8)),
+                                  padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
                                   child: ExtendedText(
                                     string: '24',
                                   ),
@@ -169,10 +161,9 @@ class TutorialCalendar extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: AnimatedSwitcher(
                 duration: Duration(seconds: 1),
-                child: Provider.of<SharedOrder>(context).isShowAvailableWidget
+                child: Provider.of<VmDateData>(context).isShowAvailableWidget
                     ? WAvailablilityChanger(
-                        changableAvailableDate:
-                            Provider.of<SharedOrder>(context).calanderChosenDay,
+                        changableAvailableDate: Provider.of<VmDateData>(context).calanderChosenDay,
                       )
                     : SizedBox(),
               ),

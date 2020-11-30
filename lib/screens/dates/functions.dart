@@ -1,5 +1,5 @@
 import 'package:beautina_provider/models/order.dart';
-import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/api/db_orders.dart';
 import 'package:flutter/material.dart';
@@ -77,10 +77,10 @@ Function getFunctionReject(Order order, BuildContext context) {
 }
 
 Future refreshList(BuildContext context) async {
-  // Provider.of<SharedOrder>(context).isLoading = true;
-  // Provider.of<SharedOrder>(context).notifyListeners();
+  // Provider.of<VmDateData>(context).isLoading = true;
+  // Provider.of<VmDateData>(context).notifyListeners();
   // await Future.delayed(Duration(seconds: 1));
-  await Provider.of<SharedOrder>(context).iniState();
+  await Provider.of<VmDateData>(context).iniState();
 }
 
 Function getFunctionAccept(Order order, BuildContext context) {
@@ -183,5 +183,5 @@ List<Order> getFilteredList(List<Order> list, int index) {
 }
 
 Future<void> pagesRefresh(BuildContext context) async {
-  Provider.of<SharedOrder>(context).iniState(); //this will refresh orders list
+  Provider.of<VmDateData>(context).iniState(); //this will refresh orders list
 }

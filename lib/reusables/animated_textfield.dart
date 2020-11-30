@@ -1,54 +1,42 @@
-import 'package:beautina_provider/reusables/text.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BeautyTextfieldT extends StatefulWidget {
-  final BorderRadius cornerRadius;
-  final double width, height, wordSpacing;
   final Color backgroundColor, accentColor, textColor;
-  final String placeholder, fontFamily;
+  final String placeholder;
   final Icon prefixIcon, suffixIcon;
+  final bool isBox;
   final TextInputType inputType;
-  final EdgeInsets margin;
   final Duration duration;
-  final VoidCallback onClickSuffix;
-  final TextBaseline textBaseline;
-  final FontStyle fontStyle;
+  final String suffixText;
+  final String prefixText;
+  // final FontStyle fontStyle;
   final TextStyle textStyle;
   final String helperText;
-  final FontWeight fontWeight;
   final bool autofocus, autocorrect, enabled, obscureText, isShadow;
-  final FocusNode focusNode;
   final int maxLength, minLines, maxLines;
   final ValueChanged<String> onChanged, onSubmitted;
   final GestureTapCallback onTap;
 
   const BeautyTextfieldT(
-      {@required this.width,
-      @required this.height,
-      @required this.prefixIcon,
-      @required this.inputType,
+      {this.prefixIcon,
+      this.inputType,
       this.textStyle,
+      this.isBox = false,
       this.suffixIcon,
       this.duration = const Duration(milliseconds: 500),
-      this.margin = const EdgeInsets.all(10),
       this.obscureText = false,
       this.helperText = '',
+      this.suffixText,
+      this.prefixText,
       this.backgroundColor = const Color(0xFF2B0B3A),
-      this.cornerRadius = const BorderRadius.all(Radius.circular(10)),
       this.textColor = const Color(0xFF9A9A2D),
       this.accentColor = Colors.white,
       this.placeholder = "Placeholder",
       this.isShadow = true,
-      this.onClickSuffix,
-      this.wordSpacing,
-      this.textBaseline,
-      this.fontFamily,
-      this.fontStyle,
-      this.fontWeight,
+      // this.fontStyle,
       this.autofocus = false,
       this.autocorrect = false,
-      this.focusNode,
       this.enabled = true,
       this.maxLength,
       this.maxLines,
@@ -56,9 +44,8 @@ class BeautyTextfieldT extends StatefulWidget {
       this.onChanged,
       this.onTap,
       this.onSubmitted})
-      : assert(width != null),
-        assert(height != null),
-        assert(prefixIcon != null),
+      :
+        // assert(prefixIcon != null),
         assert(inputType != null);
 
   @override
@@ -71,16 +58,14 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      width: widget.width,
-      height: widget.height,
-
+      // width: ScreenUtil().setWidth(300),
+      height: !widget.isBox ? 120.h : 400.h,
       // margin: widget.margin,
       // alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          boxShadow: widget.isShadow
-              ? [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)]
-              : BoxShadow(spreadRadius: 0, blurRadius: 0),
-          borderRadius: widget.cornerRadius,
+          boxShadow:
+              widget.isShadow ? [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)] : BoxShadow(spreadRadius: 0, blurRadius: 0),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           color: widget.suffixIcon == null
               ? isFocus
                   ? widget.accentColor
@@ -89,15 +74,19 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
       child: Center(
         child: TextField(
           // cursorWidth: 2,
+          maxLength: widget.maxLength,
           obscureText: widget.obscureText,
+          // maxLength: !widget.isBox ? 1 : 4,
+          maxLines: !widget.isBox ? 1 : 4,
           keyboardType: widget.inputType,
+
+          // controller: TextEditingController(text: widget.placeholder),
           style: widget.textStyle,
           textInputAction: TextInputAction.done,
           // toolbarOptions: ToolbarOptions(),
 
           autofocus: widget.autofocus,
           autocorrect: widget.autocorrect,
-          focusNode: widget.focusNode,
           enabled: widget.enabled,
           // maxLength: widget.maxLength,
           // maxLines: widget.maxLines,
@@ -117,16 +106,22 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
             });
             widget.onSubmitted(t);
           },
+
           // textInputAction: TextInputAction.done,
           decoration: InputDecoration(
-              hintStyle: TextStyle(color: widget.textColor),
-              hintText: widget.placeholder,
-              // helperText: 'هنا ضع اسمك',
-              // suffixText: 'suffex',
-
-              // labelText: 'labels',
               prefixIcon: widget.prefixIcon,
-              border: InputBorder.none),
+              suffixIcon: widget.suffixIcon,
+              suffixText: widget.suffixText,
+              prefixText: widget.prefixText,
+              labelStyle: TextStyle(color: Colors.pink),
+              hintText: widget.helperText,
+              // labelText: 'labels',
+              counterText: '',
+              // prefixIcon: widget.prefixIcon,
+              border: new OutlineInputBorder(borderSide: BorderSide.none),
+              // hintText: widget.placeholder,
+              // helperText: 'Keep it short, this is just a demo.',
+              labelText: widget.placeholder),
           cursorColor: isFocus ? widget.accentColor : widget.backgroundColor,
         ),
       ),

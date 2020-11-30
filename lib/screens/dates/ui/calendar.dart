@@ -1,8 +1,7 @@
-import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -12,14 +11,14 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Calender extends StatefulWidget {
-  Calender({Key key}) : super(key: key);
+class WdgtDateCalendar extends StatefulWidget {
+  WdgtDateCalendar({Key key}) : super(key: key);
 
   @override
   _CalenderState createState() => _CalenderState();
 }
 
-class _CalenderState extends State<Calender> with TickerProviderStateMixin {
+class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMixin {
   int month;
 
   AnimationController _animationController;
@@ -74,7 +73,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
   Map<DateTime, List<dynamic>> getEvents(List<Order> orders) {
     Map<DateTime, List<dynamic>> events = getBusyDatesEvents();
 
-    Provider.of<SharedOrder>(context).orderList.forEach((f) {
+    Provider.of<VmDateData>(context).orderList.forEach((f) {
       DateTime dbDate = f.client_order_date;
       DateTime date = DateTime.utc(dbDate.year, dbDate.month, dbDate.day);
       // events[date] = events[date] == null ? [f] : events[date]
@@ -126,23 +125,23 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
             children: <Widget>[
               TableCalendar(
                 calendarController: _calendarController,
-                events: getEvents(Provider.of<SharedOrder>(context).orderList),
+                events: getEvents(Provider.of<VmDateData>(context).orderList),
                 availableGestures: AvailableGestures.horizontalSwipe,
-                // holidays: getEvents(Provider.of<SharedOrder>(context).orderList),
+                // holidays: getEvents(Provider.of<VmDateData>(context).orderList),
                 headerVisible: true,
                 initialCalendarFormat: CalendarFormat.month,
 
                 ///[to-do check this ondayselected third parameter]
                 onDaySelected: (date, events, _) async {
                   List<Order> list = events.cast();
-                  Provider.of<SharedOrder>(context).calanderChosenDay = date;
+                  Provider.of<VmDateData>(context).calanderChosenDay = date;
 
-                  Provider.of<SharedOrder>(context).listOfDay = [];
-                  Provider.of<SharedOrder>(context).isShowAvailableWidget = false;
+                  Provider.of<VmDateData>(context).listOfDay = [];
+                  Provider.of<VmDateData>(context).isShowAvailableWidget = false;
                   await Future.delayed(Duration(milliseconds: 200));
-                  Provider.of<SharedOrder>(context).isShowAvailableWidget = true;
+                  Provider.of<VmDateData>(context).isShowAvailableWidget = true;
 
-                  Provider.of<SharedOrder>(context).listOfDay =
+                  Provider.of<VmDateData>(context).listOfDay =
                       list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList();
                 },
                 calendarStyle: CalendarStyle(
@@ -153,13 +152,13 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                 ),
 
                 onVisibleDaysChanged: (time, date, format) async {
-                  int currentMonth = Provider.of<SharedOrder>(context).month;
+                  int currentMonth = Provider.of<VmDateData>(context).month;
                   if (currentMonth < date.month) {
-                    Provider.of<SharedOrder>(context).month = date.month;
-                    Provider.of<SharedOrder>(context).isLoading = true;
+                    Provider.of<VmDateData>(context).month = date.month;
+                    Provider.of<VmDateData>(context).isLoading = true;
 
-                    await Provider.of<SharedOrder>(context).apiLoadMore();
-                    Provider.of<SharedOrder>(context).isLoading = false;
+                    await Provider.of<VmDateData>(context).apiLoadMore();
+                    Provider.of<VmDateData>(context).isLoading = false;
                   }
                   // month = time.month;
                 },
@@ -295,7 +294,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
               ),
               AnimatedSwitcher(
                 duration: Duration(seconds: 1),
-                child: Provider.of<SharedOrder>(context).isLoading
+                child: Provider.of<VmDateData>(context).isLoading
                     ? Align(
                         child: Loading(),
                         alignment: Alignment.center,
@@ -320,7 +319,7 @@ class _CalenderState extends State<Calender> with TickerProviderStateMixin {
                           hoverColor: Colors.deepOrangeAccent,
                           splashColor: Colors.pink,
                           onPressed: () async {
-                            Provider.of<SharedOrder>(context).isLoading = true;
+                            Provider.of<VmDateData>(context).isLoading = true;
                             await pagesRefresh(context);
                           }),
                     ),

@@ -2,9 +2,8 @@ import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/api/db_orders.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 
-class SharedOrder with ChangeNotifier {
+class VmDateData with ChangeNotifier {
   bool build = true;
   // the required to download month
   int month = DateTime.now().toLocal().month;
@@ -69,7 +68,7 @@ class SharedOrder with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  SharedOrder({this.build = true}) {
+  VmDateData({this.build = true}) {
     if (build) iniState();
   }
 

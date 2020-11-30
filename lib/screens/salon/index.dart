@@ -32,11 +32,9 @@ class _PageSalonState extends State<PageSalon> {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse)
+      if (_scrollController.position.userScrollDirection == ScrollDirection.reverse)
         Provider.of<VMRootUi>(context).hideBars = true;
-      else if (Provider.of<VMRootUi>(context).hideBars)
-        Provider.of<VMRootUi>(context).hideBars = false;
+      else if (Provider.of<VMRootUi>(context).hideBars) Provider.of<VMRootUi>(context).hideBars = false;
     });
     // initBeautyProvider();
   }
@@ -54,44 +52,25 @@ class _PageSalonState extends State<PageSalon> {
               physics: AlwaysScrollableScrollPhysics(),
               children: <Widget>[
                 Container(
-                  height:
-                      ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
+                  height: ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
                 ),
                 WdgtSalonProfileDetails(),
-                if (Provider.of<VMSalonData>(context)
-                        .beautyProvider
-                        .location
-                        .length !=
-                    2)
+                if (Provider.of<VMSalonData>(context).beautyProvider.location.length != 2)
                   SizedBox(
                     height: ScreenUtil().setHeight(10),
                   ),
-                if (Provider.of<VMSalonData>(context)
-                        .beautyProvider
-                        .location
-                        .length !=
-                    2)
-                  WdgtSalonLocationNotSet(),
+                if (Provider.of<VMSalonData>(context).beautyProvider.location.length != 2) WdgtSalonLocationNotSet(),
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
                 WdgtSalonCloseOpenSalon(),
                 if (Provider.of<VMSalonData>(context).providedServices != null)
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: WdgtSalonMyServices()),
+                  ClipRRect(borderRadius: BorderRadius.circular(15), child: WdgtSalonMyServices()),
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
-                if (Provider.of<VMSalonData>(context)
-                    .providedServices
-                    .containsKey('services'))
-                  if (Provider.of<VMSalonData>(context)
-                          .providedServices['services']
-                          .keys
-                          .length !=
-                      0)
-                    WdgtSalonAddService(),
+                if (Provider.of<VMSalonData>(context).providedServices.containsKey('services'))
+                  if (Provider.of<VMSalonData>(context).providedServices['services'].keys.length != 0) WdgtSalonAddService(),
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
@@ -99,9 +78,7 @@ class _PageSalonState extends State<PageSalon> {
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
-                WdgtSalonHowLookSearch(
-                    // beautyProvider: beautyProvider,
-                    ),
+                WdgtSalonHowLookSearch(),
                 SizedBox(
                   height: 100,
                 ),

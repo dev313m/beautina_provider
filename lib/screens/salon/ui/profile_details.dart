@@ -23,7 +23,7 @@ double edgeMainText = 8.h;
 ///[colors]
 Color colorContainerBg = Colors.white38;
 Color colorIconFavorite = Colors.amber;
-Color colorIconDetails = colorIconDetails;
+Color colorIconDetails = Colors.pink;
 
 ///[Strings]
 final strImageServerUrl = 'https://resorthome.000webhostapp.com/upload/';
@@ -37,7 +37,7 @@ final strDefaultProfileImage = 'assets/images/default.png';
 ///[sizes]
 final double sizeIconFavorite = ScreenUtil().setSp(39);
 final double sizeImageProfile = 299.h;
-final double sizeIconDetails = sizeIconDetails;
+final double sizeIconDetails = 44.sp;
 
 class WdgtSalonProfileDetails extends StatefulWidget {
   WdgtSalonProfileDetails({Key key}) : super(key: key);

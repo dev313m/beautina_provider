@@ -70,7 +70,7 @@ class GWdgtTextToggle extends StatelessWidget {
 }
 
 class GWdgtTextProfile extends StatelessWidget {
-  final double fontSize;
+  // final double fontSize;
   static final double xxbigFont = 30;
 
   final TextDirection textDirection;
@@ -86,7 +86,7 @@ class GWdgtTextProfile extends StatelessWidget {
       this.textAlign = TextAlign.center,
       this.textDirection = TextDirection.rtl,
       this.fontColor = brightColor,
-      this.fontSize,
+      // this.fontSize,
       @required this.string})
       : super(key: key);
 
@@ -97,7 +97,7 @@ class GWdgtTextProfile extends StatelessWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       style: TextStyle(
-        fontSize: ScreenUtil().setSp(fontSize),
+        fontSize: ScreenUtil().setSp(22),
         color: fontColor,
       ),
     );

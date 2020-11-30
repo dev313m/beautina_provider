@@ -6,8 +6,8 @@ import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/dates/paint.dart';
-import 'package:beautina_provider/screens/dates/shared_variables_order.dart';
+import 'package:beautina_provider/screens/dates/ui/paint.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/dates/ui.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:beautina_provider/reusables/text.dart';
@@ -30,7 +30,7 @@ class OrderListPage extends StatefulWidget {
 class _OrderListPageState extends State<OrderListPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<SharedOrder>(builder: (_, sharedOrder, child) {
+    return Consumer<VmDateData>(builder: (_, VmDateData, child) {
       return Scaffold(
         primary: false,
         resizeToAvoidBottomPadding: false,
@@ -65,14 +65,12 @@ class _OrderListPageState extends State<OrderListPage> {
                   //   painter: MyPainter(step: getStep(0)),
                   // ),
                   ListView.builder(
-                    itemCount: sharedOrder.comingConfirmedList.length,
+                    itemCount: VmDateData.comingConfirmedList.length,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (_, index) {
                       return JustOrderWidget(
-                        order: sharedOrder.orderList
-                            .where((item) => item.status == 3)
-                            .toList()[index],
+                        order: VmDateData.orderList.where((item) => item.status == 3).toList()[index],
                       );
                     },
                   ),
@@ -126,7 +124,7 @@ class OrderListFinishedPage extends StatefulWidget {
 class _OrderListFinishedState extends State<OrderListFinishedPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<SharedOrder>(builder: (_, sharedOrder, child) {
+    return Consumer<VmDateData>(builder: (_, VmDateData, child) {
       return Scaffold(
         primary: false,
         resizeToAvoidBottomPadding: false,
@@ -152,23 +150,14 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                     )),
                   ),
                   ListView.builder(
-                    itemCount: sharedOrder.orderList
-                        .where((item) =>
-                            item.status != 0 &&
-                            item.status != 1 &&
-                            item.status != 3)
-                        .toList()
-                        .length,
+                    itemCount:
+                        VmDateData.orderList.where((item) => item.status != 0 && item.status != 1 && item.status != 3).toList().length,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (_, index) {
                       return JustOrderWidget(
-                        order: sharedOrder.orderList
-                            .where((item) =>
-                                item.status != 0 &&
-                                item.status != 1 &&
-                                item.status != 3)
-                            .toList()[index],
+                        order:
+                            VmDateData.orderList.where((item) => item.status != 0 && item.status != 1 && item.status != 3).toList()[index],
                       );
                     },
                   ),
@@ -223,7 +212,7 @@ class PageOrderDetail extends StatefulWidget {
 class _PageOrderDetailState extends State<PageOrderDetail> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<SharedOrder>(builder: (_, sharedOrder, child) {
+    return Consumer<VmDateData>(builder: (_, VmDateData, child) {
       return Scaffold(
         primary: false,
         resizeToAvoidBottomPadding: false,
@@ -248,9 +237,7 @@ class _PageOrderDetailState extends State<PageOrderDetail> {
                       duration: Duration(milliseconds: durationCalender),
                     )),
                   ),
-                  JustOrderWidget(
-                      order: sharedOrder.orderList.firstWhere(
-                          (item) => item.doc_id == widget.order.doc_id))
+                  JustOrderWidget(order: VmDateData.orderList.firstWhere((item) => item.doc_id == widget.order.doc_id))
                 ],
               ),
             ),

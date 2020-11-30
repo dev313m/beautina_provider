@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:beautina_provider/reusables/animated_textfield.dart';
 
 class WdgtSetttingsPersonalInfo extends StatefulWidget {
   WdgtSetttingsPersonalInfo({Key key}) : super(key: key);
@@ -36,79 +37,78 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
           Icon(CommunityMaterialIcons.account_edit, color: overviewIconColor, size: overviewIconSize),
           ExtendedText(string: personalData, fontSize: ExtendedText.xbigFont),
           SizedBox(height: btwIconxRest),
-          new TextFormField(
-            decoration: new InputDecoration(
-                // hintText: 'الاسم',
-                prefixText: nameHint,
-                // prefixStyle: TextStyle(color: AppColors.blueOpcity),
-                border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(fieldsRadius),
-                  ),
-                  // gapPadding: ScreenUtil().setWidth(20)
-                ),
-                suffix: Icon(CommunityMaterialIcons.face_profile),
-                // labelText: 'الاسم',
-                filled: true,
-                hasFloatingPlaceholder: true,
-                // helperText: beautyProvider.name,
-                // hintStyle: new TextStyle(color: Colors.grey[800]),
-                fillColor: fieldColor),
-            keyboardType: TextInputType.text,
-            validator: validateName,
-            onSaved: (String val) {
+          new BeautyTextfieldT(
+            helperText: nameHint,
+            placeholder: beautyProvider.name,
+            inputType: TextInputType.text,
+            // height: 33,
+            onChanged: (val) {
               vmSettingsData.name = val;
             },
-            initialValue: beautyProvider.name,
+            suffixIcon: Icon(CommunityMaterialIcons.face_profile),
           ),
           SizedBox(height: btwAnyTwoInForm),
-          TextFormField(
-            initialValue: beautyProvider.username.substring(4, beautyProvider.username.length),
-            decoration: new InputDecoration(
-                suffixText: '966 ',
-                // prefixStyle: TextStyle(color: AppColors.blueOpcity),
-                hasFloatingPlaceholder: true,
-                border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(fieldsRadius),
-                  ),
-                  gapPadding: fieldGapPadding,
-                ),
-                prefixIcon: Icon(CommunityMaterialIcons.phone),
-                filled: true,
-                // labelText: '966',
-                // hintStyle: new TextStyle(color: Colors.grey[800]),
-                hintText: phoneHint,
-                fillColor: fieldColor),
-            // strutStyle: StrutStyle(/),
-            keyboardType: TextInputType.phone,
-            validator: validateMobile,
-            onSaved: (String val) {
+          BeautyTextfieldT(
+            suffixText: '966',
+            inputType: TextInputType.phone,
+            maxLength: 9,
+            helperText: beautyProvider.username.substring(4, beautyProvider.username.length),
+            placeholder: '',
+            prefixIcon: Icon(Icons.phone),
+            onChanged: (val) {
               vmSettingsData.mobile = Countries.phoneCodePlus[beautyProvider.country] + val;
             },
+            // initialValue: beautyProvider.username.substring(4, beautyProvider.username.length),
+            // decoration: new InputDecoration(
+            //     suffixText: '966 ',
+
+            //     // prefixStyle: TextStyle(color: AppColors.blueOpcity),
+            //     hasFloatingPlaceholder: true,
+            //     border: new OutlineInputBorder(
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(fieldsRadius),
+            //       ),
+            //       gapPadding: fieldGapPadding,
+            //     ),
+            //     prefixIcon: Icon(CommunityMaterialIcons.phone),
+            //     filled: true,
+            //     // labelText: '966',
+            //     // hintStyle: new TextStyle(color: Colors.grey[800]),
+            //     hintText: phoneHint,
+            //     fillColor: fieldColor),
+            // // strutStyle: StrutStyle(/),
+            // keyboardType: TextInputType.phone,
+            // validator: validateMobile,
+            // onSaved: (String val) {
+            //   vmSettingsData.mobile = Countries.phoneCodePlus[beautyProvider.country] + val;
+            // },
           ),
           SizedBox(height: btwAnyTwoInForm),
-          new TextFormField(
-            initialValue: beautyProvider.intro,
-            minLines: 3,
-            maxLines: 5,
-            decoration: new InputDecoration(
-                prefixText: descHint,
-                prefixStyle: TextStyle(color: AppColors.blueOpcity),
-                hasFloatingPlaceholder: true,
-                border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(fieldsRadius),
-                  ),
-                ),
-                suffixIcon: Icon(CommunityMaterialIcons.information),
-                filled: true,
-                // hintStyle: new TextStyle(color: Colors.grey[800]),
-                // hintText: "وصف للصالون مختصر",
-                fillColor: fieldColor),
-            keyboardType: TextInputType.text,
-            validator: validateName,
-            onSaved: (String val) {
+          new BeautyTextfieldT(
+            // initialValue: beautyProvider.intro,
+            placeholder: beautyProvider.intro,
+            // helperText: descHint,
+            isBox: true,
+            inputType: TextInputType.text,
+            prefixText: descHint,
+
+            // decoration: new InputDecoration(
+            //     prefixText: descHint,
+            //     prefixStyle: TextStyle(color: AppColors.blueOpcity),
+            //     hasFloatingPlaceholder: true,
+            //     border: new OutlineInputBorder(
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(fieldsRadius),
+            //       ),
+            //     ),
+            //     suffixIcon: Icon(CommunityMaterialIcons.information),
+            //     filled: true,
+            //     // hintStyle: new TextStyle(color: Colors.grey[800]),
+            //     // hintText: "وصف للصالون مختصر",
+            //     fillColor: fieldColor),
+            // keyboardType: TextInputType.text,
+            // validator: validateName,
+            onChanged: (String val) {
               vmSettingsData.description = val;
             },
           ),
