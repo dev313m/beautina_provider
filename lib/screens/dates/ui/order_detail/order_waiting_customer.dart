@@ -5,7 +5,7 @@ import 'package:beautina_provider/reusables/animated_buttons.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/dates/ui.dart';
+import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/screens/dates/ui/paint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,9 +27,7 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
       padding: EdgeInsets.only(top: 4),
       child: Container(
         width: ScreenResolution.width,
-        decoration: BoxDecoration(
-            color: AppColors.blueOpcity,
-            borderRadius: BorderRadius.circular(20)),
+        decoration: BoxDecoration(color: AppColors.blueOpcity, borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -44,8 +42,7 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
                 ),
                 child: Center(
                     child: ExtendedText(
-                  string:
-                      '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
+                  string: '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
                   fontSize: ExtendedText.bigFont,
                   // style: TextStyle(color: Colors.white),
                 )),
@@ -56,8 +53,7 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
                 isComplex: true,
                 // willChange: false,
                 // isComplex: false,
-                size: Size(
-                    ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
+                size: Size(ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
                 painter: MyPainter(step: getStep(widget.order.status)),
               ),
               Container(
@@ -141,9 +137,7 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
                   ),
                   Container(
                     child: ExtendedText(
-                      string: widget.order.order_info == ''
-                          ? 'لايوجد'
-                          : widget.order.order_info,
+                      string: widget.order.order_info == '' ? 'لايوجد' : widget.order.order_info,
                       fontSize: ExtendedText.bigFont,
                     ),
                   ),
@@ -165,9 +159,7 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
                   widget.order.provider_notes == ''
                       ? Container(
                           child: ExtendedText(
-                            string: widget.order.provider_notes == ''
-                                ? 'لايوجد'
-                                : widget.order.provider_notes,
+                            string: widget.order.provider_notes == '' ? 'لايوجد' : widget.order.provider_notes,
                             fontSize: ExtendedText.bigFont,
                           ),
                         )

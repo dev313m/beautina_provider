@@ -1,6 +1,6 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/reusables/text.dart';
-import 'package:beautina_provider/screens/dates/ui.dart';
+import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:flutter/material.dart';
@@ -44,23 +44,14 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                     )),
                   ),
                   ListView.builder(
-                    itemCount: VmDateData.orderList
-                        .where((item) =>
-                            item.status != 0 &&
-                            item.status != 1 &&
-                            item.status != 3)
-                        .toList()
-                        .length,
+                    itemCount:
+                        VmDateData.orderList.where((item) => item.status != 0 && item.status != 1 && item.status != 3).toList().length,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (_, index) {
                       return WdgtDateOrderDetails(
-                        order: VmDateData.orderList
-                            .where((item) =>
-                                item.status != 0 &&
-                                item.status != 1 &&
-                                item.status != 3)
-                            .toList()[index],
+                        order:
+                            VmDateData.orderList.where((item) => item.status != 0 && item.status != 1 && item.status != 3).toList()[index],
                       );
                     },
                   ),

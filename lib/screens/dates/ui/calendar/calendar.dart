@@ -1,8 +1,8 @@
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
+import 'package:beautina_provider/screens/dates/ui/calendar/function.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,49 +44,6 @@ class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMix
     _calendarController = CalendarController();
   }
 
-  Map<DateTime, List<dynamic>> getBusyDatesEvents() {
-    Map<DateTime, List<dynamic>> events = {};
-
-    Provider.of<VMSalonData>(context).beautyProvider.busyDates.forEach((f) {
-      DateTime fromDate = DateTime.utc(f['from'].year, f['from'].month, f['from'].day);
-      DateTime toDate = f['to'];
-      if (events[fromDate] == null) events[fromDate] = [];
-
-      //if there is only one day add it
-      if (fromDate == toDate)
-        events[fromDate] = events[fromDate]..add(Order(status: -1));
-      else {
-        //add first day in the range
-        events[fromDate] = events[fromDate]..add(Order(status: -1));
-        int i = 1;
-        // add all the days in the range
-        while (fromDate.add(Duration(days: i)).isBefore(toDate)) {
-          if (events[fromDate.add(Duration(days: i))] == null) events[fromDate.add(Duration(days: i))] = [];
-          events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]..add(Order(status: -1));
-          i++;
-        }
-      }
-    });
-    return events;
-  }
-
-  Map<DateTime, List<dynamic>> getEvents(List<Order> orders) {
-    Map<DateTime, List<dynamic>> events = getBusyDatesEvents();
-
-    Provider.of<VmDateData>(context).orderList.forEach((f) {
-      DateTime dbDate = f.client_order_date;
-      DateTime date = DateTime.utc(dbDate.year, dbDate.month, dbDate.day);
-      // events[date] = events[date] == null ? [f] : events[date]
-      //  ..add(f);
-
-      if (events[date] == null)
-        events[date] = [f];
-      else
-        events[date] = events[date]..add(f);
-    });
-    return events;
-  }
-
   Widget _buildEventsMarker(DateTime date, List events, Color color) {
     return Container(
       width: ScreenUtil().setWidth(30),
@@ -125,7 +82,7 @@ class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMix
             children: <Widget>[
               TableCalendar(
                 calendarController: _calendarController,
-                events: getEvents(Provider.of<VmDateData>(context).orderList),
+                events: getEvents(Provider.of<VmDateData>(context).orderList, context),
                 availableGestures: AvailableGestures.horizontalSwipe,
                 // holidays: getEvents(Provider.of<VmDateData>(context).orderList),
                 headerVisible: true,
@@ -133,16 +90,7 @@ class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMix
 
                 ///[to-do check this ondayselected third parameter]
                 onDaySelected: (date, events, _) async {
-                  List<Order> list = events.cast();
-                  Provider.of<VmDateData>(context).calanderChosenDay = date;
-
-                  Provider.of<VmDateData>(context).listOfDay = [];
-                  Provider.of<VmDateData>(context).isShowAvailableWidget = false;
-                  await Future.delayed(Duration(milliseconds: 200));
-                  Provider.of<VmDateData>(context).isShowAvailableWidget = true;
-
-                  Provider.of<VmDateData>(context).listOfDay =
-                      list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList();
+                  onCalendarDaySelected(date, events, context);
                 },
                 calendarStyle: CalendarStyle(
                   // selectedColor: Colors.deepOrange[400],

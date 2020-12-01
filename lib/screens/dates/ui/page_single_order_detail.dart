@@ -9,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class PageOrderDetail extends StatefulWidget {
+class WdgtDatePageSingleOrderDetail extends StatefulWidget {
   final Order order;
   final String heroTag;
-  PageOrderDetail({Key key, this.heroTag, this.order}) : super(key: key);
+  WdgtDatePageSingleOrderDetail({Key key, this.heroTag, this.order}) : super(key: key);
 
   @override
   _PageOrderDetailState createState() => _PageOrderDetailState();
 }
 
-class _PageOrderDetailState extends State<PageOrderDetail> {
+class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
   VmDateData vmDateData;
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,7 @@ class _PageOrderDetailState extends State<PageOrderDetail> {
                     duration: Duration(milliseconds: durationCalender),
                   )),
                 ),
-                WdgtDateOrderDetails(
-                    order: vmDateData.orderList.firstWhere(
-                        (item) => item.doc_id == widget.order.doc_id))
+                WdgtDateOrderDetails(order: vmDateData.orderList.firstWhere((item) => item.doc_id == widget.order.doc_id))
               ],
             ),
           ),

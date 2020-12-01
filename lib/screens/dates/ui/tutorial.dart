@@ -1,7 +1,7 @@
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
-import 'package:beautina_provider/screens/dates/ui.dart';
+import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';

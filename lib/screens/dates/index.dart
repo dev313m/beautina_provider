@@ -1,5 +1,5 @@
 import 'package:beautina_provider/models/order.dart';
-import 'package:beautina_provider/screens/dates/ui/calendar.dart';
+import 'package:beautina_provider/screens/dates/ui/calendar/calendar.dart';
 import 'package:beautina_provider/screens/dates/ui/tutorial.dart';
 import 'package:beautina_provider/screens/dates/ui/order_list.dart';
 import 'package:beautina_provider/screens/dates/ui/top_buttons.dart';
@@ -18,8 +18,7 @@ class PageDate extends StatefulWidget {
   _DatePageState createState() => _DatePageState();
 }
 
-class _DatePageState extends State<PageDate>
-    with AutomaticKeepAliveClientMixin<PageDate> {
+class _DatePageState extends State<PageDate> with AutomaticKeepAliveClientMixin<PageDate> {
   double currentScroll = 0;
 
   ///
@@ -56,11 +55,9 @@ class _DatePageState extends State<PageDate>
     filterBool = [false, false, false, false, false, true];
     scrollController = ScrollController();
     scrollController.addListener(() {
-      if (scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse)
+      if (scrollController.position.userScrollDirection == ScrollDirection.reverse)
         Provider.of<VMRootUi>(context).hideBars = true;
-      else if (Provider.of<VMRootUi>(context).hideBars)
-        Provider.of<VMRootUi>(context).hideBars = false;
+      else if (Provider.of<VMRootUi>(context).hideBars) Provider.of<VMRootUi>(context).hideBars = false;
     });
   }
 

@@ -2,7 +2,7 @@ import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/ui/coming_order_page.dart';
 import 'package:beautina_provider/screens/dates/ui/finished_order_page.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
-import 'package:beautina_provider/screens/dates/ui_order_list_page.dart';
+import 'package:beautina_provider/screens/dates/ui/page_single_order_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,9 +33,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                   child: Center(
                     child: Container(
                       // width: ScreenUtil().setWidth(200),
-                      decoration: BoxDecoration(
-                          color: ConstDatesColors.topBtns,
-                          borderRadius: BorderRadius.circular(12)),
+                      decoration: BoxDecoration(color: ConstDatesColors.topBtns, borderRadius: BorderRadius.circular(12)),
                       height: ScreenUtil().setHeight(100),
                       child: Center(
                         child: ExtendedText(
@@ -48,8 +46,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                 ),
                 scaleCoefficient: 0.85,
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
                 },
               ),
             ),
@@ -69,9 +66,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                     child: Hero(
                       tag: 'newOrders',
                       child: Container(
-                        decoration: BoxDecoration(
-                            color: ConstDatesColors.topBtns,
-                            borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(color: ConstDatesColors.topBtns, borderRadius: BorderRadius.circular(12)),
                         height: ScreenUtil().setHeight(100),
                         child: Center(
                           child: ExtendedText(
@@ -85,8 +80,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                 ),
                 scaleCoefficient: 0.85,
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => OrderListPage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListPage()));
                 },
               ),
               Align(
@@ -95,15 +89,10 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                   child: Container(
                       width: ScreenUtil().setWidth(30),
                       height: ScreenUtil().setHeight(30),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.red),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.red),
                       child: Center(
                         child: ExtendedText(
-                          string: Provider.of<VmDateData>(context)
-                              .comingConfirmedList
-                              .length
-                              .toString(),
+                          string: Provider.of<VmDateData>(context).comingConfirmedList.length.toString(),
                         ),
                       )),
                 ),

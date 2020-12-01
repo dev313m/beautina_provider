@@ -1,7 +1,7 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
-import 'package:beautina_provider/screens/dates/ui.dart';
+import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +53,7 @@ class _OrderListPageState extends State<OrderListPage> {
                   shrinkWrap: true,
                   itemBuilder: (_, index) {
                     return WdgtDateOrderDetails(
-                      order: vmDateData.orderList
-                          .where((item) => item.status == 3)
-                          .toList()[index],
+                      order: vmDateData.orderList.where((item) => item.status == 3).toList()[index],
                     );
                   },
                 ),

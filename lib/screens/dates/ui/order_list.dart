@@ -3,7 +3,7 @@ import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
-import 'package:beautina_provider/screens/dates/ui_order_list_page.dart';
+import 'package:beautina_provider/screens/dates/ui/page_single_order_detail.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,7 +66,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                 ),
                               ), onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => PageOrderDetail(order: ordersList[index], heroTag: ordersList[index].doc_id),
+                              builder: (_) => WdgtDatePageSingleOrderDetail(order: ordersList[index], heroTag: ordersList[index].doc_id),
                             ));
                           }
                               // showCupertinoModalBottomSheet(

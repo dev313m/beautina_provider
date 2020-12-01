@@ -5,7 +5,7 @@ import 'package:beautina_provider/reusables/animated_buttons.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/dates/ui.dart';
+import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/screens/dates/ui/paint.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +30,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
       padding: EdgeInsets.only(top: 4),
       child: Container(
         width: ScreenResolution.width,
-        decoration: BoxDecoration(
-            color: AppColors.blueOpcity,
-            borderRadius: BorderRadius.circular(20)),
+        decoration: BoxDecoration(color: AppColors.blueOpcity, borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -47,8 +45,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                 ),
                 child: Center(
                     child: ExtendedText(
-                  string:
-                      '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
+                  string: '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
                   fontSize: ExtendedText.bigFont,
                   // style: TextStyle(color: Colors.white),
                 )),
@@ -59,8 +56,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                 isComplex: true,
                 // willChange: false,
                 // isComplex: false,
-                size: Size(
-                    ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
+                size: Size(ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
                 painter: MyPainter(step: getStep(widget.order.status)),
               ),
               Container(
@@ -144,9 +140,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                   ),
                   Container(
                     child: ExtendedText(
-                      string: widget.order.order_info == ''
-                          ? 'لايوجد'
-                          : widget.order.order_info,
+                      string: widget.order.order_info == '' ? 'لايوجد' : widget.order.order_info,
                       fontSize: ExtendedText.bigFont,
                     ),
                   ),
@@ -168,9 +162,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                   widget.order.provider_notes == ''
                       ? Container(
                           child: ExtendedText(
-                            string: widget.order.provider_notes == ''
-                                ? 'لايوجد'
-                                : widget.order.provider_notes,
+                            string: widget.order.provider_notes == '' ? 'لايوجد' : widget.order.provider_notes,
                             fontSize: ExtendedText.bigFont,
                           ),
                         )
@@ -184,8 +176,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                  padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
                   child: Column(
                     children: <Widget>[
                       ClipRRect(
@@ -199,8 +190,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                           },
                           decoration: InputDecoration(
                             hintText: 'ملاحظات (اختياري)',
-                            hintStyle:
-                                TextStyle(color: Colors.white.withOpacity(0.6)),
+                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                             icon: Icon(CommunityMaterialIcons.pen),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -219,8 +209,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                         ),
                         splashColor: Colors.teal,
                         animationDuration: Duration(milliseconds: 700),
-                        function:
-                            getFunctionFinishedComplete(widget.order, context),
+                        function: getFunctionFinishedComplete(widget.order, context),
                       ),
                       AnimatedSubmitButton(
                         color: ConstDatesColors.cancelBtn,
@@ -232,8 +221,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                         ),
                         splashColor: AppColors.blue,
                         animationDuration: Duration(milliseconds: 500),
-                        function: getFunctionFinishedIncomplete(
-                            widget.order, context),
+                        function: getFunctionFinishedIncomplete(widget.order, context),
                       )
                     ],
                   ),
