@@ -19,7 +19,9 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, systemNavigationBarIconBrightness: Brightness.dark, systemNavigationBarColor: Colors.black));
+      statusBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.black));
   await HomeIndicator.hide();
 
   return runApp(MyApp(
@@ -37,19 +39,19 @@ class MyApp extends StatelessWidget {
         ? MultiProvider(
             providers: [
               ChangeNotifierProvider<VMRootData>(
-                builder: (_) => VMRootData(build: true),
+                create: (_) => VMRootData(build: true),
               ),
               ChangeNotifierProvider<VMRootUi>(
-                builder: (_) => VMRootUi(),
+                create: (_) => VMRootUi(),
               ),
               ChangeNotifierProvider<VmDateData>(
-                builder: (_) => VmDateData(build: true),
+                create: (_) => VmDateData(build: true),
               ),
               ChangeNotifierProvider<VMSalonData>(
-                builder: (_) => VMSalonData(build: true),
+                create: (_) => VMSalonData(build: true),
               ),
               ChangeNotifierProvider<VMSettingsData>(
-                builder: (_) => VMSettingsData(),
+                create: (_) => VMSettingsData(),
               ),
             ],
             child: MaterialApp(
@@ -63,18 +65,19 @@ class MyApp extends StatelessWidget {
         : MultiProvider(
             providers: [
               ChangeNotifierProvider<VMRootData>(
-                builder: (_) => VMRootData(build: false),
+                create: (_) => VMRootData(build: false),
               ),
               ChangeNotifierProvider<VMRootUi>(
-                builder: (_) => VMRootUi(),
+                create: (_) => VMRootUi(),
               ),
               ChangeNotifierProvider<VMSalonData>(
-                builder: (_) => VMSalonData(build: false),
+                create: (_) => VMSalonData(build: false),
               ),
               ChangeNotifierProvider<VmDateData>(
-                builder: (_) => VmDateData(build: false),
+                create: (_) => VmDateData(build: false),
               ),
-              ChangeNotifierProvider<VMSettingsData>(create: (_) => VMSettingsData())
+              ChangeNotifierProvider<VMSettingsData>(
+                  create: (_) => VMSettingsData())
             ],
             child: MaterialApp(
               title: 'Flutter Demo',
