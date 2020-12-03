@@ -18,7 +18,8 @@ class PageDate extends StatefulWidget {
   _DatePageState createState() => _DatePageState();
 }
 
-class _DatePageState extends State<PageDate> with AutomaticKeepAliveClientMixin<PageDate> {
+class _DatePageState extends State<PageDate>
+    with AutomaticKeepAliveClientMixin<PageDate> {
   double currentScroll = 0;
 
   ///
@@ -55,9 +56,11 @@ class _DatePageState extends State<PageDate> with AutomaticKeepAliveClientMixin<
     filterBool = [false, false, false, false, false, true];
     scrollController = ScrollController();
     scrollController.addListener(() {
-      if (scrollController.position.userScrollDirection == ScrollDirection.reverse)
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse)
         Provider.of<VMRootUi>(context).hideBars = true;
-      else if (Provider.of<VMRootUi>(context).hideBars) Provider.of<VMRootUi>(context).hideBars = false;
+      else if (Provider.of<VMRootUi>(context).hideBars)
+        Provider.of<VMRootUi>(context).hideBars = false;
     });
   }
 
@@ -76,7 +79,7 @@ class _DatePageState extends State<PageDate> with AutomaticKeepAliveClientMixin<
         controller: scrollController,
         children: <Widget>[
           SizedBox(
-            height: ScreenUtil().setHeight(150),
+            height: heightTopBar,
           ),
           WdgtDateTopButtons(),
           WdgtDateCalendar(),
@@ -88,9 +91,13 @@ class _DatePageState extends State<PageDate> with AutomaticKeepAliveClientMixin<
           WdgtDateOrderList(hero: '1'),
 
           dataLoading ? Center(child: Loading()) : SizedBox(),
-          SizedBox(height: ScreenUtil().setHeight(200))
+          SizedBox(height: heightBottomBarPadding)
         ],
       ),
     );
   }
 }
+
+///[heights]
+double heightTopBar = 140.h;
+double heightBottomBarPadding = 200.h;

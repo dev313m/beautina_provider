@@ -1,4 +1,5 @@
 import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/close_open_salon.dart';
 import 'package:beautina_provider/screens/salon/ui/how_i_look_search/how_i_look_in_search.dart';
 import 'package:beautina_provider/screens/salon/ui/how_my_profile_look.dart';
@@ -32,69 +33,84 @@ class _PageSalonState extends State<PageSalon> {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection == ScrollDirection.reverse)
-        Provider.of<VMRootUi>(context).hideBars = true;
-      else if (Provider.of<VMRootUi>(context).hideBars) Provider.of<VMRootUi>(context).hideBars = false;
+      onScrollAction(_scrollController, context,
+          onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
     // initBeautyProvider();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            color: AppColors.purpleColor,
-            child: ListView(
-              controller: _scrollController,
-              physics: AlwaysScrollableScrollPhysics(),
-              children: <Widget>[
-                Container(
-                  height: ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
-                ),
-                WdgtSalonProfileDetails(),
-                if (Provider.of<VMSalonData>(context).beautyProvider.location.length != 2)
-                  SizedBox(
-                    height: ScreenUtil().setHeight(10),
-                  ),
-                if (Provider.of<VMSalonData>(context).beautyProvider.location.length != 2) WdgtSalonLocationNotSet(),
+    return Stack(
+      children: <Widget>[
+        Container(
+          color: AppColors.purpleColor,
+          child: ListView(
+            controller: _scrollController,
+            physics: AlwaysScrollableScrollPhysics(),
+            children: <Widget>[
+              Container(
+                height:
+                    ScreenUtil().setHeight(ConstRootSizes.topContainer - 40),
+              ),
+              WdgtSalonProfileDetails(),
+              if (Provider.of<VMSalonData>(context)
+                      .beautyProvider
+                      .location
+                      .length !=
+                  2)
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
-                WdgtSalonCloseOpenSalon(),
-                if (Provider.of<VMSalonData>(context).providedServices != null)
-                  ClipRRect(borderRadius: BorderRadius.circular(15), child: WdgtSalonMyServices()),
-                SizedBox(
-                  height: ScreenUtil().setHeight(10),
-                ),
-                if (Provider.of<VMSalonData>(context).providedServices.containsKey('services'))
-                  if (Provider.of<VMSalonData>(context).providedServices['services'].keys.length != 0) WdgtSalonAddService(),
-                SizedBox(
-                  height: ScreenUtil().setHeight(10),
-                ),
-                WdgtSalonHowLookProfile(),
-                SizedBox(
-                  height: ScreenUtil().setHeight(10),
-                ),
-                WdgtSalonHowLookSearch(),
-                SizedBox(
-                  height: 100,
-                ),
-              ],
-            ),
+              if (Provider.of<VMSalonData>(context)
+                      .beautyProvider
+                      .location
+                      .length !=
+                  2)
+                WdgtSalonLocationNotSet(),
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
+              ),
+              WdgtSalonCloseOpenSalon(),
+              if (Provider.of<VMSalonData>(context).providedServices != null)
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: WdgtSalonMyServices()),
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
+              ),
+              if (Provider.of<VMSalonData>(context)
+                  .providedServices
+                  .containsKey('services'))
+                if (Provider.of<VMSalonData>(context)
+                        .providedServices['services']
+                        .keys
+                        .length !=
+                    0)
+                  WdgtSalonAddService(),
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
+              ),
+              WdgtSalonHowLookProfile(),
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
+              ),
+              WdgtSalonHowLookSearch(),
+              SizedBox(
+                height: 100,
+              ),
+            ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.transparent,
-              height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-              width: ScreenResolution.width,
-            ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            color: Colors.transparent,
+            height: ScreenUtil().setHeight(ConstRootSizes.navigation),
+            width: ScreenResolution.width,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -163,9 +163,16 @@ List<Order> getFilteredList(List<Order> list, int index) {
   else if (index == 2)
     return list.where((order) => (order.status == 1)).toList();
   else if (index == 1)
-    return list.where((order) => (order.status == 2 || order.status == 4)).toList();
+    return list
+        .where((order) => (order.status == 2 || order.status == 4))
+        .toList();
   else
-    return list.where((order) => (order.status == 5 || order.status == 6 || order.status == 7 || order.status == 8)).toList();
+    return list
+        .where((order) => (order.status == 5 ||
+            order.status == 6 ||
+            order.status == 7 ||
+            order.status == 8))
+        .toList();
 }
 
 Future<void> pagesRefresh(BuildContext context) async {

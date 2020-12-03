@@ -45,6 +45,7 @@ double sizePaddingDayInst = 30.w;
 
 ///[edge padding]
 double edgeContainer = ScreenUtil().setWidth(10);
+double edge24Padding = ScreenUtil().setHeight(8);
 
 ///[heights]
 double heightInstruction = 40.sp;
@@ -93,8 +94,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Padding(
-                                padding:
-                                    EdgeInsets.all(ScreenUtil().setHeight(8)),
+                                padding: EdgeInsets.all(edge24Padding),
                                 child: ExtendedText(
                                   string: '24',
                                 ),

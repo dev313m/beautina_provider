@@ -143,9 +143,9 @@ Function onScrollUp = (BuildContext context) {
 };
 
 ///Take an action when scrolling down or up
-onScrollAction(
-    ScrollController scrollController, bool hideBars, BuildContext context,
+onScrollAction(ScrollController scrollController, BuildContext context,
     {Function onScrolldown, Function onScrollUp}) {
+  bool hideBars = Provider.of<VMRootUi>(context).hideBars;
   if (scrollController.position.userScrollDirection ==
           ScrollDirection.reverse &&
       hideBars)

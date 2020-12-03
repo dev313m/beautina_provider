@@ -32,7 +32,7 @@ class _PageSettingsState extends State<PageSettings> {
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       bool hideBars = Provider.of<VMRootUi>(context).hideBars;
-      onScrollAction(_scrollController, hideBars, context,
+      onScrollAction(_scrollController, context,
           onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
   }

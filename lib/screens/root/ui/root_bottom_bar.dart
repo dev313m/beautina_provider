@@ -26,13 +26,12 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
     double height = MediaQuery.of(context).size.height;
     double iconSize = height / 30;
 
+    EdgeInsets si = MediaQuery.of(context).padding;
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
         color: Colors.transparent,
-        height: Platform.isIOS
-            ? ConstRootSizes.navigation_ios.w
-            : ConstRootSizes.navigation.h,
+        height: ConstRootSizes.navigation.h + 90.h,
         width: ScreenResolution.width,
         child: AnimatedSwitcher(
           duration: Duration(milliseconds: 500),
@@ -41,7 +40,8 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
               : CurvedNavigationBar(
                   backgroundColor: Colors.transparent,
                   index: vmRootUi.pageIndex,
-                  height: ScreenUtil().setHeight(ConstRootSizes.navigation),
+                  height:
+                      ScreenUtil().setHeight(ConstRootSizes.navigation + 75.h),
                   items: <Widget>[
                     Icon(CommunityMaterialIcons.settings,
                         size: iconSize, color: ConstRootColors.icons),

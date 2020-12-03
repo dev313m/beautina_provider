@@ -1,3 +1,4 @@
+import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/root/index.dart';
@@ -20,8 +21,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.black));
+      // systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.transparent));
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+  // FullScreen fullscreen = FullScreen();
+
   await HomeIndicator.hide();
 
   return runApp(MyApp(
