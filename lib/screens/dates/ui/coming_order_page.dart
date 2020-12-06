@@ -72,7 +72,10 @@ class _OrderListPageState extends State<OrderListPage> {
               shrinkWrap: true,
               itemBuilder: (_, index) {
                 return WdgtDateOrderDetails(
-                  order: vmDateData.orderList.where((item) => item.status == 3).toList()[index],
+                  orderId: vmDateData.orderList
+                      .where((item) => item.status == 3)
+                      .toList()[index]
+                      .doc_id,
                 );
               },
             ),

@@ -4,6 +4,7 @@ import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/api/db_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 String getDateString(DateTime dateTime) {
   String year = dateTime.year.toString();
@@ -47,19 +48,19 @@ String getOrderStatus(int status) {
   }
 }
 
-Function getFunctionReject(Order order, BuildContext context) {
-  Function f = (AnimationController ac) async {
-    ac.forward();
-    try {
-      await apiOrderReject(order);
-      await refreshList(context);
-      showToast('تم الغاء الطلب شكرا لتنبيهك');
-      // print('Stream is hersa ');
-    } catch (e) {
-      showToast(e.toString());
-    }
-  };
-  return f;
+///If success it will return true other it will return false
+Future<bool> getFunctionReject(
+  Order order,
+  BuildContext context,
+) async {
+  try {
+    await apiOrderReject(order);
+    await refreshList(context);
+    return true;
+    // print('Stream is hersa ');
+  } catch (e) {
+    return false;
+  }
 }
 
 Future refreshList(BuildContext context) async {
@@ -69,36 +70,19 @@ Future refreshList(BuildContext context) async {
   await Provider.of<VmDateData>(context).iniState();
 }
 
-Function getFunctionAccept(Order order, BuildContext context) {
-  Function f = (AnimationController ac) async {
-    //Check if order duration is set
-
-    if (order.order_duration == null) {
-      showToast('يجب اختيار الوقت المتوقع لإنها الخدمة');
-      return;
-    }
-    ac.forward();
-
-    try {
-      await apiOrderAccept(order);
-      // await apiNotificationAdd(MyNotification(
-      //     client_id: order.client_id,
-      //     createDate: DateTime.now().toString(),
-      //     describ: 'مبروك، قامت الزبونة بتأكيد الطلب',
-      //     from_token: '',
-      //     to_token: order.tokens.elementAt(0),
-      //     icon: '',
-      //     image: '',
-      //     title: 'طلب مؤكد',
-      //     type: '0')
-      //   ..toFirestoreMap());
-      refreshList(context);
-      showToast('مبروك، طلبك مؤكد');
-    } catch (e) {
-      showToast(e.toString());
-    }
-  };
-  return f;
+Future<bool> getFunctionAccept(Order order, BuildContext context) async {
+  if (order.order_duration == null) {
+    showToast('يجب اختيار الوقت المتوقع لإنها الخدمة');
+    return false;
+  }
+  try {
+    await apiOrderAccept(order);
+    await refreshList(context);
+    return true;
+    // print('Stream is hersa ');
+  } catch (e) {
+    return false;
+  }
 }
 
 Function getFunctionFinishedIncomplete(Order order, BuildContext context) {

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BeautyTextfieldT extends StatefulWidget {
+class BeautyTextfield extends StatefulWidget {
   final Color backgroundColor, accentColor, textColor;
   final String placeholder;
   final Icon prefixIcon, suffixIcon;
   final bool isBox;
   final TextInputType inputType;
   final Duration duration;
+  final bool readOnly;
   final String suffixText;
   final String prefixText;
   // final FontStyle fontStyle;
@@ -18,12 +19,13 @@ class BeautyTextfieldT extends StatefulWidget {
   final ValueChanged<String> onChanged, onSubmitted;
   final GestureTapCallback onTap;
 
-  const BeautyTextfieldT(
+  const BeautyTextfield(
       {this.prefixIcon,
       this.inputType,
       this.textStyle,
       this.isBox = false,
       this.suffixIcon,
+      this.readOnly = false,
       this.duration = const Duration(milliseconds: 500),
       this.obscureText = false,
       this.helperText = '',
@@ -49,10 +51,10 @@ class BeautyTextfieldT extends StatefulWidget {
         assert(inputType != null);
 
   @override
-  _BeautyTextfieldTState createState() => _BeautyTextfieldTState();
+  _BeautyTextfieldState createState() => _BeautyTextfieldState();
 }
 
-class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
+class _BeautyTextfieldState extends State<BeautyTextfield> {
   bool isFocus = false;
 
   @override
@@ -63,8 +65,9 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
       // margin: widget.margin,
       // alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          boxShadow:
-              widget.isShadow ? [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)] : BoxShadow(spreadRadius: 0, blurRadius: 0),
+          boxShadow: widget.isShadow
+              ? [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)]
+              : BoxShadow(spreadRadius: 0, blurRadius: 0),
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: widget.suffixIcon == null
               ? isFocus
@@ -76,11 +79,14 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
           // cursorWidth: 2,
           maxLength: widget.maxLength,
           obscureText: widget.obscureText,
+          readOnly: widget.readOnly,
           // maxLength: !widget.isBox ? 1 : 4,
           maxLines: !widget.isBox ? 1 : 4,
           keyboardType: widget.inputType,
 
-          // controller: TextEditingController(text: widget.placeholder),
+          controller: widget.readOnly
+              ? TextEditingController(text: widget.placeholder)
+              : null,
           style: widget.textStyle,
           textInputAction: TextInputAction.done,
           // toolbarOptions: ToolbarOptions(),
@@ -121,7 +127,7 @@ class _BeautyTextfieldTState extends State<BeautyTextfieldT> {
               border: new OutlineInputBorder(borderSide: BorderSide.none),
               // hintText: widget.placeholder,
               // helperText: 'Keep it short, this is just a demo.',
-              labelText: widget.placeholder),
+              labelText: widget.helperText),
           cursorColor: isFocus ? widget.accentColor : widget.backgroundColor,
         ),
       ),

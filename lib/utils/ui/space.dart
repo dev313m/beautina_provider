@@ -11,6 +11,9 @@ class BoxHeight {
 
   ///Space before and after title
   static final double heightBtwTitle = 20.h;
+
+  ///Space to handle after main and categories
+  static final double widthBtwTitle = 10.w;
 }
 
 /// This widget puts verticval box for spacing purpuses
@@ -22,6 +25,19 @@ class GWdgtSizedBoxY extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
+    );
+  }
+}
+
+/// This widget puts verticval box for spacing purpuses
+class GWdgtSizedBoxX extends StatelessWidget {
+  final width;
+  const GWdgtSizedBoxX({Key key, this.width}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
     );
   }
 }

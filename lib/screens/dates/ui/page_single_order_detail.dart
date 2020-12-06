@@ -25,7 +25,8 @@ final Color colorBackground = AppColors.purpleColor;
 class WdgtDatePageSingleOrderDetail extends StatefulWidget {
   final String orderId;
   final String heroTag;
-  WdgtDatePageSingleOrderDetail({Key key, this.heroTag, this.orderId}) : super(key: key);
+  WdgtDatePageSingleOrderDetail({Key key, this.heroTag, this.orderId})
+      : super(key: key);
 
   @override
   _PageOrderDetailState createState() => _PageOrderDetailState();
@@ -35,7 +36,10 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
   Order order;
   @override
   Widget build(BuildContext context) {
-    order = Provider.of<VmDateData>(context).orderList.where((element) => element.doc_id == widget.orderId).first;
+    order = Provider.of<VmDateData>(context)
+        .orderList
+        .where((element) => element.doc_id == widget.orderId)
+        .first;
     return Scaffold(
       primary: false,
       resizeToAvoidBottomPadding: false,
@@ -64,7 +68,7 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
                         ))),
               ),
             ),
-            WdgtDateOrderDetails(order: order)
+            WdgtDateOrderDetails(orderId: order.doc_id)
           ],
         ),
       ),

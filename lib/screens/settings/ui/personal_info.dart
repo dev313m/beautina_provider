@@ -16,7 +16,8 @@ class WdgtSetttingsPersonalInfo extends StatefulWidget {
   WdgtSetttingsPersonalInfo({Key key}) : super(key: key);
 
   @override
-  _WdgtSetttingsPersonalInfoState createState() => _WdgtSetttingsPersonalInfoState();
+  _WdgtSetttingsPersonalInfoState createState() =>
+      _WdgtSetttingsPersonalInfoState();
 }
 
 class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
@@ -29,15 +30,18 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
 
     return Container(
       padding: EdgeInsets.all(allContainerPadding),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(allContainerRadius), color: allContainerBg),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(allContainerRadius),
+          color: allContainerBg),
       child: Form(
         key: vmSettingsData.formKey,
         autovalidate: vmSettingsData.autoValidate,
         child: Column(children: [
-          Icon(CommunityMaterialIcons.account_edit, color: overviewIconColor, size: overviewIconSize),
+          Icon(CommunityMaterialIcons.account_edit,
+              color: overviewIconColor, size: overviewIconSize),
           ExtendedText(string: personalData, fontSize: ExtendedText.xbigFont),
           SizedBox(height: btwIconxRest),
-          new BeautyTextfieldT(
+          new BeautyTextfield(
             helperText: nameHint,
             placeholder: beautyProvider.name,
             inputType: TextInputType.text,
@@ -48,15 +52,16 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             suffixIcon: Icon(CommunityMaterialIcons.face_profile),
           ),
           SizedBox(height: btwAnyTwoInForm),
-          BeautyTextfieldT(
-            suffixText: '966',
+          BeautyTextfield(
             inputType: TextInputType.phone,
             maxLength: 9,
-            helperText: beautyProvider.username.substring(4, beautyProvider.username.length),
-            placeholder: '',
+            helperText: '966',
+            placeholder: beautyProvider.username
+                .substring(4, beautyProvider.username.length),
             prefixIcon: Icon(Icons.phone),
             onChanged: (val) {
-              vmSettingsData.mobile = Countries.phoneCodePlus[beautyProvider.country] + val;
+              vmSettingsData.mobile =
+                  Countries.phoneCodePlus[beautyProvider.country] + val;
             },
             // initialValue: beautyProvider.username.substring(4, beautyProvider.username.length),
             // decoration: new InputDecoration(
@@ -84,7 +89,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             // },
           ),
           SizedBox(height: btwAnyTwoInForm),
-          new BeautyTextfieldT(
+          new BeautyTextfield(
             // initialValue: beautyProvider.intro,
             placeholder: beautyProvider.intro,
             // helperText: descHint,

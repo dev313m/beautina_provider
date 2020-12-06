@@ -37,58 +37,56 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
         primary: false,
         resizeToAvoidBottomPadding: false,
         backgroundColor: colorBackground,
-        body: Column(
-          children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                // addRepaintBoundaries: false,
+        body: SingleChildScrollView(
+          
+          child: Column(
+            // addRepaintBoundaries: false,
 
-                children: <Widget>[
-                  Hero(
-                    tag: 'bbb',
-                    transitionOnUserGestures: true,
-                    child: Container(
-                      width: double.infinity,
-                      height: sizePageTitle,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(radius),
-                        color: AppColors.pinkBright,
-                      ),
-                      child: Center(
-                          child: AnimatedSwitcher(
-                        // key: ValueKey('any'),
-                        duration: Duration(milliseconds: 500),
-                        child: GWdgtTextTitle(
-                          string: strFinishedOrders,
-                        ),
-                      )),
+            children: <Widget>[
+              Hero(
+                tag: 'bbb',
+                transitionOnUserGestures: true,
+                child: Container(
+                  width: double.infinity,
+                  height: sizePageTitle,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(radius),
+                    color: AppColors.pinkBright,
+                  ),
+                  child: Center(
+                      child: AnimatedSwitcher(
+                    // key: ValueKey('any'),
+                    duration: Duration(milliseconds: 500),
+                    child: GWdgtTextTitle(
+                      string: strFinishedOrders,
                     ),
-                  ),
-                  ListView.builder(
-                    itemCount:
-                        VmDateData.orderList.where((item) => item.status != 0 && item.status != 1 && item.status != 3).toList().length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (_, index) {
-                      return WdgtDateOrderDetails(
-                        order:
-                            VmDateData.orderList.where((item) => item.status != 0 && item.status != 1 && item.status != 3).toList()[index],
-                      );
-                    },
-                  ),
-                ],
+                  )),
+                ),
               ),
-            ),
-
-            // Align(
-            //   alignment: Alignment.bottomCenter,
-            //   child: Container(
-            //     color: Colors.transparent,
-            //     height: ScreenUtil().setHeight(ConstRootSizes.navigation),
-            //     width: ScreenResolution.width,
-            //   ),
-            // ),
-          ],
+              ListView.builder(
+                itemCount: VmDateData.orderList
+                    .where((item) =>
+                        item.status != 0 &&
+                        item.status != 1 &&
+                        item.status != 3)
+                    .toList()
+                    .length,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (_, index) {
+                  return WdgtDateOrderDetails(
+                    orderId: VmDateData.orderList
+                        .where((item) =>
+                            item.status != 0 &&
+                            item.status != 1 &&
+                            item.status != 3)
+                        .toList()[index]
+                        .doc_id,
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       );
     });

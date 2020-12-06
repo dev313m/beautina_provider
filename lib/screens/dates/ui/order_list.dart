@@ -70,7 +70,8 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: colorBtn,
-                                  borderRadius: BorderRadius.circular(radiusContainer),
+                                  borderRadius:
+                                      BorderRadius.circular(radiusContainer),
                                 ),
                                 child: GWdgtTextTitleDesc(
                                   string: strDetails,
@@ -81,7 +82,10 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                             ), onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => WdgtDatePageSingleOrderDetail(
-                                order: Provider.of<VmDateData>(context).listOfDay[index], heroTag: ordersList[index].doc_id),
+                                orderId: Provider.of<VmDateData>(context)
+                                    .listOfDay[index]
+                                    .doc_id,
+                                heroTag: ordersList[index].doc_id),
                           ));
                         }
                             // showCupertinoModalBottomSheet(
@@ -106,7 +110,9 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                               children: <Widget>[
                                 Builder(builder: (_) {
                                   List<String> list = [];
-                                  Map<String, dynamic> mapper = Provider.of<VMSalonData>(context).providedServices;
+                                  Map<String, dynamic> mapper =
+                                      Provider.of<VMSalonData>(context)
+                                          .providedServices;
 
                                   ordersList[index].services.forEach((k, v) {
                                     v.forEach((kk, vv) {
@@ -114,7 +120,8 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                         list.add(kk.toString());
                                       else {
                                         try {
-                                          list.add(mapper['services'][k]['items'][kk]['ar']);
+                                          list.add(mapper['services'][k]
+                                              ['items'][kk]['ar']);
                                         } catch (e) {
                                           list.add(k.toString());
                                         }
@@ -147,7 +154,9 @@ class _OrdersListState extends State<WdgtDateOrderList> {
   }
 
   String getText(int index) {
-    if (ordersList[index].client_order_date.isBefore(DateTime.now().toLocal()) &&
+    if (ordersList[index]
+            .client_order_date
+            .isBefore(DateTime.now().toLocal()) &&
         (ordersList[index].status == 3 || ordersList[index].status == 8))
       return 'مرحبا، نرجو تأكيد اتمام العملية  (${ordersList[index].client_name})  ${getDate(ordersList[index].client_order_date)}';
     else

@@ -9,6 +9,7 @@ import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/
 import 'package:beautina_provider/screens/dates/ui/paint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 /// order approved by provider [status = 1]
 class WidgetWaitingCustomer extends StatefulWidget {
@@ -21,6 +22,8 @@ class WidgetWaitingCustomer extends StatefulWidget {
 }
 
 class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
+  final RoundedLoadingButtonController _buttonController =
+      RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -179,18 +182,38 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
                 height: 20.h,
               ),
 
-              AnimatedSubmitButton(
+              RoundedLoadingButton(
                 color: ConstDatesColors.cancelBtn,
                 height: ScreenUtil().setHeight(100),
-                width: 500,
-                insideWidget: ExtendedText(
-                  string: ConstDateStrings.cancel,
-                  fontSize: ExtendedText.bigFont,
-                ),
-                splashColor: AppColors.blue,
-                animationDuration: Duration(milliseconds: 500),
-                function: getFunctionReject(widget.order, context),
+                width: 400,
+                controller: _buttonController,
+                animateOnTap: true,
+                borderRadius: 12,
+                child: Text('رفض'),
+                onPressed: () async {
+                  bool result = false;
+                  _buttonController.start();
+
+                  // _buttonController.start();
+                  result = await getFunctionReject(widget.order, context);
+                  if (result)
+                    _buttonController.success();
+                  else
+                    _buttonController.error();
+                },
               ),
+              // AnimatedSubmitButton(
+              //   color: ConstDatesColors.cancelBtn,
+              //   height: ScreenUtil().setHeight(100),
+              //   width: 500,
+              //   insideWidget: ExtendedText(
+              //     string: ConstDateStrings.cancel,
+              //     fontSize: ExtendedText.bigFont,
+              //   ),
+              //   splashColor: AppColors.blue,
+              //   animationDuration: Duration(milliseconds: 500),
+              //   function: getFunctionReject(widget.order, context),
+              // ),
               SizedBox(
                 height: 80.h,
               )
