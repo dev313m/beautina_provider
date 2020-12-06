@@ -129,3 +129,79 @@ class GWdgtTextPickerCancel extends StatelessWidget {
     );
   }
 }
+
+class GWdgtTextChip extends StatelessWidget {
+  final String string;
+  const GWdgtTextChip({Key key, @required this.string}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      string,
+      style: TextStyle(fontSize: ScreenUtil().setSp(20), color: Colors.blue),
+    );
+  }
+}
+
+class GWdgtTextSmall extends StatelessWidget {
+  final String string;
+  final Color color;
+  final TextAlign textAlign;
+  final TextDirection textDirection;
+  const GWdgtTextSmall({Key key, @required this.string, this.color, this.textAlign, this.textDirection}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      string,
+      style: TextStyle(
+        fontSize: ScreenUtil().setSp(20),
+        color: color,
+      ),
+      textAlign: textAlign,
+      textDirection: textDirection,
+    );
+  }
+}
+
+class GWdgtTextCalendarDay extends StatelessWidget {
+  final String string;
+  final Color color;
+  final TextAlign textAlign;
+  final TextDirection textDirection;
+  const GWdgtTextCalendarDay({Key key, @required this.string, this.color, this.textAlign, this.textDirection}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      string,
+      style: TextStyle(
+        fontSize: ScreenUtil().setSp(24),
+        color: color ?? Colors.white,
+      ),
+      textAlign: textAlign ?? TextAlign.left,
+      textDirection: textDirection,
+    );
+  }
+}
+
+class GWdgtTextBadge extends StatelessWidget {
+  final String string;
+  final Color color;
+  final TextAlign textAlign;
+  final TextDirection textDirection;
+  const GWdgtTextBadge({Key key, @required this.string, this.color, this.textAlign, this.textDirection}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      string,
+      style: TextStyle(
+        fontSize: ScreenUtil().setSp(20),
+        color: color ?? Colors.white,
+      ),
+      textAlign: textAlign ?? TextAlign.left,
+      textDirection: textDirection,
+    );
+  }
+}

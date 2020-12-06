@@ -86,9 +86,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                         children: <Widget>[
                           Align(
                               child: Container(
-                            decoration: BoxDecoration(
-                                color: colorEvent,
-                                borderRadius: BorderRadius.circular(radiusDay)),
+                            decoration: BoxDecoration(color: colorEvent, borderRadius: BorderRadius.circular(radiusDay)),
                             height: sizeDay,
                             width: sizeDay,
                             child: Align(
@@ -192,8 +190,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
               duration: Duration(seconds: 1),
               child: Provider.of<VmDateData>(context).isShowAvailableWidget
                   ? WAvailablilityChanger(
-                      changableAvailableDate:
-                          Provider.of<VmDateData>(context).calanderChosenDay,
+                      changableAvailableDate: Provider.of<VmDateData>(context).calanderChosenDay,
                     )
                   : SizedBox(),
             ),

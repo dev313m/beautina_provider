@@ -48,7 +48,14 @@ class VmDateData with ChangeNotifier {
 
   bool isError = false;
 
-  List<Order> orderList = [];
+  List<Order> _orderList = [];
+
+  List<Order> get orderList => _orderList;
+
+  set orderList(List<Order> orderList) {
+    _orderList = orderList;
+    notifyListeners();
+  }
 
   /// 2 for all
   /// 1 for active

@@ -3,22 +3,35 @@ import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
+
+///[sizes]
+final sizeDayHeight = 100.h;
+final sizeDayWidth = 100.h;
+
+///[radius]
+final double radius = 12;
+
+///[colors]
+Color colorNoEvent = CalendarColors.empty;
+Color colorEvent = CalendarColors.eventColor;
+Color colorDay = Colors.white38;
+
+///[edge]
+double edgeDayToContainer = 4.h;
+double edgeDayStr = 10.w;
 
 class WdgtDateCalendarSelectedDay extends StatefulWidget {
   final DateTime date;
   final List list;
   final AnimationController animationController;
-  const WdgtDateCalendarSelectedDay(
-      {Key key, this.date, this.list, this.animationController})
-      : super(key: key);
+  const WdgtDateCalendarSelectedDay({Key key, this.date, this.list, this.animationController}) : super(key: key);
 
   @override
-  _WdgtDateCalendarSelectedDayState createState() =>
-      _WdgtDateCalendarSelectedDayState();
+  _WdgtDateCalendarSelectedDayState createState() => _WdgtDateCalendarSelectedDayState();
 }
 
-class _WdgtDateCalendarSelectedDayState
-    extends State<WdgtDateCalendarSelectedDay> {
+class _WdgtDateCalendarSelectedDayState extends State<WdgtDateCalendarSelectedDay> {
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -26,19 +39,15 @@ class _WdgtDateCalendarSelectedDayState
       child: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-                color: CalendarColors.todayContainer,
-                borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: CalendarColors.todayContainer, borderRadius: BorderRadius.circular(radius)),
             // margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-            width: ScreenUtil().setWidth(100),
-            height: ScreenUtil().setHeight(100),
-            child: ExtendedText(
+            padding: EdgeInsets.only(top: edgeDayToContainer, left: edgeDayToContainer),
+            width: sizeDayWidth,
+            height: sizeDayHeight,
+            child: GWdgtTextCalendarDay(
               string: '${widget.date.day}',
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.left,
-              fontSize: ExtendedText.bigFont,
-              fontColor: Colors.white,
               // style: TextStyle().copyWith(fontSize: 16.0),
             ),
           ),

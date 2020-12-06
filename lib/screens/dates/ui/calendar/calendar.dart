@@ -6,12 +6,23 @@ import 'package:beautina_provider/screens/dates/ui/calendar/function.dart';
 import 'package:beautina_provider/screens/dates/ui/calendar/selected_day.dart';
 import 'package:beautina_provider/screens/dates/ui/calendar/today_builder.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+///[radius]
+final double radius = 12;
+
+///[colors]
+Color colorContainer = CalendarColors.container;
+
+Color colorEvent = CalendarColors.eventColor;
+Color colorTopNoti = CalendarColors.topNoti;
+Color colorBottomLeftNoti = CalendarColors.bottomLeft;
+Color colorBottomRightNoti = CalendarColors.bottomRight;
+Color colorReloadBtn = Colors.purple;
 
 class WdgtDateCalendar extends StatefulWidget {
   WdgtDateCalendar({Key key}) : super(key: key);
@@ -20,8 +31,7 @@ class WdgtDateCalendar extends StatefulWidget {
   _CalenderState createState() => _CalenderState();
 }
 
-class _CalenderState extends State<WdgtDateCalendar>
-    with TickerProviderStateMixin {
+class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMixin {
   int month;
   AnimationController _animationController;
   CalendarController _calendarController;
@@ -49,15 +59,14 @@ class _CalenderState extends State<WdgtDateCalendar>
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(radius)),
       child: Container(
-          color: CalendarColors.container,
+          color: colorContainer,
           child: Stack(
             children: <Widget>[
               TableCalendar(
                 calendarController: _calendarController,
-                events: getEvents(
-                    Provider.of<VmDateData>(context).orderList, context),
+                events: getEvents(Provider.of<VmDateData>(context).orderList, context),
                 availableGestures: AvailableGestures.horizontalSwipe,
                 headerVisible: true,
                 initialCalendarFormat: CalendarFormat.month,
@@ -73,15 +82,7 @@ class _CalenderState extends State<WdgtDateCalendar>
                   onVisibleDaysChanged(context, date);
                   // month = time.month;
                 },
-                headerStyle: HeaderStyle(
-                  formatButtonTextStyle: TextStyle().copyWith(
-                      color: CalendarColors.header,
-                      fontSize: ExtendedText.defaultFont),
-                  formatButtonDecoration: BoxDecoration(
-                    color: CalendarColors.headerContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
+                headerStyle: HeaderStyle(formatButtonVisible: false),
                 formatAnimation: FormatAnimation.slide,
                 builders: CalendarBuilders(
                   selectedDayBuilder: (context, date, list) {
@@ -93,12 +94,9 @@ class _CalenderState extends State<WdgtDateCalendar>
                   },
                   markersBuilder: (context, date, events, holidays) {
                     final children = <Widget>[];
-                    List<dynamic> newOrders =
-                        events.where((event) => event.status == 0).toList();
-                    List<dynamic> acceptedOrder =
-                        events.where((event) => event.status == 1).toList();
-                    List<dynamic> approvedOrder =
-                        events.where((event) => event.status == 3).toList();
+                    List<dynamic> newOrders = events.where((event) => event.status == 0).toList();
+                    List<dynamic> acceptedOrder = events.where((event) => event.status == 1).toList();
+                    List<dynamic> approvedOrder = events.where((event) => event.status == 3).toList();
 
                     if (newOrders.isNotEmpty) {
                       children.add(
@@ -106,10 +104,7 @@ class _CalenderState extends State<WdgtDateCalendar>
                           left: 0,
                           bottom: 0,
                           child: WdgtDateCalendarEventMarker(
-                              date: date,
-                              events: newOrders,
-                              calendarController: _calendarController,
-                              color: CalendarColors.bottomLeft),
+                              date: date, events: newOrders, calendarController: _calendarController, color: colorBottomLeftNoti),
                         ),
                       );
                     }
@@ -120,10 +115,7 @@ class _CalenderState extends State<WdgtDateCalendar>
                           right: 0,
                           bottom: 0,
                           child: WdgtDateCalendarEventMarker(
-                              date: date,
-                              events: acceptedOrder,
-                              calendarController: _calendarController,
-                              color: CalendarColors.bottomRight),
+                              date: date, events: acceptedOrder, calendarController: _calendarController, color: colorBottomRightNoti),
                         ),
                       );
                     }
@@ -133,10 +125,7 @@ class _CalenderState extends State<WdgtDateCalendar>
                           right: 0,
                           top: 0,
                           child: WdgtDateCalendarEventMarker(
-                              date: date,
-                              events: approvedOrder,
-                              calendarController: _calendarController,
-                              color: CalendarColors.topNoti),
+                              date: date, events: approvedOrder, calendarController: _calendarController, color: colorTopNoti),
                         ),
                       );
                     }
@@ -172,12 +161,10 @@ class _CalenderState extends State<WdgtDateCalendar>
                   // height: 50,
                   // left: MediaQuery.of(context).size.width / 2 - ScreenUtil().setWidth(ConstDateSizes.reloadLeft),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12)),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(radius), bottomRight: Radius.circular(radius)),
                     // color: Colors.pink,
                     child: Material(
-                      color: Colors.purple,
+                      color: colorReloadBtn,
                       child: IconButton(
                           color: Colors.white,
                           disabledColor: Colors.brown,

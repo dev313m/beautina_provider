@@ -1,11 +1,25 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/reusables/text.dart';
-import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
+
+///[string]
+final strFinishedOrders = 'طلبات منتهية';
+
+///[size]
+
+double sizePageTitle = 170.h;
+
+///[radius]
+double radius = 12;
+
+///[color]
+
+final Color colorBackground = AppColors.purpleColor;
 
 class OrderListFinishedPage extends StatefulWidget {
   final String heroTag;
@@ -22,26 +36,33 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
       return Scaffold(
         primary: false,
         resizeToAvoidBottomPadding: false,
-        backgroundColor: AppColors.purpleColor,
-        body: Stack(
+        backgroundColor: colorBackground,
+        body: Column(
           children: <Widget>[
             SingleChildScrollView(
               child: Column(
                 // addRepaintBoundaries: false,
 
                 children: <Widget>[
-                  Container(
-                    width: double.infinity,
-                    height: ScreenUtil().setHeight(220),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      // color: AppColors.blueOpcity.withOpacity(0.9)
+                  Hero(
+                    tag: 'bbb',
+                    transitionOnUserGestures: true,
+                    child: Container(
+                      width: double.infinity,
+                      height: sizePageTitle,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(radius),
+                        color: AppColors.pinkBright,
+                      ),
+                      child: Center(
+                          child: AnimatedSwitcher(
+                        // key: ValueKey('any'),
+                        duration: Duration(milliseconds: 500),
+                        child: GWdgtTextTitle(
+                          string: strFinishedOrders,
+                        ),
+                      )),
                     ),
-                    child: Center(
-                        child: AnimatedSwitcher(
-                      // key: ValueKey('any'),
-                      duration: Duration(milliseconds: 500),
-                    )),
                   ),
                   ListView.builder(
                     itemCount:
@@ -58,27 +79,7 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                 ],
               ),
             ),
-            Hero(
-              tag: 'bbb',
-              transitionOnUserGestures: true,
-              child: Container(
-                width: double.infinity,
-                height: ScreenUtil().setHeight(170),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: AppColors.pinkBright,
-                ),
-                child: Center(
-                    child: AnimatedSwitcher(
-                  // key: ValueKey('any'),
-                  duration: Duration(milliseconds: 500),
-                  child: ExtendedText(
-                    string: 'طلبات منتهية',
-                    fontSize: ExtendedText.xbigFont,
-                  ),
-                )),
-              ),
-            ),
+
             // Align(
             //   alignment: Alignment.bottomCenter,
             //   child: Container(

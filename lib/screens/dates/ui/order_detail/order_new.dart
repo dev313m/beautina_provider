@@ -11,6 +11,8 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 
 ///new order [status = 0]
 class WidgetNewOrder extends StatefulWidget {
@@ -24,20 +26,20 @@ class WidgetNewOrder extends StatefulWidget {
 
 class _WidgetNewOrderState extends State<WidgetNewOrder> {
   final String providerNotes = '';
-  TextEditingController durationTextFieldController =
-      TextEditingController(text: 'لم يتم التحديد');
+  Order order;
+  TextEditingController durationTextFieldController = TextEditingController(text: 'لم يتم التحديد');
 
   Duration orderDuration = Duration();
 
   @override
   Widget build(BuildContext context) {
+    order = Provider.of<VmDateData>(context).orderList.where((element) => element.doc_id == widget.order.doc_id).first;
+
     return Padding(
       padding: EdgeInsets.only(top: 4),
       child: Container(
         width: ScreenResolution.width,
-        decoration: BoxDecoration(
-            color: AppColors.blueOpcity,
-            borderRadius: BorderRadius.circular(20)),
+        decoration: BoxDecoration(color: AppColors.blueOpcity, borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -52,8 +54,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                 ),
                 child: Center(
                     child: ExtendedText(
-                  string:
-                      '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
+                  string: '${getOrderStatus(widget.order.status)} (${widget.order.client_name})',
                   fontSize: ExtendedText.bigFont,
                   // style: TextStyle(color: Colors.white),
                 )),
@@ -64,8 +65,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                 isComplex: true,
                 // willChange: false,
                 // isComplex: false,
-                size: Size(
-                    ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
+                size: Size(ScreenUtil().setWidth(650), ScreenUtil().setHeight(130)),
                 painter: MyPainter(step: getStep(widget.order.status)),
               ),
               Container(
@@ -149,9 +149,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                   ),
                   Container(
                     child: ExtendedText(
-                      string: widget.order.order_info == ''
-                          ? 'لايوجد'
-                          : widget.order.order_info,
+                      string: widget.order.order_info == '' ? 'لايوجد' : widget.order.order_info,
                       fontSize: ExtendedText.bigFont,
                     ),
                   ),
@@ -173,9 +171,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                   widget.order.provider_notes == ''
                       ? Container(
                           child: ExtendedText(
-                            string: widget.order.provider_notes == ''
-                                ? 'لايوجد'
-                                : widget.order.provider_notes,
+                            string: widget.order.provider_notes == '' ? 'لايوجد' : widget.order.provider_notes,
                             fontSize: ExtendedText.bigFont,
                           ),
                         )
@@ -190,8 +186,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(0)),
+                  padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(0)),
                   child: Column(
                     children: <Widget>[
                       ClipRRect(
@@ -207,8 +202,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                             hintText: 'ملاحظات (اختياري)',
                             filled: true,
                             fillColor: Colors.white24,
-                            hintStyle:
-                                TextStyle(color: Colors.white.withOpacity(0.6)),
+                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                             icon: Icon(CommunityMaterialIcons.pen),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -217,11 +211,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                           ),
                         ),
                       ),
-                      Container(
-                          width: double.infinity,
-                          child: ExtendedText(
-                              string: 'المدة المتوقعة للطلب:  ',
-                              textAlign: TextAlign.right)),
+                      Container(width: double.infinity, child: ExtendedText(string: 'المدة المتوقعة للطلب:  ', textAlign: TextAlign.right)),
                       Container(
                         // width: 200.w,
                         child: TextField(
@@ -232,19 +222,10 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
 
                             picker = Picker(
                                 // backgroundColor: Colors.pink.withOpacity(0.3),
-                                adapter: NumberPickerAdapter(
-                                    data: <NumberPickerColumn>[
-                                      const NumberPickerColumn(
-                                          begin: 0,
-                                          end: 60,
-                                          suffix: Text(' دق'),
-                                          jump: 15),
-                                      const NumberPickerColumn(
-                                          begin: 0,
-                                          end: 12,
-                                          suffix: Text(' ساعات'),
-                                          columnFlex: 2),
-                                    ]),
+                                adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
+                                  const NumberPickerColumn(begin: 0, end: 60, suffix: Text(' دق'), jump: 15),
+                                  const NumberPickerColumn(begin: 0, end: 12, suffix: Text(' ساعات'), columnFlex: 2),
+                                ]),
                                 delimiter: <PickerDelimiter>[
                                   PickerDelimiter(
                                     child: Container(
@@ -255,29 +236,22 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                                   )
                                 ],
                                 hideHeader: false,
-                                confirmTextStyle: TextStyle(
-                                    inherit: false,
-                                    color: Colors.red,
-                                    fontSize: 22),
+                                confirmTextStyle: TextStyle(inherit: false, color: Colors.red, fontSize: 22),
                                 // title: Text(
                                 //   'الوقت المتوقع لإنهاء الخدمة',
                                 //   textAlign: TextAlign.right,
                                 // ),
                                 containerColor: Colors.pink,
-                                selectedTextStyle:
-                                    TextStyle(color: Colors.blue),
+                                selectedTextStyle: TextStyle(color: Colors.blue),
                                 onConfirm: (Picker picker, List<int> value) {
                                   // You get your duration here
-                                  orderDuration = Duration(
-                                      hours: picker.getSelectedValues()[1],
-                                      minutes: picker.getSelectedValues()[0]);
+                                  orderDuration = Duration(hours: picker.getSelectedValues()[1], minutes: picker.getSelectedValues()[0]);
                                   // picker.doCancel(context);
                                   durationTextFieldController.text =
                                       " ${(orderDuration.inHours).toString()} ساعة ${(orderDuration.inMinutes.remainder(60)).toString()} دقيقة ";
                                   // showToast(orderDuration.inMinutes.toString());
 
-                                  widget.order.order_duration =
-                                      orderDuration.inMinutes.toDouble();
+                                  widget.order.order_duration = orderDuration.inMinutes.toDouble();
                                   setState(() {});
                                 },
                                 cancel: IconButton(
@@ -305,8 +279,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                           decoration: InputDecoration(
                             hintText:
                                 ' ${(orderDuration.inHours).toString()} ساعة ${(orderDuration.inMinutes.remainder(60)).toString()} دقيقة ',
-                            hintStyle:
-                                TextStyle(color: Colors.white.withOpacity(0.6)),
+                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                             icon: Icon(CommunityMaterialIcons.watch),
                             filled: true,
                             border: OutlineInputBorder(
@@ -321,36 +294,36 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                       ),
                       Row(
                         children: [
-                          Expanded(
-                            child: AnimatedSubmitButton(
-                              color: ConstDatesColors.confirmBtn,
-                              height: ScreenUtil().setHeight(100),
-                              width: 400,
-                              insideWidget: ExtendedText(
-                                string: 'قبول',
-                                fontSize: ExtendedText.bigFont,
+                          if (order.status == 0)
+                            Expanded(
+                              child: AnimatedSubmitButton(
+                                color: ConstDatesColors.confirmBtn,
+                                height: ScreenUtil().setHeight(100),
+                                width: 400,
+                                insideWidget: ExtendedText(
+                                  string: 'قبول',
+                                  fontSize: ExtendedText.bigFont,
+                                ),
+                                splashColor: Colors.teal,
+                                animationDuration: Duration(milliseconds: 500),
+                                function: getFunctionAccept(widget.order, context),
                               ),
-                              splashColor: Colors.teal,
-                              animationDuration: Duration(milliseconds: 500),
-                              function:
-                                  getFunctionAccept(widget.order, context),
                             ),
-                          ),
-                          Expanded(
-                            child: AnimatedSubmitButton(
-                              color: ConstDatesColors.cancelBtn,
-                              height: ScreenUtil().setHeight(100),
-                              width: 400,
-                              insideWidget: ExtendedText(
-                                string: 'رفض',
-                                fontSize: ExtendedText.bigFont,
+                          if (order.status == 0)
+                            Expanded(
+                              child: AnimatedSubmitButton(
+                                color: ConstDatesColors.cancelBtn,
+                                height: ScreenUtil().setHeight(100),
+                                width: 400,
+                                insideWidget: ExtendedText(
+                                  string: 'رفض',
+                                  fontSize: ExtendedText.bigFont,
+                                ),
+                                splashColor: AppColors.blue,
+                                animationDuration: Duration(milliseconds: 700),
+                                function: getFunctionReject(widget.order, context),
                               ),
-                              splashColor: AppColors.blue,
-                              animationDuration: Duration(milliseconds: 700),
-                              function:
-                                  getFunctionReject(widget.order, context),
-                            ),
-                          )
+                            )
                         ],
                       ),
                     ],

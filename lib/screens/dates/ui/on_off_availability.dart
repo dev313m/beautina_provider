@@ -9,10 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 
 ///[String]
 ///
 final strInstruction = 'اضغطي هنا لفتح-ايقاف استلام الطلبات:';
+final strFlare = 'assets/rive/lock.flr';
+final strLock = 'lock';
+final strUnlock = 'unlock';
+
+///[size]
+double sizeContainer = 200.h;
+
+///[radius]
+double radius = 12;
 
 class WAvailablilityChanger extends StatefulWidget {
   final DateTime changableAvailableDate;
@@ -39,28 +49,28 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200.sp,
+      width: sizeContainer,
 
       // decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(12)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          ExtendedText(
-            string: ' اضغطي هنا لفتح-ايقاف استلام الطلبات:             ',
+          GWdgtTextSmall(
+            string: strInstruction,
             textAlign: TextAlign.start,
             textDirection: TextDirection.rtl,
-            fontSize: ExtendedText.defaultFont,
+            // fontSize: ExtendedText.defaultFont,
           ),
           Container(
-            height: 200.sp,
+            height: sizeContainer,
             child: Material(
               color: Colors.transparent,
               child: Ink(
                 // width: 400,
 
-                height: 200.sp,
+                height: sizeContainer,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(radius),
                   onTap: () async {
                     isLoading = true;
                     setState(() {});
@@ -70,22 +80,17 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
                          * 2- update and save in shared
                          * 3- get shared and notifylisteners
                          */
-                      ModelBeautyProvider mbp =
-                          await sharedUserProviderGetInfo();
+                      ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
 
                       //Clear old dates
-                      List<Map<String, DateTime>> newBusyDates =
-                          clearOldBusyDates(mbp.busyDates);
+                      List<Map<String, DateTime>> newBusyDates = clearOldBusyDates(mbp.busyDates);
                       //update busy dates
-                      newBusyDates =
-                          changeAvaDates(widget.changableAvailableDate, mbp);
+                      newBusyDates = changeAvaDates(widget.changableAvailableDate, mbp);
 
-                      await apiBeautyProviderUpdate(
-                          mbp..busyDates = newBusyDates);
+                      await apiBeautyProviderUpdate(mbp..busyDates = newBusyDates);
 
                       Provider.of<VMSalonData>(context).beautyProvider = mbp;
-                      Provider.of<VMSalonData>(context).beautyProvider =
-                          await sharedUserProviderGetInfo();
+                      Provider.of<VMSalonData>(context).beautyProvider = await sharedUserProviderGetInfo();
 
                       isAvailabilityChecked = false;
                       checkAvalability(widget.changableAvailableDate);
@@ -99,8 +104,8 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
                   child: Stack(
                     children: <Widget>[
                       FlareActor(
-                        'assets/rive/lock.flr',
-                        animation: available ? 'unlock' : 'lock',
+                        strFlare,
+                        animation: available ? strUnlock : strLock,
                         shouldClip: false,
                         snapToEnd: false,
                         // artboard: available ? 'open' : 'closed',
@@ -126,18 +131,15 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     );
   }
 
-  List<Map<String, DateTime>> changeAvaDates(
-      DateTime requiredDate, ModelBeautyProvider modelBeautyProvider) {
+  List<Map<String, DateTime>> changeAvaDates(DateTime requiredDate, ModelBeautyProvider modelBeautyProvider) {
     List<Map<String, DateTime>> newBusyDates;
-    DateTime fixedDate =
-        DateTime(requiredDate.year, requiredDate.month, requiredDate.day);
+    DateTime fixedDate = DateTime(requiredDate.year, requiredDate.month, requiredDate.day);
 
     ///
     ///This is to remove any old date
     ///
     if (available)
-      newBusyDates = modelBeautyProvider.busyDates
-        ..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
+      newBusyDates = modelBeautyProvider.busyDates..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
     else
       newBusyDates = modelBeautyProvider.busyDates
         ..removeWhere((element) {
@@ -150,8 +152,7 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     return newBusyDates;
   }
 
-  List<Map<String, DateTime>> clearOldBusyDates(
-      List<Map<String, DateTime>> listDates) {
+  List<Map<String, DateTime>> clearOldBusyDates(List<Map<String, DateTime>> listDates) {
     DateTime dayTimeNow = DateTime.now();
     for (int i = 0; i < listDates.length; i++) {
       if (listDates[i]['from'].isBefore(dayTimeNow)) listDates.removeAt(i);
@@ -162,18 +163,16 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
 
   Future<void> removeAllOldDates() async {}
 
-  //THis method checks availablity and if it was check for better performance we do a flag
+  ///THis method checks availablity and if it was check for better performance we do a flag
   Future<bool> checkAvalability(DateTime requiredDate) async {
     if (isAvailabilityChecked) return available;
     bool availableDate = true;
     await Future.delayed(Duration(milliseconds: 300));
-    ModelBeautyProvider beautyProvider =
-        Provider.of<VMSalonData>(context).beautyProvider;
+    ModelBeautyProvider beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
     List<Map<String, DateTime>> busyDates = beautyProvider.busyDates;
     busyDates.forEach((element) {
-      if (requiredDate
-              .isAfter(element['from'].subtract(Duration(minutes: 1))) &&
-          requiredDate.isBefore(element['to'])) availableDate = false;
+      if (requiredDate.isAfter(element['from'].subtract(Duration(minutes: 1))) && requiredDate.isBefore(element['to']))
+        availableDate = false;
     });
     isAvailabilityChecked = true;
     setState(() {

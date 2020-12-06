@@ -8,8 +8,7 @@ Map<DateTime, List<dynamic>> getBusyDatesEvents(BuildContext context) {
   Map<DateTime, List<dynamic>> events = {};
 
   Provider.of<VMSalonData>(context).beautyProvider.busyDates.forEach((f) {
-    DateTime fromDate =
-        DateTime.utc(f['from'].year, f['from'].month, f['from'].day);
+    DateTime fromDate = DateTime.utc(f['from'].year, f['from'].month, f['from'].day);
     DateTime toDate = f['to'];
     if (events[fromDate] == null) events[fromDate] = [];
 
@@ -22,10 +21,8 @@ Map<DateTime, List<dynamic>> getBusyDatesEvents(BuildContext context) {
       int i = 1;
       // add all the days in the range
       while (fromDate.add(Duration(days: i)).isBefore(toDate)) {
-        if (events[fromDate.add(Duration(days: i))] == null)
-          events[fromDate.add(Duration(days: i))] = [];
-        events[fromDate.add(Duration(days: i))] =
-            events[fromDate.add(Duration(days: i))]..add(Order(status: -1));
+        if (events[fromDate.add(Duration(days: i))] == null) events[fromDate.add(Duration(days: i))] = [];
+        events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]..add(Order(status: -1));
         i++;
       }
     }
@@ -33,8 +30,9 @@ Map<DateTime, List<dynamic>> getBusyDatesEvents(BuildContext context) {
   return events;
 }
 
-Map<DateTime, List<dynamic>> getEvents(
-    List<Order> orders, BuildContext context) {
+///This method combine events and use busy dates as also events
+
+Map<DateTime, List<dynamic>> getEvents(List<Order> orders, BuildContext context) {
   Map<DateTime, List<dynamic>> events = getBusyDatesEvents(context);
 
   Provider.of<VmDateData>(context).orderList.forEach((f) {
@@ -51,8 +49,7 @@ Map<DateTime, List<dynamic>> getEvents(
   return events;
 }
 
-onCalendarDaySelected(
-    DateTime date, List<dynamic> events, BuildContext context) async {
+onCalendarDaySelected(DateTime date, List<dynamic> events, BuildContext context) async {
   List<Order> list = events.cast();
   Provider.of<VmDateData>(context).calanderChosenDay = date;
 
@@ -61,9 +58,7 @@ onCalendarDaySelected(
   await Future.delayed(Duration(milliseconds: 200));
   Provider.of<VmDateData>(context).isShowAvailableWidget = true;
 
-  Provider.of<VmDateData>(context).listOfDay = list
-      .where((item) => item.status == 0 || item.status == 1 || item.status == 3)
-      .toList();
+  Provider.of<VmDateData>(context).listOfDay = list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList();
 }
 
 onVisibleDaysChanged(BuildContext context, DateTime date) async {

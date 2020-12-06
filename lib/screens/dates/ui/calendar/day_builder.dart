@@ -3,13 +3,29 @@ import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
+
+///[sizes]
+final sizeDayHeight = 100.h;
+final sizeDayWidth = 100.h;
+
+///[radius]
+final double radius = 12;
+
+///[colors]
+Color colorNoEvent = CalendarColors.empty;
+Color colorEvent = CalendarColors.eventColor;
+Color colorDay = Colors.white38;
+
+///[edge]
+double edgeDayToContainer = 4.h;
+double edgeDayStr = 10.w;
 
 class WdgtDateCalendarDayBuilder extends StatelessWidget {
   final List list;
   final DateTime date;
 
-  const WdgtDateCalendarDayBuilder({Key key, this.date, this.list})
-      : super(key: key);
+  const WdgtDateCalendarDayBuilder({Key key, this.date, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +33,20 @@ class WdgtDateCalendarDayBuilder extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              color: list
-                          .where((item) =>
-                              item.status == 0 ||
-                              item.status == 1 ||
-                              item.status == 3)
-                          .toList()
-                          .length ==
-                      0
-                  ? CalendarColors.empty
-                  : CalendarColors.eventColor,
-              borderRadius: BorderRadius.circular(12)),
-          margin: const EdgeInsets.all(4.0),
-          padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-          width: ScreenUtil().setWidth(100),
-          height: ScreenUtil().setHeight(100),
-          child: ExtendedText(
+
+              ///if there is no event then add orginal color
+              color: list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList().length == 0
+                  ? colorNoEvent
+                  : colorEvent,
+              borderRadius: BorderRadius.circular(radius)),
+          margin: EdgeInsets.all(edgeDayToContainer),
+          padding: EdgeInsets.only(top: edgeDayStr, left: edgeDayStr),
+          width: sizeDayWidth,
+          height: sizeDayHeight,
+          child: GWdgtTextCalendarDay(
             string: '${date.day}',
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.left,
-            fontSize: ExtendedText.bigFont,
-            fontColor: Colors.white38,
             // style: TextStyle().copyWith(fontSize: 16.0),
           ),
         ),

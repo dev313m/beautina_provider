@@ -1,6 +1,7 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/models/order.dart';
+import 'package:beautina_provider/reusables/animated_buttons.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
@@ -8,6 +9,8 @@ import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/
 import 'package:beautina_provider/screens/dates/ui/paint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 
 ///order is confirmed by customer [status = 3]
 class WidgetConfirmedByCustomerOrder extends StatefulWidget {
@@ -20,8 +23,11 @@ class WidgetConfirmedByCustomerOrder extends StatefulWidget {
 }
 
 class _WidgetConfirmedByCustomerOrderState extends State<WidgetConfirmedByCustomerOrder> {
+  Order order;
   @override
   Widget build(BuildContext context) {
+    order = Provider.of<VmDateData>(context).orderList.where((element) => element.doc_id == widget.order.doc_id).first;
+
     return Padding(
       padding: EdgeInsets.only(top: 4),
       child: Container(
@@ -168,6 +174,18 @@ class _WidgetConfirmedByCustomerOrderState extends State<WidgetConfirmedByCustom
               ),
               SizedBox(
                 height: 20.h,
+              ),
+              AnimatedSubmitButton(
+                color: ConstDatesColors.cancelBtn,
+                height: ScreenUtil().setHeight(100),
+                width: 400,
+                insideWidget: ExtendedText(
+                  string: 'رفض',
+                  fontSize: ExtendedText.bigFont,
+                ),
+                splashColor: AppColors.blue,
+                animationDuration: Duration(milliseconds: 700),
+                function: getFunctionReject(widget.order, context),
               ),
 
               SizedBox(

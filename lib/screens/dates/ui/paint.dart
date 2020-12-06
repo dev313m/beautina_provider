@@ -15,23 +15,17 @@ class MyPainter extends CustomPainter {
 
     int i = 0;
     final TextPainter textPainter1 = TextPainter(
-        text: TextSpan(
-            text: 'حالة الطلب',
-            style: TextStyle(
-                fontSize: ScreenUtil().setSp(15), color: Colors.white)),
+        text: TextSpan(text: 'حالة الطلب', style: TextStyle(fontSize: ScreenUtil().setSp(15), color: Colors.white)),
         textAlign: TextAlign.justify,
         textDirection: TextDirection.ltr)
       ..layout(maxWidth: width);
     textPainter1.paint(canvas, Offset(width * 0.9, size.height * 0.3));
 
-    canvas.drawCircle(Offset(startofLine * width, size.width / 10),
-        size.width / 16, paintList.elementAt(i));
+    canvas.drawCircle(Offset(startofLine * width, size.width / 10), size.width / 16, paintList.elementAt(i));
 
     while (endOfLint > 0.0) {
-      canvas.drawLine(Offset(startofLine * width, size.width / 10),
-          Offset(endOfLint * width, size.width / 10), paintList.elementAt(i));
-      canvas.drawCircle(Offset(endOfLint * width, size.width / 10),
-          size.width / 16, paintList.elementAt(i + 1));
+      canvas.drawLine(Offset(startofLine * width, size.width / 10), Offset(endOfLint * width, size.width / 10), paintList.elementAt(i));
+      canvas.drawCircle(Offset(endOfLint * width, size.width / 10), size.width / 16, paintList.elementAt(i + 1));
       endOfLint -= 0.3;
       startofLine -= 0.3;
 
@@ -41,9 +35,7 @@ class MyPainter extends CustomPainter {
     startofLine = .645;
 
     while (startofLine > 0.0) {
-      getTextPaint(width)
-          .elementAt(i)
-          .paint(canvas, Offset(width * startofLine, 0));
+      getTextPaint(width).elementAt(i).paint(canvas, Offset(width * startofLine, 0));
       startofLine -= 0.3;
       i++;
     }
@@ -72,24 +64,18 @@ class MyPainter extends CustomPainter {
 
   List<TextPainter> getTextPaint(double width) {
     final TextPainter textPainter1 = TextPainter(
-        text: TextSpan(
-            text: 'طلب جديد',
-            style: TextStyle(fontSize: 10, color: Colors.white)),
+        text: TextSpan(text: 'طلب جديد', style: TextStyle(fontSize: 10, color: Colors.white)),
         textAlign: TextAlign.justify,
         textDirection: TextDirection.ltr)
       ..layout(maxWidth: width);
     final TextPainter textPainter2 = TextPainter(
-        text: TextSpan(
-            text: 'قبول الطلب',
-            style: TextStyle(fontSize: 10, color: Colors.white)),
+        text: TextSpan(text: 'قبول الطلب', style: TextStyle(fontSize: 10, color: Colors.white)),
         textAlign: TextAlign.justify,
         textDirection: TextDirection.ltr)
       ..layout(maxWidth: width);
 
     final TextPainter textPainter3 = TextPainter(
-        text: TextSpan(
-            text: 'تأكيد الزبون',
-            style: TextStyle(fontSize: 10, color: Colors.white)),
+        text: TextSpan(text: 'تأكيد الزبون', style: TextStyle(fontSize: 10, color: Colors.white)),
         textAlign: TextAlign.justify,
         textDirection: TextDirection.ltr)
       ..layout(maxWidth: width);
@@ -100,32 +86,3 @@ class MyPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
-
-Widget muteRowCell(String count, String type, IconData icon, Color color,
-        Function function) =>
-    new Expanded(
-        child: new Column(
-      children: <Widget>[
-        IconButton(
-          icon: Icon(
-            icon,
-            size: ScreenUtil().setSp(40),
-            color: color,
-          ),
-          onPressed: () async {
-            await function();
-          },
-          splashColor: color,
-          color: color,
-          tooltip: type,
-        ),
-        new ExtendedText(
-          string: '$count',
-          fontColor: Colors.orangeAccent,
-        ),
-        new ExtendedText(
-          string: type,
-          fontColor: Colors.orangeAccent,
-        )
-      ],
-    ));

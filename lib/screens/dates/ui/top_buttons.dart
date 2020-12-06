@@ -8,8 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:spring_button/spring_button.dart';
 import 'package:beautina_provider/reusables/text.dart';
 
-///[radius]
-
+///[radiuss]
 double radiusBotton = 12;
 
 ///[Sizes]
@@ -49,9 +48,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                   child: Center(
                     child: Container(
                       // width: ScreenUtil().setWidth(200),
-                      decoration: BoxDecoration(
-                          color: colorButton,
-                          borderRadius: BorderRadius.circular(radiusBotton)),
+                      decoration: BoxDecoration(color: colorButton, borderRadius: BorderRadius.circular(radiusBotton)),
                       height: sizeBtnHeight,
                       child: Center(
                         child: ExtendedText(
@@ -64,8 +61,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                 ),
                 scaleCoefficient: 0.85,
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListFinishedPage(heroTag: 'bbb')));
                 },
               ),
             ),
@@ -85,9 +81,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                     child: Hero(
                       tag: 'newOrders',
                       child: Container(
-                        decoration: BoxDecoration(
-                            color: colorButton,
-                            borderRadius: BorderRadius.circular(radiusBotton)),
+                        decoration: BoxDecoration(color: colorButton, borderRadius: BorderRadius.circular(radiusBotton)),
                         height: sizeBtnHeight,
                         child: Center(
                           child: ExtendedText(
@@ -101,8 +95,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                 ),
                 scaleCoefficient: 0.85,
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => OrderListPage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderListPage()));
                 },
               ),
               Align(
@@ -111,15 +104,10 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                   child: Container(
                       width: sizeBadge,
                       height: sizeBadge,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: colorBadge),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorBadge),
                       child: Center(
                         child: ExtendedText(
-                          string: Provider.of<VmDateData>(context)
-                              .comingConfirmedList
-                              .length
-                              .toString(),
+                          string: Provider.of<VmDateData>(context).comingConfirmedList.length.toString(),
                         ),
                       )),
                 ),

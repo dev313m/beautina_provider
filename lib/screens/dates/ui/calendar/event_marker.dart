@@ -1,24 +1,29 @@
-import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
+
+///[sizes]
+final sizeBadge = 30.h;
+
+///[edge]
+double edgeBadgeText = 5.h;
 
 class WdgtDateCalendarEventMarker extends StatelessWidget {
   final calendarController;
   final DateTime date;
   final List events;
   final Color color;
-  const WdgtDateCalendarEventMarker(
-      {Key key, this.date, this.calendarController, this.events, this.color})
-      : super(key: key);
+  const WdgtDateCalendarEventMarker({Key key, this.date, this.calendarController, this.events, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: ScreenUtil().setWidth(30),
-      height: ScreenUtil().setWidth(30),
+      width: sizeBadge,
+      height: sizeBadge,
       child: ClipOval(
         child: AnimatedContainer(
-          padding: EdgeInsets.all(ScreenUtil().setWidth(5)),
+          padding: EdgeInsets.all(ScreenUtil().setWidth(edgeBadgeText)),
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             // shape: BoxShape.rectangle,
@@ -31,7 +36,7 @@ class WdgtDateCalendarEventMarker extends StatelessWidget {
           // width: ScreenUtil().setWidth(16),
           // height: ScreenUtil().setWidth(16),
           child: Center(
-            child: ExtendedText(
+            child: GWdgtTextBadge(
               string: '${events.length}',
             ),
           ),
@@ -40,6 +45,3 @@ class WdgtDateCalendarEventMarker extends StatelessWidget {
     );
   }
 }
-
-///[colors]
-const Color colorEventPressed = Colors.brown;
