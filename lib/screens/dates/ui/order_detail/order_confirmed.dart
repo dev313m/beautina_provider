@@ -30,7 +30,7 @@ class _WidgetConfirmedByCustomerOrderState
     return Container(
       width: ScreenResolution.width,
       decoration: BoxDecoration(
-          color: colorBackground, borderRadius: BorderRadius.circular(radius)),
+          color: colorContainer, borderRadius: BorderRadius.circular(radius)),
       child: Padding(
         padding: EdgeInsets.all(edgeContainer),
         child: Column(

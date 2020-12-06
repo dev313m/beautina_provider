@@ -85,56 +85,32 @@ Future<bool> getFunctionAccept(Order order, BuildContext context) async {
   }
 }
 
-Function getFunctionFinishedIncomplete(Order order, BuildContext context) {
-  Function f = (AnimationController ac) async {
-    ac.forward();
+Future<bool> getFunctionFinishedIncomplete(
+    Order order, BuildContext context) async {
+  try {
+    await apiFinishedIncomplete(order);
+    await refreshList(context);
+    showToast('تم ابلاغك شكرا لكِ');
 
-    try {
-      await apiFinishedIncomplete(order);
-      // await apiNotificationAdd(MyNotification(
-      //     client_id: order.client_id,
-      //     createDate: DateTime.now().toString(),
-      //     describ: 'مبروك، قامت الزبونة بتأكيد الطلب',
-      //     from_token: '',
-      //     to_token: order.tokens.elementAt(0),
-      //     icon: '',
-      //     image: '',
-      //     title: 'طلب مؤكد',
-      //     type: '0')
-      //   ..toFirestoreMap());
-      refreshList(context);
-      showToast('تم ابلاغك شكرا لكِ');
-    } catch (e) {
-      showToast(e.toString());
-    }
-  };
-  return f;
+    return true;
+    // print('Stream is hersa ');
+  } catch (e) {
+    return false;
+  }
 }
 
-Function getFunctionFinishedComplete(Order order, BuildContext context) {
-  Function f = (AnimationController ac) async {
-    ac.forward();
+Future<bool> getFunctionFinishedComplete(
+    Order order, BuildContext context) async {
+  try {
+    await apiFinishedComplete(order);
+    await refreshList(context);
+    showToast('تم ابلاغك شكرا لكِ');
 
-    try {
-      await apiFinishedComplete(order);
-      // await apiNotificationAdd(MyNotification(
-      //     client_id: order.client_id,
-      //     createDate: DateTime.now().toString(),
-      //     describ: 'مبروك، قامت الزبونة بتأكيد الطلب',
-      //     from_token: '',
-      //     to_token: order.tokens.elementAt(0),
-      //     icon: '',
-      //     image: '',
-      //     title: 'طلب مؤكد',
-      //     type: '0')
-      //   ..toFirestoreMap());
-      refreshList(context);
-      showToast('تم ابلاغك شكرا لكِ');
-    } catch (e) {
-      showToast(e.toString());
-    }
-  };
-  return f;
+    return true;
+    // print('Stream is hersa ');
+  } catch (e) {
+    return false;
+  }
 }
 
 List<Order> getFilteredList(List<Order> list, int index) {

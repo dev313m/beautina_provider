@@ -159,15 +159,15 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                   Row(
                     children: [
                       RoundedLoadingButton(
-                        color: ConstDatesColors.confirmBtn,
-                        height: ScreenUtil().setHeight(100),
-                        width: 80,
+                        color: colorButtonAccept,
+                        height: sizeButtonHeight,
+                        width: sizeButtonHeight,
                         child: GWdgtTextButton(
                           string: 'قبول',
                         ),
                         controller: _buttonController,
                         animateOnTap: true,
-                        borderRadius: 12,
+                        borderRadius: radius,
                         onPressed: () async {
                           bool result = false;
                           _buttonController.start();
@@ -182,13 +182,13 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                         },
                       ),
                       RoundedLoadingButton(
-                        color: ConstDatesColors.cancelBtn,
-                        height: ScreenUtil().setHeight(100),
-                        width: 80,
+                        color: colorButtonReject,
+                        height: sizeButtonHeight,
+                        width: sizeButtonHeight,
                         controller: _buttonController,
                         animateOnTap: true,
-                        borderRadius: 12,
-                        child: Text('رفض'),
+                        borderRadius: radius,
+                        child: GWdgtTextButton(string:'رفض'),
                         onPressed: () async {
                           bool result = false;
                           _buttonController.start();
@@ -220,6 +220,7 @@ double sizeButtonHeight = 100.h;
 ///[color]
 Color colorContainer = Colors.white24;
 Color colorButtonReject = ConstDatesColors.cancelBtn;
+Color colorButtonAccept = ConstDatesColors.confirmBtn;
 
 ///[radius]
 final double radius = 12;
