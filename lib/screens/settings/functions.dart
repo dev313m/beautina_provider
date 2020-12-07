@@ -14,7 +14,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 Future<List<double>> getMyLocation() async {
   Geolocator.requestPermission();
-  Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
   return [position.latitude, position.longitude];
 }
 
@@ -38,7 +39,8 @@ Future updateBtn(BuildContext context) async {
   try {
     vmSettingsData.controller.start();
     // setState(() {});
-    Provider.of<VMSalonData>(context).beautyProvider = await apiBeautyProviderUpdate(newBeautyProvider);
+    Provider.of<VMSalonData>(context).beautyProvider =
+        await apiBeautyProviderUpdate(newBeautyProvider);
     showToast('تم التحديث');
     vmSettingsData.controller.success();
   } catch (e) {
@@ -76,19 +78,21 @@ Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
   return bp;
 }
 
-showMenuLocation(BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
+showMenuLocation(
+    BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
   Function onConfirm() {
     VMSettingsData vmSettingsData = Provider.of<VMSettingsData>(context);
 
     return (Picker picker, List value) {
-      // Provider.of<SignInSharedVariable>(context).city =
+      // Provider.of<VMLoginData>(context).city =
       //     picker.adapter.getSelectedValues();
       // picker.getSelectedValues();
 
       vmSettingsData.country = Countries.countriesMap['السعوديه'];
       // _country =
       //     Countries.countriesMap[picker.adapter.getSelectedValues()[0]];
-      vmSettingsData.city = Countries.citiesMap[picker.adapter.getSelectedValues().elementAt(0)];
+      vmSettingsData.city =
+          Countries.citiesMap[picker.adapter.getSelectedValues().elementAt(0)];
       // print(picker.getSelectedValues().toString());
     };
   }

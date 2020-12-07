@@ -7,6 +7,7 @@ import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/shared_order_details.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/screens/dates/ui/page_single_order_detail.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                         // textStyle: TextStyle(color: AppColors.pinkBright),
                         inputType: TextInputType.text,
                       )),
+                  GWdgtSizedBoxY(height: BoxHeight.heightBtwContainers),
                   Container(
                     // width: 200.w,
                     child: BeautyTextfield(
@@ -188,7 +190,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                         controller: _buttonController,
                         animateOnTap: true,
                         borderRadius: radius,
-                        child: GWdgtTextButton(string:'رفض'),
+                        child: GWdgtTextButton(string: 'رفض'),
                         onPressed: () async {
                           bool result = false;
                           _buttonController.start();

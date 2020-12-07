@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/index.dart';
-import 'package:beautina_provider/screens/signing_pages/shared_variable.dart';
+import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/prefrences/services.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -26,19 +24,19 @@ SmsAuth smsAuth = SmsAuth();
 
 loginWithApple(BuildContext context) async {
   if (!isNameChosen(context)) return;
-  if (Provider.of<SignInSharedVariable>(context).city == null) {
+  if (Provider.of<VMLoginData>(context).city == null) {
     throw Exception('الرجاء اختيار المنطقة');
   }
-  if (Provider.of<SignInSharedVariable>(context).accountType == -1) {
+  if (Provider.of<VMLoginData>(context).accountType == -1) {
     throw Exception('الرجاء اختيار نوع الحساب');
   }
   // animationController.forward();
-  smsAuth.phoneNum = Countries.phoneCode[
-          Provider.of<SignInSharedVariable>(context).city.elementAt(0)] +
-      Provider.of<SignInSharedVariable>(context).phoneNum;
+  smsAuth.phoneNum =
+      Countries.phoneCode[Provider.of<VMLoginData>(context).city.elementAt(0)] +
+          Provider.of<VMLoginData>(context).phoneNum;
 
   // Function success = () {
-  //   Provider.of<SignInSharedVariable>(context).showCode = true;
+  //   Provider.of<VMLoginData>(context).showCode = true;
   //   animationController.reverse();
   //   showToast('الرجاء ادراج الكود من الرساله');
   // };
@@ -61,19 +59,19 @@ loginWithApple(BuildContext context) async {
 
 loginWithGoogle(BuildContext context) async {
   if (!isNameChosen(context)) return;
-  if (Provider.of<SignInSharedVariable>(context).city == null) {
+  if (Provider.of<VMLoginData>(context).city == null) {
     throw Exception('الرجاء اختيار المنطقة');
   }
-  if (Provider.of<SignInSharedVariable>(context).accountType == -1) {
+  if (Provider.of<VMLoginData>(context).accountType == -1) {
     throw Exception('الرجاء اختيار نوع الحساب');
   }
   // animationController.forward();
-  smsAuth.phoneNum = Countries.phoneCode[
-          Provider.of<SignInSharedVariable>(context).city.elementAt(0)] +
-      Provider.of<SignInSharedVariable>(context).phoneNum;
+  smsAuth.phoneNum =
+      Countries.phoneCode[Provider.of<VMLoginData>(context).city.elementAt(0)] +
+          Provider.of<VMLoginData>(context).phoneNum;
 
   // Function success = () {
-  //   Provider.of<SignInSharedVariable>(context).showCode = true;
+  //   Provider.of<VMLoginData>(context).showCode = true;
   //   animationController.reverse();
   //   showToast('الرجاء ادراج الكود من الرساله');
   // };
@@ -98,12 +96,12 @@ Function onConfirmPhoneNumber(BuildContext context) {
   Function f = (AnimationController animationController) async {
     if (!isNameChosen(context)) return () {};
     // animationController.forward();
-    smsAuth.phoneNum = Countries.phoneCode[
-            Provider.of<SignInSharedVariable>(context).city.elementAt(0)] +
-        Provider.of<SignInSharedVariable>(context).phoneNum;
+    smsAuth.phoneNum = Countries
+            .phoneCode[Provider.of<VMLoginData>(context).city.elementAt(0)] +
+        Provider.of<VMLoginData>(context).phoneNum;
 
     // Function success = () {
-    //   Provider.of<SignInSharedVariable>(context).showCode = true;
+    //   Provider.of<VMLoginData>(context).showCode = true;
     //   animationController.reverse();
     //   showToast('الرجاء ادراج الكود من الرساله');
     // };
@@ -124,39 +122,6 @@ Function onConfirmPhoneNumber(BuildContext context) {
   };
   return f;
 }
-
-// Function onConfirmCodeNumber(BuildContext context) {
-//   Function f = (AnimationController animationController) async {
-//     animationController.forward();
-//     smsAuth.codeNum = Provider.of<SignInSharedVariable>(context).code;
-//     bool status = await smsAuth.signInWithPhoneNumber();
-//     if (!status)
-//       showToast('هناك خطأ، الرجاء وضع الرقم الصحيح');
-//     else {
-//       //Todo do add to firebase the user
-//       await saveUserData(context);
-//       routeToRoot(context);
-//     }
-//     animationController.reverse();
-//   };
-//   return f;
-// }
-// Function onConfirmCodeNumber(BuildContext context) {
-//   Function f = (AnimationController animationController) async {
-//     animationController.forward();
-//     smsAuth.codeNum = Provider.of<SignInSharedVariable>(context).code;
-//     bool status = await smsAuth.signInWithPhoneNumber();
-//     if (!status)
-//       showToast('هناك خطأ، الرجاء وضع الرقم الصحيح');
-//     else {
-//       //Todo do add to firebase the user
-//       await saveUserData(context);
-//       routeToRoot(context);
-//     }
-//     animationController.reverse();
-//   };
-//   return f;
-// }
 
 Future<Null> saveUserData(BuildContext context) async {
   // DocumentSnapshot userInfo = await apiUserCheckExist(currentUser.uid);
@@ -184,7 +149,7 @@ Future<Null> saveUserData(BuildContext context) async {
 
 ModelBeautyProvider getUserData(
     String uid, String token, BuildContext context) {
-  SignInSharedVariable signInData = Provider.of<SignInSharedVariable>(context);
+  VMLoginData signInData = Provider.of<VMLoginData>(context);
   String country = Countries.countriesMap[signInData.city.elementAt(0)];
   String city = Countries.citiesMap[signInData.city.elementAt(1)];
 
@@ -220,7 +185,7 @@ routeToRoot(BuildContext context) {
 showPicker(BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
   Function onConfirm() {
     return (Picker picker, List value) {
-      Provider.of<SignInSharedVariable>(context).city = [
+      Provider.of<VMLoginData>(context).city = [
         'السعوديه',
         picker.adapter.getSelectedValues().elementAt(0),
       ];
@@ -230,54 +195,36 @@ showPicker(BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
   }
 
   cityPicker(onConfirm: onConfirm(), context: context);
-
-  // Picker picker = Picker(
-  //     adapter: PickerDataAdapter<String>(
-  //         pickerdata: JsonDecoder().convert(Countries.countriesList)),
-  //     changeToFirst: true,
-  //     cancelText: 'عودة',
-  //     confirmText: 'تأكيد',
-  //     textAlign: TextAlign.left,
-  //     textStyle: const TextStyle(color: Colors.blue),
-  //     selectedTextStyle: TextStyle(color: Colors.red),
-  //     columnPadding: const EdgeInsets.all(8.0),
-  //     onConfirm: (Picker picker, List value) {
-  //       Provider.of<SignInSharedVariable>(context).city =
-  //           picker.adapter.getSelectedValues();
-  //       // picker.getSelectedValues();
-  //       print(picker.getSelectedValues().toString());
-  //     });
-  // picker.show(globalKey.currentState);
 }
 
 saveName(BuildContext context, String name) {
-  Provider.of<SignInSharedVariable>(context).name = name;
+  Provider.of<VMLoginData>(context).name = name;
 }
 
 bool isCityChosen(BuildContext context) {
-  return Provider.of<SignInSharedVariable>(context).city == null ? false : true;
+  return Provider.of<VMLoginData>(context).city == null ? false : true;
 }
 
 String getCity(BuildContext context) {
-  return Provider.of<SignInSharedVariable>(context).city == null
+  return Provider.of<VMLoginData>(context).city == null
       ? 'المدينة'
-      : Provider.of<SignInSharedVariable>(context).city.elementAt(1).toString();
+      : Provider.of<VMLoginData>(context).city.elementAt(1).toString();
 }
 
 String getCountry(BuildContext context) {
-  return Provider.of<SignInSharedVariable>(context).city == null
+  return Provider.of<VMLoginData>(context).city == null
       ? 'المنطقة'
-      // : Provider.of<SignInSharedVariable>(context).city.elementAt(1).toString();
+      // : Provider.of<VMLoginData>(context).city.elementAt(1).toString();
       : "السعوديه";
 }
 
 String getPhoneCode(BuildContext context) {
-  SignInSharedVariable sp = Provider.of<SignInSharedVariable>(context);
+  VMLoginData sp = Provider.of<VMLoginData>(context);
   return sp.city == null ? '' : Countries.phoneCode[sp.city.elementAt(0)];
 }
 
 bool isNameChosen(BuildContext context) {
-  SignInSharedVariable sp = Provider.of<SignInSharedVariable>(context);
+  VMLoginData sp = Provider.of<VMLoginData>(context);
 
   if (sp.name == null || sp.name == '') {
     showToast('الرجاء وضع الاسم');

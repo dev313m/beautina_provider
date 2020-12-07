@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class SignInSharedVariable with ChangeNotifier {
+class VMLoginData with ChangeNotifier {
   String _phoneNum = '';
 
   int accountType = -1; // 1 for salon

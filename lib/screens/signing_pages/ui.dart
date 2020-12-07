@@ -1,67 +1,11 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/signing_pages/function.dart';
-import 'package:beautina_provider/screens/signing_pages/shared_variable.dart';
+import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:async';
 
 import 'package:provider/provider.dart';
-
-AnimationController _controller;
-
-Widget RegisterBtn(AnimationController controller) {
-  _controller = controller;
-}
-
-class PhoneTextFieldUI extends StatefulWidget {
-  const PhoneTextFieldUI({Key key}) : super(key: key);
-
-  @override
-  _PhoneTextFieldUIState createState() => _PhoneTextFieldUIState();
-}
-
-class _PhoneTextFieldUIState extends State<PhoneTextFieldUI> {
-  final txtController = TextEditingController(text: '');
-
-  validateText() {
-    Provider.of<SignInSharedVariable>(context).phoneNum = txtController.text;
-    print(Provider.of<SignInSharedVariable>(context).phoneNum);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      enabled: true,
-      controller: txtController,
-      maxLength: 9,
-      maxLengthEnforced: true,
-      keyboardType: TextInputType.number,
-      style: TextStyle(color: Colors.pink),
-      onChanged: (str) {
-        validateText();
-      },
-      decoration: InputDecoration(
-        fillColor: Colors.blue,
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.blue)),
-        prefixIcon: Icon(
-          Icons.phone,
-          color: Colors.blue,
-        ),
-        labelText: '+966',
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide(color: Colors.pink)),
-        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide(color: Colors.pink)),
-      ),
-    );
-  }
-}
 
 class CodeTextField extends StatelessWidget {
   // final txtController = TextEditingController();
@@ -74,7 +18,7 @@ class CodeTextField extends StatelessWidget {
       keyboardType: TextInputType.number,
       // style: TextStyle(color: Colors.white),
       onChanged: (str) {
-        Provider.of<SignInSharedVariable>(context).code = str;
+        Provider.of<VMLoginData>(context).code = str;
       },
       decoration: InputDecoration(
         labelText: 'Code',
