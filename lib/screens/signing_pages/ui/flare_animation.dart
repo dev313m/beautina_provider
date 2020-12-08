@@ -5,13 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 
+///[size]
+double sizeContainer = 1000.h;
+double sizeY = 60.h;
+double sizeBeautinaHeight = 220.h;
+double sizeBeautinaWidth = 180.h;
+
 class WdgtLoginFlare extends StatelessWidget {
   const WdgtLoginFlare({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setHeight(600),
+      height: sizeContainer,
       child: Stack(
         children: <Widget>[
           // Align(
@@ -20,10 +26,10 @@ class WdgtLoginFlare extends StatelessWidget {
           //         'Beauty', 'Order', screenWidth, screenHeight)),
           Positioned(
             right: 1,
-            bottom: ScreenUtil().setHeight(60),
+            bottom: sizeY,
             child: Container(
-                width: ScreenUtil().setWidth(220),
-                height: ScreenUtil().setHeight(180),
+                width: sizeBeautinaHeight,
+                height: sizeBeautinaWidth,
                 child: Column(
                   children: <Widget>[
                     Container(

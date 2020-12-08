@@ -5,6 +5,7 @@ import 'package:beautina_provider/screens/signing_pages/ui/location.dart';
 import 'package:beautina_provider/screens/signing_pages/ui/login_buttons.dart';
 import 'package:beautina_provider/screens/signing_pages/ui/name.dart';
 import 'package:beautina_provider/screens/signing_pages/ui/phone.dart';
+import 'package:beautina_provider/screens/signing_pages/ui/user_type.dart';
 import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -78,6 +79,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
             WdgtLoginLocation(
               globalKey: _globalKey,
             ),
+            WdgtLoginUserType(),
             AnimatedSwitcher(
                 duration: Duration(milliseconds: 600),
                 child: getSwitchedWidget()),

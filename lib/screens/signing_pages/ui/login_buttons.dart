@@ -2,9 +2,13 @@ import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/constants.dart';
 import 'package:beautina_provider/screens/signing_pages/function.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+///[radius]
+double radius = 12;
 
 class WdgtLoginButtonIos extends StatelessWidget {
   final Function onPress;
@@ -24,7 +28,7 @@ class WdgtLoginButtonIos extends StatelessWidget {
               onPress();
             },
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(radius),
               child: Container(
                 color: Colors.white,
                 child: Row(
@@ -36,7 +40,7 @@ class WdgtLoginButtonIos extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 2, top: 10, bottom: 15),
+                          EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
                       child: Icon(
                         CommunityMaterialIcons.apple,
                         color: Colors.black,
@@ -50,11 +54,8 @@ class WdgtLoginButtonIos extends StatelessWidget {
             )),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            '( يجب اضافة صلاحية دخول الايميل )',
-            style: TextStyle(color: Colors.white70, fontSize: 10),
-            // fontColor: Colors.white,
-            // fontSize: ExtendedText.smallFont,
+          child: GWdgtTextTitleDesc(
+            string: '( يجب اضافة صلاحية دخول الايميل )',
           ),
         ),
       ],
@@ -78,7 +79,7 @@ class WdgtLoginButtonGoogle extends StatelessWidget {
         onPress();
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(radius),
         child: Container(
           color: ConstLoginColors.google,
           child: Padding(

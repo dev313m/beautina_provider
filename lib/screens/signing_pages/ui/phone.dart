@@ -1,6 +1,5 @@
 import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 class WdgtLoginPhone extends StatefulWidget {
