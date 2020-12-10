@@ -4,6 +4,7 @@ import 'package:beautina_provider/screens/signing_pages/function.dart';
 import 'package:beautina_provider/utils/ui/chip.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+
 class WdgtLoginLocation extends StatelessWidget {
   final GlobalKey globalKey;
   const WdgtLoginLocation({Key key, @required this.globalKey})
@@ -16,7 +17,7 @@ class WdgtLoginLocation extends StatelessWidget {
         Directionality(
           textDirection: TextDirection.rtl,
           child: BeautyTextfield(
-            prefixIcon: Icon(
+            suffixIcon: Icon(
               CommunityMaterialIcons.home_city_outline,
               // size: ScreenUtil().setSp(40),
             ),

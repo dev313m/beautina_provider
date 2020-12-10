@@ -43,7 +43,8 @@ class WdgtSalonProfileDetails extends StatefulWidget {
   WdgtSalonProfileDetails({Key key}) : super(key: key);
 
   @override
-  _WdgtSalonProfileDetailsState createState() => _WdgtSalonProfileDetailsState();
+  _WdgtSalonProfileDetailsState createState() =>
+      _WdgtSalonProfileDetailsState();
 }
 
 class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
@@ -65,7 +66,11 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
             children: <Widget>[
               InkWell(
                 onTap: () async {
-                  updateProfileImage(context, onProfileImageChangeLoad(), onProfileImageChangeSuccess(), onProfileImageChangeError(),
+                  updateProfileImage(
+                      context,
+                      onProfileImageChangeLoad(),
+                      onProfileImageChangeSuccess(),
+                      onProfileImageChangeError(),
                       onProfileImageChangeComplete());
                 },
                 child: Container(
@@ -81,16 +86,18 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                               ? Loading()
                               : MyImage(
                                   key: ValueKey('imagelk'),
-                                  url: '$strImageServerUrl${beautyProvider.uid}$strImageExtension',
+                                  url:
+                                      '$strImageServerUrl${beautyProvider.uid}$strImageExtension',
                                 ))),
                 ),
               ),
-              GWdgtSizedBoxY(
+              Y(
                 height: BoxHeight.heightBtwContainers,
               ),
               RatingBar.readOnly(
                 maxRating: 5,
-                initialRating: (beautyProvider.points / beautyProvider.achieved),
+                initialRating:
+                    (beautyProvider.points / beautyProvider.achieved),
                 filledIcon: CommunityMaterialIcons.heart,
                 emptyIcon: CommunityMaterialIcons.heart_outline,
                 halfFilledIcon: CommunityMaterialIcons.heart_half,
@@ -112,7 +119,9 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                   InfoItem(
                     icon: CommunityMaterialIcons.certificate,
                     title: strAcheivedOrders,
-                    value: beautyProvider.achieved < 100 ? 'اقل من 100 طلب' : 'اكثر من ${beautyProvider.achieved % 100} طلب',
+                    value: beautyProvider.achieved < 100
+                        ? 'اقل من 100 طلب'
+                        : 'اكثر من ${beautyProvider.achieved % 100} طلب',
                   ),
                   CustomDivider(),
                   InfoItem(
@@ -161,7 +170,8 @@ class InfoItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String value;
-  const InfoItem({Key key, this.icon, this.title, this.value}) : super(key: key);
+  const InfoItem({Key key, this.icon, this.title, this.value})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +188,7 @@ class InfoItem extends StatelessWidget {
             size: sizeIconDetails,
             color: colorIconDetails,
           ),
-          GWdgtSizedBoxY(
+          Y(
             height: BoxHeight.heightBtwContainers,
           ),
           GWdgtTextProfile(

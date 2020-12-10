@@ -7,7 +7,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 
 ///[size]
 double sizeContainer = 1000.h;
-double sizeY = 60.h;
+double sizeY = 190.h;
 double sizeBeautinaHeight = 220.h;
 double sizeBeautinaWidth = 180.h;
 
@@ -25,39 +25,38 @@ class WdgtLoginFlare extends StatelessWidget {
           //     child: introWidget(
           //         'Beauty', 'Order', screenWidth, screenHeight)),
           Positioned(
-            right: 1,
+            right: 60.w,
             bottom: sizeY,
             child: Container(
                 width: sizeBeautinaHeight,
                 height: sizeBeautinaWidth,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
                       width: double.infinity,
-                      child: Text('Beautina',
-                          style: GoogleFonts.pacifico(
-                              fontSize: ExtendedText.xbigFont,
-                              fontWeight: FontWeight.bold,
-                              color: ExtendedText.colorFull)
-
-                          // TextStyle(
-                          //     fontSize: ExtendedText.xbigFont,
-                          //     fontWeight: FontWeight.bold,
-                          //     color: ExtendedText.colorFull)
-
-                          ),
+                      child: Text(
+                        'Beautina',
+                        style: GoogleFonts.pacifico(
+                            fontSize: 68.sp,
+                            fontWeight: FontWeight.bold,
+                            color: ExtendedText.colorFull),
+                        textAlign: TextAlign.end,
+                      ),
                     ),
                     Container(
                       width: double.infinity,
                       // padding: EdgeInsets.fromLTRB(87.0, 50.0, 0.0, 0.0),
                       child: Text(
-                        "      بيوتينا",
+                        "بيوتينا",
                         style: TextStyle(
                           fontFamily: ArabicFonts.Tajawal,
+                          fontSize: 40.sp,
                           fontWeight: FontWeight.w800,
                           color: Colors.pink,
                           package: 'google_fonts_arabic',
                         ),
+                        textAlign: TextAlign.end,
                       ),
                     ),
                   ],

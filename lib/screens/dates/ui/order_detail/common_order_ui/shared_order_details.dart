@@ -52,7 +52,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
             // style: TextStyle(color: Colors.white),
           )),
         ),
-        GWdgtSizedBoxY(
+        Y(
           height: BoxHeight.heightBtwTitle,
         ),
         CustomPaint(
@@ -90,7 +90,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
             ),
           ),
         ),
-        GWdgtSizedBoxY(
+        Y(
           height: BoxHeight.heightBtwContainers,
         ),
 
@@ -130,7 +130,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           phoneNum: order.provider_phone,
           price: order.total_price,
         ),
-        GWdgtSizedBoxY(
+        Y(
           height: BoxHeight.heightBtwContainers,
         ),
 
@@ -153,7 +153,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
               ),
             ],
           ),
-        GWdgtSizedBoxY(
+        Y(
           height: BoxHeight.heightBtwContainers,
         ),
 

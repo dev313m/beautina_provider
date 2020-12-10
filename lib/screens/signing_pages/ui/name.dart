@@ -23,7 +23,7 @@ class WdgtLoginName extends StatelessWidget {
         // textBaseline: TextBaseline.alphabetic,
         inputType: TextInputType.text,
         duration: Duration(seconds: 1),
-        prefixIcon: Icon(Icons.info_outline),
+        suffixIcon: Icon(Icons.info_outline),
         // width: 0,
         // cornerRadius: BorderRadius.circular(12),
         helperText: ' الاسم',

@@ -40,11 +40,11 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
           mainAxisAlignment: MainAxisAlignment.start,
 
           children: <Widget>[
-            GWdgtSizedBoxY(
+            Y(
               height: BoxHeight.heightBtwTitle,
             ),
             GWdgtTextTitle(string: strMyServices),
-            GWdgtSizedBoxY(
+            Y(
               height: BoxHeight.heightBtwContainers,
             ),
             GWdgtTextTitleDesc(
@@ -52,7 +52,7 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
               // fontColor: ExtendedText.brightColors2,
             ),
 
-            GWdgtSizedBoxY(
+            Y(
               height: BoxHeight.heightBtwTitle,
             ),
 
@@ -65,7 +65,8 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                 padding: EdgeInsets.all(5.w),
                 addRepaintBoundaries: true,
                 itemBuilder: (_, index) {
-                  allDefaultServicesMap = Provider.of<VMSalonData>(context).providedServices['services'];
+                  allDefaultServicesMap = Provider.of<VMSalonData>(context)
+                      .providedServices['services'];
                   // List<Widget> list = [];
                   mainServiceKey = mapServices.keys.toList()[index];
 
@@ -77,7 +78,8 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                         scrollDirection: Axis.horizontal,
                         reverse: true,
                         itemBuilder: (_, rowIndex) {
-                          String itemKey = mapServices['other'].keys.toList()[rowIndex];
+                          String itemKey =
+                              mapServices['other'].keys.toList()[rowIndex];
 
                           return SingleService(
                             serviceName: itemKey,
@@ -92,8 +94,12 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                       ),
                     );
 
-                  if (allDefaultServicesMap.containsKey(mainServiceKey)) if (allDefaultServicesMap[mainServiceKey]
-                      .containsKey('items')) if (allDefaultServicesMap[mainServiceKey].containsKey('ar'))
+                  if (allDefaultServicesMap
+                      .containsKey(mainServiceKey)) if (allDefaultServicesMap[
+                          mainServiceKey]
+                      .containsKey(
+                          'items')) if (allDefaultServicesMap[mainServiceKey]
+                      .containsKey('ar'))
                     return Container(
                       height: sizeElementListContainer,
                       child: ListView.builder(
@@ -101,11 +107,16 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                         scrollDirection: Axis.horizontal,
                         reverse: true,
                         itemBuilder: (_, rowIndex) {
-                          itemKey = mapServices[mainServiceKey].keys.toList()[rowIndex];
+                          itemKey = mapServices[mainServiceKey]
+                              .keys
+                              .toList()[rowIndex];
 
-                          if (allDefaultServicesMap[mainServiceKey]['items'].containsKey(itemKey))
+                          if (allDefaultServicesMap[mainServiceKey]['items']
+                              .containsKey(itemKey))
                             return SingleService(
-                              serviceName: allDefaultServicesMap[mainServiceKey]['items'][itemKey]['ar']?.toString(),
+                              serviceName: allDefaultServicesMap[mainServiceKey]
+                                      ['items'][itemKey]['ar']
+                                  ?.toString(),
                               prices: mapServices[mainServiceKey][itemKey],
                               serviceCode: itemKey,
                               serviceRoot: mainServiceKey,
@@ -141,7 +152,13 @@ class SingleService extends StatefulWidget {
   final String serviceCode;
   final List<dynamic> prices;
 
-  const SingleService({Key key, this.prices, this.serviceName, @required this.serviceRoot, @required this.serviceCode}) : super(key: key);
+  const SingleService(
+      {Key key,
+      this.prices,
+      this.serviceName,
+      @required this.serviceRoot,
+      @required this.serviceCode})
+      : super(key: key);
 
   @override
   _SingleServiceState createState() => _SingleServiceState();
@@ -171,19 +188,29 @@ class _SingleServiceState extends State<SingleService> {
             Expanded(
               child: Row(
                 children: <Widget>[
-                  if (widget.prices.length > 1) GWdgtTextProfile(string: 'قبل: ${widget.prices[1]}   '),
+                  if (widget.prices.length > 1)
+                    GWdgtTextProfile(string: 'قبل: ${widget.prices[1]}   '),
                   GWdgtTextProfile(string: 'السعر: ${widget.prices[0]}   '),
                 ],
               ),
             ),
             InkWell(
                 onTap: () async {
-                  await removeServiceByCodeAndUpdate(context, widget.serviceCode, widget.serviceRoot, onDeleteServiceComplete(),
-                      onDeleteServiceError(), onDeleteServiceLoad(), onDeleteServiceSuccess());
+                  await removeServiceByCodeAndUpdate(
+                      context,
+                      widget.serviceCode,
+                      widget.serviceRoot,
+                      onDeleteServiceComplete(),
+                      onDeleteServiceError(),
+                      onDeleteServiceLoad(),
+                      onDeleteServiceSuccess());
                 },
                 child: AnimatedSwitcher(
                     duration: Duration(milliseconds: durationCalender),
-                    child: loading ? Loading() : Icon(CommunityMaterialIcons.delete_circle, color: Colors.white70)))
+                    child: loading
+                        ? Loading()
+                        : Icon(CommunityMaterialIcons.delete_circle,
+                            color: Colors.white70)))
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:beautina_provider/screens/dates/ui/calendar/calendar.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,6 +8,7 @@ class BeautyTextfield extends StatefulWidget {
   final String placeholder;
   final Icon prefixIcon, suffixIcon;
   final bool isBox;
+  final TextEditingController controller;
   final TextInputType inputType;
   final Duration duration;
   final bool readOnly;
@@ -21,6 +24,7 @@ class BeautyTextfield extends StatefulWidget {
 
   const BeautyTextfield(
       {this.prefixIcon,
+      this.controller,
       this.inputType,
       this.textStyle,
       this.isBox = false,
@@ -31,9 +35,9 @@ class BeautyTextfield extends StatefulWidget {
       this.helperText = '',
       this.suffixText,
       this.prefixText,
-      this.backgroundColor = const Color(0xFF2B0B3A),
-      this.textColor = const Color(0xFF9A9A2D),
-      this.accentColor = Colors.white,
+      this.backgroundColor = Colors.transparent,
+      this.textColor = Colors.transparent,
+      this.accentColor = const Color(0xFF2B0B3A),
       this.placeholder = "",
       this.isShadow = true,
       // this.fontStyle,
@@ -61,15 +65,18 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       // width: ScreenUtil().setWidth(300),
-      height: !widget.isBox ? 120.h : 400.h,
+      height: !widget.isBox ? heightTextField : 400.h,
       // margin: widget.margin,
       // alignment: Alignment.centerRight,
       decoration: BoxDecoration(
           boxShadow: widget.isShadow
-              ? [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)]
+              ? [
+                  BoxShadow(
+                      color: Colors.transparent, blurRadius: 0, spreadRadius: 0)
+                ]
               : BoxShadow(spreadRadius: 0, blurRadius: 0),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: widget.suffixIcon == null
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          color: !widget.readOnly
               ? isFocus
                   ? widget.accentColor
                   : widget.backgroundColor
@@ -86,7 +93,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
 
           controller: widget.readOnly
               ? TextEditingController(text: widget.placeholder)
-              : null,
+              : widget.controller,
           style: widget.textStyle,
           textInputAction: TextInputAction.done,
           // toolbarOptions: ToolbarOptions(),
@@ -115,17 +122,22 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
 
           // textInputAction: TextInputAction.done,
           decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.blue)),
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
               suffixText: widget.suffixText,
               prefixText: widget.prefixText,
-              labelStyle: TextStyle(color: Colors.pink),
+              // labelStyle: TextStyle(color: Colors.pink),
               hintText: widget.placeholder,
               // labelText: 'labels',
               counterText: '',
               // prefixIcon: widget.prefixIcon,
-              border: new OutlineInputBorder(borderSide: BorderSide.none),
-              // hintText: widget.placeholder,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(radius)),
+                  borderSide: BorderSide(
+                      color: Colors.pink)), // hintText: widget.placeholder,
               // helperText: 'Keep it short, this is just a demo.',
               labelText: widget.helperText),
           cursorColor: isFocus ? widget.accentColor : widget.backgroundColor,

@@ -2,17 +2,21 @@ import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/constants.dart';
 import 'package:beautina_provider/screens/signing_pages/function.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ///[radius]
-double radius = 12;
+double radius = radiusGeneral;
 
 class WdgtLoginButtonIos extends StatelessWidget {
   final Function onPress;
-  const WdgtLoginButtonIos({Key key, this.onPress}) : super(key: key);
+  final Function onError;
+
+  const WdgtLoginButtonIos({Key key, this.onPress, this.onError})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +24,14 @@ class WdgtLoginButtonIos extends StatelessWidget {
       children: [
         InkWell(
             onTap: () async {
+              onPress();
+
               try {
                 await loginWithApple(context);
               } catch (e) {
                 showToast(e.toString());
+                onError();
               }
-              onPress();
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(radius),
@@ -36,7 +42,7 @@ class WdgtLoginButtonIos extends StatelessWidget {
                     Expanded(child: SizedBox()),
                     Text(
                       'Apple تسجيل الدخول باستخدام',
-                      style: TextStyle(fontSize: 15, color: Colors.black),
+                      style: TextStyle(fontSize: 40.sp, color: Colors.black),
                     ),
                     Padding(
                       padding:
@@ -65,35 +71,45 @@ class WdgtLoginButtonIos extends StatelessWidget {
 
 class WdgtLoginButtonGoogle extends StatelessWidget {
   final Function onPress;
-  const WdgtLoginButtonGoogle({Key key, this.onPress}) : super(key: key);
+  final Function onError;
+  const WdgtLoginButtonGoogle({Key key, this.onPress, this.onError})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
+        onPress();
         try {
           await loginWithGoogle(context);
         } catch (e) {
           showToast(e.toString());
+          onError();
         }
-        onPress();
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
         child: Container(
+          height: heightTextField,
           color: ConstLoginColors.google,
           child: Padding(
             padding: EdgeInsets.all(ScreenUtil().setHeight(16)),
-            child: Column(
+            child: Row(
               children: <Widget>[
-                ExtendedText(
-                  string: 'التسجيل بواسطة جوجل',
-                  fontSize: ExtendedText.xbigFont,
+                Expanded(child: SizedBox()),
+                Padding(
+                  padding: EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
+                  child: Icon(
+                    CommunityMaterialIcons.google,
+                    color: Colors.white,
+                    size: 67.sp,
+                  ),
                 ),
-                Icon(
-                  CommunityMaterialIcons.google,
-                  color: Colors.white,
-                )
+                GWdgtTextButton(
+                  string: 'التسجيل بواسطة جوجل',
+                  // fontSize: ExtendedText.xbigFont,
+                ),
+                Expanded(child: SizedBox()),
               ],
             ),
           ),

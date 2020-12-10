@@ -7,6 +7,8 @@ import 'package:beautina_provider/screens/signing_pages/ui/name.dart';
 import 'package:beautina_provider/screens/signing_pages/ui/phone.dart';
 import 'package:beautina_provider/screens/signing_pages/ui/user_type.dart';
 import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,21 +74,33 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
-        child: ListView(
-          children: <Widget>[
-            WdgtLoginFlare(),
-            WdgtLoginName(),
-            WdgtLoginLocation(
-              globalKey: _globalKey,
-            ),
-            WdgtLoginUserType(),
-            AnimatedSwitcher(
-                duration: Duration(milliseconds: 600),
-                child: getSwitchedWidget()),
-            WdgtLoginPhone(
-              key: ValueKey('phoneke'),
-            ),
-          ],
+        child: Padding(
+          padding: EdgeInsets.all(paddingScreen),
+          child: ListView(
+            children: <Widget>[
+              WdgtLoginFlare(),
+              Y(),
+              WdgtLoginName(),
+              Y(),
+              WdgtLoginLocation(
+                globalKey: _globalKey,
+              ),
+              Y(),
+              WdgtLoginUserType(),
+              Y(
+                height: heightBtwLoginBtn,
+              ),
+              AnimatedSwitcher(
+                  duration: Duration(milliseconds: 600),
+                  child: getSwitchedWidget()),
+              Y(
+                height: heightBtwLoginBtn,
+              ),
+              WdgtLoginPhone(
+                key: ValueKey('phoneke'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -100,6 +114,10 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     else if (!loading && Platform.isAndroid && vmLoginData.phoneNum.length == 9)
       return WdgtLoginButtonGoogle(
         onPress: () {
+          loading = true;
+          setState(() {});
+        },
+        onError: () {
           loading = false;
           setState(() {});
         },
@@ -107,13 +125,20 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     else if (!loading && Platform.isIOS && vmLoginData.phoneNum.length == 9)
       return WdgtLoginButtonIos(
         onPress: () {
+          loading = true;
+          setState(() {});
+        },
+        onError: () {
           loading = false;
           setState(() {});
         },
       );
     else
       return SizedBox(
-        height: 100,
+        height: heightLoginBtns,
       );
   }
 }
+
+///[height]
+final heightBtwLoginBtn = 100.h;

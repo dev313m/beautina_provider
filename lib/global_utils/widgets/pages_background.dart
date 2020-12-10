@@ -1,5 +1,5 @@
+import 'package:beautina_provider/utils/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:beautina_provider/global_utils/colors/colors.dart';
 
 class GlobalWidgetBackground extends StatelessWidget {
   final Widget child;
@@ -14,7 +14,7 @@ class GlobalWidgetBackground extends StatelessWidget {
           gradient: new LinearGradient(
               colors: [
                 UtilsGlobalColor.backgroundTop,
-                UtilsGlobalColor.backgroundbuttom,
+                UtilsGlobalColor.backgroundbuttom,                  
               ],
               begin: const FractionalOffset(1.0, 0.0),
               end: const FractionalOffset(0.0, 1.0),

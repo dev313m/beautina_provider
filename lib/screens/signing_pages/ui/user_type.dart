@@ -1,15 +1,16 @@
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 ///[size]
-double sizeContainer = 120.h;
+double sizeContainer = heightTextField;
 
 ///[radius]
-double radius = 12;
+double radius = radiusGeneral;
 
 class WdgtLoginUserType extends StatefulWidget {
   const WdgtLoginUserType({Key key}) : super(key: key);
@@ -49,12 +50,12 @@ class _WdgtLoginUserTypeState extends State<WdgtLoginUserType> {
             borderRadius: BorderRadius.circular(radius),
             children: <Widget>[
               Container(
-                  width: 0.49.sw,
+                  width: 0.48.sw,
                   child: GWdgtTextToggle(
                     string: 'هذا حساب مشغل',
                   )),
               Container(
-                  width: 0.49.sw,
+                  width: 0.48.sw,
                   child: GWdgtTextToggle(
                     string: 'أنا خبيرة',
                   )),

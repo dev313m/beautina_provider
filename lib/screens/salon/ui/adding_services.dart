@@ -107,15 +107,15 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
           // height: ScreenUtil().setHeight(400),
           child: Column(
             children: <Widget>[
-              GWdgtSizedBoxY(height: BoxHeight.heightBtwTitle),
+              Y(height: BoxHeight.heightBtwTitle),
               GWdgtTextTitle(
                 string: strAddingNewService,
               ),
-              GWdgtSizedBoxY(height: BoxHeight.heightBtwContainers),
+              Y(height: BoxHeight.heightBtwContainers),
 
               GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
 
-              GWdgtSizedBoxY(height: BoxHeight.heightBtwTitle),
+              Y(height: BoxHeight.heightBtwTitle),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: ToggleButtons(
@@ -150,7 +150,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
                         setState(() {});
                       })),
-              GWdgtSizedBoxY(height: BoxHeight.heightBtwContainers),
+              Y(height: BoxHeight.heightBtwContainers),
               if (showOther)
                 Directionality(
                   textDirection: TextDirection.rtl,

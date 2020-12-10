@@ -17,14 +17,14 @@ class BoxHeight {
 }
 
 /// This widget puts verticval box for spacing purpuses
-class GWdgtSizedBoxY extends StatelessWidget {
+class Y extends StatelessWidget {
   final height;
-  const GWdgtSizedBoxY({Key key, this.height}) : super(key: key);
+  const Y({Key key, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
+      height: height ?? BoxHeight.heightBtwContainers,
     );
   }
 }

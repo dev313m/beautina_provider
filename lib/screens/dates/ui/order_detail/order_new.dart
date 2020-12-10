@@ -69,7 +69,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                         // textStyle: TextStyle(color: AppColors.pinkBright),
                         inputType: TextInputType.text,
                       )),
-                  GWdgtSizedBoxY(height: BoxHeight.heightBtwContainers),
+                  Y(height: BoxHeight.heightBtwContainers),
                   Container(
                     // width: 200.w,
                     child: BeautyTextfield(
