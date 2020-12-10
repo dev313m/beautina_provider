@@ -108,8 +108,15 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
 
   Widget getSwitchedWidget() {
     if (loading)
-      return CircularProgressIndicator(
-        backgroundColor: Colors.orangeAccent,
+      return Container(
+        ///must match the height of the login buttons so animation go smooth
+        height: heightTextField,
+        width: heightTextField,
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.orangeAccent,
+          ),
+        ),
       );
     else if (!loading && Platform.isAndroid && vmLoginData.phoneNum.length == 9)
       return WdgtLoginButtonGoogle(
@@ -118,8 +125,9 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
           setState(() {});
         },
         onError: () {
-          loading = false;
-          setState(() {});
+          setState(() {
+            loading = false;
+          });
         },
       );
     else if (!loading && Platform.isIOS && vmLoginData.phoneNum.length == 9)

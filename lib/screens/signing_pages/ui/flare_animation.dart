@@ -38,7 +38,7 @@ class WdgtLoginFlare extends StatelessWidget {
                       child: Text(
                         'Beautina',
                         style: GoogleFonts.pacifico(
-                            fontSize: 68.sp,
+                            fontSize: 60.sp,
                             fontWeight: FontWeight.bold,
                             color: ExtendedText.colorFull),
                         textAlign: TextAlign.end,
@@ -51,7 +51,7 @@ class WdgtLoginFlare extends StatelessWidget {
                         "بيوتينا",
                         style: TextStyle(
                           fontFamily: ArabicFonts.Tajawal,
-                          fontSize: 40.sp,
+                          fontSize: 35.sp,
                           fontWeight: FontWeight.w800,
                           color: Colors.pink,
                           package: 'google_fonts_arabic',

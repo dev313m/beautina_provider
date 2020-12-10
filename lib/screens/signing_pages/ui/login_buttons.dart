@@ -79,13 +79,18 @@ class WdgtLoginButtonGoogle extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
+        // await Future.delayed(Duration(seconds: 1));
         onPress();
         try {
           await loginWithGoogle(context);
+          var a = 3;
         } catch (e) {
-          showToast(e.toString());
           onError();
+
+          showToast(e.toString());
+          var a = 34;
         }
+        // var a = 4;
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
