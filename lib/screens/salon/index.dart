@@ -10,6 +10,7 @@ import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
 import 'package:beautina_provider/screens/salon/ui/ui_displayed_services.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
