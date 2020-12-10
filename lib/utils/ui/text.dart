@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/current.dart';
 
 class GWdgtTextTitle extends StatelessWidget {
   final TextDirection textDirection;
   final TextAlign textAlign;
 
-  final Color fontColor = null;
   final String string;
   const GWdgtTextTitle(
       {Key key,
@@ -21,8 +21,8 @@ class GWdgtTextTitle extends StatelessWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       style: TextStyle(
-        fontSize: ScreenUtil().setSp(30),
-        color: fontColor,
+        fontSize: 60.sp,
+        color: Colors.white,
       ),
     );
   }
@@ -34,10 +34,16 @@ class GWdgtTextTitleDesc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      string,
-      style: TextStyle(
-        fontSize: ScreenUtil().setSp(14),
+    return Padding(
+      padding: EdgeInsets.all(edgeText),
+      child: Text(
+        string,
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.rtl,
+        style: TextStyle(
+          fontSize: 40.sp,
+          color: Colors.white70,
+        ),
       ),
     );
   }
@@ -51,9 +57,7 @@ class GWdgtTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(
-        fontSize: 40.sp,
-      ),
+      style: TextStyle(fontSize: 40.sp, color: Colors.white60),
     );
   }
 }
@@ -66,9 +70,7 @@ class GWdgtTextToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(
-        fontSize: ScreenUtil().setSp(30),
-      ),
+      style: TextStyle(fontSize: 35.sp, color: Colors.white.withOpacity(0.7)),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/salon/ui/how_i_look_search/ui_how_I_look.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 
 class WdgtSalonHowLookSearch extends StatelessWidget {
   const WdgtSalonHowLookSearch({
@@ -28,9 +29,9 @@ class WdgtSalonHowLookSearch extends StatelessWidget {
                   ),
                   Expanded(
                     child: Center(
-                        child: ExtendedText(
+                        child: GWdgtTextTitle(
                       string: 'كيف تظهر صفحتي في البحث',
-                      fontSize: ExtendedText.bigFont,
+                      // fontSize: ExtendedText.bigFont,
                     )),
                   ),
                 ],
