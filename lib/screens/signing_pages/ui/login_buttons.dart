@@ -14,8 +14,9 @@ double radius = radiusGeneral;
 class WdgtLoginButtonIos extends StatelessWidget {
   final Function onPress;
   final Function onError;
+  final BuildContext contextT;
 
-  const WdgtLoginButtonIos({Key key, this.onPress, this.onError})
+  const WdgtLoginButtonIos({Key key, this.onPress, this.onError, this.contextT})
       : super(key: key);
 
   @override
@@ -27,7 +28,7 @@ class WdgtLoginButtonIos extends StatelessWidget {
               onPress();
 
               try {
-                await loginWithApple(context);
+                await loginWithApple(contextT);
               } catch (e) {
                 showToast(e.toString());
                 onError();
@@ -72,7 +73,9 @@ class WdgtLoginButtonIos extends StatelessWidget {
 class WdgtLoginButtonGoogle extends StatelessWidget {
   final Function onPress;
   final Function onError;
-  const WdgtLoginButtonGoogle({Key key, this.onPress, this.onError})
+  final BuildContext contextT;
+  const WdgtLoginButtonGoogle(
+      {Key key, this.onPress, this.onError, this.contextT})
       : super(key: key);
 
   @override
@@ -82,13 +85,11 @@ class WdgtLoginButtonGoogle extends StatelessWidget {
         // await Future.delayed(Duration(seconds: 1));
         onPress();
         try {
-          await loginWithGoogle(context);
-          var a = 3;
+          await loginWithGoogle(contextT);
         } catch (e) {
-          onError();
-
           showToast(e.toString());
-          var a = 34;
+          onError();
+          // var a = 34;
         }
         // var a = 4;
       },

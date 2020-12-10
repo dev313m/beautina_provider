@@ -129,6 +129,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
             loading = false;
           });
         },
+        contextT: context,
       );
     else if (!loading && Platform.isIOS && vmLoginData.phoneNum.length == 9)
       return WdgtLoginButtonIos(

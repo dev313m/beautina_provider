@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:beautina_provider/reusables/toast.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -31,9 +30,8 @@ Future<String> signInWithGoogle() async {
     return null;
   } catch (e) {
     print(e.toString());
-    print(e.toString());
-    showToast("حدثت مشكلة في المصادقة، الرجاء اعادة المحاولة ${e.toString()}");
-    return null;
+    throw Exception(
+        "حدثت مشكلة في المصادقة، الرجاء اعادة المحاولة ${e.toString()}");
   }
 }
 

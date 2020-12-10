@@ -23,7 +23,8 @@ import 'package:flutter_picker/flutter_picker.dart';
 SmsAuth smsAuth = SmsAuth();
 
 loginWithApple(BuildContext context) async {
-  if (!isNameChosen(context)) return;
+  if (!isNameChosen(context)) throw Exception('الرجاء وضع الاسم');
+
   if (Provider.of<VMLoginData>(context).city == null) {
     throw Exception('الرجاء اختيار المنطقة');
   }
@@ -49,16 +50,18 @@ loginWithApple(BuildContext context) async {
   String result;
   try {
     result = await signInWithApple();
+    if (result == null)
+      throw Exception("حدثت مشكله في التسجيل، الرجاء المحاولة مره اخرى");
     // showToast(result);
   } catch (e) {
-    showToast(e.toString());
+    throw Exception(e.toString());
     // animationController.reverse();
   }
   if (result != null) await saveUserData(context);
 }
 
 loginWithGoogle(BuildContext context) async {
-  if (!isNameChosen(context)) return;
+  if (!isNameChosen(context)) throw Exception('الرجاء وضع الاسم');
   if (Provider.of<VMLoginData>(context).city == null) {
     throw Exception('الرجاء اختيار المنطقة');
   }
@@ -86,7 +89,8 @@ loginWithGoogle(BuildContext context) async {
     result = await signInWithGoogle();
     // showToast(result);
   } catch (e) {
-    showToast(e.toString());
+    throw Exception(e.toString());
+    // showToast();
     // animationController.reverse();
   }
   if (result != null) await saveUserData(context);
@@ -115,8 +119,9 @@ Function onConfirmPhoneNumber(BuildContext context) {
     try {
       result = await signInWithGoogle();
     } catch (e) {
-      showToast(e.toString());
       animationController.reverse();
+
+      throw Exception(e.toString());
     }
     if (result != null) saveUserData(context);
   };
@@ -135,7 +140,7 @@ Future<Null> saveUserData(BuildContext context) async {
         getUserData(currentUser.uid, token, context);
     modelBeautyProvider = await apiUserProviderAddNew(modelBeautyProvider);
     if (modelBeautyProvider == null)
-      showToast('هناك خطأ');
+      throw Exception('هناك خطأ');
     else {
       await saveData(modelBeautyProvider);
       showToast('مرحبا بك في عالم الجمال');
@@ -143,13 +148,13 @@ Future<Null> saveUserData(BuildContext context) async {
       routeToRoot(context);
     }
   } catch (e) {
-    showToast(e.toString());
+    throw Exception(e.toString());
   }
 }
 
 ModelBeautyProvider getUserData(
     String uid, String token, BuildContext context) {
-  VMLoginData signInData = Provider.of<VMLoginData>(context);
+  VMLoginData signInData = Provider.of<VMLoginData>(context, listen: false);
   String country = Countries.countriesMap[signInData.city.elementAt(0)];
   String city = Countries.citiesMap[signInData.city.elementAt(1)];
 
@@ -227,7 +232,6 @@ bool isNameChosen(BuildContext context) {
   VMLoginData sp = Provider.of<VMLoginData>(context);
 
   if (sp.name == null || sp.name == '') {
-    showToast('الرجاء وضع الاسم');
     return false;
   }
 
