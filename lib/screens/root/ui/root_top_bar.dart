@@ -4,6 +4,7 @@ import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:beautina_provider/utils/current.dart';
 
 class WdgtRootTopBar extends StatefulWidget {
   WdgtRootTopBar({Key key}) : super(key: key);
@@ -25,7 +26,7 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: Container(
-                      height: ScreenUtil().setHeight(170),
+                      height: heightTopBar,
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -56,14 +57,10 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
         fontSize: ExtendedText.xbigFont,
       );
     else if (pageIndex == 1)
-      return ExtendedText(
-          key: ValueKey('value2'),
-          string: '~ الاشعارات ~',
-          fontSize: ExtendedText.xbigFont);
+      return ExtendedText(key: ValueKey('value2'), string: '~ الاشعارات ~', fontSize: ExtendedText.xbigFont);
     else
-      return ExtendedText(
-          key: ValueKey('value3'),
-          string: '~ الاعدادات ~',
-          fontSize: ExtendedText.xbigFont);
+      return ExtendedText(key: ValueKey('value3'), string: '~ الاعدادات ~', fontSize: ExtendedText.xbigFont);
   }
 }
+
+double radius = radiusDefault;

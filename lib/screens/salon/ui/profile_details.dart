@@ -11,13 +11,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:rating_bar/rating_bar.dart';
+import 'package:beautina_provider/utils/current.dart';
 
 /// [radius]
-const double radiusButton = 14;
-const double radiusContainer = 14;
+double radiusButton = radiusDefault;
+double radiusContainer = radiusDefault;
 
 ///[edge]
-double edgeMainContainer = 15.h;
+double edgeMainContainer = edgeContainer;
 double edgeMainText = 8.h;
 
 ///[colors]
@@ -35,9 +36,9 @@ final strMobile = 'الجوال';
 final strDefaultProfileImage = 'assets/images/default.png';
 
 ///[sizes]
-final double sizeIconFavorite = ScreenUtil().setSp(39);
-final double sizeImageProfile = 299.h;
-final double sizeIconDetails = 44.sp;
+final double sizeIconFavorite = 60.sp;
+double sizeImageProfile = 500.w;
+final double sizeIconDetails = 100.sp;
 
 class WdgtSalonProfileDetails extends StatefulWidget {
   WdgtSalonProfileDetails({Key key}) : super(key: key);
@@ -54,13 +55,13 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
   Widget build(BuildContext context) {
     beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
 
-    return Padding(
-      padding: EdgeInsets.all(edgeMainContainer),
-      child: Container(
-          decoration: BoxDecoration(
-              color: colorContainerBg,
-              // image: AsssetImage(assetName),
-              borderRadius: BorderRadius.circular(radiusContainer)),
+    return Container(
+        decoration: BoxDecoration(
+            color: colorContainerBg,
+            // image: AsssetImage(assetName),
+            borderRadius: BorderRadius.circular(radiusContainer)),
+        child: Padding(
+          padding: EdgeInsets.all(edgeMainContainer),
           child: Column(
             children: <Widget>[
               InkWell(
@@ -81,13 +82,13 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                               ? Loading()
                               : MyImage(
                                   key: ValueKey('imagelk'),
+                                  // height: sizeImageProfile,
+                                  // width: sizeImageProfile,
                                   url: '$strImageServerUrl${beautyProvider.uid}$strImageExtension',
                                 ))),
                 ),
               ),
-              GWdgtSizedBoxY(
-                height: BoxHeight.heightBtwContainers,
-              ),
+              Y(),
               RatingBar.readOnly(
                 maxRating: 5,
                 initialRating: (beautyProvider.points / beautyProvider.achieved),
@@ -98,6 +99,7 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                 filledColor: colorIconFavorite,
                 size: sizeIconFavorite,
               ),
+              Y(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
 
@@ -128,9 +130,10 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                   ),
                 ],
               ),
+              // Y()
             ],
-          )),
-    );
+          ),
+        ));
   }
 
   Function onProfileImageChangeComplete() {
@@ -192,7 +195,9 @@ class InfoItem extends StatelessWidget {
 
 class MyImage extends StatelessWidget {
   final String url;
-  const MyImage({Key key, this.url}) : super(key: key);
+  final width;
+  final height;
+  const MyImage({Key key, this.url, this.height, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -205,13 +210,13 @@ class MyImage extends StatelessWidget {
       errorWidget: (_, __, ___) {
         return Image.asset(
           strDefaultProfileImage,
-          height: sizeImageProfile,
-          width: sizeImageProfile,
+          height: height,
+          width: width,
           fit: BoxFit.cover,
         );
       },
-      height: sizeImageProfile,
-      width: sizeImageProfile,
+      height: height,
+      width: width,
       fit: BoxFit.cover,
     );
   }

@@ -5,19 +5,20 @@ class CustomDivider extends StatelessWidget {
   final double width;
   final Color color;
   // final type;
-  const CustomDivider({Key key, this.color = Colors.white, this.height = 29, this.width = 1})
-      : super(key: key);
+  const CustomDivider({Key key, this.color = Colors.white30, this.height = 29, this.width = 1}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: height,
+        width: width,
         decoration: new BoxDecoration(
-      border: Border(
-        top: BorderSide(width: height, color: color),
-        // left: BorderSide(wid÷th: 1.0, color: Colors.grey),
-        right: BorderSide(width: width, color: color),
-        bottom: BorderSide(width: height, color: color),
-      ),
-    ));
+          border: Border(
+            top: BorderSide(width: height, color: color),
+            // left: BorderSide(wid÷th: 1.0, color: Colors.grey),
+            right: BorderSide(width: width, color: color),
+            bottom: BorderSide(width: height, color: color),
+          ),
+        ));
   }
 }

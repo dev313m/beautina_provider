@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/current.dart';
 
 /// [radius]
-const double radiusContainer = 14;
+double radiusContainer = radiusDefault;
 
 ///[Strings]
 
@@ -26,8 +27,8 @@ final strFlareAnimationFinish = 'lightOff';
 Color colorContainerBg = Colors.white38;
 
 ///[Size]
-double flareHeightSize = 300.h;
-double flareWidthSize = 300.h;
+double flareHeightSize = 0.23.sh;
+// double flareWidthSize = 0.23.sh;
 
 class WdgtSalonCloseOpenSalon extends StatefulWidget {
   WdgtSalonCloseOpenSalon({Key key}) : super(key: key);

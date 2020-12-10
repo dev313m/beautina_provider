@@ -23,10 +23,7 @@ class PageRoot extends StatefulWidget {
 }
 
 class _PageRoot extends State<PageRoot>
-    with
-        SingleTickerProviderStateMixin,
-        WidgetsBindingObserver,
-        AutomaticKeepAliveClientMixin<PageRoot> {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver, AutomaticKeepAliveClientMixin<PageRoot> {
   List<Widget> _pages;
 
   @override
@@ -76,8 +73,7 @@ class _PageRoot extends State<PageRoot>
     super.build(context);
 
     ///This must be set to initialize sizes of screenutil
-    ScreenUtil.init(context,
-        designSize: Size(720, 1496), allowFontScaling: true);
+    ScreenUtil.init(context, designSize: Size(1080, 2340), allowFontScaling: true);
     VMRootUi vmRootUi = Provider.of<VMRootUi>(context);
 
     /// This widget is when pressing on the screen the keyboard is removed
@@ -118,17 +114,6 @@ class _PageRoot extends State<PageRoot>
                     pageSnapping: true,
                   ),
                   WdgtRootBottomBar(),
-                  AnimatedSwitcher(
-                      duration: Duration(milliseconds: 500),
-                      child: vmRootUi.hideBars
-                          ? SizedBox()
-                          : Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                height: 30.h,
-                                color: AppColors.blueOpcity,
-                              ),
-                            )),
                   vmRootUi.isNoInternet ? WidgetNoConnection() : SizedBox(),
                   WdgtRootTopBar()
                 ],
@@ -146,8 +131,7 @@ class _PageRoot extends State<PageRoot>
       print('token is: ' + token);
     });
 
-    _fcmFore.requestNotificationPermissions(IosNotificationSettings(
-        sound: true, badge: true, alert: true, provisional: false));
+    _fcmFore.requestNotificationPermissions(IosNotificationSettings(sound: true, badge: true, alert: true, provisional: false));
     _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
