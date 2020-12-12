@@ -5,12 +5,13 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///[size]
 double sizeContainer = heightTextField;
 
 ///[radius]
-double radius = radiusGeneral;
+double radius = radiusDefault;
 
 class WdgtLoginUserType extends StatefulWidget {
   const WdgtLoginUserType({Key key}) : super(key: key);
@@ -32,14 +33,12 @@ class _WdgtLoginUserTypeState extends State<WdgtLoginUserType> {
           color: Colors.blue.withOpacity(0.5),
           child: ToggleButtons(
             onPressed: (index) {
-              showAlert(context,
-                  msg: 'لايمكنك تغيير نوع الحساب لاحقا', dismiss: 'تم');
+              showAlert(context, msg: 'لايمكنك تغيير نوع الحساب لاحقا', dismiss: 'تم');
               accountTypeBool = [false, false];
               accountTypeBool[index] = true;
               setState(() {});
               // showToast(index.toString());
-              Provider.of<VMLoginData>(context).accountType =
-                  index == 1 ? 1 : 0;
+              Provider.of<VMLoginData>(context).accountType = index == 1 ? 1 : 0;
             },
 
             // color: Colors.blue,

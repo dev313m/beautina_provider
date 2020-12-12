@@ -1,10 +1,9 @@
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:beautina_provider/utils/current.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class WdgtRootTopBar extends StatefulWidget {
   WdgtRootTopBar({Key key}) : super(key: key);
@@ -24,7 +23,7 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
             child: Provider.of<VMRootUi>(context).hideBars
                 ? SizedBox()
                 : ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(radius), bottomRight: Radius.circular(radius)),
                     child: Container(
                       height: heightTopBar,
                       child: Container(

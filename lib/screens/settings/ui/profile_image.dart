@@ -13,6 +13,9 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 
 class WdgtSettingsProfileImage extends StatefulWidget {
   WdgtSettingsProfileImage({Key key}) : super(key: key);
@@ -35,42 +38,44 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
     vmSettingsData = Provider.of<VMSettingsData>(context);
     return Column(
       children: [
-        ExtendedText(string: strProfileEdit, fontSize: ExtendedText.xbigFont),
-        SizedBox(height: btwStrxImage),
+        GWdgtTextTitle(string: strProfileEdit,),
+        Y(height: btwStrxImage),
         InkWell(
-          onTap: () {
+          onTap: () async {
             updateImage();
           },
           child: Container(
-            height: imageSize,
-            width: imageSize,
-            child: ClipOval(
-                key: Key('ovalkey'),
-                // clipper: ,
-                // height: ScreenUtil().setHeight(300),
-                child: AnimatedSwitcher(
-                    duration: imageUpdateTransition,
-                    child: imageLoad
-                        ? Loading()
-                        : Stack(
-                            children: <Widget>[
-                              MyImage(
+            height: sizeImageProfile,
+            width: sizeImageProfile,
+            child: Stack(
+              children: [
+                ClipOval(
+                    key: Key('ovalkey'),
+                    // clipper: ,
+                    // height: ScreenUtil().setHeight(300),
+                    child: AnimatedSwitcher(
+                        duration: Duration(seconds: 1),
+                        child: imageLoad
+                            ? Loading()
+                            : MyImage(
                                 key: ValueKey('imagelk'),
+                                height: sizeImageProfile,
+                                width: sizeImageProfile,
                                 url:
-                                    '$imageUrl${beautyProvider.uid}$imageExtension',
-                              ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Icon(
-                                  CommunityMaterialIcons.folder_edit,
-                                  color: iconColor,
-                                  size: iconSize,
-                                ),
-                              )
-                            ],
-                          ))),
+                                    '$strImageServerUrl${beautyProvider.uid}$strImageExtension',
+                              ))),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Icon(
+                    CommunityMaterialIcons.folder_edit,
+                    color: iconColor,
+                    size: iconSize,
+                  ),
+                )
+              ],
+            ),
           ),
-        )
+        ),
       ],
     );
   }

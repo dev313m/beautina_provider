@@ -119,6 +119,7 @@ flutter:
    - assets/rive/night.flr
    - assets/rive/notification.flr
    - assets/rive/lock.flr
+   - assets/rive/error.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

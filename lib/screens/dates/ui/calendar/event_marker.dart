@@ -1,4 +1,3 @@
-import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/ui/text.dart';

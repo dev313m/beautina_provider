@@ -1,12 +1,10 @@
-import 'package:beautina_provider/reusables/text.dart';
-import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 
 ///[sizes]
-final sizeDayHeight = 100.h;
-final sizeDayWidth = 100.h;
+final sizeDayHeight = 200.h;
+final sizeDayWidth = 200.h;
 
 ///[radius]
 final double radius = 12;
@@ -16,8 +14,8 @@ final double radius = 12;
 Color colorDay = Colors.white38;
 
 ///[edge]
-double edgeDayToContainer = 4.h;
-double edgeDayStr = 10.w;
+double edgeDayToContainer = 4.w;
+double edgeDayStr = 15.w;
 
 class WdgtDateCalendarTodayBuilder extends StatelessWidget {
   final DateTime date;

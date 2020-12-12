@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:beautina_provider/utils/current.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 /// [radius]
 double radiusContainer = radiusDefault;

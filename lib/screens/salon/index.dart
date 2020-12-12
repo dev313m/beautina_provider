@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:beautina_provider/utils/current.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class PageSalon extends StatefulWidget {
   const PageSalon({Key key}) : super(key: key);
@@ -34,8 +34,7 @@ class _PageSalonState extends State<PageSalon> {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      onScrollAction(_scrollController, context,
-          onScrollUp: onScrollUp, onScrolldown: onScrollDown);
+      onScrollAction(_scrollController, context, onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
     // initBeautyProvider();
   }
@@ -46,47 +45,29 @@ class _PageSalonState extends State<PageSalon> {
       children: <Widget>[
         Container(
           color: AppColors.purpleColor,
-          child: Padding(
-            padding: EdgeInsets.all(edgePage),
-            child: ListView(
-              controller: _scrollController,
-              physics: AlwaysScrollableScrollPhysics(),
-              children: <Widget>[
-                Container(
-                  height: heightNavBar + 10.h,
-                ),
-                Y(),
-                WdgtSalonProfileDetails(),
-                Y(),
-                if (Provider.of<VMSalonData>(context)
-                        .beautyProvider
-                        .location
-                        .length !=
-                    2)
-                  WdgtSalonLocationNotSet(),
-                Y(),
-                WdgtSalonCloseOpenSalon(),
-                if (Provider.of<VMSalonData>(context).providedServices != null)
-                  WdgtSalonMyServices(),
-                Y(),
-                if (Provider.of<VMSalonData>(context)
-                    .providedServices
-                    .containsKey('services'))
-                  if (Provider.of<VMSalonData>(context)
-                          .providedServices['services']
-                          .keys
-                          .length !=
-                      0)
-                    WdgtSalonAddService(),
-                Y(),
-                WdgtSalonHowLookProfile(),
-                Y(),
-                WdgtSalonHowLookSearch(),
-                SizedBox(
-                  height: 100,
-                ),
-              ],
-            ),
+          child: ListView(
+            controller: _scrollController,
+            physics: AlwaysScrollableScrollPhysics(),
+            children: <Widget>[
+              Y(height: heightNavBar + 25.h),
+              Y(),
+              WdgtSalonProfileDetails(),
+              Y(),
+              if (Provider.of<VMSalonData>(context).beautyProvider.location.length != 2) WdgtSalonLocationNotSet(),
+              Y(),
+              WdgtSalonCloseOpenSalon(),
+              if (Provider.of<VMSalonData>(context).providedServices != null) WdgtSalonMyServices(),
+              Y(),
+              if (Provider.of<VMSalonData>(context).providedServices.containsKey('services'))
+                if (Provider.of<VMSalonData>(context).providedServices['services'].keys.length != 0) WdgtSalonAddService(),
+              Y(),
+              WdgtSalonHowLookProfile(),
+              Y(),
+              WdgtSalonHowLookSearch(),
+              SizedBox(
+                height: 100.h,
+              ),
+            ],
           ),
         ),
         Align(

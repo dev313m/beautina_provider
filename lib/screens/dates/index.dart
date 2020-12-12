@@ -3,6 +3,8 @@ import 'package:beautina_provider/screens/dates/ui/calendar/calendar.dart';
 import 'package:beautina_provider/screens/dates/ui/tutorial.dart';
 import 'package:beautina_provider/screens/dates/ui/order_list.dart';
 import 'package:beautina_provider/screens/dates/ui/top_buttons.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
@@ -18,8 +20,7 @@ class PageDate extends StatefulWidget {
   _DatePageState createState() => _DatePageState();
 }
 
-class _DatePageState extends State<PageDate>
-    with AutomaticKeepAliveClientMixin<PageDate> {
+class _DatePageState extends State<PageDate> with AutomaticKeepAliveClientMixin<PageDate> {
   double currentScroll = 0;
 
   ///
@@ -56,11 +57,9 @@ class _DatePageState extends State<PageDate>
     filterBool = [false, false, false, false, false, true];
     scrollController = ScrollController();
     scrollController.addListener(() {
-      if (scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse)
+      if (scrollController.position.userScrollDirection == ScrollDirection.reverse)
         Provider.of<VMRootUi>(context).hideBars = true;
-      else if (Provider.of<VMRootUi>(context).hideBars)
-        Provider.of<VMRootUi>(context).hideBars = false;
+      else if (Provider.of<VMRootUi>(context).hideBars) Provider.of<VMRootUi>(context).hideBars = false;
     });
   }
 
@@ -78,15 +77,16 @@ class _DatePageState extends State<PageDate>
       child: ListView(
         controller: scrollController,
         children: <Widget>[
-          SizedBox(
-            height: heightTopBar,
-          ),
+          Y(height: heightNavBar + 25.h),
+          Y(),
           WdgtDateTopButtons(),
+          Y(),
           WdgtDateCalendar(),
           // key: Key('uiniv'),
           WdgtDateTutorialCalendar(),
 
           // key: Key('uiniv')
+          Y(),
 
           WdgtDateOrderList(hero: '1'),
 

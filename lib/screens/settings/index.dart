@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 
 class PageSettings extends StatefulWidget {
   PageSettings({Key key}) : super(key: key);
@@ -45,38 +47,29 @@ class _PageSettingsState extends State<PageSettings> {
         backgroundColor: Colors.transparent,
         body: Directionality(
             textDirection: TextDirection.rtl,
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              physics: AlwaysScrollableScrollPhysics(),
-              child: Container(
-                width: double.infinity,
-                child: Stack(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(
-                          ScreenUtil().setWidth(allScreenPadding)),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: topSpacing),
-                          WdgtSettingsProfileImage(),
-                          SizedBox(height: btwImagexPorfile),
-                          WdgtSetttingsPersonalInfo(),
-                          new SizedBox(
-                            height: btwProfilexLocation,
-                          ),
-                          WdgtSettingsLocation(),
-                          new SizedBox(
-                            height: btwLocationxSupport,
-                          ),
-                          WdgtSettingsSupport(),
-                          new SizedBox(
-                            height: buttomSpacing,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            child: Container(
+              width: double.infinity,
+              child: ListView(
+                controller: _scrollController,
+                children: <Widget>[
+                  Y(height: heightNavBar + 25.h),
+                  Y(),
+                  WdgtSettingsProfileImage(),
+                  Y(),
+                  Y(), 
+                  WdgtSetttingsPersonalInfo(),
+                  new SizedBox(
+                    height: btwProfilexLocation,
+                  ),
+                  WdgtSettingsLocation(),
+                  new SizedBox(
+                    height: btwLocationxSupport,
+                  ),
+                  WdgtSettingsSupport(),
+                  new SizedBox(
+                    height: buttomSpacing,
+                  ),
+                ],
               ),
             )));
   }

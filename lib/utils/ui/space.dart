@@ -10,7 +10,7 @@ class BoxHeight {
   static final double heightBtwSubmitButton = 15.h;
 
   ///Space before and after title
-  static final double heightBtwTitle = 20.h;
+  static final double heightBtwTitle = 40.h;
 
   ///Space to handle after main and categories
   static final double widthBtwTitle = 10.w;

@@ -11,12 +11,14 @@ import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
 ///[radius]
-final double radius = 12;
+final double radius = radiusDefault;
 
 ///[colors]
-Color colorContainer = CalendarColors.container;
+Color colorContainer = AppColors.purpleColor; 
 
 Color colorEvent = CalendarColors.eventColor;
 Color colorTopNoti = CalendarColors.topNoti;

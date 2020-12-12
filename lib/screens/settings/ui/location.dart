@@ -10,6 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:beautina_provider/reusables/animated_textfield.dart';
 
 class WdgtSettingsLocation extends StatefulWidget {
   WdgtSettingsLocation({Key key}) : super(key: key);
@@ -37,41 +41,25 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
           children: <Widget>[
             Icon(CommunityMaterialIcons.map_marker_check,
                 color: iconColor, size: overviewIconSize),
-            ExtendedText(
-                string: locationDetails, fontSize: ExtendedText.xbigFont),
-            SizedBox(
-              height: btwOverviewxRest,
+            GWdgtTextTitle(
+              string: locationDetails,
             ),
-            ClipRRect(
-                borderRadius: BorderRadius.circular(allContainerRadius),
-                child: Container(
-                  child: Material(
-                    color: inkBtnColor,
-                    child: Ink(
-                        height: btnHeight,
-                        child: InkWell(
-                          splashColor: inkBtnColor,
-                          focusColor: inkBtnColor,
-                          hoverColor: inkBtnColor,
-                          highlightColor: inkBtnColor,
-                          child: Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.all(btnIconPadding),
-                                child: Icon(Icons.home),
-                              ),
-                              ExtendedText(
-                                string: chooseLocationStr,
-                                fontColor: Colors.black,
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            showMenuLocation(context, vmSettingsData.globalKey);
-                          },
-                        )),
-                  ),
-                )),
+            Y(),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: BeautyTextfield(
+                suffixIcon: Icon(
+                  CommunityMaterialIcons.home_city_outline,
+                  // size: ScreenUtil().setSp(40),
+                ),
+                helperText: 'المنطقة',
+                readOnly: true,
+                inputType: TextInputType.text,
+                onTap: () {
+                  showMenuLocation(context, vmSettingsData.globalKey);
+                },
+              ),
+            ),
             Row(
               children: <Widget>[
                 Chip(
@@ -90,53 +78,32 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                 ))
               ],
             ),
-            ClipRRect(
-                borderRadius: BorderRadius.circular(allContainerRadius),
-                child: Container(
-                  child: Material(
-                    color: inkBtnColor,
-                    child: Ink(
-                        height: ScreenUtil().setHeight(btnHeight),
-                        child: InkWell(
-                          splashColor: inkBtnColor,
-                          focusColor: inkBtnColor,
-                          hoverColor: inkBtnColor,
-                          highlightColor: inkBtnColor,
-                          child: Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.all(btnIconPadding),
-                                child: Icon(Icons.location_on),
-                              ),
-                              loadingLocation
-                                  ? Loading()
-                                  : ExtendedText(
-                                      string: introLocationStr,
-                                      fontColor: Colors.black,
-                                    ),
-                            ],
-                          ),
-                          onTap: () async {
-                            setState(() {
-                              loadingLocation = true;
-                            });
-                            List<dynamic> location = await getMyLocation();
-                            setState(() {
-                              loadingLocation = false;
-                              if (loadingLocation == null)
-                                introLocationStr = locationErrStr;
-                              else {
-                                introLocationStr = locationSuccessStr;
-                                vmSettingsData.location = location;
-                              }
-                            });
-                          },
-                        )),
-                  ),
-                )),
-            SizedBox(
-              height: btwBtnsxUpdateBtn,
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: BeautyTextfield(
+                suffixIcon: Icon(Icons.location_on),
+                placeholder:
+                    loadingLocation ? 'جاري التحميل' : introLocationStr,
+                readOnly: true,
+                inputType: TextInputType.text,
+                onTap: () async {
+                  setState(() {
+                    loadingLocation = true;
+                  });
+                  List<dynamic> location = await getMyLocation();
+                  setState(() {
+                    loadingLocation = false;
+                    if (loadingLocation == null)
+                      introLocationStr = locationErrStr;
+                    else {
+                      introLocationStr = locationSuccessStr;
+                      vmSettingsData.location = location;
+                    }
+                  });
+                },
+              ),
             ),
+            Y(),
             RoundedLoadingButton(
               controller: vmSettingsData.controller,
               borderRadius: allContainerRadius,
@@ -144,9 +111,8 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                 children: <Widget>[
                   Expanded(
                     child: Center(
-                      child: ExtendedText(
+                      child: GWdgtTextButton(
                         string: updateStr,
-                        fontSize: ExtendedText.bigFont,
                       ),
                     ),
                   ),
@@ -164,7 +130,7 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
 }
 
 ///[Sizes]
-double allContainerPadding = 30.w;
+double allContainerPadding = edgeContainer;
 double overviewIconSize = 200.h;
 double btwOverviewxRest = 50.h;
 double btnHeight = 100.h;
@@ -188,4 +154,4 @@ final String updateStr = 'تحديث';
 
 ///[borderradius]
 ///
-double allContainerRadius = 12;
+double allContainerRadius = radiusDefault;

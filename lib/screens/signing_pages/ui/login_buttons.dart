@@ -1,23 +1,21 @@
-import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/constants.dart';
 import 'package:beautina_provider/screens/signing_pages/function.dart';
-import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ///[radius]
-double radius = radiusGeneral;
+double radius = radiusDefault;
 
 class WdgtLoginButtonIos extends StatelessWidget {
   final Function onPress;
   final Function onError;
   final BuildContext contextT;
 
-  const WdgtLoginButtonIos({Key key, this.onPress, this.onError, this.contextT})
-      : super(key: key);
+  const WdgtLoginButtonIos({Key key, this.onPress, this.onError, this.contextT}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +44,7 @@ class WdgtLoginButtonIos extends StatelessWidget {
                       style: TextStyle(fontSize: 40.sp, color: Colors.black),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
+                      padding: EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
                       child: Icon(
                         CommunityMaterialIcons.apple,
                         color: Colors.black,
@@ -74,9 +71,7 @@ class WdgtLoginButtonGoogle extends StatelessWidget {
   final Function onPress;
   final Function onError;
   final BuildContext contextT;
-  const WdgtLoginButtonGoogle(
-      {Key key, this.onPress, this.onError, this.contextT})
-      : super(key: key);
+  const WdgtLoginButtonGoogle({Key key, this.onPress, this.onError, this.contextT}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

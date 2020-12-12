@@ -11,7 +11,7 @@ import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:beautina_provider/utils/current.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 /// [radius]
 double radiusButton = radiusDefault;
@@ -29,14 +29,12 @@ Color colorToggle = Colors.black;
 Color colorToggleSplash = Colors.black;
 
 ///[Strings]
-final strAddingNewService = '~ اضافة الخدمات ~';
-final strAddingNewServiceDetails =
-    '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)';
+final strAddingNewService = '~ إضافة الخدمات ~';
+final strAddingNewServiceDetails = '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)';
 final strServiceName = 'اسم الخدمة';
 final strServicePrice = 'السعر';
-final strAddingOtherAlert =
-    "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
-final strAdd = 'اضافة';
+final strAddingOtherAlert = "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
+final strAdd = 'إضافة';
 final strDone = 'تم';
 final strSubcategory = 'فرعيات الخدمة';
 final strCancel = 'عودة';
@@ -82,8 +80,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   ///Check if toggle buttons list flag;
   bool isToggleButtonsSet = false;
   // bool isMainServiceChosen = false;
-  final RoundedLoadingButtonController _btnController =
-      new RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
   /// * 1- show adding other service
   /// * 2- When adding new service in getNewServiceProvider method it decides
@@ -96,8 +93,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
   @override
   Widget build(BuildContext context) {
-    mapServices =
-        Provider.of<VMSalonData>(context).providedServices['services'];
+    mapServices = Provider.of<VMSalonData>(context).providedServices['services'];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ClipRRect(
@@ -127,10 +123,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                       //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
 
                       isSelected: !isToggleButtonsSet
-                          ? toggleSelectBoolList = mapServices.entries
-                              .toList()
-                              .map((e) => false)
-                              .toList()
+                          ? toggleSelectBoolList = mapServices.entries.toList().map((e) => false).toList()
                           : toggleSelectBoolList,
                       borderRadius: BorderRadius.circular(radiusContainer),
                       fillColor: Colors.pink,
@@ -142,8 +135,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                         otherOptionChosenListener(index);
                         clearFields();
 
-                        if (index != toggleSelectBoolList.length - 1)
-                          _showPicker();
+                        if (index != toggleSelectBoolList.length - 1) _showPicker();
 
                         isShowPrice = false;
 
@@ -178,10 +170,10 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                     onChanged: (String s) {
                       priceAfter = double.parse(s);
                     },
-                    textStyle: TextStyle(color: AppColors.pinkBright),
+                    // textStyle: TextStyle(color: AppColors.pinkBright),
                     suffixIcon: Icon(
                       Icons.attach_money,
-                      color: AppColors.pinkBright,
+                      
                     ),
                     helperText: strServicePrice,
                     inputType: TextInputType.number,
@@ -196,19 +188,13 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(radiusButton),
                       ),
-                      // height: 58,
+                      height: 100,
                       width: double.infinity,
                       child: Center(child: GWdgtTextButton(string: strAdd))),
                   onPressed: () async {
                     if (checkFields()) {
                       await updateProviderServices(
-                          context,
-                          showOther,
-                          chosenService,
-                          priceBefore,
-                          priceAfter,
-                          otherServiceName,
-                          _btnController);
+                          context, showOther, chosenService, priceBefore, priceAfter, otherServiceName, _btnController);
                       clearFields();
                     }
 
@@ -229,11 +215,9 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
     subCategoryList = [];
     if (indexCategory == null) return;
     String categoryKey = mapServices.keys.toList()[indexCategory];
-    Map<String, dynamic> allServices =
-        Provider.of<VMSalonData>(context).providedServices['services'];
+    Map<String, dynamic> allServices = Provider.of<VMSalonData>(context).providedServices['services'];
     mapServices[categoryKey]['items']?.forEach((k, v) {
-      subCategoryList
-          .add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
+      subCategoryList.add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
     });
   }
 
@@ -265,8 +249,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
       // selectedItems: [5, 2, 1],
     );
 
-    PickerViewPopup.showMode(
-        PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
+    PickerViewPopup.showMode(PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
         controller: pickerController,
         context: context,
         title: GWdgtTextTitleDesc(
@@ -303,7 +286,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
         },
         itemBuilder: (section, row) {
           String value = subCategoryList[row].keys.first;
-          return GWdgtTextTitleDesc(
+          return GWdgtTextPickerChoices(
             string: value,
           );
         });
@@ -342,8 +325,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 class WdgtSalonServiceItem extends StatelessWidget {
   final String serviceName;
 
-  const WdgtSalonServiceItem({Key key, @required this.serviceName})
-      : super(key: key);
+  const WdgtSalonServiceItem({Key key, @required this.serviceName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -364,8 +346,7 @@ class WdgtSalonServiceItem extends StatelessWidget {
 
 /// if he is valid with this package true else false;
 bool checkPackage(Map<String, dynamic> package) {
-  if (package['01'] != null) if (DateTime.parse(package['01']['to'])
-      .isAfter(DateTime.now().toLocal())) return true;
+  if (package['01'] != null) if (DateTime.parse(package['01']['to']).isAfter(DateTime.now().toLocal())) return true;
 
   return false;
 }

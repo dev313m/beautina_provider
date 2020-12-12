@@ -1,13 +1,13 @@
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data.dart';
-import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/screens/notification/ui/notification_item.dart';
 import 'package:beautina_provider/screens/notification/ui/broadcast.dart';
-
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/screens/notification/ui/funny_animation.dart';
 
 class PageNotification extends StatefulWidget {
@@ -15,8 +15,7 @@ class PageNotification extends StatefulWidget {
   _PageNotification createState() => _PageNotification();
 }
 
-class _PageNotification extends State<PageNotification>
-    with AutomaticKeepAliveClientMixin<PageNotification> {
+class _PageNotification extends State<PageNotification> with AutomaticKeepAliveClientMixin<PageNotification> {
   ScrollController _scrollController;
   double currentScroll = 0;
 
@@ -34,9 +33,7 @@ class _PageNotification extends State<PageNotification>
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
-      bool hideBars = Provider.of<VMRootUi>(context).hideBars;
-      onScrollAction(_scrollController, context,
-          onScrollUp: onScrollUp, onScrolldown: onScrollDown);
+      onScrollAction(_scrollController, context, onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
   }
 
@@ -52,32 +49,22 @@ class _PageNotification extends State<PageNotification>
       child: ListView(
         controller: _scrollController,
         children: <Widget>[
-          SizedBox(
-            height: topTabSize,
-          ),
+          Y(height: heightNavBar + 25.h),
+          Y(),
           WdgtNotificationAnimation(key: ValueKey('flower')),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: Provider.of<VMRootData>(context).notificationList.length,
             itemBuilder: (_, index) {
-              return Provider.of<VMRootData>(context)
-                          .notificationList
-                          .elementAt(index)
-                          .type ==
-                      ''
+              return Provider.of<VMRootData>(context).notificationList.elementAt(index).type == ''
                   ? WdgtNotificationItem(
-                      notification: Provider.of<VMRootData>(context)
-                          .notificationList
-                          .elementAt(index),
+                      notification: Provider.of<VMRootData>(context).notificationList.elementAt(index),
                     )
-                  : WdgtNotificationBroadcast(
-                      notification: Provider.of<VMRootData>(context)
-                          .notificationList
-                          .elementAt(index));
+                  : WdgtNotificationBroadcast(notification: Provider.of<VMRootData>(context).notificationList.elementAt(index));
             },
           ),
-          SizedBox(
+          Y(
             height: bottomNavPadding,
           )
         ],
@@ -92,5 +79,5 @@ class _PageNotification extends State<PageNotification>
 
 ///[sizes]
 ///
-final double topTabSize = 0.1.sh;
-final double bottomNavPadding = 0.1.sh;
+// final double topTabSize = 0.1.sh;
+final double bottomNavPadding = heightNavBar;

@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:beautina_provider/utils/current.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class WdgtRootBottomBar extends StatefulWidget {
   WdgtRootBottomBar({Key key}) : super(key: key);

@@ -26,8 +26,7 @@ versionCheck(BuildContext context) async {
   //Get Latest version info from firebase config
   try {
     // Using default duration to force fetching from remote server.
-    http.Response respond = await http.get(
-        'https://resorthome.000webhostapp.com/version_service_provider.php');
+    http.Response respond = await http.get('https://resorthome.000webhostapp.com/version_service_provider.php');
     final String nowVersion = respond.body;
 
     double newVersion = double.parse(nowVersion.trim().replaceAll(".", ""));
@@ -63,8 +62,7 @@ onNotificationPageVisited(BuildContext context) async {
     } else if (vmRootUi.isVisitedPage) {
       vmRootUi.isVisitedPage = false;
       await vmRootData.notificationHelper.initializeDatabase().then((d) {
-        vmRootData.notificationHelper
-            .updateListToRead(vmRootData.notificationList);
+        vmRootData.notificationHelper.updateListToRead(vmRootData.notificationList);
         vmRootData.refreshNotificationList();
       });
       // _notificationHelper.updateNotification();
@@ -76,8 +74,7 @@ onNotificationPageVisited(BuildContext context) async {
 listenToInternet(BuildContext context) {
   StreamSubscription<ConnectivityResult> subscription;
 
-  subscription =
-      Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+  subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     if (result.index == ConnectivityResult.none.index) {
       Provider.of<VMRootUi>(context).isNoInternet = true;
       // isNoInternet = true;
@@ -133,27 +130,27 @@ closeKeyboard(BuildContext context) {
 
 ///Hide bar when scroll down
 Function onScrollDown = (BuildContext context) {
-  Provider.of<VMRootUi>(context).hideBars = true;
+  Provider.of<VMRootUi>(context).hideBars = false;
 };
 
 ///Show bar when scroll up
 
 Function onScrollUp = (BuildContext context) {
-  Provider.of<VMRootUi>(context).hideBars = false;
+  Provider.of<VMRootUi>(context).hideBars = true;
 };
 
 ///Take an action when scrolling down or up
-onScrollAction(ScrollController scrollController, BuildContext context,
-    {Function onScrolldown, Function onScrollUp}) {
+onScrollAction(ScrollController scrollController, BuildContext context, {Function onScrolldown, Function onScrollUp}) {
   bool hideBars = Provider.of<VMRootUi>(context).hideBars;
-  if (scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse &&
-      hideBars)
-    onScrollDown(context);
-  else if (Provider.of<VMRootUi>(context).hideBars && !hideBars)
-    onScrollUp(context);
+
+  ///if scrolilng toward up [and] hidebars is [true] hidden
+  if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
+    if (!hideBars) onScrollUp(context);
+  }
+
+  /// if scrolling towards down and hidebars is [false] shown
+  else if (hideBars) onScrolldown(context);
 }
 
 ///This function updates beautyProvider[user]
-updateUserData(
-    BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {}
+updateUserData(BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {}

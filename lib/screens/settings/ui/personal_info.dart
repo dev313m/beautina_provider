@@ -11,6 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 
 class WdgtSetttingsPersonalInfo extends StatefulWidget {
   WdgtSetttingsPersonalInfo({Key key}) : super(key: key);
@@ -39,8 +42,10 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
         child: Column(children: [
           Icon(CommunityMaterialIcons.account_edit,
               color: overviewIconColor, size: overviewIconSize),
-          ExtendedText(string: personalData, fontSize: ExtendedText.xbigFont),
-          SizedBox(height: btwIconxRest),
+          GWdgtTextTitle(
+            string: personalData,
+          ),
+          Y(),
           new BeautyTextfield(
             helperText: nameHint,
             placeholder: beautyProvider.name,
@@ -88,7 +93,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             //   vmSettingsData.mobile = Countries.phoneCodePlus[beautyProvider.country] + val;
             // },
           ),
-          SizedBox(height: btwAnyTwoInForm),
+          Y(),
           new BeautyTextfield(
             // initialValue: beautyProvider.intro,
             placeholder: beautyProvider.intro,
@@ -117,18 +122,15 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
               vmSettingsData.description = val;
             },
           ),
-          new SizedBox(
-            height: btwFormxUpdateBtn,
-          ),
+          Y(),
           RoundedLoadingButton(
             controller: vmSettingsData.controller,
             child: Column(
               children: <Widget>[
                 Expanded(
                   child: Center(
-                    child: ExtendedText(
+                    child: GWdgtTextButton(
                       string: updateBtnStr,
-                      fontSize: ExtendedText.bigFont,
                     ),
                   ),
                 ),
@@ -147,7 +149,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
 }
 
 ///[sizes]
-var allContainerPadding = ScreenUtil().setWidth(30);
+var allContainerPadding = edgeContainer;
 var overviewIconSize = ScreenUtil().setHeight(200);
 var btwIconxRest = ScreenUtil().setHeight(40);
 var btwAnyTwoInForm = ScreenUtil().setHeight(6);
@@ -161,10 +163,10 @@ var fieldColor = Colors.white70;
 var updateBtnColor = Colors.blue;
 
 ///[borderradius]
-double allContainerRadius = 12;
+double allContainerRadius = radiusDefault;
 
 ///[Borderrduis]
-final double fieldsRadius = 12;
+final double fieldsRadius = radiusDefault;
 
 ///[String]
 final personalData = 'البيانات الشخصية';

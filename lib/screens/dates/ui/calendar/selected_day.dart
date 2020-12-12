@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 
 ///[sizes]
-final sizeDayHeight = 100.h;
-final sizeDayWidth = 100.h;
+final sizeDayHeight = 200.h;
+final sizeDayWidth = 200.h;
 
 ///[radius]
 final double radius = 12;
@@ -18,8 +18,8 @@ Color colorEvent = CalendarColors.eventColor;
 Color colorDay = Colors.white38;
 
 ///[edge]
-double edgeDayToContainer = 4.h;
-double edgeDayStr = 10.w;
+double edgeDayToContainer = 20.w;
+double edgeDayStr = 35.w;
 
 class WdgtDateCalendarSelectedDay extends StatefulWidget {
   final DateTime date;

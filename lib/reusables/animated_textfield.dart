@@ -35,9 +35,9 @@ class BeautyTextfield extends StatefulWidget {
       this.helperText = '',
       this.suffixText,
       this.prefixText,
-      this.backgroundColor = Colors.transparent,
+      this.backgroundColor = Colors.white70,
       this.textColor = Colors.transparent,
-      this.accentColor = const Color(0xFF2B0B3A),
+      this.accentColor = Colors.white,
       this.placeholder = "",
       this.isShadow = true,
       // this.fontStyle,
@@ -90,6 +90,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
           // maxLength: !widget.isBox ? 1 : 4,
           maxLines: !widget.isBox ? 1 : 4,
           keyboardType: widget.inputType,
+                    // textStyle: TextStyle(color: AppColors.pinkBright),
 
           controller: widget.readOnly
               ? TextEditingController(text: widget.placeholder)
@@ -123,8 +124,8 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
           // textInputAction: TextInputAction.done,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.blue)),
+                  borderRadius: BorderRadius.circular(radius),
+                  borderSide: BorderSide.none),
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
               suffixText: widget.suffixText,

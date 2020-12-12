@@ -1,11 +1,11 @@
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:beautina_provider/utils/current.dart';
-
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:flare_flutter/flare_actor.dart';
 ///[colors]
-Color colorContainerBg = Colors.white38;
-Color colorIcon = Colors.red;
+Color colorContainerBg = Colors.black54;
+Color colorIcon = Color(0xff862a5c);
 
 ///[size]
 double sizeIcon = 400.sp;
@@ -28,7 +28,14 @@ class WdgtSalonLocationNotSet extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            Icon(Icons.error_outline, color: colorIcon, size: sizeIcon),
+                      Container(
+            height: 480.h,
+            child: FlareActor(
+              'assets/rive/error.flr',
+              fit: BoxFit.contain,
+              animation: 'idle',
+            ),
+          ),
             GWdgtTextTitleDesc(
               string: strLocationAlert,
             )

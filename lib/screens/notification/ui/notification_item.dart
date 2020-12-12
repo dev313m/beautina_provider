@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/models/notification.dart' as MyNotify;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 
 class WdgtNotificationItem extends StatelessWidget {
   final MyNotify.MyNotification _notification;
@@ -12,91 +14,98 @@ class WdgtNotificationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Padding(
-        padding: EdgeInsets.only(top: ScreenUtil().setWidth(4)),
-        child: Material(
-          color: _notification.status == 0
-              ? AppColors.blue.withAlpha(200)
-              : AppColors.blue.withOpacity(0.1),
-          borderOnForeground: true,
-          borderRadius: BorderRadius.circular(12),
-          shadowColor: Theme.of(context).canvasColor,
-          child: InkWell(
-            onTap: () {},
-            highlightColor: Colors.transparent,
-            borderRadius: new BorderRadius.circular(12),
-            splashColor: Colors.pink,
-            child: Padding(
-              padding: EdgeInsets.all(ScreenUtil().setHeight(8)), //
-              child: Container(
-                height: 250,
-                // constraints: BoxConstraints(minHeight: 120, maxHeight: 200),
+    return Material(
+      color: _notification.status == 0
+          ? AppColors.blue.withAlpha(200)
+          : AppColors.blue.withOpacity(0.1),
+      borderOnForeground: true,
+      borderRadius: BorderRadius.circular(containerRaduis),
+      shadowColor: Theme.of(context).canvasColor,
+      child: InkWell(
+        onTap: () {},
+        highlightColor: Colors.transparent,
+        borderRadius: new BorderRadius.circular(containerRaduis),
+        splashColor: Colors.pink,
+        child: Padding(
+          padding: EdgeInsets.all(containerOuterPadding),
+          child: Row(
+            children: [
+              Flexible(
+                flex: 1,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ExtendedText(
-                      string: "${_notification.title} ",
-                      fontSize: ExtendedText.bigFont,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Visibility(visible: true, child: SizedBox()),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: ScreenUtil().setHeight(10),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: ExtendedText(
-                              string: _notification.describ,
-                              textAlign: TextAlign.right,
-                              // overflow: TextOverflow
-                              //     .fade, // it wont aloow the the text to go in a new line
-                              // style: TextStyle(
-                              //     fontSize: 13.0, fontFamily: 'Tajawal'),
-                              // textDirection: TextDirection.rtl,
-                              // textAlign: TextAlign.right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
+                  children: [
+                    Center(
+                        child: Icon(
+                      Icons.circle_notifications,
+                      size: 90.sp,
+                      color: _notification.status == 0
+                          ? Colors.yellow.withAlpha(200)
+                          : Colors.yellow.withOpacity(0.1),
+                    )),
+                    Center(
                       child: Builder(builder: (_) {
                         DateTime test =
                             DateTime.parse(_notification.createDate);
                         // test = test.toLocal();
-                        return ExtendedText(
+                        return GWdgtTextSmall(
                           string: timeago.format(test,
                               // allowFromNow: true,
                               locale: 'ar'),
-                          textAlign: TextAlign.right,
+                          textAlign: TextAlign.center,
                           textDirection: TextDirection.rtl,
                         );
                       }),
-                    )
+                    ),
                   ],
                 ),
               ),
-            ),
+              Flexible(
+                flex: 7,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    GWdgtTextTitleDesc(
+                      string: "${_notification.title} ",
+                      textAlign: TextAlign.start,
+                      // fontSize: ExtendedText.bigFont,
+                    ),
+                    Y(),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: GWdgtTextDescDesc(
+                            string: _notification.describ ,
+                            textAlgin: TextAlign.start,
+                            // textAlign: TextAlign.right,
+                            // overflow: TextOverflow
+                            //     .fade, // it wont aloow the the text to go in a new line
+                            // style: TextStyle(
+                            //     fontSize: 13.0, fontFamily: 'Tajawal'),
+                            // textDirection: TextDirection.rtl,
+                            // textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
 ///[sizes]
 const double imageH = 0.1;
 const double imageW = 0.1;
-const double containerOuterPadding = 4;
-const double containerInnerPadding = 15;
+
+///[padding]
+ double containerOuterPadding = edgeText;
+ double containerInnerPadding = edgeText;
 const double imageSeperationHeight = 0.03;
 const double introSeperationHeight = 0.01;
 
@@ -110,4 +119,4 @@ final Color containerSplash = Colors.pink;
 
 ///[raduis]
 
-const double containerRaduis = 12;
+double containerRaduis = radiusDefault;

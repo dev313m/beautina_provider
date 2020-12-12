@@ -6,14 +6,14 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:beautina_provider/utils/current.dart';
-
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/constants/app_colors.dart';
 ///[colors]
 Color colorContainerBg = Colors.white38;
-Color colorIcon = Colors.purple;
+Color colorIcon = AppColors.purpleColor;
 
 ///[size]
-double sizeIcon = ScreenUtil().setSp(300);
+double sizeIcon = ScreenUtil().setSp(900.sp);
 
 /// [radius]
 double radiusContainer = radiusDefault;

@@ -115,7 +115,10 @@ class _PageRoot extends State<PageRoot>
                   ),
                   WdgtRootBottomBar(),
                   vmRootUi.isNoInternet ? WidgetNoConnection() : SizedBox(),
-                  WdgtRootTopBar()
+                  AnimatedSwitcher(
+                    child: vmRootUi.hideBars ? SizedBox() : WdgtRootTopBar(),
+                    duration: Duration(milliseconds: 303),
+                  )
                 ],
               ),
             )),

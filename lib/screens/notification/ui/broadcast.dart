@@ -4,6 +4,9 @@ import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/models/notification.dart' as MyNotify;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class WdgtNotificationBroadcast extends StatelessWidget {
   final MyNotify.MyNotification notification;
@@ -45,26 +48,22 @@ class WdgtNotificationBroadcast extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: imageSeperationHeight.sh,
-                  ),
-                  ExtendedText(
+                  Y(height: BoxHeight.heightBtwTitle,), 
+                  GWdgtTextTitleDesc(
                     string: "${notification.title} ",
-                    fontSize: ExtendedText.bigFont,
                   ),
-                  SizedBox(
+                  Y(
                     height: introSeperationHeight.sh,
                   ),
-                  ExtendedText(
+                  GWdgtTextDescDesc(
                     string: notification.describ,
-                    textAlign: TextAlign.right,
                   ),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Builder(builder: (_) {
                       DateTime test = DateTime.parse(notification.createDate);
                       // test = test.toLocal();
-                      return ExtendedText(
+                      return GWdgtTextSmall(
                         string: timeago.format(test, locale: 'ar'),
                         textAlign: TextAlign.right,
                         textDirection: TextDirection.rtl,

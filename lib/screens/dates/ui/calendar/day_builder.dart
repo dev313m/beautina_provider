@@ -4,22 +4,22 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
-
+import 'package:beautina_provider/constants/app_colors.dart';
 ///[sizes]
-final sizeDayHeight = 100.h;
-final sizeDayWidth = 100.h;
+final sizeDayHeight = 200.h;
+final sizeDayWidth = 200.h;
 
 ///[radius]
 final double radius = 12;
 
 ///[colors]
-Color colorNoEvent = CalendarColors.empty;
+Color colorNoEvent = Colors.white.withOpacity(0.1);
 Color colorEvent = CalendarColors.eventColor;
 Color colorDay = Colors.white38;
 
 ///[edge]
-double edgeDayToContainer = 4.h;
-double edgeDayStr = 10.w;
+double edgeDayToContainer = 4.w;
+double edgeDayStr = 15.w;
 
 class WdgtDateCalendarDayBuilder extends StatelessWidget {
   final List list;
