@@ -1,11 +1,13 @@
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///for example [صالون [حناء]]
 ///[string]
@@ -67,23 +69,43 @@ class OrderDetails extends StatelessWidget {
     // return SizedBox();
 
     return Container(
-      width: 900,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: muteRowCell(getDateString(date), strDate, Icons.date_range,
-                getWhatsappFunction(phoneNum)),
-          ),
-          SizedBox(
-            width: 10.w,
-          ),
-          Expanded(
-            flex: 1,
-            child: muteRowCell(
-                price.toString() + ' SR', strPrice, Icons.attach_money, () {}),
+      // width: 900,
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: muteRowCell(
+                    getDateString(date), strDate, Icons.date_range, () {}),
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Expanded(
+                flex: 1,
+                child: muteRowCell(price.toString() + ' SR', strPrice,
+                    Icons.attach_money, () {}),
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Expanded(
+                flex: 1,
+                child: muteRowCell(phoneNum, strDate, Icons.phone,
+                    getWhatsappFunction(phoneNum)),
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Expanded(
+                flex: 1,
+                child: muteRowCell(
+                    price.toString() + ' SR', strPrice, Icons.map, () {}),
+              ),
+            ],
           ),
         ],
       ),
@@ -97,7 +119,7 @@ Widget muteRowCell(
     padding: EdgeInsets.symmetric(vertical: 44.h),
     // w,
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25), color: Colors.black38),
+        borderRadius: BorderRadius.circular(radius), color: Colors.black38),
     child: new Column(
       children: <Widget>[
         IconButton(
@@ -125,3 +147,5 @@ Widget muteRowCell(
     ),
   );
 }
+
+final double radius = radiusDefault;
