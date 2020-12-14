@@ -34,7 +34,8 @@ class _PageSalonState extends State<PageSalon> {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      onScrollAction(_scrollController, context, onScrollUp: onScrollUp, onScrolldown: onScrollDown);
+      onScrollAction(_scrollController, context,
+          onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
     // initBeautyProvider();
   }
@@ -53,13 +54,26 @@ class _PageSalonState extends State<PageSalon> {
               Y(),
               WdgtSalonProfileDetails(),
               Y(),
-              if (Provider.of<VMSalonData>(context).beautyProvider.location.length != 2) WdgtSalonLocationNotSet(),
+              if (Provider.of<VMSalonData>(context)
+                      .beautyProvider
+                      .location
+                      .length !=
+                  2)
+                WdgtSalonLocationNotSet(),
               Y(),
               WdgtSalonCloseOpenSalon(),
-              if (Provider.of<VMSalonData>(context).providedServices != null) WdgtSalonMyServices(),
+              if (Provider.of<VMSalonData>(context).providedServices != null)
+                WdgtSalonMyServices(),
               Y(),
-              if (Provider.of<VMSalonData>(context).providedServices.containsKey('services'))
-                if (Provider.of<VMSalonData>(context).providedServices['services'].keys.length != 0) WdgtSalonAddService(),
+              if (Provider.of<VMSalonData>(context)
+                  .providedServices
+                  .containsKey('services'))
+                if (Provider.of<VMSalonData>(context)
+                        .providedServices['services']
+                        .keys
+                        .length !=
+                    0)
+                  WdgtSalonAddService(),
               Y(),
               WdgtSalonHowLookProfile(),
               Y(),

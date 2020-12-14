@@ -7,7 +7,11 @@ class GWdgtTextTitle extends StatelessWidget {
   final TextAlign textAlign;
 
   final String string;
-  const GWdgtTextTitle({Key key, this.textAlign = TextAlign.center, this.textDirection = TextDirection.rtl, @required this.string})
+  const GWdgtTextTitle(
+      {Key key,
+      this.textAlign = TextAlign.center,
+      this.textDirection = TextDirection.rtl,
+      @required this.string})
       : super(key: key);
 
   @override
@@ -26,8 +30,9 @@ class GWdgtTextTitle extends StatelessWidget {
 
 class GWdgtTextTitleDesc extends StatelessWidget {
   final String string;
-  final TextAlign textAlign; 
-  const GWdgtTextTitleDesc({Key key, @required this.string, this.textAlign}) : super(key: key);
+  final TextAlign textAlign;
+  const GWdgtTextTitleDesc({Key key, @required this.string, this.textAlign})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,21 +53,19 @@ class GWdgtTextTitleDesc extends StatelessWidget {
 
 class GWdgtTextDescDesc extends StatelessWidget {
   final String string;
-  final TextAlign textAlgin; 
-  const GWdgtTextDescDesc({Key key, @required this.string, this.textAlgin}) : super(key: key);
+  final TextAlign textAlgin;
+  const GWdgtTextDescDesc({Key key, @required this.string, this.textAlgin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(edgeText),
-      child: Text(
-        string,
-        textAlign:textAlgin??  TextAlign.center,
-        textDirection: TextDirection.rtl,
-        style: TextStyle(
-          fontSize: 30.sp,
-          color: Colors.white70,
-        ),
+    return Text(
+      string,
+      textAlign: textAlgin ?? TextAlign.center,
+      textDirection: TextDirection.rtl,
+      style: TextStyle(
+        fontSize: 30.sp,
+        color: Colors.white70,
       ),
     );
   }
@@ -133,7 +136,8 @@ class GWdgtTextProfile extends StatelessWidget {
 
 class GWdgtTextPickerSubmit extends StatelessWidget {
   final String string;
-  const GWdgtTextPickerSubmit({Key key, @required this.string}) : super(key: key);
+  const GWdgtTextPickerSubmit({Key key, @required this.string})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +150,8 @@ class GWdgtTextPickerSubmit extends StatelessWidget {
 
 class GWdgtTextPickerCancel extends StatelessWidget {
   final String string;
-  const GWdgtTextPickerCancel({Key key, @required this.string}) : super(key: key);
+  const GWdgtTextPickerCancel({Key key, @required this.string})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +180,13 @@ class GWdgtTextSmall extends StatelessWidget {
   final Color color;
   final TextAlign textAlign;
   final TextDirection textDirection;
-  const GWdgtTextSmall({Key key, @required this.string, this.color, this.textAlign, this.textDirection}) : super(key: key);
+  const GWdgtTextSmall(
+      {Key key,
+      @required this.string,
+      this.color,
+      this.textAlign,
+      this.textDirection})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +194,7 @@ class GWdgtTextSmall extends StatelessWidget {
       string,
       style: TextStyle(
         fontSize: ScreenUtil().setSp(25),
-        color: color?? Colors.white24,
+        color: color ?? Colors.white24,
       ),
       textAlign: textAlign ?? TextAlign.center,
       textDirection: textDirection,
@@ -196,7 +207,13 @@ class GWdgtTextCalendarDay extends StatelessWidget {
   final Color color;
   final TextAlign textAlign;
   final TextDirection textDirection;
-  const GWdgtTextCalendarDay({Key key, @required this.string, this.color, this.textAlign, this.textDirection}) : super(key: key);
+  const GWdgtTextCalendarDay(
+      {Key key,
+      @required this.string,
+      this.color,
+      this.textAlign,
+      this.textDirection})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +234,13 @@ class GWdgtTextBadge extends StatelessWidget {
   final Color color;
   final TextAlign textAlign;
   final TextDirection textDirection;
-  const GWdgtTextBadge({Key key, @required this.string, this.color, this.textAlign, this.textDirection}) : super(key: key);
+  const GWdgtTextBadge(
+      {Key key,
+      @required this.string,
+      this.color,
+      this.textAlign,
+      this.textDirection})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -233,12 +256,11 @@ class GWdgtTextBadge extends StatelessWidget {
   }
 }
 
-
-
 class GWdgtTextPickerChoices extends StatelessWidget {
   final String string;
-  final TextAlign textAlign; 
-  const GWdgtTextPickerChoices({Key key, @required this.string, this.textAlign}) : super(key: key);
+  final TextAlign textAlign;
+  const GWdgtTextPickerChoices({Key key, @required this.string, this.textAlign})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

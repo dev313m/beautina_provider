@@ -5,6 +5,7 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ///for example [صالون [حناء]]
 ///[string]
@@ -24,7 +25,8 @@ class AllSingleServiceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (_) {
       List<String> list = [];
-      Map<String, dynamic> mapper = Provider.of<VMSalonData>(context).providedServices;
+      Map<String, dynamic> mapper =
+          Provider.of<VMSalonData>(context).providedServices;
 
       services.forEach((k, v) {
         v.forEach((kk, vv) {
@@ -58,65 +60,68 @@ class OrderDetails extends StatelessWidget {
   final int price;
   final List<dynamic> location;
   final String phoneNum;
-  OrderDetails({Key key, this.date, this.location, this.phoneNum, this.price}) : super(key: key);
+  OrderDetails({Key key, this.date, this.location, this.phoneNum, this.price})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     // return SizedBox();
 
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            muteRowCell(price.toString() + ' SR', strPrice, Icons.attach_money, () {}),
-            muteRowCell(getDateString(date), strDate, Icons.date_range, getWhatsappFunction(phoneNum)),
-            GWdgtTextTitleDesc(
-              string: strInfo,
-            ),
-          ],
-        ),
-      ],
+    return Container(
+      width: 900,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: muteRowCell(getDateString(date), strDate, Icons.date_range,
+                getWhatsappFunction(phoneNum)),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Expanded(
+            flex: 1,
+            child: muteRowCell(
+                price.toString() + ' SR', strPrice, Icons.attach_money, () {}),
+          ),
+        ],
+      ),
     );
   }
 }
 
-Widget muteRowCell(String count, String type, IconData icon, Function function) {
-  return new Expanded(
-      child: new Column(
-    children: <Widget>[
-      IconButton(
-        icon: Icon(
-          icon,
-          // size: ScreenUtil().setSp(40),
+Widget muteRowCell(
+    String count, String type, IconData icon, Function function) {
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 44.h),
+    // w,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25), color: Colors.black38),
+    child: new Column(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            icon,
+            // size: ScreenUtil().setSp(40),
+            color: color,
+          ),
+          onPressed: () async {
+            await function();
+          },
+          splashColor: color,
           color: color,
+          tooltip: type,
         ),
-        onPressed: () async {
-          await function();
-        },
-        splashColor: color,
-        color: color,
-        tooltip: type,
-      ),
-      new GWdgtTextSmall(
-        string: '$count',
-        // fontColor: Colors.orangeAccent,
-      ),
-      new GWdgtTextSmall(
-        string: type,
-        // fontColor: Colors.orangeAccent,
-      )
-    ],
-  ));
+        new GWdgtTextSmall(
+          string: '$count',
+          // fontColor: Colors.orangeAccent,
+        ),
+        new GWdgtTextSmall(
+          string: type,
+          // fontColor: Colors.orangeAccent,
+        )
+      ],
+    ),
+  );
 }
-
-// Widget darkenWidget(int status) {
-//   if (status != 0 && status != 1 && status != 3)
-//     return ClipRRect(
-//       borderRadius: BorderRadius.circular(12),
-//       child: Container(
-//         color: Colors.black.withOpacity(0.4),
-//         height: ScreenResolution.height / 2.2,
-//       ),
-//     );
-//   return SizedBox();
-// }

@@ -2,6 +2,7 @@ import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +14,13 @@ import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 final strDetails = 'تفاصيل';
 
 ///[sizes]
-double sizePageTitle = ScreenUtil().setHeight(170);
+double sizePageTitle = heightTopBar;
 
 ///[radius]
-double radiusPageTitle = 12;
+double radiusPageTitle = radiusDefault;
 
 ///[color]
-final Color colorPageTitle = Colors.white38;
+final Color colorPageTitle = Colors.white10;
 final Color colorBackground = AppColors.purpleColor;
 
 class WdgtDatePageSingleOrderDetail extends StatefulWidget {

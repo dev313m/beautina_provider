@@ -5,6 +5,7 @@ import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/dates/ui/page_single_order_detail.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ import 'package:beautina_provider/utils/ui/text.dart';
 final strDetail = 'التفاصيل';
 
 ///[radius]
-final double radiusContainer = 12;
+final double radiusContainer = radiusDefault;
 
 ///[color]
 final Color colorContainer = ConstDatesColors.littleList.withAlpha(200);
@@ -70,7 +71,8 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: colorBtn,
-                                  borderRadius: BorderRadius.circular(radiusContainer),
+                                  borderRadius:
+                                      BorderRadius.circular(radiusContainer),
                                 ),
                                 child: GWdgtTextTitleDesc(
                                   string: strDetails,
@@ -81,7 +83,10 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                             ), onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => WdgtDatePageSingleOrderDetail(
-                                orderId: Provider.of<VmDateData>(context).listOfDay[index].doc_id, heroTag: ordersList[index].doc_id),
+                                orderId: Provider.of<VmDateData>(context)
+                                    .listOfDay[index]
+                                    .doc_id,
+                                heroTag: ordersList[index].doc_id),
                           ));
                         }
                             // showCupertinoModalBottomSheet(
@@ -106,7 +111,9 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                               children: <Widget>[
                                 Builder(builder: (_) {
                                   List<String> list = [];
-                                  Map<String, dynamic> mapper = Provider.of<VMSalonData>(context).providedServices;
+                                  Map<String, dynamic> mapper =
+                                      Provider.of<VMSalonData>(context)
+                                          .providedServices;
 
                                   ordersList[index].services.forEach((k, v) {
                                     v.forEach((kk, vv) {
@@ -114,7 +121,8 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                         list.add(kk.toString());
                                       else {
                                         try {
-                                          list.add(mapper['services'][k]['items'][kk]['ar']);
+                                          list.add(mapper['services'][k]
+                                              ['items'][kk]['ar']);
                                         } catch (e) {
                                           list.add(k.toString());
                                         }
@@ -147,7 +155,9 @@ class _OrdersListState extends State<WdgtDateOrderList> {
   }
 
   String getText(int index) {
-    if (ordersList[index].client_order_date.isBefore(DateTime.now().toLocal()) &&
+    if (ordersList[index]
+            .client_order_date
+            .isBefore(DateTime.now().toLocal()) &&
         (ordersList[index].status == 3 || ordersList[index].status == 8))
       return 'مرحبا، نرجو تأكيد اتمام العملية  (${ordersList[index].client_name})  ${getDate(ordersList[index].client_order_date)}';
     else
