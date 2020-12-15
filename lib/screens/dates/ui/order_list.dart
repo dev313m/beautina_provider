@@ -2,10 +2,12 @@ import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
+import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/dates/ui/page_single_order_detail.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -99,7 +101,30 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                             //       heroTag: widget.ordersList[index].doc_id),
                             // );
                             ),
-                        muteRowCell(),
+                        SpringButton(
+                          SpringButtonType.OnlyScale,
+                          Container(
+                            // padding: EdgeInsets.symmetric(vertical: 44.h),
+                            width: sizeBtnHeight,
+                            height: sizeBtnHeight,
+                            // w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(radius),
+                                color: Colors.black38),
+                            child: Column(
+                              children: <Widget>[
+                                Icon(Icons.attach_money_rounded),
+                                new GWdgtTextSmall(
+                                  string:
+                                      '${ordersList[index].total_price} Riyal',
+                                ),
+                              ],
+                            ),
+                          ),
+                          key: GlobalKey(),
+                          onTap: () async {},
+                          scaleCoefficient: 0.9,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[

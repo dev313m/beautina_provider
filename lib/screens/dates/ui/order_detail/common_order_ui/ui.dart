@@ -105,15 +105,13 @@ class OrderDetails extends StatelessWidget {
               ),
             ],
           ),
-
         ],
       ),
     );
   }
 }
 
-Widget muteRowCell(
-    String count, String type, IconData icon, Function function) {
+Widget muteRowCell(String desc, String type, IconData icon, Function function) {
   return SpringButton(
     SpringButtonType.OnlyScale,
     Container(
@@ -136,7 +134,7 @@ Widget muteRowCell(
             tooltip: type,
           ),
           new GWdgtTextSmall(
-            string: '$count',
+            string: '$desc',
             // fontColor: Colors.orangeAccent,
           ),
           new GWdgtTextSmall(
