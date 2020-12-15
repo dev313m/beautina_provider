@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:spring_button/spring_button.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:flutter/cupertino.dart';
 
 ///[String]
 final strDetail = 'التفاصيل';
@@ -26,8 +27,8 @@ final Color colorBtn = Colors.white38;
 double paddingContainer = 8.h;
 
 ///[size]
-final sizeBtnHeight = 100.h;
-final sizeBtnWidth = 130.w;
+final sizeBtnHeight = 200.h;
+final sizeBtnWidth = 200.w;
 
 class WdgtDateOrderList extends StatefulWidget {
   final String hero;
@@ -64,9 +65,9 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        SpringButton(
-                            SpringButtonType.OnlyScale,
-                            Hero(
+                        CupertinoButton(
+                            // SpringButtonType.OnlyScale,
+                            child: Hero(
                               tag: ordersList[index].doc_id + 'ok',
                               child: Container(
                                 decoration: BoxDecoration(
@@ -74,21 +75,20 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                   borderRadius:
                                       BorderRadius.circular(radiusContainer),
                                 ),
-                                child: GWdgtTextTitleDesc(
-                                  string: strDetails,
-                                ),
+                                child: Icon(Icons.navigate_before),
                                 width: sizeBtnWidth,
                                 height: sizeBtnHeight,
                               ),
-                            ), onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => WdgtDatePageSingleOrderDetail(
-                                orderId: Provider.of<VmDateData>(context)
-                                    .listOfDay[index]
-                                    .doc_id,
-                                heroTag: ordersList[index].doc_id),
-                          ));
-                        }
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => WdgtDatePageSingleOrderDetail(
+                                    orderId: Provider.of<VmDateData>(context)
+                                        .listOfDay[index]
+                                        .doc_id,
+                                    heroTag: ordersList[index].doc_id),
+                              ));
+                            }
                             // showCupertinoModalBottomSheet(
                             //   context: context,
                             //   backgroundColor: Colors.black87,
@@ -99,6 +99,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                             //       heroTag: widget.ordersList[index].doc_id),
                             // );
                             ),
+                        muteRowCell(),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[

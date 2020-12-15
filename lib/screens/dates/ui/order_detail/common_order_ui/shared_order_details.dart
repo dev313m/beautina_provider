@@ -8,6 +8,7 @@ import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spring_button/spring_button.dart';
 import 'package:steps/steps.dart';
 
 ///[size]
@@ -57,71 +58,77 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
         Y(
           height: BoxHeight.heightBtwTitle,
         ),
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(radius),
-              color: Colors.black54),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              GWdgtTextTitleDesc(
-                string: 'مرحلة الطلب:',
-                textAlign: TextAlign.right,
-              ),
-              Container(
-                height: 200.h,
-                child: Steps(
-                  steps: [
-                    {
-                      'color': Colors.white,
-                      'background': Colors.lightBlue.shade200,
-                      'label': '1',
-                      'content': Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          GWdgtTextDescDesc(
-                            string: 'طلب جديد',
-                            // color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    },
-                    {
-                      'color': Colors.white,
-                      'background': Colors.lightBlue,
-                      'label': '2',
-                      'content': Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          GWdgtTextDescDesc(
-                            string: 'قبول الطلب',
-                            // color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    },
-                    {
-                      'color': Colors.white,
-                      'background': Colors.lightBlue.shade200,
-                      'label': '3',
-                      'content': Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          GWdgtTextDescDesc(
-                            string: 'تأكيد الزبون',
-                            // color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    },
-                  ],
-                  path: {'color': Colors.white30, 'width': 2.0},
-                  direction: Axis.horizontal,
-                  size: 56.w,
+
+        SpringButton(
+          SpringButtonType.OnlyScale,
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(radius),
+                color: Colors.black54),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                GWdgtTextTitleDesc(
+                  string: 'مرحلة الطلب:',
+                  textAlign: TextAlign.right,
                 ),
-              ),
-            ],
+                Container(
+                  height: 200.h,
+                  child: Steps(
+                    steps: [
+                      {
+                        'color': Colors.white,
+                        'background': Colors.lightBlue.shade200,
+                        'label': '1',
+                        'content': Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            GWdgtTextDescDesc(
+                              string: 'طلب جديد',
+                              // color: Colors.black,
+                            ),
+                          ],
+                        ),
+                      },
+                      {
+                        'color': Colors.white,
+                        'background': Colors.lightBlue,
+                        'label': '2',
+                        'content': Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            GWdgtTextDescDesc(
+                              string: 'قبول الطلب',
+                              // color: Colors.black,
+                            ),
+                          ],
+                        ),
+                      },
+                      {
+                        'color': Colors.white,
+                        'background': Colors.lightBlue.shade200,
+                        'label': '3',
+                        'content': Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            GWdgtTextDescDesc(
+                              string: 'تأكيد الزبون',
+                              // color: Colors.black,
+                            ),
+                          ],
+                        ),
+                      },
+                    ],
+                    path: {'color': Colors.white30, 'width': 2.0},
+                    direction: Axis.horizontal,
+                    size: 56.w,
+                  ),
+                ),
+              ],
+            ),
           ),
+          scaleCoefficient: 0.9,
+          onTap: () {},
         ),
 
         Y(
@@ -160,7 +167,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
         // ),
         OrderDetails(
           date: order.client_order_date,
-          location: order.provider_location,
+          location: order.client_location,
           phoneNum: order.provider_phone,
           price: order.total_price,
         ),
@@ -169,12 +176,18 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
         ),
         Container(
           width: double.infinity,
+          height: 280.h,
+
+          decoration: BoxDecoration(
+            color: Colors.black26,
+            borderRadius: BorderRadius.circular(radius)
+          ),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             reverse: true,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Wrap(
+              // mainAxisSize: MainAxisSize.max,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 AllSingleServiceWidget(
                   services: order.services,

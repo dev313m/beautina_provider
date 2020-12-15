@@ -1,13 +1,16 @@
+import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:spring_button/spring_button.dart';
 
 ///for example [صالون [حناء]]
 ///[string]
@@ -15,6 +18,7 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 final strInfo = 'معلومات الخدمه:';
 final strPrice = 'السعر';
 final strDate = 'وقت الموعد';
+final strLocation = 'الموقع';
 
 ///[colors]
 Color color = Colors.yellow;
@@ -71,24 +75,26 @@ class OrderDetails extends StatelessWidget {
     return Container(
       // width: 900,
       child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
-            mainAxisSize: MainAxisSize.min,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            children: [
               Expanded(
                 flex: 1,
-                child: muteRowCell(
-                    getDateString(date), strDate, Icons.date_range, () {}),
+                child: WdgtDateCalendarWatch(
+                    dateTime: date, icon: Icons.date_range, function: () {}),
               ),
               SizedBox(
                 width: 10.w,
               ),
-              Expanded(
-                flex: 1,
-                child: muteRowCell(price.toString() + ' SR', strPrice,
-                    Icons.attach_money, () {}),
-              ),
+              if (location != null && location.length != 0)
+                Expanded(
+                    flex: 1,
+                    child: muteRowCell(
+                        ' ',
+                        strLocation,
+                        CommunityMaterialIcons.map_marker_circle,
+                        getLaunchMapFunction(location))),
               SizedBox(
                 width: 10.w,
               ),
@@ -97,16 +103,9 @@ class OrderDetails extends StatelessWidget {
                 child: muteRowCell(phoneNum, strDate, Icons.phone,
                     getWhatsappFunction(phoneNum)),
               ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Expanded(
-                flex: 1,
-                child: muteRowCell(
-                    price.toString() + ' SR', strPrice, Icons.map, () {}),
-              ),
             ],
           ),
+
         ],
       ),
     );
@@ -115,37 +114,144 @@ class OrderDetails extends StatelessWidget {
 
 Widget muteRowCell(
     String count, String type, IconData icon, Function function) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 44.h),
-    // w,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius), color: Colors.black38),
-    child: new Column(
-      children: <Widget>[
-        IconButton(
-          icon: Icon(
-            icon,
-            // size: ScreenUtil().setSp(40),
+  return SpringButton(
+    SpringButtonType.OnlyScale,
+    Container(
+      padding: EdgeInsets.symmetric(vertical: 44.h),
+
+      // w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius), color: Colors.black38),
+      child: new Column(
+        children: <Widget>[
+          IconButton(
+            icon: Icon(
+              icon,
+              // size: ScreenUtil().setSp(40),
+              color: color,
+            ),
+            onPressed: () async {},
+            splashColor: color,
             color: color,
+            tooltip: type,
           ),
-          onPressed: () async {
-            await function();
-          },
-          splashColor: color,
-          color: color,
-          tooltip: type,
-        ),
-        new GWdgtTextSmall(
-          string: '$count',
-          // fontColor: Colors.orangeAccent,
-        ),
-        new GWdgtTextSmall(
-          string: type,
-          // fontColor: Colors.orangeAccent,
-        )
-      ],
+          new GWdgtTextSmall(
+            string: '$count',
+            // fontColor: Colors.orangeAccent,
+          ),
+          new GWdgtTextSmall(
+            string: type,
+            // fontColor: Colors.orangeAccent,
+          )
+        ],
+      ),
     ),
+    onTap: () async {
+      await function();
+    },
+    scaleCoefficient: 0.87,
   );
+}
+
+Widget dateRow(
+    DateTime dateTime, String type, IconData icon, Function function) {
+  return SpringButton(
+    SpringButtonType.OnlyScale,
+    Container(
+      padding: EdgeInsets.symmetric(vertical: 44.h),
+
+      // w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius), color: Colors.black38),
+      child: new Column(
+        children: <Widget>[
+          IconButton(
+            icon: Icon(
+              icon,
+              // size: ScreenUtil().setSp(40),
+              color: color,
+            ),
+            onPressed: () async {},
+            splashColor: color,
+            color: color,
+            tooltip: type,
+          ),
+          new RichText(
+              text: TextSpan(children: [
+            TextSpan(text: dateTime.hour.toString()),
+            TextSpan(text: ":"),
+            TextSpan(text: dateTime.minute.toString())
+          ]))
+          // new GWdgtTextSmall(
+          //   string: type,
+          //   // fontColor: Colors.orangeAccent,
+          // )
+        ],
+      ),
+    ),
+    onTap: () async {
+      await function();
+    },
+    scaleCoefficient: 0.87,
+  );
+}
+
+class WdgtDateCalendarWatch extends StatelessWidget {
+  final DateTime dateTime;
+  final String type;
+  final IconData icon;
+  final Function function;
+  const WdgtDateCalendarWatch(
+      {Key key, this.dateTime, this.function, this.icon, this.type})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SpringButton(
+      SpringButtonType.OnlyScale,
+      Container(
+        padding: EdgeInsets.symmetric(vertical: 44.h),
+
+        // w,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius), color: Colors.black38),
+        child: new Column(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                icon,
+                // size: ScreenUtil().setSp(40),
+                color: color,
+              ),
+              onPressed: () async {},
+              splashColor: color,
+              color: color,
+              tooltip: type,
+            ),
+            new RichText(
+                text: TextSpan(children: [
+              TextSpan(
+                  text: dateTime.hour.toString(),
+                  style: TextStyle(fontSize: 50.sp, color: Colors.amber)),
+              TextSpan(text: ":", style: TextStyle(fontSize: 30.sp)),
+              TextSpan(
+                  text: dateTime.minute.toString(),
+                  style:
+                      TextStyle(fontSize: 50.sp, color: Colors.lightBlueAccent))
+            ]))
+            // new GWdgtTextSmall(
+            //   string: type,
+            //   // fontColor: Colors.orangeAccent,
+            // )
+          ],
+        ),
+      ),
+      onTap: () async {
+        await function();
+      },
+      scaleCoefficient: 0.87,
+    );
+  }
 }
 
 final double radius = radiusDefault;
