@@ -18,13 +18,13 @@ import 'package:beautina_provider/constants/app_colors.dart';
 final double radius = radiusDefault;
 
 ///[colors]
-Color colorContainer = AppColors.purpleColor; 
+Color colorContainer = ConstDatesColors.littleList.withAlpha(200);
 
 Color colorEvent = CalendarColors.eventColor;
 Color colorTopNoti = CalendarColors.topNoti;
 Color colorBottomLeftNoti = CalendarColors.bottomLeft;
 Color colorBottomRightNoti = CalendarColors.bottomRight;
-Color colorReloadBtn = Colors.purple;
+Color colorReloadBtn = AppColors.blue;
 
 class WdgtDateCalendar extends StatefulWidget {
   WdgtDateCalendar({Key key}) : super(key: key);

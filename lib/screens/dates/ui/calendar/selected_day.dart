@@ -13,9 +13,8 @@ final sizeDayWidth = 200.h;
 final double radius = 12;
 
 ///[colors]
-Color colorNoEvent = CalendarColors.empty;
-Color colorEvent = CalendarColors.eventColor;
-Color colorDay = Colors.white38;
+
+Color colorDay = Colors.white54;
 
 ///[edge]
 double edgeDayToContainer = 20.w;
@@ -25,13 +24,17 @@ class WdgtDateCalendarSelectedDay extends StatefulWidget {
   final DateTime date;
   final List list;
   final AnimationController animationController;
-  const WdgtDateCalendarSelectedDay({Key key, this.date, this.list, this.animationController}) : super(key: key);
+  const WdgtDateCalendarSelectedDay(
+      {Key key, this.date, this.list, this.animationController})
+      : super(key: key);
 
   @override
-  _WdgtDateCalendarSelectedDayState createState() => _WdgtDateCalendarSelectedDayState();
+  _WdgtDateCalendarSelectedDayState createState() =>
+      _WdgtDateCalendarSelectedDayState();
 }
 
-class _WdgtDateCalendarSelectedDayState extends State<WdgtDateCalendarSelectedDay> {
+class _WdgtDateCalendarSelectedDayState
+    extends State<WdgtDateCalendarSelectedDay> {
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -39,17 +42,27 @@ class _WdgtDateCalendarSelectedDayState extends State<WdgtDateCalendarSelectedDa
       child: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(color: CalendarColors.todayContainer, borderRadius: BorderRadius.circular(radius)),
+            decoration: BoxDecoration(
+                color: colorDay,
+                borderRadius: BorderRadius.circular(radius)),
             // margin: const EdgeInsets.all(4.0),
-            padding: EdgeInsets.only(top: edgeDayToContainer, left: edgeDayToContainer),
+            padding: EdgeInsets.only(
+                top: edgeDayToContainer, left: edgeDayToContainer),
             width: sizeDayWidth,
             height: sizeDayHeight,
-            child: GWdgtTextCalendarDay(
-              string: '${widget.date.day}',
-              textDirection: TextDirection.ltr,
-              textAlign: TextAlign.left,
-              // style: TextStyle().copyWith(fontSize: 16.0),
-            ),
+            child: (widget.date.day == DateTime.now().day &&
+                    DateTime.now().month == widget.date.month)
+                ? Center(
+                  child: GWdgtTextCalendarDay(
+                      string: "اليوم",
+                    ),
+                )
+                : GWdgtTextCalendarDay(
+                    string: '${widget.date.day}',
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.left,
+                    // style: TextStyle().copyWith(fontSize: 16.0),
+                  ),
           ),
           if (widget.list != null)
             if (widget.list.where((element) => element.status == -1).length > 0)

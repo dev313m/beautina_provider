@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
-
+import 'package:beautina_provider/utils/ui/text.dart';
 ///[strings]
 final strInstruction = 'تعليمات:';
 final strInstDesc =
@@ -31,7 +31,7 @@ double sizeContainer = 300.h;
 
 double sizeHInstructionDay = ScreenUtil().setWidth(115);
 double sizeWInstructionDay = ScreenUtil().setWidth(400);
-double sizeDay = 90.w;
+double sizeDay = 100.w;
 double sizeInsideDayInstrH = 170.w;
 double sizeInsideDayInstrW = 30.w;
 double sizePaddingDayInst = 30.w;
@@ -69,7 +69,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                         string: strInstruction,
                         fontSize: ExtendedText.bigFont,
                       ),
-                      ExtendedText(string: strInstDesc),
+                      GWdgtTextSmall(string: strInstDesc),
                       SizedBox(
                         height: heightInstruction,
                       ),

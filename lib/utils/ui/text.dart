@@ -170,7 +170,7 @@ class GWdgtTextChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(fontSize: ScreenUtil().setSp(20), color: Colors.blue),
+      style: TextStyle(fontSize: ScreenUtil().setSp(24), color: Colors.white70),
     );
   }
 }
@@ -194,7 +194,7 @@ class GWdgtTextSmall extends StatelessWidget {
       string,
       style: TextStyle(
         fontSize: ScreenUtil().setSp(25),
-        color: color ?? Colors.white24,
+        color: color ?? Colors.white70,
       ),
       textAlign: textAlign ?? TextAlign.center,
       textDirection: textDirection,
@@ -221,7 +221,7 @@ class GWdgtTextCalendarDay extends StatelessWidget {
       string,
       style: TextStyle(
         fontSize: ScreenUtil().setSp(24),
-        color: color ?? Colors.white,
+        color: color ?? Colors.white38,
       ),
       textAlign: textAlign ?? TextAlign.left,
       textDirection: textDirection,

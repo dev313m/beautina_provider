@@ -7,6 +7,7 @@ import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/dates/ui/page_single_order_detail.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:spring_button/spring_button.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 
 ///[String]
 final strDetail = 'التفاصيل';
@@ -77,7 +79,10 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                   borderRadius:
                                       BorderRadius.circular(radiusContainer),
                                 ),
-                                child: Icon(Icons.navigate_before),
+                                child: Icon(
+                                  Icons.navigate_before,
+                                  color: Colors.white,
+                                ),
                                 width: sizeBtnWidth,
                                 height: sizeBtnHeight,
                               ),
@@ -90,17 +95,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                         .doc_id,
                                     heroTag: ordersList[index].doc_id),
                               ));
-                            }
-                            // showCupertinoModalBottomSheet(
-                            //   context: context,
-                            //   backgroundColor: Colors.black87,
-                            //   bounce: true,
-                            //   elevation: 22,
-                            //   builder: (_, __) => PageOrderDetail(
-                            //       order: widget.ordersList[index],
-                            //       heroTag: widget.ordersList[index].doc_id),
-                            // );
-                            ),
+                            }),
                         SpringButton(
                           SpringButtonType.OnlyScale,
                           Container(
@@ -110,10 +105,15 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                             // w,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(radius),
-                                color: Colors.black38),
+                                color: Colors.green[900]),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                Icon(Icons.attach_money_rounded),
+                                Icon(
+                                  CommunityMaterialIcons.sack,
+                                  size: 80.sp,
+                                  color: Colors.white70,
+                                ),
                                 new GWdgtTextSmall(
                                   string:
                                       '${ordersList[index].total_price} Riyal',
@@ -125,52 +125,90 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                           onTap: () async {},
                           scaleCoefficient: 0.9,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            GWdgtTextTitleDesc(string: getText(index)),
-                            GWdgtTextChip(
-                              string: 'السعر: ${ordersList[index].total_price}',
-                            ),
-                            Row(
-                              // mainAxisAlignment: MainAxisAlignment.end,
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        SpringButton(
+                          SpringButtonType.OnlyScale,
+                          Container(
+                            // padding: EdgeInsets.symmetric(vertical: 44.h),
+                            width: sizeBtnHeight,
+                            height: sizeBtnHeight,
+                            // w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(radius),
+                                color: Colors.white38),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                Builder(builder: (_) {
-                                  List<String> list = [];
-                                  Map<String, dynamic> mapper =
-                                      Provider.of<VMSalonData>(context)
-                                          .providedServices;
-
-                                  ordersList[index].services.forEach((k, v) {
-                                    v.forEach((kk, vv) {
-                                      if (k == 'other')
-                                        list.add(kk.toString());
-                                      else {
-                                        try {
-                                          list.add(mapper['services'][k]
-                                              ['items'][kk]['ar']);
-                                        } catch (e) {
-                                          list.add(k.toString());
-                                        }
-                                      }
-                                    });
-                                  });
-                                  return Wrap(
-                                    textDirection: TextDirection.rtl,
-                                    // verticalDirection: VerticalDirection.down,
-                                    // direction: Axis.horizontal,
-                                    children: list
-                                        .map((f) => Chip(
-                                            backgroundColor: Colors.white12,
-                                            label: GWdgtTextChip(
-                                              string: f,
-                                            )))
-                                        .toList(),
-                                  );
-                                }),
+                                Icon(
+                                  CommunityMaterialIcons.calendar_clock,
+                                  color: Colors.white70,
+                                  size: 80.sp,
+                                ),
+                                new GWdgtTextSmall(
+                                  string:
+                                      '${ordersList[index].client_order_date.hour}:${ordersList[index].client_order_date.minute}',
+                                ),
                               ],
-                            )
-                          ],
+                            ),
+                          ),
+                          key: GlobalKey(),
+                          onTap: () async {},
+                          scaleCoefficient: 0.9,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              GWdgtTextTitleDesc(string: getText(index)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Builder(builder: (_) {
+                                    List<String> list = [];
+                                    Map<String, dynamic> mapper =
+                                        Provider.of<VMSalonData>(context)
+                                            .providedServices;
+
+                                    ordersList[index].services.forEach((k, v) {
+                                      v.forEach((kk, vv) {
+                                        if (k == 'other')
+                                          list.add(kk.toString());
+                                        else {
+                                          try {
+                                            list.add(mapper['services'][k]
+                                                ['items'][kk]['ar']);
+                                          } catch (e) {
+                                            list.add(k.toString());
+                                          }
+                                        }
+                                      });
+                                    });
+                                    return Wrap(
+                                      textDirection: TextDirection.rtl,
+                                      // verticalDirection: VerticalDirection.down,
+                                      // direction: Axis.horizontal,
+                                      children: list
+                                          .map((f) => Container(
+                                            height: 100.h,
+                                            padding: EdgeInsets.all(16.w),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(radius), color: Colors.white38,),
+                                              // backgroundColor: Colors.white12,
+                                              child: Center(
+                                                child: GWdgtTextChip(
+                                                  string: f,
+                                                ),
+                                              )))
+                                          .toList(),
+                                    );
+                                  }),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -187,7 +225,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
         (ordersList[index].status == 3 || ordersList[index].status == 8))
       return 'مرحبا، نرجو تأكيد اتمام العملية  (${ordersList[index].client_name})  ${getDate(ordersList[index].client_order_date)}';
     else
-      return '${getOrderStatus(ordersList[index].status)} (${ordersList[index].client_name})  ${getDate(ordersList[index].client_order_date)}';
+      return '${getOrderStatus(ordersList[index].status)} (${ordersList[index].client_name}) ';
   }
 }
 

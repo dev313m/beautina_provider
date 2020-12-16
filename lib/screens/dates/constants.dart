@@ -21,9 +21,9 @@ class ConstDatesColors {
 }
 
 class CalendarColors {
-  static Color container = AppColors.pinkOpcity;
+  static Color container = ConstDatesColors.littleList.withAlpha(200);
   static Color todayContainer = Colors.orange;
-  static Color eventColor = AppColors.pinkBright;
+  static Color eventColor =Colors.white24;
   static Color topNoti = Colors.blue;
   static Color bottomLeft = Colors.red;
   static Color bottomRight = Colors.blueGrey;

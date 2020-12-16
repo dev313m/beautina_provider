@@ -1,3 +1,4 @@
+import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -11,7 +12,7 @@ final double radius = 12;
 
 ///[colors]
 
-Color colorDay = Colors.white38;
+Color colorDay =AppColors.pinkBright .withOpacity(0.3);
 
 ///[edge]
 double edgeDayToContainer = 4.w;
