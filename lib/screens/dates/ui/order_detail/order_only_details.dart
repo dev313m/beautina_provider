@@ -3,6 +3,7 @@ import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class WidgetOnlyDetailsOrder extends StatefulWidget {
   final Order order;
@@ -35,7 +36,7 @@ class _WidgetOnlyDetailsOrderState extends State<WidgetOnlyDetailsOrder> {
 Color colorContainer = Colors.white24;
 
 ///[radius]
-final double radius = 12;
+final double radius = radiusDefault;
 
 ///[edge]
 final edgeContainer = 8.h;

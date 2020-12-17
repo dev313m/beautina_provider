@@ -2,7 +2,6 @@ import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
-import 'package:beautina_provider/screens/dates/ui/paint.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -20,7 +19,7 @@ double edgeContainer = 4.w;
 
 ///[color]
 
-Color colorContainer = Colors.white24;
+Color colorContainer = Colors.white12;
 Color colorTitleContainer = ConstDatesColors.orderContainerTitle;
 
 ///[string]
@@ -37,6 +36,8 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
   final Order order;
   const WdgtDateSharedOrderDetails({Key key, this.order}) : super(key: key);
 
+
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -64,7 +65,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(radius),
-                color: Colors.black54),
+                color: colorContainer),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -127,6 +128,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
               ],
             ),
           ),
+          key: GlobalKey(),
           scaleCoefficient: 0.9,
           onTap: () {},
         ),
@@ -170,6 +172,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           location: order.client_location,
           phoneNum: order.provider_phone,
           price: order.total_price,
+          backgroundColor: colorContainer
         ),
         Y(
           height: BoxHeight.heightBtwContainers,
@@ -179,7 +182,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           height: 280.h,
 
           decoration: BoxDecoration(
-            color: Colors.black26,
+            color: colorContainer,
             borderRadius: BorderRadius.circular(radius)
           ),
           child: SingleChildScrollView(
@@ -250,12 +253,14 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
   }
 }
 
-bool getStepTwo(int status) {
-  if (status == 1 || status == 3) return true;
-  return false;
-}
+// Map<String,dynamic> getStepTwo(int status) {
+//   if (status == 1 || status == 3) return {'bool':true, 'color':Color};
+//   return false;
+// }
 
-bool getStepThree(int status) {
-  if (status == 3) return true;
-  return false;
-}
+// bool getStepThree(int status) {
+//   if (status == 3) return true;
+//   return false;
+// }
+
+// final Color colorStep = ; 

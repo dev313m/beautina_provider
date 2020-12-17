@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///new order [status = 0]
 class WidgetNewOrder extends StatefulWidget {
@@ -220,12 +221,12 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
 double sizeButtonHeight = 100.h;
 
 ///[color]
-Color colorContainer = Colors.white24;
+Color colorContainer = CalendarColors.orderDetailsBackground;
 Color colorButtonReject = ConstDatesColors.cancelBtn;
 Color colorButtonAccept = ConstDatesColors.confirmBtn;
 
 ///[radius]
-final double radius = 12;
+final double radius = radiusDefault;
 
 ///[edge]
 final edgeContainer = 8.h;

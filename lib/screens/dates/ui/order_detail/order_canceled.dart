@@ -3,14 +3,16 @@ import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:beautina_provider/screens/dates/constants.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///order is canceled by customer or provider [status = 2]
 
 ///[color]
-Color colorContainer = Colors.white24;
+Color colorContainer = CalendarColors.orderDetailsBackground;
 
 ///[radius]
-final double radius = 12;
+final double radius = radiusDefault;
 
 ///[edge]
 final edgeContainer = 8.h;

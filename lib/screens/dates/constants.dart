@@ -30,6 +30,7 @@ class CalendarColors {
   static Color empty = Colors.white10;
   static Color header = Colors.white70;
   static Color headerContainer = Colors.pink;
+  static Color orderDetailsBackground  = ConstDatesColors.littleList.withAlpha(200);
 }
 
 //sizes

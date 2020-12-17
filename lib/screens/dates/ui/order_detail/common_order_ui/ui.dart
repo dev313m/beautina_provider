@@ -21,7 +21,7 @@ final strDate = 'وقت الموعد';
 final strLocation = 'الموقع';
 
 ///[colors]
-Color color = Colors.yellow;
+Color color = Colors.white54;
 
 class AllSingleServiceWidget extends StatelessWidget {
   final Map<String, dynamic> services;
@@ -64,9 +64,10 @@ class AllSingleServiceWidget extends StatelessWidget {
 class OrderDetails extends StatelessWidget {
   final DateTime date;
   final int price;
+  final Color backgroundColor; 
   final List<dynamic> location;
   final String phoneNum;
-  OrderDetails({Key key, this.date, this.location, this.phoneNum, this.price})
+  OrderDetails({Key key, this.date, this.location, this.phoneNum, this.price, this.backgroundColor})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class OrderDetails extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: WdgtDateCalendarWatch(
-                    dateTime: date, icon: Icons.date_range, function: () {}),
+                    dateTime: date, icon: Icons.date_range, function: () {}, backgroundColor: backgroundColor,),
               ),
               SizedBox(
                 width: 10.w,
@@ -94,14 +95,14 @@ class OrderDetails extends StatelessWidget {
                         ' ',
                         strLocation,
                         CommunityMaterialIcons.map_marker_circle,
-                        getLaunchMapFunction(location))),
+                        getLaunchMapFunction(location), backgroundColor)),
               SizedBox(
                 width: 10.w,
               ),
               Expanded(
                 flex: 1,
                 child: muteRowCell(phoneNum, strDate, Icons.phone,
-                    getWhatsappFunction(phoneNum)),
+                    getWhatsappFunction(phoneNum), backgroundColor),
               ),
             ],
           ),
@@ -111,7 +112,7 @@ class OrderDetails extends StatelessWidget {
   }
 }
 
-Widget muteRowCell(String desc, String type, IconData icon, Function function) {
+Widget muteRowCell(String desc, String type, IconData icon, Function function, Color backgroundColor) {
   return SpringButton(
     SpringButtonType.OnlyScale,
     Container(
@@ -119,7 +120,7 @@ Widget muteRowCell(String desc, String type, IconData icon, Function function) {
 
       // w,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius), color: Colors.black38),
+          borderRadius: BorderRadius.circular(radius), color: backgroundColor),
       child: new Column(
         children: <Widget>[
           IconButton(
@@ -198,9 +199,10 @@ class WdgtDateCalendarWatch extends StatelessWidget {
   final DateTime dateTime;
   final String type;
   final IconData icon;
+  final Color backgroundColor;
   final Function function;
   const WdgtDateCalendarWatch(
-      {Key key, this.dateTime, this.function, this.icon, this.type})
+      {Key key, this.dateTime, this.function, this.icon, this.type, this.backgroundColor})
       : super(key: key);
 
   @override
@@ -212,7 +214,7 @@ class WdgtDateCalendarWatch extends StatelessWidget {
 
         // w,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(radius), color: Colors.black38),
+            borderRadius: BorderRadius.circular(radius), color: backgroundColor),
         child: new Column(
           children: <Widget>[
             IconButton(

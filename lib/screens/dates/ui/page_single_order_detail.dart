@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
-
+import 'package:beautina_provider/screens/dates/constants.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 ///[strings]
 final strDetails = 'تفاصيل';
 
@@ -20,7 +21,7 @@ double sizePageTitle = heightTopBar;
 double radiusPageTitle = radiusDefault;
 
 ///[color]
-final Color colorPageTitle = Colors.white10;
+final Color colorPageTitle = ConstDatesColors.littleList.withAlpha(200);
 final Color colorBackground = AppColors.purpleColor;
 
 class WdgtDatePageSingleOrderDetail extends StatefulWidget {
@@ -68,7 +69,7 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
                           string: strDetails,
                         ))),
               ),
-            ),
+            ),Y(),
             WdgtDateOrderDetails(orderId: order.doc_id)
           ],
         ),

@@ -8,6 +8,7 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 /// order approved by provider [status = 1]
 class WidgetWaitingCustomer extends StatefulWidget {
@@ -64,11 +65,11 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
 double sizeButtonHeight = 100.h;
 
 ///[color]
-Color colorContainer = Colors.white24;
+Color colorContainer = CalendarColors.orderDetailsBackground;
 Color colorButtonReject = ConstDatesColors.cancelBtn;
 
 ///[radius]
-final double radius = 12;
+final double radius = radiusDefault;
 
 ///[edge]
 final edgeContainer = 8.h;

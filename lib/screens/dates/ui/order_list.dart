@@ -70,6 +70,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         CupertinoButton(
+                            padding: EdgeInsets.all(0),
                             // SpringButtonType.OnlyScale,
                             child: Hero(
                               tag: ordersList[index].doc_id + 'ok',
@@ -96,6 +97,9 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                     heroTag: ordersList[index].doc_id),
                               ));
                             }),
+                        SizedBox(
+                          width: 10.w,
+                        ),
                         SpringButton(
                           SpringButtonType.OnlyScale,
                           Container(
@@ -193,9 +197,14 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                       // direction: Axis.horizontal,
                                       children: list
                                           .map((f) => Container(
-                                            height: 100.h,
-                                            padding: EdgeInsets.all(16.w),
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(radius), color: Colors.white38,),
+                                              height: 100.h,
+                                              padding: EdgeInsets.all(16.w),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        radius),
+                                                color: Colors.white38,
+                                              ),
                                               // backgroundColor: Colors.white12,
                                               child: Center(
                                                 child: GWdgtTextChip(

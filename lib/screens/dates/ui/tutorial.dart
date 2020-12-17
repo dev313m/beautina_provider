@@ -27,17 +27,17 @@ const double radiusDay = 12;
 double radius = radiusDefault;
 
 /// [$sizes]
-double sizeContainer = 300.h;
+double sizeContainer = 400.h;
 
 double sizeHInstructionDay = ScreenUtil().setWidth(115);
-double sizeWInstructionDay = ScreenUtil().setWidth(400);
+double sizeWInstructionDay = ScreenUtil().setWidth(500);
 double sizeDay = 100.w;
-double sizeInsideDayInstrH = 170.w;
+double sizeInsideDayInstrH = 220.w;
 double sizeInsideDayInstrW = 30.w;
 double sizePaddingDayInst = 30.w;
 
 ///[edge padding]
-double edgeContainer = ScreenUtil().setWidth(10);
+// double edgeContainer = ScreenUtil().setWidth(10);
 double edge24Padding = ScreenUtil().setHeight(8);
 
 ///[heights]
@@ -58,18 +58,19 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
         // width: ScreenUtil().setWidth(200),
         child: Stack(
           children: <Widget>[
-            Align(
-                alignment: Alignment.topRight,
+            Positioned(
+              left: 550.w,
+                // alignment: Alignment(100.w, 100.w),
                 child: Padding(
                   padding: EdgeInsets.all(edgeContainer),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      ExtendedText(
+                      GWdgtTextSmall(
                         string: strInstruction,
-                        fontSize: ExtendedText.bigFont,
+                        // fontSize: ExtendedText.bigFont,
                       ),
-                      GWdgtTextSmall(string: strInstDesc),
+                      GWdgtTextSmall(string: strInstDesc,color: Colors.white54,),
                       SizedBox(
                         height: heightInstruction,
                       ),
@@ -88,7 +89,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                                 alignment: Alignment.topLeft,
                                 child: Padding(
                                   padding: EdgeInsets.all(edge24Padding),
-                                  child: ExtendedText(
+                                  child: GWdgtTextBadge(
                                     string: '24',
                                   ),
                                 ),
@@ -107,12 +108,12 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                                         width: sizePaddingDayInst,
                                         height: sizePaddingDayInst,
                                         child: Center(
-                                            child: ExtendedText(
+                                            child: GWdgtTextBadge(
                                           string: '4',
                                         )),
                                       ),
                                     ),
-                                    ExtendedText(
+                                    GWdgtTextSmall(
                                       string: strOrdersConfirmed,
                                     )
                                   ],
@@ -128,7 +129,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
                                     Center(
-                                      child: ExtendedText(
+                                      child: GWdgtTextSmall(
                                         string: strOrdersNew,
                                       ),
                                     ),
@@ -138,7 +139,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                                         width: sizePaddingDayInst,
                                         height: sizePaddingDayInst,
                                         child: Center(
-                                          child: ExtendedText(
+                                          child: GWdgtTextBadge(
                                             string: '5',
                                           ),
                                         ),
@@ -161,12 +162,12 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                                         width: sizePaddingDayInst,
                                         height: sizePaddingDayInst,
                                         child: Center(
-                                            child: ExtendedText(
+                                            child: GWdgtTextBadge(
                                           string: '2',
                                         )),
                                       ),
                                     ),
-                                    ExtendedText(
+                                    GWdgtTextSmall(
                                       string: strOrdersWaiting,
                                     )
                                   ],

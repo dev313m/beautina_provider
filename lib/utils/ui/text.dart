@@ -197,7 +197,7 @@ class GWdgtTextSmall extends StatelessWidget {
         color: color ?? Colors.white70,
       ),
       textAlign: textAlign ?? TextAlign.center,
-      textDirection: textDirection,
+      textDirection: textDirection?? TextDirection.rtl,
     );
   }
 }

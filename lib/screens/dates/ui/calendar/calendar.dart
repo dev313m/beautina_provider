@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
-import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
 ///[radius]
 final double radius = radiusDefault;
@@ -67,6 +66,7 @@ class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMix
           child: Stack(
             children: <Widget>[
               TableCalendar(
+                // locale: 'ar_AR',
                 calendarController: _calendarController,
                 events: getEvents(Provider.of<VmDateData>(context).orderList, context),
                 availableGestures: AvailableGestures.horizontalSwipe,
