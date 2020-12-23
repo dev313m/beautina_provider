@@ -8,6 +8,8 @@ final paddingScreen = 14.w;
 final heightLoginBtns = 150.h;
 final heightTextField = 150.h;
 
+final heightBtnSquare = 200.h;
+
 ///[radius]
 final double radiusDefault = 25;
 

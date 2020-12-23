@@ -51,8 +51,13 @@ class AllSingleServiceWidget extends StatelessWidget {
         // verticalDirection: VerticalDirection.down,
         // direction: Axis.horizontal,
         children: list
-            .map((f) => Chip(
-                    label: GWdgtTextChip(
+            .map((f) => Container(
+                padding: EdgeInsets.all(30.w),
+                decoration: BoxDecoration(
+                  color: Colors.white12,
+                  borderRadius: BorderRadius.circular(radius),
+                ),
+                child: GWdgtTextChip(
                   string: f,
                 )))
             .toList(),
@@ -64,10 +69,16 @@ class AllSingleServiceWidget extends StatelessWidget {
 class OrderDetails extends StatelessWidget {
   final DateTime date;
   final int price;
-  final Color backgroundColor; 
+  final Color backgroundColor;
   final List<dynamic> location;
   final String phoneNum;
-  OrderDetails({Key key, this.date, this.location, this.phoneNum, this.price, this.backgroundColor})
+  OrderDetails(
+      {Key key,
+      this.date,
+      this.location,
+      this.phoneNum,
+      this.price,
+      this.backgroundColor})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -82,8 +93,24 @@ class OrderDetails extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
+                child: muteRowCell(
+                    price.toString(),
+                    strPrice,
+                    CommunityMaterialIcons.sack,
+                    getWhatsappFunction(phoneNum),
+                    backgroundColor),
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Expanded(
+                flex: 1,
                 child: WdgtDateCalendarWatch(
-                    dateTime: date, icon: Icons.date_range, function: () {}, backgroundColor: backgroundColor,),
+                  dateTime: date,
+                  icon: Icons.date_range,
+                  function: () {},
+                  backgroundColor: backgroundColor,
+                ),
               ),
               SizedBox(
                 width: 10.w,
@@ -95,13 +122,15 @@ class OrderDetails extends StatelessWidget {
                         ' ',
                         strLocation,
                         CommunityMaterialIcons.map_marker_circle,
-                        getLaunchMapFunction(location), backgroundColor)),
-              SizedBox(
-                width: 10.w,
-              ),
+                        getLaunchMapFunction(location),
+                        backgroundColor)),
+              if (location != null && location.length != 0)
+                SizedBox(
+                  width: 10.w,
+                ),
               Expanded(
                 flex: 1,
-                child: muteRowCell(phoneNum, strDate, Icons.phone,
+                child: muteRowCell(phoneNum, 'رقم الجوال', Icons.phone,
                     getWhatsappFunction(phoneNum), backgroundColor),
               ),
             ],
@@ -112,7 +141,8 @@ class OrderDetails extends StatelessWidget {
   }
 }
 
-Widget muteRowCell(String desc, String type, IconData icon, Function function, Color backgroundColor) {
+Widget muteRowCell(String desc, String type, IconData icon, Function function,
+    Color backgroundColor) {
   return SpringButton(
     SpringButtonType.OnlyScale,
     Container(
@@ -202,7 +232,12 @@ class WdgtDateCalendarWatch extends StatelessWidget {
   final Color backgroundColor;
   final Function function;
   const WdgtDateCalendarWatch(
-      {Key key, this.dateTime, this.function, this.icon, this.type, this.backgroundColor})
+      {Key key,
+      this.dateTime,
+      this.function,
+      this.icon,
+      this.type,
+      this.backgroundColor})
       : super(key: key);
 
   @override
@@ -214,7 +249,8 @@ class WdgtDateCalendarWatch extends StatelessWidget {
 
         // w,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(radius), color: backgroundColor),
+            borderRadius: BorderRadius.circular(radius),
+            color: backgroundColor),
         child: new Column(
           children: <Widget>[
             IconButton(

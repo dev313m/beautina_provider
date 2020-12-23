@@ -31,7 +31,7 @@ final Color colorBtn = Colors.white38;
 double paddingContainer = 8.h;
 
 ///[size]
-final sizeBtnHeight = 200.h;
+final sizeBtnHeight = heightBtnSquare;
 final sizeBtnWidth = 200.w;
 
 class WdgtDateOrderList extends StatefulWidget {

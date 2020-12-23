@@ -36,8 +36,6 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
   final Order order;
   const WdgtDateSharedOrderDetails({Key key, this.order}) : super(key: key);
 
-
-  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,77 +58,79 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           height: BoxHeight.heightBtwTitle,
         ),
 
-        SpringButton(
-          SpringButtonType.OnlyScale,
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(radius),
-                color: colorContainer),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                GWdgtTextTitleDesc(
-                  string: 'مرحلة الطلب:',
-                  textAlign: TextAlign.right,
-                ),
-                Container(
-                  height: 200.h,
-                  child: Steps(
-                    steps: [
-                      {
-                        'color': Colors.white,
-                        'background': Colors.lightBlue.shade200,
-                        'label': '1',
-                        'content': Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            GWdgtTextDescDesc(
-                              string: 'طلب جديد',
-                              // color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      },
-                      {
-                        'color': Colors.white,
-                        'background': Colors.lightBlue,
-                        'label': '2',
-                        'content': Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            GWdgtTextDescDesc(
-                              string: 'قبول الطلب',
-                              // color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      },
-                      {
-                        'color': Colors.white,
-                        'background': Colors.lightBlue.shade200,
-                        'label': '3',
-                        'content': Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            GWdgtTextDescDesc(
-                              string: 'تأكيد الزبون',
-                              // color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      },
-                    ],
-                    path: {'color': Colors.white30, 'width': 2.0},
-                    direction: Axis.horizontal,
-                    size: 56.w,
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: SpringButton(
+            SpringButtonType.OnlyScale,
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(radius),
+                  color: colorContainer),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GWdgtTextTitleDesc(
+                    string: 'مرحلة الطلب:',
+                    textAlign: TextAlign.right,
                   ),
-                ),
-              ],
+                  Container(
+                    height: 253.h,
+                    child: Steps(
+                      steps: [
+                        {
+                          'color': Colors.white,
+                          'background': Colors.blue,
+                          'label': '1',
+                          'content': Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              GWdgtTextDescDesc(
+                                string: 'طلب جديد',
+                                // color: Colors.black,
+                              ),
+                            ],
+                          ),
+                        },
+                        {
+                          'color': Colors.white,
+                          'background': getStepTwo(order.status)['color'],
+                          'label': '2',
+                          'content': Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              GWdgtTextDescDesc(
+                                string: 'قبول الطلب',
+                                // color: Colors.black,
+                              ),
+                            ],
+                          ),
+                        },
+                        {
+                          'color': Colors.white,
+                          'background': getStepThree(order.status)['color'],
+                          'label': '3',
+                          'content': Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              GWdgtTextDescDesc(
+                                string: 'تأكيد الزبون',
+                                // color: Colors.black,
+                              ),
+                            ],
+                          ),
+                        },
+                      ],
+                      path: {'color': Colors.white30, 'width': 2.0},
+                      direction: Axis.horizontal,
+                      size: 56.w,
+                    ),
+                  ),
+                ],
+              ),
             ),
+            scaleCoefficient: 0.9,
+            onTap: () {},
           ),
-          key: GlobalKey(),
-          scaleCoefficient: 0.9,
-          onTap: () {},
         ),
 
         Y(
@@ -168,64 +168,82 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
         //   ),
         // ),
         OrderDetails(
-          date: order.client_order_date,
-          location: order.client_location,
-          phoneNum: order.provider_phone,
-          price: order.total_price,
-          backgroundColor: colorContainer
-        ),
+            date: order.client_order_date,
+            location: order.client_location,
+            phoneNum: order.provider_phone,
+            price: order.total_price,
+            backgroundColor: colorContainer),
         Y(
           height: BoxHeight.heightBtwContainers,
         ),
         Container(
           width: double.infinity,
-          height: 280.h,
-
-          decoration: BoxDecoration(
-            color: colorContainer,
-            borderRadius: BorderRadius.circular(radius)
-          ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            reverse: true,
-            child: Wrap(
-              // mainAxisSize: MainAxisSize.max,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                AllSingleServiceWidget(
-                  services: order.services,
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 280.h,
+                  decoration: BoxDecoration(
+                      color: colorContainer,
+                      borderRadius: BorderRadius.circular(radius)),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    reverse: true,
+                    child: AllSingleServiceWidget(
+                      services: order.services,
+                    ),
+                  ),
                 ),
-                GWdgtTextTitleDesc(
-                  string: strRequestedServices,
-                  // fontSize: ExtendedText.bigFont,
-                  // textDirection: TextDirection.rtl,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              if (order.order_info != '')
+                Flexible(
+                  flex: 3,
+                  fit: FlexFit.loose,
+                  child: SpringButton(
+                    SpringButtonType.OnlyScale,
+                    Container(
+                      height: 280.h,
+                      padding: EdgeInsets.all(edgeContainer),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          GWdgtTextTitleDesc(
+                            string: strNotes,
+                            // fontSize: ExtendedText.bigFont,
+                            // textDirection: TextDirection.rtl,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: GWdgtTextDescDesc(
+                              string: order.order_info == ''
+                                  ? strEmpty
+                                  : order.order_info,
+                              // fontSize: ExtendedText.bigFont,
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(radius),
+                          color: colorContainer),
+                    ),
+                    key: GlobalKey(),
+                    scaleCoefficient: 0.9,
+                    onTap: () {},
+                  ),
                 ),
-              ],
-            ),
+            ],
           ),
         ),
 
         ///if there is notes dont show to user
-        if (order.order_info != '')
-          Wrap(
-            // crossAxisAlignment: WrapCrossAlignment.start,
-            textDirection: TextDirection.rtl,
-            children: <Widget>[
-              GWdgtTextTitleDesc(
-                string: strNotes,
-                // fontSize: ExtendedText.bigFont,
-                // textDirection: TextDirection.rtl,
-              ),
-              Container(
-                child: GWdgtTextTitleDesc(
-                  string: order.order_info == '' ? strEmpty : order.order_info,
-                  // fontSize: ExtendedText.bigFont,
-                ),
-              ),
-            ],
-          ),
+
         Y(
-          height: BoxHeight.heightBtwContainers,
+          height: BoxHeight.heightBtwTitle,
         ),
 
         /// if the provider didn't support any notes
@@ -234,9 +252,9 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
             // crossAxisAlignment: WrapCrossAlignment.start,
             textDirection: TextDirection.rtl,
             children: <Widget>[
-              GWdgtTextTitleDesc(
-                string: strProviderNotes,
-              ),
+              // GWdgtTextTitleDesc(
+              //   string: strProviderNotes,
+              // ),
               order.provider_notes == ''
                   ? Container(
                       child: GWdgtTextTitleDesc(
@@ -253,14 +271,14 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
   }
 }
 
-// Map<String,dynamic> getStepTwo(int status) {
-//   if (status == 1 || status == 3) return {'bool':true, 'color':Color};
-//   return false;
-// }
+Map<String, dynamic> getStepTwo(int status) {
+  if (status == 1 || status == 3) return {'bool': true, 'color': Colors.blue};
+  return {'bool': true, 'color': Colors.blue[200]};
+}
 
-// bool getStepThree(int status) {
-//   if (status == 3) return true;
-//   return false;
-// }
+Map<String, dynamic> getStepThree(int status) {
+  if (status == 3) return {'bool': true, 'color': Colors.blue};
+  return {'bool': true, 'color': Colors.blue[200]};
+}
 
-// final Color colorStep = ; 
+// final Color colorStep = ;

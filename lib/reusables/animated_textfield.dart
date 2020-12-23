@@ -8,6 +8,7 @@ class BeautyTextfield extends StatefulWidget {
   final String placeholder;
   final Icon prefixIcon, suffixIcon;
   final bool isBox;
+  final bool isSquare;
   final TextEditingController controller;
   final TextInputType inputType;
   final Duration duration;
@@ -26,6 +27,7 @@ class BeautyTextfield extends StatefulWidget {
       {this.prefixIcon,
       this.controller,
       this.inputType,
+      this.isSquare = false,
       this.textStyle,
       this.isBox = false,
       this.suffixIcon,
@@ -65,7 +67,11 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       // width: ScreenUtil().setWidth(300),
-      height: !widget.isBox ? heightTextField : 400.h,
+      height: !widget.isBox
+          ? widget.isSquare
+              ? heightBtnSquare
+              : heightTextField
+          : 250.h,
       // margin: widget.margin,
       // alignment: Alignment.centerRight,
       decoration: BoxDecoration(
@@ -90,7 +96,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
           // maxLength: !widget.isBox ? 1 : 4,
           maxLines: !widget.isBox ? 1 : 4,
           keyboardType: widget.inputType,
-                    // textStyle: TextStyle(color: AppColors.pinkBright),
+          // textStyle: TextStyle(color: AppColors.pinkBright),
 
           controller: widget.readOnly
               ? TextEditingController(text: widget.placeholder)
@@ -123,9 +129,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
 
           // textInputAction: TextInputAction.done,
           decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(radius),
-                  borderSide: BorderSide.none),
+              enabledBorder: InputBorder.none,
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
               suffixText: widget.suffixText,
@@ -135,10 +139,9 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
               // labelText: 'labels',
               counterText: '',
               // prefixIcon: widget.prefixIcon,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(radius)),
-                  borderSide: BorderSide(
-                      color: Colors.pink)), // hintText: widget.placeholder,
+              border: InputBorder.none,
+
+              // hintText: widget.placeholder,
               // helperText: 'Keep it short, this is just a demo.',
               labelText: widget.helperText),
           cursorColor: isFocus ? widget.accentColor : widget.backgroundColor,

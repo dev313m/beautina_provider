@@ -27,8 +27,11 @@ class WidgetNewOrder extends StatefulWidget {
 }
 
 class _WidgetNewOrderState extends State<WidgetNewOrder> {
-  final RoundedLoadingButtonController _buttonController =
+  final RoundedLoadingButtonController _cancelButtonController =
       RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _submitButtonController =
+      RoundedLoadingButtonController();
+
   final String providerNotes = '';
   TextEditingController durationTextFieldController =
       TextEditingController(text: 'لم يتم التحديد');
@@ -55,6 +58,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                       borderRadius: BorderRadius.circular(radius),
                       child: BeautyTextfield(
                         maxLines: 3,
+                        isSquare: true,
                         isBox: true,
                         maxLength: 250,
                         onChanged: (str) {
@@ -62,11 +66,12 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                         },
                         prefixIcon: Icon(
                           CommunityMaterialIcons.ticket,
-                          color: AppColors.pinkBright,
+                          // color: AppColors.pinkBright,
                         ),
 
                         // placeholder: ,
-                        placeholder: 'ملاحظات',
+                        helperText: 'ملاحظاتي',
+
                         // textStyle: TextStyle(color: AppColors.pinkBright),
                         inputType: TextInputType.text,
                       )),
@@ -156,53 +161,57 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                       inputType: TextInputType.text,
                     ),
                   ),
-                  SizedBox(
-                    height: 100.h,
-                  ),
+                  Y(),
                   Row(
                     children: [
                       RoundedLoadingButton(
                         color: colorButtonAccept,
                         height: sizeButtonHeight,
                         width: sizeButtonHeight,
-                        child: GWdgtTextButton(
-                          string: 'قبول',
+                        child: Row(
+                          children: [
+                            GWdgtTextButton(
+                              string: 'قبول',
+                            ),
+                            Icon(Icons.done)
+                          ],
                         ),
-                        controller: _buttonController,
+                        controller: _submitButtonController,
                         animateOnTap: true,
                         borderRadius: radius,
                         onPressed: () async {
                           bool result = false;
-                          _buttonController.start();
+                          _submitButtonController.start();
 
                           // _buttonController.start();
-                          result =
-                              await getFunctionAccept(widget.order, context);
+                          await Future.delayed(Duration(seconds: 3));
+                          // result =
+                          //     await getFunctionAccept(widget.order, context);
                           if (result)
-                            _buttonController.success();
+                            _submitButtonController.success();
                           else
-                            _buttonController.error();
+                            _submitButtonController.error();
                         },
                       ),
                       RoundedLoadingButton(
                         color: colorButtonReject,
                         height: sizeButtonHeight,
                         width: sizeButtonHeight,
-                        controller: _buttonController,
+                        controller: _cancelButtonController,
                         animateOnTap: true,
                         borderRadius: radius,
                         child: GWdgtTextButton(string: 'رفض'),
                         onPressed: () async {
                           bool result = false;
-                          _buttonController.start();
+                          _cancelButtonController.start();
 
                           // _buttonController.start();
                           result =
                               await getFunctionReject(widget.order, context);
                           if (result)
-                            _buttonController.success();
+                            _cancelButtonController.success();
                           else
-                            _buttonController.error();
+                            _cancelButtonController.error();
                         },
                       ),
                     ],
@@ -218,7 +227,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
 }
 
 ///[size]
-double sizeButtonHeight = 100.h;
+double sizeButtonHeight = heightBtnSquare;
 
 ///[color]
 Color colorContainer = CalendarColors.orderDetailsBackground;
