@@ -63,6 +63,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             helperText: '966',
             placeholder: beautyProvider.username
                 .substring(4, beautyProvider.username.length),
+
             prefixIcon: Icon(Icons.phone),
             onChanged: (val) {
               vmSettingsData.mobile =
@@ -100,7 +101,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             // helperText: descHint,
             isBox: true,
             inputType: TextInputType.text,
-            prefixText: descHint,
+            helperText: descHint,
 
             // decoration: new InputDecoration(
             //     prefixText: descHint,

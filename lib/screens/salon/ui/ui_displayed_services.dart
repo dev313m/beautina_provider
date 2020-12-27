@@ -203,18 +203,28 @@ class _SingleServiceState extends State<SingleService> {
           // mainAxisAlignment: MainAxisAlignment.end,
           textDirection: TextDirection.rtl,
           children: <Widget>[
-            GWdgtTextTitleDesc(
-              string: widget.serviceName,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: edgeText,
+              ),
+              child: GWdgtTextTitleDesc(
+                string: widget.serviceName,
+              ),
             ),
             CustomDivider(
               height: 100.h,
             ),
-            Row(
-              children: <Widget>[
-                if (widget.prices.length > 1)
-                  GWdgtTextTitleDesc(string: 'قبل: ${widget.prices[1]}   '),
-                GWdgtTextTitleDesc(string: ' ${widget.prices[0]} ريال'),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: edgeText,
+              ),
+              child: Row(
+                children: <Widget>[
+                  if (widget.prices.length > 1)
+                    GWdgtTextTitleDesc(string: 'قبل: ${widget.prices[1]}   '),
+                  GWdgtTextTitleDesc(string: ' ${widget.prices[0]} ريال'),
+                ],
+              ),
             ),
             CustomDivider(
               height: 100.h,
@@ -222,23 +232,29 @@ class _SingleServiceState extends State<SingleService> {
             SizedBox(
               width: 40.w,
             ),
-            InkWell(
-                onTap: () async {
-                  await removeServiceByCodeAndUpdate(
-                      context,
-                      widget.serviceCode,
-                      widget.serviceRoot,
-                      onDeleteServiceComplete(),
-                      onDeleteServiceError(),
-                      onDeleteServiceLoad(),
-                      onDeleteServiceSuccess());
-                },
-                child: AnimatedSwitcher(
-                    duration: Duration(milliseconds: durationCalender),
-                    child: loading
-                        ? Loading()
-                        : Icon(CommunityMaterialIcons.delete_circle,
-                            color: Colors.white70))),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: edgeText,
+              ),              child: Center(
+                child: InkWell(
+                    onTap: () async {
+                      await removeServiceByCodeAndUpdate(
+                          context,
+                          widget.serviceCode,
+                          widget.serviceRoot,
+                          onDeleteServiceComplete(),
+                          onDeleteServiceError(),
+                          onDeleteServiceLoad(),
+                          onDeleteServiceSuccess());
+                    },
+                    child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: durationCalender),
+                        child: loading
+                            ? Loading()
+                            : Icon(CommunityMaterialIcons.delete_circle,
+                                color: Colors.white70))),
+              ),
+            ),
             SizedBox(
               width: 20.w,
             ),

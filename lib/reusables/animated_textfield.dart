@@ -62,6 +62,26 @@ class BeautyTextfield extends StatefulWidget {
 
 class _BeautyTextfieldState extends State<BeautyTextfield> {
   bool isFocus = false;
+  String text = '';
+  TextEditingController _controller;
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    widget.controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.controller == null) {
+      text = widget.placeholder;
+      _controller = TextEditingController(text: widget.placeholder);
+    } else
+      _controller = widget.controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +121,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
 
           controller: widget.readOnly
               ? TextEditingController(text: widget.placeholder)
-              : widget.controller,
+              : _controller,
           style: widget.textStyle,
           textInputAction: TextInputAction.done,
           // toolbarOptions: ToolbarOptions(),
@@ -136,7 +156,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
               suffixText: widget.suffixText,
               prefixText: widget.prefixText,
               // labelStyle: TextStyle(color: Colors.pink),
-              hintText: widget.placeholder,
+              // hintText: widget.placeholder,
               // labelText: 'labels',
               counterText: '',
               // prefixIcon: widget.prefixIcon,

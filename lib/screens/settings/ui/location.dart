@@ -96,7 +96,8 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                     if (loadingLocation == null)
                       introLocationStr = locationErrStr;
                     else {
-                      introLocationStr = locationSuccessStr;
+                      introLocationStr = locationSuccessStr +
+                          vmSettingsData.location.toString();
                       vmSettingsData.location = location;
                     }
                   });
@@ -145,7 +146,7 @@ final updateBtnColor = Colors.lightBlue;
 final inkBtnColor = Colors.pink;
 
 ///[Strings]
-String introLocationStr = 'اختيار الخريطة (الرجاء تفعيل الخرائط)';
+String introLocationStr = 'انقري هنا بعد تفعيل الخرائظ لإضافة احداثيات موقعك';
 String locationErrStr = 'حدث خطأ ما، الرجاء تفعيل تحديد الموقع';
 String locationSuccessStr = "تمت الاضافة ";
 final String locationDetails = 'بيانات الموقع';

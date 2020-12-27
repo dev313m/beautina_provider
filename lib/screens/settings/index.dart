@@ -43,7 +43,7 @@ class _PageSettingsState extends State<PageSettings> {
   Widget build(BuildContext context) {
     vmSettingsData = Provider.of<VMSettingsData>(context);
     return Scaffold(
-        key: vmSettingsData.globalKey,
+        // key: vmSettingsData.globalKey,
         backgroundColor: Colors.transparent,
         body: Directionality(
             textDirection: TextDirection.rtl,
@@ -56,7 +56,7 @@ class _PageSettingsState extends State<PageSettings> {
                   Y(),
                   WdgtSettingsProfileImage(),
                   Y(),
-                  Y(), 
+                  Y(),
                   WdgtSetttingsPersonalInfo(),
                   new SizedBox(
                     height: btwProfilexLocation,

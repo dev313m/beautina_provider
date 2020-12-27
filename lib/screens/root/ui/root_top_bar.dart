@@ -4,6 +4,7 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WdgtRootTopBar extends StatefulWidget {
   WdgtRootTopBar({Key key}) : super(key: key);
@@ -23,7 +24,9 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
             child: Provider.of<VMRootUi>(context).hideBars
                 ? SizedBox()
                 : ClipRRect(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(radius), bottomRight: Radius.circular(radius)),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(radius),
+                        bottomRight: Radius.circular(radius)),
                     child: Container(
                       height: heightTopBar,
                       child: Container(
@@ -32,9 +35,27 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
                             // borderRadius: BorderRadius.circular(20),
                             color: AppColors.blueOpcity.withOpacity(0.9)),
                         child: Center(
-                          child: AnimatedSwitcher(
-                            duration: Duration(milliseconds: 500),
-                            child: getTitleWidget(context, vmRootUi.pageIndex),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: SizedBox(),
+                              ),
+                              Container(
+                                height: 70.h,
+                                width: 70.h,
+                                child: ClipOval(
+                                  child: Image.asset(
+                                    'assets/images/default.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              AnimatedSwitcher(
+                                duration: Duration(milliseconds: 500),
+                                child:
+                                    getTitleWidget(context, vmRootUi.pageIndex),
+                              ),
+                            ],
                           ),
                         ),
                       ),
