@@ -158,7 +158,7 @@ var fieldGapPadding = 20.w;
 
 ///[Colors]
 var allContainerBg = Colors.white24;
-var overviewIconColor = AppColors.pinkBright;
+var overviewIconColor = AppColors.purpleOpcity;
 var fieldColor = Colors.white70;
 var updateBtnColor = Colors.blue;
 

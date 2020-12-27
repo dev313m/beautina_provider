@@ -15,7 +15,7 @@ class ConstDatesColors {
   static Color details = Colors.orangeAccent;
 
   static Color confirmBtn = AppColors.blue;
-  static Color cancelBtn = Colors.pink;
+  static Color cancelBtn = Colors.red.withOpacity(0.5);
   static Color littleList = AppColors.purpleOpcity;
   static Color topBtns = AppColors.pinkBright;
 }
@@ -23,14 +23,15 @@ class ConstDatesColors {
 class CalendarColors {
   static Color container = ConstDatesColors.littleList.withAlpha(200);
   static Color todayContainer = Colors.orange;
-  static Color eventColor =Colors.white24;
+  static Color eventColor = Colors.white24;
   static Color topNoti = Colors.blue;
   static Color bottomLeft = Colors.red;
   static Color bottomRight = Colors.blueGrey;
   static Color empty = Colors.white10;
   static Color header = Colors.white70;
   static Color headerContainer = Colors.pink;
-  static Color orderDetailsBackground  = ConstDatesColors.littleList.withAlpha(200);
+  static Color orderDetailsBackground =
+      ConstDatesColors.littleList.withAlpha(200);
 }
 
 //sizes

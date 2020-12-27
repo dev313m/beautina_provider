@@ -15,7 +15,8 @@ class PageNotification extends StatefulWidget {
   _PageNotification createState() => _PageNotification();
 }
 
-class _PageNotification extends State<PageNotification> with AutomaticKeepAliveClientMixin<PageNotification> {
+class _PageNotification extends State<PageNotification>
+    with AutomaticKeepAliveClientMixin<PageNotification> {
   ScrollController _scrollController;
   double currentScroll = 0;
 
@@ -33,7 +34,8 @@ class _PageNotification extends State<PageNotification> with AutomaticKeepAliveC
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
-      onScrollAction(_scrollController, context, onScrollUp: onScrollUp, onScrolldown: onScrollDown);
+      onScrollAction(_scrollController, context,
+          onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
   }
 
@@ -57,11 +59,22 @@ class _PageNotification extends State<PageNotification> with AutomaticKeepAliveC
             physics: NeverScrollableScrollPhysics(),
             itemCount: Provider.of<VMRootData>(context).notificationList.length,
             itemBuilder: (_, index) {
-              return Provider.of<VMRootData>(context).notificationList.elementAt(index).type == ''
-                  ? WdgtNotificationItem(
-                      notification: Provider.of<VMRootData>(context).notificationList.elementAt(index),
-                    )
-                  : WdgtNotificationBroadcast(notification: Provider.of<VMRootData>(context).notificationList.elementAt(index));
+              return Padding(
+                  padding: EdgeInsets.only(top: edgeContainer),
+                  child: Provider.of<VMRootData>(context)
+                              .notificationList
+                              .elementAt(index)
+                              .type ==
+                          ''
+                      ? WdgtNotificationItem(
+                          notification: Provider.of<VMRootData>(context)
+                              .notificationList
+                              .elementAt(index),
+                        )
+                      : WdgtNotificationBroadcast(
+                          notification: Provider.of<VMRootData>(context)
+                              .notificationList
+                              .elementAt(index)));
             },
           ),
           Y(

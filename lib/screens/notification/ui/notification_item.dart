@@ -75,7 +75,7 @@ class WdgtNotificationItem extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: GWdgtTextDescDesc(
-                            string: _notification.describ ,
+                            string: _notification.describ,
                             textAlgin: TextAlign.start,
                             // textAlign: TextAlign.right,
                             // overflow: TextOverflow
@@ -104,8 +104,8 @@ const double imageH = 0.1;
 const double imageW = 0.1;
 
 ///[padding]
- double containerOuterPadding = edgeText;
- double containerInnerPadding = edgeText;
+double containerOuterPadding = edgeText;
+double containerInnerPadding = edgeText;
 const double imageSeperationHeight = 0.03;
 const double introSeperationHeight = 0.01;
 

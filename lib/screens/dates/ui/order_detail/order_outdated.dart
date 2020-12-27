@@ -21,10 +21,11 @@ class WidgetOutdatedOrder extends StatefulWidget {
 }
 
 class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
-  RoundedLoadingButtonController _buttonController =
-      RoundedLoadingButtonController();
   final String providerNotes = '';
-
+  final RoundedLoadingButtonController _cancelButtonController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _submitButtonController =
+      RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,50 +40,71 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
             WdgtDateSharedOrderDetails(order: widget.order),
             Directionality(
               textDirection: TextDirection.rtl,
-              child: Column(
+              child: Row(
                 children: <Widget>[
-                  RoundedLoadingButton(
-                      color: ConstDatesColors.cancelBtn,
-                      height: sizeButtonHeight,
-                      width: sizeButtonHeight,
-                      controller: _buttonController,
+                  Expanded(
+                    child: RoundedLoadingButton(
+                      color: colorButtonAccept,
+                      height: 250.h,
+                      // width: sizeButtonHeight,
+                      child: Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GWdgtTextButton(
+                              string: "تم عمل الخدمة بنجاح",
+                            ),
+                            Icon(Icons.done, color: Colors.white54),
+                          ],
+                        ),
+                      ),
+                      controller: _submitButtonController,
                       animateOnTap: true,
                       borderRadius: radius,
-                      child: GWdgtTextButton(string: "تم عمل الخدمة بنجاح"),
                       onPressed: () async {
                         bool result = false;
-                        _buttonController.start();
+                        _submitButtonController.start();
 
                         // _buttonController.start();
                         result = await getFunctionFinishedComplete(
                             widget.order, context);
-
                         if (result)
-                          _buttonController.success();
+                          _submitButtonController.success();
                         else
-                          _buttonController.error();
-                      }),
-                  RoundedLoadingButton(
-                      color: ConstDatesColors.cancelBtn,
-                      height: sizeButtonHeight,
-                      width: sizeButtonHeight,
-                      controller: _buttonController,
+                          _submitButtonController.error();
+
+                        await Future.delayed(Duration(seconds: 1));
+                        _submitButtonController.reset();
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: RoundedLoadingButton(
+                      color: colorButtonReject,
+                      height: 250.h,
+                      // width: sizeButtonHeight,
+                      controller: _cancelButtonController,
                       animateOnTap: true,
                       borderRadius: radius,
                       child: GWdgtTextButton(string: "لم يتم عمل الخدمة بنجاح"),
                       onPressed: () async {
                         bool result = false;
-                        _buttonController.start();
+                        _cancelButtonController.start();
 
                         // _buttonController.start();
                         result = await getFunctionFinishedIncomplete(
                             widget.order, context);
-
                         if (result)
-                          _buttonController.success();
+                          _cancelButtonController.success();
                         else
-                          _buttonController.error();
-                      })
+                          _cancelButtonController.error();
+                        await Future.delayed(Duration(seconds: 1));
+                        _cancelButtonController.reset();
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

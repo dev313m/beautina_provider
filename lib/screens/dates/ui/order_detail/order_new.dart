@@ -50,169 +50,206 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             WdgtDateSharedOrderDetails(order: widget.order),
+            Center(
+                child: Container(
+                    width: 0.3.sw, height: 5.w, color: Colors.white30)),
+            Y(),
+            Y(),
+            Y(),
+            Y(),
             Directionality(
               textDirection: TextDirection.rtl,
               child: Column(
                 children: <Widget>[
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(radius),
-                      child: BeautyTextfield(
-                        maxLines: 3,
-                        isSquare: true,
-                        isBox: true,
-                        maxLength: 250,
-                        onChanged: (str) {
-                          widget.order.provider_notes = str;
-                        },
-                        prefixIcon: Icon(
-                          CommunityMaterialIcons.ticket,
-                          // color: AppColors.pinkBright,
-                        ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(radius),
+                            child: BeautyTextfield(
+                              maxLines: 3,
+                              isSquare: true,
+                              isBox: true,
+                              maxLength: 250,
 
-                        // placeholder: ,
-                        helperText: 'ملاحظاتي',
+                              onChanged: (str) {
+                                widget.order.provider_notes = str;
+                              },
+                              prefixIcon: Icon(
+                                CommunityMaterialIcons.ticket,
+                                // color: AppColors.pinkBright,
+                              ),
 
-                        // textStyle: TextStyle(color: AppColors.pinkBright),
-                        inputType: TextInputType.text,
-                      )),
-                  Y(height: BoxHeight.heightBtwContainers),
-                  Container(
-                    // width: 200.w,
-                    child: BeautyTextfield(
-                      // prefixText: durationTextFieldController.text,
-                      placeholder: durationTextFieldController.text,
-                      helperText: 'المدة المتوقعة للطلب:  ',
-                      readOnly: true,
-                      prefixIcon: Icon(CommunityMaterialIcons.watch),
-                      onTap: () {
-                        Picker picker;
+                              // placeholder: ,
+                              helperText: 'ملاحظاتي',
 
-                        picker = Picker(
-                            // backgroundColor: Colors.pink.withOpacity(0.3),
-                            adapter:
-                                NumberPickerAdapter(data: <NumberPickerColumn>[
-                              const NumberPickerColumn(
-                                  begin: 0,
-                                  end: 60,
-                                  suffix: Text(' دق'),
-                                  jump: 15),
-                              const NumberPickerColumn(
-                                  begin: 0,
-                                  end: 12,
-                                  suffix: Text(' ساعات'),
-                                  columnFlex: 2),
-                            ]),
-                            delimiter: <PickerDelimiter>[
-                              PickerDelimiter(
-                                child: Container(
-                                  width: 30.0.h,
-                                  alignment: Alignment.center,
-                                  child: Icon(Icons.more_vert),
-                                ),
-                              )
-                            ],
-                            hideHeader: false,
-                            confirmTextStyle: TextStyle(
-                                inherit: false,
-                                color: Colors.red,
-                                fontSize: 22),
-                            // title: Text(
-                            //   'الوقت المتوقع لإنهاء الخدمة',
-                            //   textAlign: TextAlign.right,
-                            // ),
-                            containerColor: Colors.pink,
-                            selectedTextStyle: TextStyle(color: Colors.blue),
-                            onConfirm: (Picker picker, List<int> value) {
-                              // You get your duration here
-                              orderDuration = Duration(
-                                  hours: picker.getSelectedValues()[1],
-                                  minutes: picker.getSelectedValues()[0]);
-                              // picker.doCancel(context);
-                              durationTextFieldController.text =
-                                  " ${(orderDuration.inHours).toString()} ساعة ${(orderDuration.inMinutes.remainder(60)).toString()} دقيقة ";
-                              // showToast(orderDuration.inMinutes.toString());
+                              // textStyle: TextStyle(color: AppColors.pinkBright),
+                              inputType: TextInputType.text,
+                            )),
+                      ),
+                      SizedBox(width: 10.w),
+                      Flexible(
+                        flex: 3,
+                        child: Container(
+                          // width: 200.w,
+                          child: BeautyTextfield(
+                            // prefixText: durationTextFieldController.text,
+                            placeholder: durationTextFieldController.text,
+                            helperText: 'المدة المتوقعة:  ',
+                            readOnly: true,
+                            isBox: true,
+                            prefixIcon: Icon(CommunityMaterialIcons.watch),
+                            onTap: () {
+                              Picker picker;
 
-                              widget.order.order_duration =
-                                  orderDuration.inMinutes.toDouble();
-                              setState(() {});
+                              picker = Picker(
+                                  // backgroundColor: Colors.pink.withOpacity(0.3),
+                                  adapter: NumberPickerAdapter(
+                                      data: <NumberPickerColumn>[
+                                        const NumberPickerColumn(
+                                            begin: 0,
+                                            end: 60,
+                                            postfix: GWdgtTextDescDesc(
+                                                string: ' دقيقة ',
+                                                color: Colors.black),
+                                            jump: 15),
+                                        const NumberPickerColumn(
+                                            begin: 0,
+                                            end: 12,
+                                            postfix: GWdgtTextDescDesc(
+                                                color: Colors.black,
+                                                string: ' ساعة '),
+                                            columnFlex: 1),
+                                      ]),
+                                  delimiter: <PickerDelimiter>[
+                                    PickerDelimiter(
+                                      child: Container(
+                                        width: 30.0.h,
+                                        alignment: Alignment.center,
+                                        child: Icon(Icons.more_vert),
+                                      ),
+                                    )
+                                  ],
+                                  hideHeader: false,
+                                  confirmTextStyle: TextStyle(
+                                      inherit: false,
+                                      color: Colors.red,
+                                      fontSize: 22),
+                                  // title: Text(
+                                  //   'الوقت المتوقع لإنهاء الخدمة',
+                                  //   textAlign: TextAlign.right,
+                                  // ),
+                                  containerColor: Colors.pink,
+                                  selectedTextStyle:
+                                      TextStyle(color: Colors.blue),
+                                  onConfirm: (Picker picker, List<int> value) {
+                                    // You get your duration here
+                                    orderDuration = Duration(
+                                        hours: picker.getSelectedValues()[1],
+                                        minutes: picker.getSelectedValues()[0]);
+                                    // picker.doCancel(context);
+                                    durationTextFieldController.text =
+                                        " ${(orderDuration.inHours).toString()} س ${(orderDuration.inMinutes.remainder(60)).toString()} د ";
+                                    // showToast(orderDuration.inMinutes.toString());
+
+                                    widget.order.order_duration =
+                                        orderDuration.inMinutes.toDouble();
+                                    setState(() {});
+                                  },
+                                  cancel: IconButton(
+                                    icon: Icon(
+                                      Icons.cancel,
+                                      color: Colors.red,
+                                    ),
+                                    onPressed: () {
+                                      picker.doCancel(context);
+                                    },
+                                  ),
+                                  confirm: IconButton(
+                                    icon: Icon(
+                                      Icons.done,
+                                      color: Colors.blue,
+                                    ),
+                                    onPressed: () {
+                                      picker.doConfirm(context);
+                                    },
+                                  ),
+                                  cancelTextStyle: TextStyle(color: Colors.red),
+                                  textStyle: TextStyle(color: Colors.blue));
+                              picker.showModal(context);
                             },
-                            cancel: IconButton(
-                              icon: Icon(
-                                Icons.cancel,
-                                color: Colors.red,
-                              ),
-                              onPressed: () {
-                                picker.doCancel(context);
-                              },
-                            ),
-                            confirm: IconButton(
-                              icon: Icon(
-                                Icons.done,
-                                color: Colors.blue,
-                              ),
-                              onPressed: () {
-                                picker.doConfirm(context);
-                              },
-                            ),
-                            cancelTextStyle: TextStyle(color: Colors.red),
-                            textStyle: TextStyle(color: Colors.blue));
-                        picker.showModal(context);
-                      },
-                      inputType: TextInputType.text,
-                    ),
+                            inputType: TextInputType.text,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Y(),
                   Row(
                     children: [
-                      RoundedLoadingButton(
-                        color: colorButtonAccept,
-                        height: sizeButtonHeight,
-                        width: sizeButtonHeight,
-                        child: Row(
-                          children: [
-                            GWdgtTextButton(
-                              string: 'قبول',
+                      // Expanded(child: SizedBox()),
+                      Expanded(
+                        child: RoundedLoadingButton(
+                          color: colorButtonAccept,
+                          height: 250.h,
+                          // width: sizeButtonHeight,
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GWdgtTextButton(
+                                  string: 'قبول',
+                                ),
+                                Icon(Icons.done, color: Colors.white54),
+                              ],
                             ),
-                            Icon(Icons.done)
-                          ],
+                          ),
+                          controller: _submitButtonController,
+                          animateOnTap: true,
+                          borderRadius: radius,
+                          onPressed: () async {
+                            bool result = false;
+                            _submitButtonController.start();
+
+                            // _buttonController.start();
+                            result =
+                                await getFunctionAccept(widget.order, context);
+                            if (result)
+                              _submitButtonController.success();
+                            else
+                              _submitButtonController.error();
+                            await Future.delayed(Duration(seconds: 1));
+                            _submitButtonController.reset();
+                          },
                         ),
-                        controller: _submitButtonController,
-                        animateOnTap: true,
-                        borderRadius: radius,
-                        onPressed: () async {
-                          bool result = false;
-                          _submitButtonController.start();
-
-                          // _buttonController.start();
-                          await Future.delayed(Duration(seconds: 3));
-                          // result =
-                          //     await getFunctionAccept(widget.order, context);
-                          if (result)
-                            _submitButtonController.success();
-                          else
-                            _submitButtonController.error();
-                        },
                       ),
-                      RoundedLoadingButton(
-                        color: colorButtonReject,
-                        height: sizeButtonHeight,
-                        width: sizeButtonHeight,
-                        controller: _cancelButtonController,
-                        animateOnTap: true,
-                        borderRadius: radius,
-                        child: GWdgtTextButton(string: 'رفض'),
-                        onPressed: () async {
-                          bool result = false;
-                          _cancelButtonController.start();
+                      SizedBox(width: 10.w),
+                      Expanded(
+                        child: RoundedLoadingButton(
+                          color: colorButtonReject,
+                          height: 250.h,
+                          // width: sizeButtonHeight,
+                          controller: _cancelButtonController,
+                          animateOnTap: true,
+                          borderRadius: radius,
+                          child: GWdgtTextButton(string: 'رفض'),
+                          onPressed: () async {
+                            bool result = false;
+                            _cancelButtonController.start();
 
-                          // _buttonController.start();
-                          result =
-                              await getFunctionReject(widget.order, context);
-                          if (result)
-                            _cancelButtonController.success();
-                          else
-                            _cancelButtonController.error();
-                        },
+                            // _buttonController.start();
+                            result =
+                                await getFunctionReject(widget.order, context);
+                            if (result)
+                              _cancelButtonController.success();
+                            else
+                              _cancelButtonController.error();
+                            await Future.delayed(Duration(seconds: 1));
+                            _cancelButtonController.reset();
+                          },
+                        ),
                       ),
                     ],
                   ),

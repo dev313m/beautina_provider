@@ -6,16 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///[string]
 final strFinishedOrders = 'طلبات منتهية';
 
 ///[size]
 
-double sizePageTitle = 170.h;
+double sizePageTitle = heightTopBar;
 
 ///[radius]
-double radius = 12;
+double radius = radiusDefault;
 
 ///[color]
 
@@ -38,7 +39,6 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
         resizeToAvoidBottomPadding: false,
         backgroundColor: colorBackground,
         body: SingleChildScrollView(
-          
           child: Column(
             // addRepaintBoundaries: false,
 
@@ -74,14 +74,17 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (_, index) {
-                  return WdgtDateOrderDetails(
-                    orderId: VmDateData.orderList
-                        .where((item) =>
-                            item.status != 0 &&
-                            item.status != 1 &&
-                            item.status != 3)
-                        .toList()[index]
-                        .doc_id,
+                  return Padding(
+                    padding: EdgeInsets.only(top: edgeContainer),
+                    child: WdgtDateOrderDetails(
+                      orderId: VmDateData.orderList
+                          .where((item) =>
+                              item.status != 0 &&
+                              item.status != 1 &&
+                              item.status != 3)
+                          .toList()[index]
+                          .doc_id,
+                    ),
                   );
                 },
               ),

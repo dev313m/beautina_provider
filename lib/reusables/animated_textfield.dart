@@ -74,6 +74,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
           : 250.h,
       // margin: widget.margin,
       // alignment: Alignment.centerRight,
+      padding: EdgeInsets.symmetric(horizontal: 50.w),
       decoration: BoxDecoration(
           boxShadow: widget.isShadow
               ? [

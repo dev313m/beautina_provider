@@ -31,21 +31,20 @@ class GWdgtTextTitle extends StatelessWidget {
 class GWdgtTextTitleDesc extends StatelessWidget {
   final String string;
   final TextAlign textAlign;
-  const GWdgtTextTitleDesc({Key key, @required this.string, this.textAlign})
+  final Color color;
+  const GWdgtTextTitleDesc(
+      {Key key, @required this.string, this.textAlign, this.color})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(edgeText),
-      child: Text(
-        string,
-        textAlign: textAlign ?? TextAlign.center,
-        textDirection: TextDirection.rtl,
-        style: TextStyle(
-          fontSize: 40.sp,
-          color: Colors.white70,
-        ),
+    return Text(
+      string,
+      textAlign: textAlign ?? TextAlign.center,
+      textDirection: TextDirection.rtl,
+      style: TextStyle(
+        fontSize: 40.sp,
+        color: color ?? Colors.white70,
       ),
     );
   }
@@ -54,7 +53,9 @@ class GWdgtTextTitleDesc extends StatelessWidget {
 class GWdgtTextDescDesc extends StatelessWidget {
   final String string;
   final TextAlign textAlgin;
-  const GWdgtTextDescDesc({Key key, @required this.string, this.textAlgin})
+  final Color color;
+  const GWdgtTextDescDesc(
+      {Key key, @required this.string, this.textAlgin, this.color})
       : super(key: key);
 
   @override
@@ -65,7 +66,7 @@ class GWdgtTextDescDesc extends StatelessWidget {
       textDirection: TextDirection.rtl,
       style: TextStyle(
         fontSize: 30.sp,
-        color: Colors.white70,
+        color: color ?? Colors.white70,
       ),
     );
   }

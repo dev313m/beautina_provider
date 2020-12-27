@@ -138,7 +138,7 @@ double btnIconPadding = 8.h;
 double btwBtnsxUpdateBtn = 20.h;
 
 ///[Colors]
-final iconColor = AppColors.pinkBright;
+final iconColor = AppColors.purpleOpcity;
 final allContainerBgColor = Colors.white24;
 final btnColor = AppColors.pinkBright;
 final updateBtnColor = Colors.lightBlue;

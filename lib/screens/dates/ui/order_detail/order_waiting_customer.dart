@@ -37,21 +37,24 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
             WdgtDateSharedOrderDetails(order: widget.order),
             RoundedLoadingButton(
               color: colorButtonReject,
-              height: sizeButtonHeight,
-              // width: 400,
+              height: 250.h,
+              width: double.infinity,
               controller: _buttonController,
-
               animateOnTap: true,
               borderRadius: radius,
               child: GWdgtTextButton(string: 'رفض'),
               onPressed: () async {
                 bool result = false;
                 _buttonController.start();
+
+                // _buttonController.start();
                 result = await getFunctionReject(widget.order, context);
                 if (result)
                   _buttonController.success();
                 else
                   _buttonController.error();
+                await Future.delayed(Duration(seconds: 1));
+                _buttonController.reset();
               },
             ),
           ],

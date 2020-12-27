@@ -2,7 +2,6 @@ import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/dates/ui/finished_order_page.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/shared_order_details.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -40,21 +39,25 @@ class _WidgetConfirmedByCustomerOrderState
             WdgtDateSharedOrderDetails(order: widget.order),
             RoundedLoadingButton(
               color: colorButtonReject,
-              height: sizeButtonHeight,
-              // width: 400,
+              height: 250.h,
+              width: double.infinity,
+              // width: sizeButtonHeight,
               controller: _buttonController,
-
               animateOnTap: true,
               borderRadius: radius,
               child: GWdgtTextButton(string: 'رفض'),
               onPressed: () async {
                 bool result = false;
                 _buttonController.start();
+
+                // _buttonController.start();
                 result = await getFunctionReject(widget.order, context);
                 if (result)
                   _buttonController.success();
                 else
                   _buttonController.error();
+                await Future.delayed(Duration(seconds: 1));
+                _buttonController.reset();
               },
             ),
           ],

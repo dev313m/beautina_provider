@@ -30,10 +30,12 @@ Color colorToggleSplash = Colors.black;
 
 ///[Strings]
 final strAddingNewService = '~ إضافة الخدمات ~';
-final strAddingNewServiceDetails = '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)';
+final strAddingNewServiceDetails =
+    '(يمكنكِ اضافة خدماتك باختيار القسم الرئيسي ثم القسم الفرعي مع اضافة السعر)';
 final strServiceName = 'اسم الخدمة';
 final strServicePrice = 'السعر';
-final strAddingOtherAlert = "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
+final strAddingOtherAlert =
+    "الرجاء التأكد من عدم وجود الخدمة في النموذج، فالخدمات الاخرى لن تكون مشموله بعملية بحث الزبائن";
 final strAdd = 'إضافة';
 final strDone = 'تم';
 final strSubcategory = 'فرعيات الخدمة';
@@ -80,7 +82,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   ///Check if toggle buttons list flag;
   bool isToggleButtonsSet = false;
   // bool isMainServiceChosen = false;
-  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
 
   /// * 1- show adding other service
   /// * 2- When adding new service in getNewServiceProvider method it decides
@@ -93,7 +96,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
   @override
   Widget build(BuildContext context) {
-    mapServices = Provider.of<VMSalonData>(context).providedServices['services'];
+    mapServices =
+        Provider.of<VMSalonData>(context).providedServices['services'];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ClipRRect(
@@ -102,108 +106,127 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
           padding: EdgeInsets.all(edgeMainContainer),
           color: colorContainerBg,
           // height: ScreenUtil().setHeight(400),
-          child: Column(
-            children: <Widget>[
-              Y(height: BoxHeight.heightBtwTitle),
-              GWdgtTextTitle(
-                string: strAddingNewService,
-              ),
-              Y(height: BoxHeight.heightBtwContainers),
-              GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
-              Y(height: BoxHeight.heightBtwTitle),
-              SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: ToggleButtons(
-                      children: mapServices.entries
-                          .toList()
-                          .map((e) => e.value['ar'])
-                          .toList()
-                          .map((e) => WdgtSalonServiceItem(serviceName: e))
-                          .toList(),
-                      //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
-
-                      isSelected: !isToggleButtonsSet
-                          ? toggleSelectBoolList = mapServices.entries.toList().map((e) => false).toList()
-                          : toggleSelectBoolList,
-                      borderRadius: BorderRadius.circular(radiusContainer),
-                      fillColor: Colors.pink,
-                      selectedColor: Colors.pink,
-                      renderBorder: false,
-                      onPressed: (index) {
-                        toggleButtonUiUpdater(index);
-                        setSubCategoryDropdownMenu(index);
-                        otherOptionChosenListener(index);
-                        clearFields();
-
-                        if (index != toggleSelectBoolList.length - 1) _showPicker();
-
-                        isShowPrice = false;
-
-                        setState(() {});
-                      })),
-              Y(height: BoxHeight.heightBtwContainers),
-              if (showOther)
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: BeautyTextfield(
-                    onChanged: (str) {
-                      otherServiceName = str;
-                      isShowPrice = true;
-                      setState(() {});
-                    },
-                    prefixIcon: Icon(
-                      CommunityMaterialIcons.ticket,
-                      color: AppColors.pinkBright,
-                    ),
-                    // placeholder: strServiceName,
-                    helperText: strServiceName,
-                    textStyle: TextStyle(color: AppColors.pinkBright),
-                    inputType: TextInputType.text,
+          child: Stack(
+            children: [
+              Align(
+                  child: IconButton(
+                    icon: Icon(Icons.add_circle, color: Colors.white24),
                   ),
-                ),
-              Y(),
-              if (isShowPrice)
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: BeautyTextfield(
-                    // height: ScreenUtil().setHeight(90),
-                    onChanged: (String s) {
-                      priceAfter = double.parse(s);
-                    },
-                    // textStyle: TextStyle(color: AppColors.pinkBright),
-                    suffixIcon: Icon(
-                      Icons.attach_money,
-                      
-                    ),
-                    helperText: strServicePrice,
-                    inputType: TextInputType.number,
+                  alignment: Alignment.topLeft),
+              Column(
+                children: <Widget>[
+                  Y(height: BoxHeight.heightBtwTitle),
+                  GWdgtTextTitle(
+                    string: strAddingNewService,
                   ),
-                ),
-              Y(),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(radiusButton),
-                child: RoundedLoadingButton(
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(radiusButton),
+                  Y(height: BoxHeight.heightBtwContainers),
+                  GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
+                  Y(height: BoxHeight.heightBtwTitle),
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: ToggleButtons(
+                          children: mapServices.entries
+                              .toList()
+                              .map((e) => e.value['ar'])
+                              .toList()
+                              .map((e) => WdgtSalonServiceItem(serviceName: e))
+                              .toList(),
+                          //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
+
+                          isSelected: !isToggleButtonsSet
+                              ? toggleSelectBoolList = mapServices.entries
+                                  .toList()
+                                  .map((e) => false)
+                                  .toList()
+                              : toggleSelectBoolList,
+                          borderRadius: BorderRadius.circular(radiusContainer),
+                          fillColor: Colors.pink,
+                          selectedColor: Colors.pink,
+                          renderBorder: false,
+                          onPressed: (index) {
+                            toggleButtonUiUpdater(index);
+                            setSubCategoryDropdownMenu(index);
+                            otherOptionChosenListener(index);
+                            clearFields();
+
+                            if (index != toggleSelectBoolList.length - 1)
+                              _showPicker();
+
+                            isShowPrice = false;
+
+                            setState(() {});
+                          })),
+                  Y(height: BoxHeight.heightBtwContainers),
+                  if (showOther)
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: BeautyTextfield(
+                        onChanged: (str) {
+                          otherServiceName = str;
+                          isShowPrice = true;
+                          setState(() {});
+                        },
+                        prefixIcon: Icon(
+                          CommunityMaterialIcons.ticket,
+                          color: AppColors.pinkBright,
+                        ),
+                        // placeholder: strServiceName,
+                        helperText: strServiceName,
+                        textStyle: TextStyle(color: AppColors.pinkBright),
+                        inputType: TextInputType.text,
                       ),
-                      height: 100,
-                      width: double.infinity,
-                      child: Center(child: GWdgtTextButton(string: strAdd))),
-                  onPressed: () async {
-                    if (checkFields()) {
-                      await updateProviderServices(
-                          context, showOther, chosenService, priceBefore, priceAfter, otherServiceName, _btnController);
-                      clearFields();
-                    }
+                    ),
+                  Y(),
+                  if (isShowPrice)
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: BeautyTextfield(
+                        // height: ScreenUtil().setHeight(90),
+                        onChanged: (String s) {
+                          priceAfter = double.parse(s);
+                        },
+                        // textStyle: TextStyle(color: AppColors.pinkBright),
+                        suffixIcon: Icon(
+                          Icons.attach_money,
+                        ),
+                        helperText: strServicePrice,
+                        inputType: TextInputType.number,
+                      ),
+                    ),
+                  Y(),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(radiusButton),
+                    child: RoundedLoadingButton(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(radiusButton),
+                          ),
+                          height: 100,
+                          width: double.infinity,
+                          child:
+                              Center(child: GWdgtTextButton(string: strAdd))),
+                      onPressed: () async {
+                        if (checkFields()) {
+                          await updateProviderServices(
+                              context,
+                              showOther,
+                              chosenService,
+                              priceBefore,
+                              priceAfter,
+                              otherServiceName,
+                              _btnController);
+                          clearFields();
+                        }
 
-                    _btnController.reset();
-                  },
-                  controller: _btnController,
-                ),
+                        _btnController.reset();
+                      },
+                      controller: _btnController,
+                    ),
+                  ),
+                  // SizedBox(height: ScreenUtil().setHeight(100))
+                ],
               ),
-              // SizedBox(height: ScreenUtil().setHeight(100))
             ],
           ),
         ),
@@ -215,9 +238,11 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
     subCategoryList = [];
     if (indexCategory == null) return;
     String categoryKey = mapServices.keys.toList()[indexCategory];
-    Map<String, dynamic> allServices = Provider.of<VMSalonData>(context).providedServices['services'];
+    Map<String, dynamic> allServices =
+        Provider.of<VMSalonData>(context).providedServices['services'];
     mapServices[categoryKey]['items']?.forEach((k, v) {
-      subCategoryList.add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
+      subCategoryList
+          .add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
     });
   }
 
@@ -249,7 +274,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
       // selectedItems: [5, 2, 1],
     );
 
-    PickerViewPopup.showMode(PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
+    PickerViewPopup.showMode(
+        PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
         controller: pickerController,
         context: context,
         title: GWdgtTextTitleDesc(
@@ -325,7 +351,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 class WdgtSalonServiceItem extends StatelessWidget {
   final String serviceName;
 
-  const WdgtSalonServiceItem({Key key, @required this.serviceName}) : super(key: key);
+  const WdgtSalonServiceItem({Key key, @required this.serviceName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +373,8 @@ class WdgtSalonServiceItem extends StatelessWidget {
 
 /// if he is valid with this package true else false;
 bool checkPackage(Map<String, dynamic> package) {
-  if (package['01'] != null) if (DateTime.parse(package['01']['to']).isAfter(DateTime.now().toLocal())) return true;
+  if (package['01'] != null) if (DateTime.parse(package['01']['to'])
+      .isAfter(DateTime.now().toLocal())) return true;
 
   return false;
 }

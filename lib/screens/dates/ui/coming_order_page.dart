@@ -1,21 +1,21 @@
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///[string]
 final strComingOrders = 'طلبات مؤكدة قادمة';
 
 ///[size]
-double sizePageTitle = 170.h;
+double sizePageTitle = heightTopBar;
 
 ///[radius]
-double radius = 12;
+double radius = radiusDefault;
 
 ///[color]
 
@@ -71,11 +71,14 @@ class _OrderListPageState extends State<OrderListPage> {
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (_, index) {
-                return WdgtDateOrderDetails(
-                  orderId: vmDateData.orderList
-                      .where((item) => item.status == 3)
-                      .toList()[index]
-                      .doc_id,
+                return Padding(
+                  padding: EdgeInsets.only(top: edgeContainer),
+                  child: WdgtDateOrderDetails(
+                    orderId: vmDateData.orderList
+                        .where((item) => item.status == 3)
+                        .toList()[index]
+                        .doc_id,
+                  ),
                 );
               },
             ),

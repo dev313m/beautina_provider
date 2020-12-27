@@ -12,6 +12,8 @@ class VMRootData with ChangeNotifier {
   ///list of all saved notifications
   List<noti.MyNotification> _notificationList = [];
 
+  bool isBusyAddingAddingNotifications = false;
+
   /// sqlite database class initializer
   NotificationHelper _notificationHelper;
 
@@ -58,11 +60,15 @@ class VMRootData with ChangeNotifier {
       else
         newList = await dbServerloadAllNotification();
 
-      newList.forEach((dbNotification) async {
-        await _notificationHelper.insertNotification(dbNotification);
-        refreshNotificationList();
-      });
+      if (!isBusyAddingAddingNotifications)
+        newList.forEach((dbNotification) async {
+          isBusyAddingAddingNotifications = true;
+          await _notificationHelper.insertNotification(dbNotification);
+        });
+      refreshNotificationList();
+      isBusyAddingAddingNotifications = false;
     } catch (e) {
+      isBusyAddingAddingNotifications = false;
       // showToast(e.toString());
     }
   }

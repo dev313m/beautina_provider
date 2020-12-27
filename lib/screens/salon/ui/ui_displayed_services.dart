@@ -38,100 +38,127 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
         color: colorContainerBg,
         child: Padding(
           padding: EdgeInsets.all(edgeMainContainer),
-          child: Column(
-            // key: ValueKey('value'),
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Stack(
+            children: [
+              Align(
+                  child: IconButton(
+                    icon: Icon(Icons.edit_off, color: Colors.white24),
+                  ),
+                  alignment: Alignment.topLeft),
+              Column(
+                // key: ValueKey('value'),
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
 
-            children: <Widget>[
-              Y(
-                height: BoxHeight.heightBtwTitle,
+                children: <Widget>[
+                  Y(
+                    height: BoxHeight.heightBtwTitle,
+                  ),
+                  GWdgtTextTitle(string: strMyServices),
+                  Y(
+                    height: BoxHeight.heightBtwContainers,
+                  ),
+                  GWdgtTextTitleDesc(
+                    string: strMyServicesDesc,
+                    // fontColor: ExtendedText.brightColors2,
+                  ),
+
+                  Y(
+                    height: BoxHeight.heightBtwTitle,
+                  ),
+
+                  if (mapServices.keys.length > 0)
+                    ListView.builder(
+                      itemCount: mapServices.keys.length,
+                      scrollDirection: Axis.vertical,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.all(5.w),
+                      addRepaintBoundaries: true,
+                      itemBuilder: (_, index) {
+                        allDefaultServicesMap =
+                            Provider.of<VMSalonData>(context)
+                                .providedServices['services'];
+                        // List<Widget> list = [];
+                        mainServiceKey = mapServices.keys.toList()[index];
+
+                        if (mainServiceKey == 'other')
+                          return Container(
+                            height: sizeElementListContainer,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              reverse: true,
+                              itemBuilder: (_, rowIndex) {
+                                String itemKey = mapServices['other']
+                                    .keys
+                                    .toList()[rowIndex];
+
+                                return SingleService(
+                                  serviceName: itemKey,
+                                  prices: mapServices['other'][itemKey],
+                                  serviceCode: itemKey,
+                                  serviceRoot: mainServiceKey,
+                                  // priceBefore: v[0].toString(),
+                                  // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                                );
+                              },
+                              itemCount:
+                                  mapServices[mainServiceKey].keys.length,
+                            ),
+                          );
+
+                        if (allDefaultServicesMap.containsKey(
+                            mainServiceKey)) if (allDefaultServicesMap[
+                                mainServiceKey]
+                            .containsKey('items')) if (allDefaultServicesMap[
+                                mainServiceKey]
+                            .containsKey('ar'))
+                          return Container(
+                            height: sizeElementListContainer,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              reverse: true,
+                              itemBuilder: (_, rowIndex) {
+                                itemKey = mapServices[mainServiceKey]
+                                    .keys
+                                    .toList()[rowIndex];
+
+                                if (allDefaultServicesMap[mainServiceKey]
+                                        ['items']
+                                    .containsKey(itemKey))
+                                  return SingleService(
+                                    serviceName:
+                                        allDefaultServicesMap[mainServiceKey]
+                                                ['items'][itemKey]['ar']
+                                            ?.toString(),
+                                    prices: mapServices[mainServiceKey]
+                                        [itemKey],
+                                    serviceCode: itemKey,
+                                    serviceRoot: mainServiceKey,
+                                    // priceBefore: v[0].toString(),
+                                    // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                                  );
+                                return SizedBox();
+                              },
+                              itemCount:
+                                  mapServices[mainServiceKey].keys.length,
+                            ),
+                          );
+                        return SizedBox();
+                      },
+                    ),
+
+                  if (mapServices.keys.length == 0)
+                    GWdgtTextTitleDesc(
+                      string: strThereIsNoServices,
+                    ),
+
+                  // ...getWidgetList(),
+                  // SizedBox(height: ScreenUtil().setHeight(70))
+                ],
               ),
-              GWdgtTextTitle(string: strMyServices),
-              Y(
-                height: BoxHeight.heightBtwContainers,
-              ),
-              GWdgtTextTitleDesc(
-                string: strMyServicesDesc,
-                // fontColor: ExtendedText.brightColors2,
-              ),
-
-              Y(
-                height: BoxHeight.heightBtwTitle,
-              ),
-
-              if (mapServices.keys.length > 0)
-                ListView.builder(
-                  itemCount: mapServices.keys.length,
-                  scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: EdgeInsets.all(5.w),
-                  addRepaintBoundaries: true,
-                  itemBuilder: (_, index) {
-                    allDefaultServicesMap = Provider.of<VMSalonData>(context).providedServices['services'];
-                    // List<Widget> list = [];
-                    mainServiceKey = mapServices.keys.toList()[index];
-
-                    if (mainServiceKey == 'other')
-                      return Container(
-                        height: sizeElementListContainer,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          reverse: true,
-                          itemBuilder: (_, rowIndex) {
-                            String itemKey = mapServices['other'].keys.toList()[rowIndex];
-
-                            return SingleService(
-                              serviceName: itemKey,
-                              prices: mapServices['other'][itemKey],
-                              serviceCode: itemKey,
-                              serviceRoot: mainServiceKey,
-                              // priceBefore: v[0].toString(),
-                              // priceAfter: v[1]?.toString() ?? v[0].toString(),
-                            );
-                          },
-                          itemCount: mapServices[mainServiceKey].keys.length,
-                        ),
-                      );
-
-                    if (allDefaultServicesMap.containsKey(mainServiceKey)) if (allDefaultServicesMap[mainServiceKey]
-                        .containsKey('items')) if (allDefaultServicesMap[mainServiceKey].containsKey('ar'))
-                      return Container(
-                        height: sizeElementListContainer,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          reverse: true,
-                          itemBuilder: (_, rowIndex) {
-                            itemKey = mapServices[mainServiceKey].keys.toList()[rowIndex];
-
-                            if (allDefaultServicesMap[mainServiceKey]['items'].containsKey(itemKey))
-                              return SingleService(
-                                serviceName: allDefaultServicesMap[mainServiceKey]['items'][itemKey]['ar']?.toString(),
-                                prices: mapServices[mainServiceKey][itemKey],
-                                serviceCode: itemKey,
-                                serviceRoot: mainServiceKey,
-                                // priceBefore: v[0].toString(),
-                                // priceAfter: v[1]?.toString() ?? v[0].toString(),
-                              );
-                            return SizedBox();
-                          },
-                          itemCount: mapServices[mainServiceKey].keys.length,
-                        ),
-                      );
-                    return SizedBox();
-                  },
-                ),
-
-              if (mapServices.keys.length == 0)
-                GWdgtTextTitleDesc(
-                  string: strThereIsNoServices,
-                ),
-
-              // ...getWidgetList(),
-              // SizedBox(height: ScreenUtil().setHeight(70))
             ],
           ),
         ),
@@ -184,7 +211,8 @@ class _SingleServiceState extends State<SingleService> {
             ),
             Row(
               children: <Widget>[
-                if (widget.prices.length > 1) GWdgtTextTitleDesc(string: 'قبل: ${widget.prices[1]}   '),
+                if (widget.prices.length > 1)
+                  GWdgtTextTitleDesc(string: 'قبل: ${widget.prices[1]}   '),
                 GWdgtTextTitleDesc(string: ' ${widget.prices[0]} ريال'),
               ],
             ),
@@ -207,7 +235,10 @@ class _SingleServiceState extends State<SingleService> {
                 },
                 child: AnimatedSwitcher(
                     duration: Duration(milliseconds: durationCalender),
-                    child: loading ? Loading() : Icon(CommunityMaterialIcons.delete_circle, color: Colors.white70))),
+                    child: loading
+                        ? Loading()
+                        : Icon(CommunityMaterialIcons.delete_circle,
+                            color: Colors.white70))),
             SizedBox(
               width: 20.w,
             ),
