@@ -330,7 +330,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - "geolocator (6.0.0+4)":
+  - geolocator (6.1.9):
     - Flutter
   - google_sign_in (0.0.1):
     - Flutter
@@ -537,7 +537,7 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  geolocator: 1ae40084cc6c1586ce5ad12cfc3fd38c64d05f2f
+  geolocator: 057a0c63a43e9c5296d8ad845a3ac8e6df23d899
   google_sign_in: 6bd214b9c154f881422f5fe27b66aaa7bbd580cc
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
@@ -562,4 +562,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ce13d36744da294d67f8e460dbb7aed7c09bd7f4
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0

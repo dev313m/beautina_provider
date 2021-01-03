@@ -60,7 +60,7 @@ class _OrderListPageState extends State<OrderListPage> {
                     child: AnimatedSwitcher(
                   // key: ValueKey('any'),
                   duration: Duration(milliseconds: 500),
-                  child: GWdgtTextTitle(
+                  child: GWdgtTextNavTitle(
                     string: strComingOrders,
                   ),
                 )),

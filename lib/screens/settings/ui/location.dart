@@ -26,6 +26,7 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
   bool loadingLocation = false;
   ModelBeautyProvider beautyProvider;
   VMSettingsData vmSettingsData;
+  RoundedLoadingButtonController buttonController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +107,7 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
             ),
             Y(),
             RoundedLoadingButton(
-              controller: vmSettingsData.controller,
+              controller: buttonController,
               borderRadius: allContainerRadius,
               child: Column(
                 children: <Widget>[
@@ -120,7 +121,7 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                 ],
               ),
               onPressed: () async {
-                await updateBtn(context);
+                await updateBtn(context, buttonController);
               },
               color: updateBtnColor,
               animateOnTap: false,

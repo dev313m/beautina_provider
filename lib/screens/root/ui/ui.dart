@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +33,7 @@ onAlertWithCustomContentPressed(context) {
       descStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: ExtendedText.bigFont, color: ExtendedText.brightColor),
       animationDuration: Duration(milliseconds: 400),
       alertBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(radiusDefault),
       ),
       backgroundColor: AppColors.purpleColor,
       titleStyle: TextStyle(fontSize: ExtendedText.bigFont, color: ExtendedText.brightColor.withOpacity(0.7)));
@@ -48,10 +50,10 @@ onAlertWithCustomContentPressed(context) {
       content: Column(
         children: <Widget>[
           Container(
-            height: ScreenUtil().setHeight(100),
+            height: ScreenUtil().setHeight(250),
             child: FlareActor(
               'assets/rive/upgrade.flr',
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
               animation: 'spin2',
             ),
           )
@@ -59,16 +61,15 @@ onAlertWithCustomContentPressed(context) {
       ),
       buttons: [
         DialogButton(
-          width: ScreenUtil().setWidth(150),
+          width: ScreenUtil().setWidth(300),
           onPressed: () {
             var url;
             url = Platform.isIOS ? APPLE_APP_URL : GOOGLE_APP_URL;
             launchURL(url);
           },
           color: AppColors.blue,
-          child: ExtendedText(
+          child: GWdgtTextDescDesc(
             string: "تحديث",
-            fontSize: ExtendedText.bigFont,
           ),
         )
       ]).show();

@@ -36,19 +36,22 @@ class WdgtLoginButtonIos extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius),
               child: Container(
                 color: Colors.white,
+                          height: heightTextField,
+
                 child: Row(
                   children: <Widget>[
                     Expanded(child: SizedBox()),
-                    Text(
-                      'Apple تسجيل الدخول باستخدام',
-                      style: TextStyle(fontSize: 40.sp, color: Colors.black),
+                    GWdgtTextButton(
+                      string:'Apple تسجيل الدخول باستخدام',
+                      color: Colors.black,
+                      
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
+                  padding: EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
                       child: Icon(
                         CommunityMaterialIcons.apple,
                         color: Colors.black,
-                        size: 25,
+                    size: 67.sp,
                       ),
                     ),
                     Expanded(child: SizedBox()),

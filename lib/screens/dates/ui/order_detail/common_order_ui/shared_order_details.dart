@@ -69,9 +69,12 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GWdgtTextTitleDesc(
-                    string: 'مرحلة الطلب:',
-                    textAlign: TextAlign.right,
+                  Padding(
+                    padding:  EdgeInsets.all(edgeText),
+                    child: GWdgtTextTitleDesc(
+                      string: 'مرحلة الطلب:',
+                      textAlign: TextAlign.right,
+                    ),
                   ),
                   Container(
                     height: 253.h,
@@ -206,18 +209,22 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
                     SpringButtonType.OnlyScale,
                     Container(
                       height: 280.h,
+                      width: double.infinity,
                       padding: EdgeInsets.all(edgeContainer),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
-                          GWdgtTextTitleDesc(
-                            string: strNotes,
-                            // fontSize: ExtendedText.bigFont,
-                            // textDirection: TextDirection.rtl,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: edgeText),
+                            child: GWdgtTextTitleDesc(
+                              string: strNotes,
+                              // fontSize: ExtendedText.bigFont,
+                              // textDirection: TextDirection.rtl,
+                            ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            padding: EdgeInsets.symmetric(horizontal: edgeText),
                             child: GWdgtTextDescDesc(
                               string: order.order_info == ''
                                   ? strEmpty
@@ -249,12 +256,15 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
         /// if the provider didn't support any notes
         if (order.provider_notes != '')
           Wrap(
-            // crossAxisAlignment: WrapCrossAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.end,
             textDirection: TextDirection.rtl,
             children: <Widget>[
               // GWdgtTextTitleDesc(
               //   string: strProviderNotes,
               // ),
+              
               order.provider_notes == ''
                   ? Container(
                       child: GWdgtTextTitleDesc(

@@ -137,7 +137,7 @@ updateUserAvailability(
     // var don;
   } catch (e) {
     onAvailableChangeError();
-  }
+   }
 
   onAvailableChangeComplete();
 }

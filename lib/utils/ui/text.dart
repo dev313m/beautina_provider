@@ -2,6 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
+
+
+
+class GWdgtTextNavTitle extends StatelessWidget {
+  final TextDirection textDirection;
+  final TextAlign textAlign;
+
+  final String string;
+  const GWdgtTextNavTitle(
+      {Key key,
+      this.textAlign = TextAlign.center,
+      this.textDirection = TextDirection.rtl,
+      @required this.string})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      string,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      style: TextStyle(
+        fontSize: 60.sp,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
 class GWdgtTextTitle extends StatelessWidget {
   final TextDirection textDirection;
   final TextAlign textAlign;
@@ -21,7 +50,7 @@ class GWdgtTextTitle extends StatelessWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       style: TextStyle(
-        fontSize: 60.sp,
+        fontSize: 45.sp,
         color: Colors.white,
       ),
     );
@@ -43,7 +72,7 @@ class GWdgtTextTitleDesc extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-        fontSize: 40.sp,
+        fontSize: 34.sp,
         color: color ?? Colors.white70,
       ),
     );
@@ -65,7 +94,7 @@ class GWdgtTextDescDesc extends StatelessWidget {
       textAlign: textAlgin ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-        fontSize: 30.sp,
+        fontSize: 25.sp,
         color: color ?? Colors.white70,
       ),
     );
@@ -74,13 +103,14 @@ class GWdgtTextDescDesc extends StatelessWidget {
 
 class GWdgtTextButton extends StatelessWidget {
   final String string;
-  const GWdgtTextButton({Key key, @required this.string}) : super(key: key);
+  final Color color; 
+  const GWdgtTextButton({Key key, @required this.string, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(fontSize: 40.sp, color: Colors.white60),
+      style: TextStyle(fontSize: 34.sp, color:color?? Colors.white60),
     );
   }
 }
@@ -94,7 +124,7 @@ class GWdgtTextToggle extends StatelessWidget {
     return Center(
       child: Text(
         string,
-        style: TextStyle(fontSize: 35.sp, color: Colors.white.withOpacity(0.7)),
+        style: TextStyle(fontSize: 29.sp, color: Colors.white.withOpacity(0.7)),
       ),
     );
   }
@@ -128,7 +158,7 @@ class GWdgtTextProfile extends StatelessWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       style: TextStyle(
-        fontSize: ScreenUtil().setSp(22),
+        fontSize: ScreenUtil().setSp(26),
         color: fontColor,
       ),
     );
@@ -171,7 +201,7 @@ class GWdgtTextChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(fontSize: ScreenUtil().setSp(24), color: Colors.white70),
+      style: TextStyle(fontSize: ScreenUtil().setSp(26), color: Colors.white70),
     );
   }
 }
@@ -248,7 +278,7 @@ class GWdgtTextBadge extends StatelessWidget {
     return Text(
       string,
       style: TextStyle(
-        fontSize: ScreenUtil().setSp(20),
+        fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white,
       ),
       textAlign: textAlign ?? TextAlign.left,
@@ -272,7 +302,7 @@ class GWdgtTextPickerChoices extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.center,
         textDirection: TextDirection.rtl,
         style: TextStyle(
-          fontSize: 40.sp,
+          fontSize: 34.sp,
           color: Colors.blue,
         ),
       ),

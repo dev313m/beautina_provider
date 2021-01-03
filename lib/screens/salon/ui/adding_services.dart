@@ -223,7 +223,8 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                       },
                       controller: _btnController,
                     ),
-                  ),
+                  ),              Y(height: heightBottomContainer,)
+
                   // SizedBox(height: ScreenUtil().setHeight(100))
                 ],
               ),

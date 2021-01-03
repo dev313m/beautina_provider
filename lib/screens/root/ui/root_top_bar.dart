@@ -31,31 +31,15 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
                       height: heightTopBar,
                       child: Container(
                         width: double.infinity,
+                        padding: EdgeInsets.only(top:60.h),
                         decoration: BoxDecoration(
                             // borderRadius: BorderRadius.circular(20),
                             color: AppColors.blueOpcity.withOpacity(0.9)),
                         child: Center(
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: SizedBox(),
-                              ),
-                              Container(
-                                height: 70.h,
-                                width: 70.h,
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    'assets/images/default.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              AnimatedSwitcher(
-                                duration: Duration(milliseconds: 500),
-                                child:
-                                    getTitleWidget(context, vmRootUi.pageIndex),
-                              ),
-                            ],
+                          child: AnimatedSwitcher(
+                            duration: Duration(milliseconds: 500),
+                            child:
+                                getTitleWidget(context, vmRootUi.pageIndex),
                           ),
                         ),
                       ),
@@ -65,22 +49,22 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
 
   getTitleWidget(BuildContext context, pageIndex) {
     if (pageIndex == 3)
-      return GWdgtTextTitle(
+      return GWdgtTextNavTitle(
         key: ValueKey('value0'),
         string: '~ الصالون ~',
       );
     else if (pageIndex == 2)
-      return GWdgtTextTitle(
+      return GWdgtTextNavTitle(
         key: ValueKey('value1'),
         string: '~ المواعيد ~',
       );
     else if (pageIndex == 1)
-      return GWdgtTextTitle(
+      return GWdgtTextNavTitle(
         key: ValueKey('value2'),
         string: '~ الاشعارات ~',
       );
     else
-      return GWdgtTextTitle(
+      return GWdgtTextNavTitle(
         key: ValueKey('value3'),
         string: '~ الاعدادات ~',
       );

@@ -1,6 +1,8 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,9 +14,10 @@ showToast(String msg) {
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
+      
       timeInSecForIos: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
+      backgroundColor: Colors.white,
+      textColor: Colors.black,
       fontSize: 16.0);
 }
 
@@ -30,7 +33,7 @@ showAlert(context, {@required String msg, @required String dismiss}) {
           color: ExtendedText.brightColor),
       animationDuration: Duration(milliseconds: durationCalender),
       alertBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(radiusDefault),
       ),
       backgroundColor: AppColors.purpleColor,
       titleStyle: TextStyle(
@@ -45,10 +48,10 @@ showAlert(context, {@required String msg, @required String dismiss}) {
       content: Column(
         children: <Widget>[
           Container(
-            height: ScreenUtil().setHeight(110),
+            height: ScreenUtil().setHeight(300),
             child: FlareActor(
               'assets/rive/notification.flr',
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
               animation: 'active',
             ),
           )
@@ -61,9 +64,9 @@ showAlert(context, {@required String msg, @required String dismiss}) {
             Navigator.pop(context);
           },
           color: AppColors.blue,
-          child: ExtendedText(
+          child: GWdgtTextDescDesc(
             string: dismiss ?? '',
-            fontSize: ExtendedText.bigFont,
+            // fontSize: ExtendedText.bigFont,
           ),
         ),
       ]).show();

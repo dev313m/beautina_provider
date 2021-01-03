@@ -57,7 +57,7 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                       child: AnimatedSwitcher(
                     // key: ValueKey('any'),
                     duration: Duration(milliseconds: 500),
-                    child: GWdgtTextTitle(
+                    child: GWdgtTextNavTitle(
                       string: strFinishedOrders,
                     ),
                   )),

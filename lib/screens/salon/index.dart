@@ -50,8 +50,7 @@ class _PageSalonState extends State<PageSalon> {
             controller: _scrollController,
             physics: AlwaysScrollableScrollPhysics(),
             children: <Widget>[
-              Y(height: heightNavBar + 25.h),
-              Y(),
+              Y(height: heightNavBar),
               WdgtSalonProfileDetails(),
               Y(),
               if (Provider.of<VMSalonData>(context)

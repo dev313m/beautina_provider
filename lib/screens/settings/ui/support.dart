@@ -43,20 +43,20 @@ class _WdgtSettingsSupportState extends State<WdgtSettingsSupport> {
                     },
                   ),
                 ),
-                Expanded(
-                  child: InkWell(
-                    child: Icon(
-                      CommunityMaterialIcons.telegram,
-                      size: iconSize,
-                      color: telegramIconColor,
-                    ),
-                    onTap: () {
-                      try {
-                        urlLaunch(url: telegramUrl);
-                      } catch (e) {}
-                    },
-                  ),
-                ),
+                // Expanded(
+                //   child: InkWell(
+                //     child: Icon(
+                //       CommunityMaterialIcons.telegram,
+                //       size: iconSize,
+                //       color: telegramIconColor,
+                //     ),
+                //     onTap: () {
+                //       try {
+                //         urlLaunch(url: telegramUrl);
+                //       } catch (e) {}
+                //     },
+                //   ),
+                // ),
                 Expanded(
                   child: InkWell(
                     child: Icon(

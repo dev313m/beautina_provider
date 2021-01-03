@@ -242,10 +242,10 @@ class _SingleServiceState extends State<SingleService> {
                           context,
                           widget.serviceCode,
                           widget.serviceRoot,
-                          onDeleteServiceComplete(),
+                          onDeleteServiceSuccess(),
                           onDeleteServiceError(),
                           onDeleteServiceLoad(),
-                          onDeleteServiceSuccess());
+                          onDeleteServiceComplete());
                     },
                     child: AnimatedSwitcher(
                         duration: Duration(milliseconds: durationCalender),

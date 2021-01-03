@@ -68,7 +68,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
   @override
   void dispose() {
     _controller?.dispose();
-    widget.controller.dispose();
+    widget.controller?.dispose();
     super.dispose();
   }
 

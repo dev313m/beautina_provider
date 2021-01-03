@@ -134,6 +134,7 @@ class _PageRoot extends State<PageRoot>
       print('token is: ' + token);
     });
 
+    await Future.delayed(Duration(seconds: 3)); 
     _fcmFore.requestNotificationPermissions(IosNotificationSettings(sound: true, badge: true, alert: true, provisional: false));
     _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");

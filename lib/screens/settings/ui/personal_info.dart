@@ -26,6 +26,8 @@ class WdgtSetttingsPersonalInfo extends StatefulWidget {
 class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
   ModelBeautyProvider beautyProvider;
   VMSettingsData vmSettingsData;
+
+  RoundedLoadingButtonController buttonController = RoundedLoadingButtonController(); 
   @override
   Widget build(BuildContext context) {
     vmSettingsData = Provider.of<VMSettingsData>(context);
@@ -125,7 +127,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
           ),
           Y(),
           RoundedLoadingButton(
-            controller: vmSettingsData.controller,
+            controller: buttonController,
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -138,7 +140,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
               ],
             ),
             onPressed: () async {
-              await updateBtn(context);
+              await updateBtn(context, buttonController);
             },
             color: updateBtnColor,
             animateOnTap: false,

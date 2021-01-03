@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<List<double>> getMyLocation() async {
@@ -23,9 +24,8 @@ void urlLaunch({@required String url}) async {
   if (await canLaunch(url)) launch(url);
 }
 
-Future updateBtn(BuildContext context) async {
-  VMSettingsData vmSettingsData = Provider.of<VMSettingsData>(context);
-
+Future updateBtn(BuildContext context,RoundedLoadingButtonController roundedLoadingButtonController ) async {
+ 
   if (!_validateInputs(context)) return;
   /**
                          * 1- get now beautyProvider from shared
@@ -37,18 +37,18 @@ Future updateBtn(BuildContext context) async {
   ModelBeautyProvider newBeautyProvider = await getNewBeauty(context);
 
   try {
-    vmSettingsData.controller.start();
+    roundedLoadingButtonController.start();
     // setState(() {});
     Provider.of<VMSalonData>(context).beautyProvider =
         await apiBeautyProviderUpdate(newBeautyProvider);
     showToast('تم التحديث');
-    vmSettingsData.controller.success();
+    roundedLoadingButtonController.success();
   } catch (e) {
     showToast('حدثت مشكلة، لم يتم التحديث');
-    vmSettingsData.controller.error();
+    roundedLoadingButtonController.error();
   }
   await Future.delayed(Duration(seconds: 3));
-  vmSettingsData.controller.reset();
+  roundedLoadingButtonController.reset();
   return;
 }
 

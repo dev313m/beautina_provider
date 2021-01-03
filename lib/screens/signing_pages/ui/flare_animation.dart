@@ -8,7 +8,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 ///[size]
 double sizeContainer = 1000.h;
 double sizeY = 190.h;
-double sizeBeautinaHeight = 220.h;
+double sizeBeautinaHeight = 400.h;
 double sizeBeautinaWidth = 180.h;
 
 class WdgtLoginFlare extends StatelessWidget {

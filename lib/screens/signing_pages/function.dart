@@ -143,9 +143,11 @@ Future<Null> saveUserData(BuildContext context) async {
       throw Exception('هناك خطأ');
     else {
       await saveData(modelBeautyProvider);
-      showToast('مرحبا بك في عالم الجمال');
       await sharedRegistered(true);
       routeToRoot(context);
+      await Future.delayed(Duration(seconds: 3)); 
+            showToast('مرحبا بك في عالم الجمال');
+
     }
   } catch (e) {
     throw Exception(e.toString());

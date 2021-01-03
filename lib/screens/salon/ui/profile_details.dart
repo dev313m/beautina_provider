@@ -130,6 +130,7 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                   ),
                 ],
               ),
+              Y(height: heightBottomContainer,)
               // Y()
             ],
           ),
