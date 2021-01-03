@@ -18,7 +18,7 @@ double edgeContainer = 10.w;
 double edgeText = 20.w;
 
 double heightBtn = 100.h;
-double heightNavBar = 160.h;
+double heightNavBar = 200.h;
 double heightTopBar = 270.h;
 
 double iconDefault = 50.sp;

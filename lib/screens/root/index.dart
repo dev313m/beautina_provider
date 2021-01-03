@@ -126,6 +126,12 @@ class _PageRoot extends State<PageRoot>
     );
   }
 
+
+  /// Get permission 
+  getNotificationPermission() async{
+
+
+  }
   /// Get notifications settings for android and IOS
 
   setPushNotification() async {
@@ -134,6 +140,7 @@ class _PageRoot extends State<PageRoot>
       print('token is: ' + token);
     });
 
+    
     await Future.delayed(Duration(seconds: 3)); 
     _fcmFore.requestNotificationPermissions(IosNotificationSettings(sound: true, badge: true, alert: true, provisional: false));
     _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
