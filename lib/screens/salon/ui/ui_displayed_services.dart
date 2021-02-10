@@ -93,7 +93,7 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
                                 String itemKey = mapServices['other']
                                     .keys
                                     .toList()[rowIndex];
-
+                                  
                                 return SingleService(
                                   serviceName: itemKey,
                                   prices: mapServices['other'][itemKey],

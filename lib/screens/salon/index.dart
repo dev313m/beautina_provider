@@ -1,8 +1,8 @@
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/close_open_salon.dart';
-import 'package:beautina_provider/screens/salon/ui/how_i_look_search/how_i_look_in_search.dart';
-import 'package:beautina_provider/screens/salon/ui/how_my_profile_look.dart';
+import 'package:beautina_provider/screens/salon/ui/share.dart';
+
 import 'package:beautina_provider/screens/salon/ui/location_not_set.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
@@ -53,12 +53,15 @@ class _PageSalonState extends State<PageSalon> {
               Y(height: heightNavBar),
               WdgtSalonProfileDetails(),
               Y(),
+              WdgtSalonShare(),
+              Y(),
               if (Provider.of<VMSalonData>(context)
                       .beautyProvider
                       .location
                       .length !=
                   2)
                 WdgtSalonLocationNotSet(),
+
               Y(),
               WdgtSalonCloseOpenSalon(),
               if (Provider.of<VMSalonData>(context).providedServices != null)
@@ -73,10 +76,9 @@ class _PageSalonState extends State<PageSalon> {
                         .length !=
                     0)
                   WdgtSalonAddService(),
-              Y(),
-              WdgtSalonHowLookProfile(),
-              Y(),
-              WdgtSalonHowLookSearch(),
+              // Y(),
+              // WdgtSalonHowLookProfile(),
+
               SizedBox(
                 height: 100.h,
               ),

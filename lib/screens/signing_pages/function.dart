@@ -165,7 +165,7 @@ ModelBeautyProvider getUserData(
     city: city,
     type: signInData.accountType,
     country: country,
-    username:
+    phone:
         Countries.phoneCode[signInData.city.elementAt(0)] + signInData.phoneNum,
     name: signInData.name,
     register_date: DateTime.now().toLocal(),

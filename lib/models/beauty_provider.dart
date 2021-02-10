@@ -15,6 +15,7 @@ class ModelBeautyProvider {
   List<dynamic> _location;
   String _name;
   int _voter;
+  String username; 
   String _uid = '';
   String tokenId; // this is the jwt token for authority
   int _achieved;
@@ -28,7 +29,7 @@ class ModelBeautyProvider {
   Map<String, dynamic> package;
   Map<String, dynamic> servicespro;
 
-  String _username;
+  String _phone;
   String _token; // notification token
 
   String _country;
@@ -102,13 +103,15 @@ class ModelBeautyProvider {
       int visitors,
       String city,
       String uid,
+      String username,
       int achieved,
       Map<String, List<dynamic>> services,
-      String username})
+      String phone})
       : this._location = location,
         this._name = name,
         this.email = email,
         this.visitors = visitors,
+        this.username = username,
         this.package = package,
         this.favorite_count = favorite_count,
         this._points = points,
@@ -117,7 +120,7 @@ class ModelBeautyProvider {
         this.tokenId = tokenId,
         this._rating = rating,
         this.auth_login = auth_login,
-        this._username = username,
+        this._phone = phone,
         this._available = available,
         this._image = image,
         this._register_date = register_date,
@@ -139,6 +142,7 @@ class ModelBeautyProvider {
     map['image'] = this._image ?? '';
     map['package'] = this.package ?? {};
     map['busy_dates'] = this.busyDates ?? [];
+    map['username']  = this.username; 
 
     map['intro'] = this._intro ?? '';
     map['favorite_count'] = this.favorite_count ?? 0;
@@ -148,7 +152,7 @@ class ModelBeautyProvider {
     map['points'] = this._points ?? 0;
     map['reg_date'] = this.register_date.toString();
     map['rating'] = this._rating ?? 0;
-    map['username'] = this._username;
+    map['phone'] = this._phone;
     map['city'] = this._city;
     map['country'] = this._country;
     map['voter'] = this.voter ?? 0;
@@ -166,6 +170,7 @@ class ModelBeautyProvider {
     _image = data['image'] ?? '';
     _intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
+    username  = data['username']; 
     // package = data['package'] ?? {};
     _location = data['location'] == [] ? [1, 2] : data['location'];
     _name = data['name'] ?? '';
@@ -178,7 +183,7 @@ class ModelBeautyProvider {
     _register_date =
         DateTime.parse(data['reg_date']) ?? DateTime.now().toLocal();
     _rating = data['rating'].toDouble() ?? 0;
-    _username = data['username'] ?? '';
+    _phone = data['phone'] ?? '';
     // _prices = Map<String, dynamic>.from(data['prices']);
     _voter = data['voter'] ?? 0;
     _city = data['city'] ?? '';
@@ -280,9 +285,9 @@ class ModelBeautyProvider {
     _register_date = register_date;
   }
 
-  String get username => _username;
+  String get phone => _phone;
 
-  set username(String username) {
-    _username = username;
+  set phone(String phone) {
+    _phone = phone;
   }
 }

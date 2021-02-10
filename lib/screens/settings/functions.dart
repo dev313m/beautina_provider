@@ -69,7 +69,7 @@ Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
 
   bp.name = vmSettingsData.name ?? bp.name;
-  bp.username = vmSettingsData.mobile ?? bp.username;
+  bp.phone = vmSettingsData.mobile ?? bp.phone;
   bp.intro = vmSettingsData.description ?? bp.intro;
   bp.location = vmSettingsData.location ?? bp.location;
   bp.city = vmSettingsData.city ?? bp.city;

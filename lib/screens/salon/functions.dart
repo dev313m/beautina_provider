@@ -23,14 +23,18 @@ Future<ModelBeautyProvider> updateDataFromServer() async {
 }
 
 ///When user adds some new services, this function generate the new services map from new one ;
-Map<String, dynamic> getNewServicesMap(BuildContext context, showOther, chosenService, priceBefore, priceAfter, otherServiceName) {
-  ModelBeautyProvider beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
-  Map<String, dynamic> map = new Map<String, dynamic>.of(beautyProvider.servicespro);
+Map<String, dynamic> getNewServicesMap(BuildContext context, showOther,
+    chosenService, priceBefore, priceAfter, otherServiceName) {
+  ModelBeautyProvider beautyProvider =
+      Provider.of<VMSalonData>(context).beautyProvider;
+  Map<String, dynamic> map =
+      new Map<String, dynamic>.of(beautyProvider.servicespro);
   Map<String, dynamic> newMap = copyDeepMap(map);
 
   if (!showOther) {
     List<String> services = chosenService.split('-');
-    List<double> numbers = priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+    List<double> numbers =
+        priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
 
     if (newMap[services[0]] == null)
       newMap[services[0]] = {services[1]: numbers};
@@ -39,10 +43,12 @@ Map<String, dynamic> getNewServicesMap(BuildContext context, showOther, chosenSe
   } else {
     if (newMap['other'] == null)
       newMap['other'] = {
-        otherServiceName: priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
+        otherServiceName:
+            priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
       };
     else
-      newMap['other'][otherServiceName] = priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+      newMap['other'][otherServiceName] =
+          priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
   }
   return newMap;
 }
@@ -53,14 +59,22 @@ Map<String, dynamic> getNewServicesMap(BuildContext context, showOther, chosenSe
 ///   * 3- get shared and notifylisteners
 ///   * handle errors
 ///   finally, send [toast] to notify user
-updateProviderServices(BuildContext context, showOther, chosenService, priceBefore, priceAfter, otherServiceName,
+updateProviderServices(
+    BuildContext context,
+    showOther,
+    chosenService,
+    priceBefore,
+    priceAfter,
+    otherServiceName,
     RoundedLoadingButtonController _btnController) async {
   _btnController.start();
 
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
   try {
-    Provider.of<VMSalonData>(context).beautyProvider = await apiBeautyProviderUpdate(
-        bp..servicespro = getNewServicesMap(context, showOther, chosenService, priceBefore, priceAfter, otherServiceName));
+    Provider.of<VMSalonData>(context).beautyProvider =
+        await apiBeautyProviderUpdate(bp
+          ..servicespro = getNewServicesMap(context, showOther, chosenService,
+              priceBefore, priceAfter, otherServiceName));
     // setState(() {});
     showToast('تمت الاضافة بنجاح');
     _btnController.success();
@@ -90,8 +104,14 @@ Map<String, dynamic> copyDeepMap(Map<String, dynamic> map) {
 ///                     * 3- get shared and notifylisteners
 ///                    */
 
-removeServiceByCodeAndUpdate(BuildContext context, String serviceCode, String serviceRoot, Function onDeleteServiceSuccess,
-    Function onDeleteServiceError, Function onDeleteServiceLoad, Function onDeleteServiceComplete) async {
+removeServiceByCodeAndUpdate(
+    BuildContext context,
+    String serviceCode,
+    String serviceRoot,
+    Function onDeleteServiceSuccess,
+    Function onDeleteServiceError,
+    Function onDeleteServiceLoad,
+    Function onDeleteServiceComplete) async {
   onDeleteServiceLoad();
 
   /// 1- Get current userData
@@ -103,7 +123,8 @@ removeServiceByCodeAndUpdate(BuildContext context, String serviceCode, String se
 
   /// 3- update
   try {
-    Provider.of<VMSalonData>(context).beautyProvider = await apiBeautyProviderUpdate(bp..servicespro = newMap);
+    Provider.of<VMSalonData>(context).beautyProvider =
+        await apiBeautyProviderUpdate(bp..servicespro = newMap);
     onDeleteServiceSuccess();
   } catch (e) {
     onDeleteServiceError();
@@ -128,26 +149,32 @@ updateUserAvailability(
   try {
     ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
 
-    await apiBeautyProviderUpdate(mbp..available = !mbp.available);
+    await apiBeautyProviderUpdate(mbp..available = mbp.available);
 
     // Provider.of<VMSalonData>(context).beautyProvider = mbp;
     // setState(() {});
-    Provider.of<VMSalonData>(context).beautyProvider = await sharedUserProviderGetInfo();
+    Provider.of<VMSalonData>(context).beautyProvider =
+        await sharedUserProviderGetInfo();
     onAvailableChangeSuccess();
     // var don;
   } catch (e) {
     onAvailableChangeError();
-   }
+  }
 
   onAvailableChangeComplete();
 }
 
-updateProfileImage(BuildContext context, Function onProfileImageChangeLoad, Function onProfileImageChangeSuccess,
-    Function onProfileImageChangeError, Function onProfileImageChangeComplete) async {
+updateProfileImage(
+    BuildContext context,
+    Function onProfileImageChangeLoad,
+    Function onProfileImageChangeSuccess,
+    Function onProfileImageChangeError,
+    Function onProfileImageChangeComplete) async {
   File file = await imageChoose();
   if (await file.exists() == false) return;
   DefaultCacheManager manager = new DefaultCacheManager();
-  ModelBeautyProvider beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
+  ModelBeautyProvider beautyProvider =
+      Provider.of<VMSalonData>(context).beautyProvider;
   manager.emptyCache();
   onProfileImageChangeLoad();
   bool response = await imageUpload(file, beautyProvider.uid);
@@ -160,9 +187,18 @@ updateProfileImage(BuildContext context, Function onProfileImageChangeLoad, Func
       await Future.delayed(Duration(seconds: 8));
       // super.setState(() {});
       // setState(() {});
+
+      ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
+
+      await apiBeautyProviderUpdate(mbp..available = mbp.available);
+
+      // Provider.of<VMSalonData>(context).beautyProvider = mbp;
+      // setState(() {});
+      Provider.of<VMSalonData>(context).beautyProvider =
+          await sharedUserProviderGetInfo();
     } catch (e) {
       onProfileImageChangeError();
     }
-    onProfileImageChangeSuccess();
+    onProfileImageChangeComplete();
   }
 }

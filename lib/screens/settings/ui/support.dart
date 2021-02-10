@@ -1,5 +1,5 @@
 import 'package:beautina_provider/reusables/text.dart';
-import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/functions.dart';
+import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';

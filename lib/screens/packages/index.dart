@@ -2,10 +2,8 @@ import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/index.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
-import 'package:beautina_provider/screens/salon/ui/how_i_look_search/ui_how_I_look.dart';
 import 'package:beautina_provider/screens/packages/constants.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:credit_card/credit_card_model.dart';
@@ -121,7 +119,6 @@ class _PagePackageState extends State<PagePackage> {
                                       indent: ScreenUtil().setWidth(200),
                                     ),
 
-                                    WidgetHowLook(),
 
                                     Divider(
                                       height: ScreenUtil().setHeight(50),
@@ -242,93 +239,5 @@ class _WidgetPayState extends State<WidgetPay> {
       cvvCode = creditCardModel.cvvCode;
       showBackView = creditCardModel.isCvvFocused;
     });
-  }
-}
-
-class WidgetHowLook extends StatelessWidget {
-  const WidgetHowLook({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Center(
-            child: Container(
-              height: ScreenUtil().setHeight(90),
-              width: ScreenUtil().setHeight(260),
-              child: SpringButton(
-                SpringButtonType.OnlyScale,
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Ink(
-                    // width: 200,
-                    child: Material(
-                      color: AppColors.pinkBright.withOpacity(0.4),
-                      child: Center(
-                          child: ExtendedText(
-                        string: 'صفحتي في البحث بعد تفعيل الباقة',
-                        fontSize: ExtendedText.bigFont,
-                      )),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  // ModelBeautyProvider modelBeautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => PageHowILookSearch(
-                            // beautyProvider: modelBeautyProvider,
-                            )),
-                  );
-                },
-                scaleCoefficient: 0.9,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: ScreenUtil().setHeight(10),
-        ),
-        Expanded(
-          child: Center(
-            child: Container(
-              height: ScreenUtil().setHeight(90),
-              width: ScreenUtil().setHeight(260),
-              child: SpringButton(
-                SpringButtonType.OnlyScale,
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Ink(
-                    // width: 200,
-                    child: Material(
-                      color: AppColors.pinkBright.withOpacity(0.4),
-                      child: Center(
-                          child: ExtendedText(
-                        string: 'صفحتي بعد تفعيل الباقة',
-                        fontSize: ExtendedText.bigFont,
-                      )),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  ModelBeautyProvider modelBeautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => BeautyProviderPage(
-                              modelBeautyProvider: modelBeautyProvider,
-                              withHero: false,
-                            )),
-                  );
-                },
-                scaleCoefficient: 0.9,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
   }
 }

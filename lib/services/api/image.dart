@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -14,16 +15,25 @@ Future<File> imageChoose() async {
 }
 
 ///Take Image file and Image name then upload it, true if success, false else
-Future<bool> imageUpload(File file, String name, {Function onSuccess, Function onError}) async {
+Future<bool> imageUpload(File file, String name,
+    {Function onSuccess, Function onError}) async {
   if (file == null) return false;
   String base64Image = base64Encode(file.readAsBytesSync());
   String ext = file.path.split(".").last;
 
-  http.Response response = await http.post(url, body: {
-    "image": base64Image,
-    "fileName": name + '.' + ext,
-  });
+  StorageUploadTask task =  FirebaseStorage.instance.ref().child('image_profile/$name').putFile(file); 
+  try{
+    await task.onComplete; 
+    return true; 
+  }catch(e){
 
-  if (response.statusCode == 200) return true;
+    return false; 
+  }
+  // http.Response response = await http.post(url, body: {
+  //   "image": base64Image,
+  //   "fileName": name + '.' + ext,
+  // });
+
+  // if (response.statusCode == 200) return true;
   return false;
 }

@@ -1,8 +1,10 @@
 import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data.dart';
 import 'package:beautina_provider/screens/root/ui/ui.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
+import 'package:beautina_provider/services/remote_config.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +22,17 @@ versionCheck(BuildContext context) async {
   // onAlertWithCustomContentPressed(context);
 
   //Get Current installed version of app
+
+      RemoteConfigService remote = RemoteConfigService();
+    await remote.initialize();
+    final String nowVersion = remote.defaults['str_version_provider'];
+
   final PackageInfo info = await PackageInfo.fromPlatform();
   double currentVersion = double.parse(info.version.trim().replaceAll(".", ""));
 
   //Get Latest version info from firebase config
   try {
     // Using default duration to force fetching from remote server.
-    http.Response respond = await http.get('https://resorthome.000webhostapp.com/version_service_provider.php');
-    final String nowVersion = respond.body;
 
     double newVersion = double.parse(nowVersion.trim().replaceAll(".", ""));
     if (newVersion > currentVersion) {
@@ -154,3 +159,32 @@ onScrollAction(ScrollController scrollController, BuildContext context, {Functio
 
 ///This function updates beautyProvider[user]
 updateUserData(BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {}
+
+
+
+getLaunchMapFunction(List<dynamic> geoPoint) {
+  if (geoPoint.length == 0 || geoPoint == null)
+    return () {
+      showToast("لم يتم تحديد الموقع :(");
+    };
+  Function f = () async {
+    final url =
+        'https://www.google.com/maps/search/?api=1&query=${geoPoint[0]},${geoPoint[1]}';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      showToast('Could not launch $url');
+    }
+  };
+  return f;
+}
+
+Function getWhatsappFunction(String s) {
+  String url = 'tel://$s';
+  String whatsappUrl = "whatsapp://send?phone=$s";
+  Function f = () async {
+    await canLaunch(whatsappUrl) ? launch(whatsappUrl) : launch(url);
+  };
+
+  return f;
+}

@@ -63,15 +63,15 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             inputType: TextInputType.phone,
             maxLength: 9,
             helperText: '966',
-            placeholder: beautyProvider.username
-                .substring(4, beautyProvider.username.length),
+            placeholder: beautyProvider.phone
+                .substring(4, beautyProvider.phone.length),
 
             prefixIcon: Icon(Icons.phone),
             onChanged: (val) {
               vmSettingsData.mobile =
                   Countries.phoneCodePlus[beautyProvider.country] + val;
             },
-            // initialValue: beautyProvider.username.substring(4, beautyProvider.username.length),
+            // initialValue: beautyProvider.phone.substring(4, beautyProvider.phone.length),
             // decoration: new InputDecoration(
             //     suffixText: '966 ',
 

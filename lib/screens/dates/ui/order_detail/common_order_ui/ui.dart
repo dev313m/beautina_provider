@@ -1,6 +1,6 @@
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/salon/ui/beauty_provider_page/functions.dart';
+import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';

@@ -75,6 +75,10 @@ dependencies:
   flutter_picker_view: ^1.1.0
   steps: ^1.0.1
   fluttericon: ^1.0.7
+  firebase_dynamic_links: 0.5.3
+  firebase_storage: ^3.0.3   
+  firebase_image: 0.1.6
+  cache_image: ^1.0.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -122,7 +126,7 @@ flutter:
    - assets/rive/notification.flr
    - assets/rive/lock.flr
    - assets/rive/error.flr
-
+   - assets/rive/share.flr
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

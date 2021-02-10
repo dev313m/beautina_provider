@@ -1,21 +1,17 @@
 import 'dart:io';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/reusables/text.dart';
-import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/salon/index.dart';
+import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
-import 'package:beautina_provider/services/api/image.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading/loading.dart';
 import 'package:provider/provider.dart';
-import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
+
+import 'package:flutter/services.dart';
 
 class WdgtSettingsProfileImage extends StatefulWidget {
   WdgtSettingsProfileImage({Key key}) : super(key: key);
@@ -29,7 +25,7 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
   ModelBeautyProvider beautyProvider;
   VMSettingsData vmSettingsData;
 
-  ///Loading status shown when image is updating
+  /// * Loading status shown when image is updating
   bool imageLoad = false;
 
   @override
@@ -38,11 +34,20 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
     vmSettingsData = Provider.of<VMSettingsData>(context);
     return Column(
       children: [
-        GWdgtTextTitle(string: strProfileEdit,),
+        GWdgtTextTitle(
+          string: strProfileEdit,
+        ),
         Y(height: btwStrxImage),
         InkWell(
           onTap: () async {
-            updateImage();
+            imageCache.clear();
+
+            updateProfileImage(
+                context,
+                onProfileImageChangeLoad(),
+                onProfileImageChangeSuccess(),
+                onProfileImageChangeError(),
+                onProfileImageChangeComplete());
           },
           child: Container(
             height: sizeImageProfile,
@@ -50,26 +55,33 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
             child: Stack(
               children: [
                 ClipOval(
-                    key: Key('ovalkey'),
+                    key: ValueKey('image'),
+
                     // clipper: ,
                     // height: ScreenUtil().setHeight(300),
                     child: AnimatedSwitcher(
                         duration: Duration(seconds: 1),
                         child: imageLoad
                             ? Loading()
-                            : MyImage(
-                                key: ValueKey('imagelk'),
-                                height: sizeImageProfile,
-                                width: sizeImageProfile,
-                                url:
-                                    '$strImageServerUrl${beautyProvider.uid}$strImageExtension',
-                              ))),
+                            : beautyProvider.image != ''
+                                ? ImageFirebase(
+                                    height: sizeImageProfile,
+                                    width: sizeImageProfile,
+                                    url:
+                                        'gs://beautina-firebase.appspot.com/image_profile/' +
+                                            beautyProvider.uid,
+                                  )
+                                : Image.asset(
+                                    strDefaultProfileImage,
+                                    height: sizeImageProfile,
+                                    width: sizeImageProfile,
+                                    fit: BoxFit.cover,
+                                  ))),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Icon(
-                    CommunityMaterialIcons.folder_edit,
-                    color: iconColor,
-                    size: iconSize,
+                    Icons.edit,
+                    color: Colors.orange,
                   ),
                 )
               ],
@@ -80,28 +92,28 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
     );
   }
 
-  updateImage() async {
-    File file = await imageChoose();
-    if (await file.exists() == false) return;
-    // painting.imageCache.clear();
-    DefaultCacheManager manager = new DefaultCacheManager();
-    manager.emptyCache();
-    imageLoad = true;
-    setState(() {});
-    bool response = await imageUpload(file, beautyProvider.uid);
-    if (response) {
-      try {
-        // imageCache.clear();
-        // painting.imageCache.clear();
-        DefaultCacheManager manager = new DefaultCacheManager();
-        manager.emptyCache();
-        await Future.delayed(Duration(seconds: 8));
-        setState(() {});
-      } catch (e) {
-        showToast('حدث خطأ في التحديث ${e.toString()}');
-      }
+  Function onProfileImageChangeComplete() {
+    return () async {
       imageLoad = false;
-    }
+      setState(() {}); // - showToast(strUpdateDone);
+    };
+  }
+
+  Function onProfileImageChangeError() {
+    return () {
+      setState(() {});
+    };
+  }
+
+  Function onProfileImageChangeLoad() {
+    return () async {
+      imageLoad = true;
+      setState(() {});
+    };
+  }
+
+  Function onProfileImageChangeSuccess() {
+    return () {};
   }
 }
 
@@ -112,7 +124,6 @@ var iconSize = ScreenUtil().setSp(80);
 
 ///[String]
 const strProfileEdit = 'تعديل الصورة الشخصية';
-const imageUrl = 'https://resorthome.000webhostapp.com/upload/';
 const imageExtension = '.jpg';
 
 ///[colors]

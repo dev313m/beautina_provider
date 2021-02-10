@@ -36,9 +36,13 @@ class WdgtSalonLocationNotSet extends StatelessWidget {
               animation: 'idle',
             ),
           ),
-            GWdgtTextTitleDesc(
-              string: strLocationAlert,
-            )
+            Padding(
+              padding:  EdgeInsets.all(15.0.h),
+              child: GWdgtTextTitleDesc(
+                string: strLocationAlert,
+              ),
+            ), 
+            SizedBox(height: 20.h,)
           ],
         ));
   }
