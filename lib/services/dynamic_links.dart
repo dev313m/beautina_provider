@@ -1,37 +1,42 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 class DynamicLinkService {
-
-  Future<Uri> createDynamicLink() async {
+  Future<Uri> createDynamicLink(String username) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://beautina.online',
-      link: Uri.parse('https://beautina.online'),
+      link: Uri.parse('https://beautina.online/username?id=good'),
+
       androidParameters: AndroidParameters(
         packageName: 'app.beautina.beautina',
-        minimumVersion: 1,
+        minimumVersion: 0,
       ),
-      iosParameters: IosParameters(
-        bundleId: 'com.ex1`ample.ios',
-        minimumVersion: '1.0.1',
-        appStoreId: '123456789',
-      ),
+      // dynamicLinkParametersOptions: DynamicLinkParametersOptions(
+
+      //     shortDynamicLinkPathLength: ShortDynamicLinkPathLength.unguessable),
+      // iosParameters: IosParameters(
+      //   bundleId: 'com.ex1`ample.ios',
+      //   minimumVersion: '1.0.1',
+      //   appStoreId: '123456789',
+      // ),
       googleAnalyticsParameters: GoogleAnalyticsParameters(
         campaign: 'example-promo',
         medium: 'social',
         source: 'orkut',
       ),
-      itunesConnectAnalyticsParameters: ItunesConnectAnalyticsParameters(
-        providerToken: '123456',
-        campaignToken: 'example-promo',
-      ),
+      // itunesConnectAnalyticsParameters: ItunesConnectAnalyticsParameters(
+      //   providerToken: '123456',
+      //   campaignToken: 'example-promo',
+      // ),
       socialMetaTagParameters: SocialMetaTagParameters(
         title: 'Example of a Dynamic Link',
         description: 'This link works whether app is installed or not!',
       ),
     );
-    var dynamicUrl = await parameters.buildUrl();
+    // var dynamicUrl = await parameters.buildUrl();
+   var dynamicUrl =  await parameters.buildUrl();
+// final Uri shortUrl = /dynamicUrl.;
 
-    return dynamicUrl;
+    return null;
   }
 
   Future handleDynamicLinks() async {
@@ -56,7 +61,7 @@ class DynamicLinkService {
   void _handleDeepLink(PendingDynamicLinkData data) {
     final Uri deepLink = data?.link;
     if (deepLink != null) {
-      String s =  deepLink.pathSegments[0]; 
+      String s = deepLink.pathSegments[0];
       print('_handleDeepLink | deeplink: $deepLink');
     }
   }

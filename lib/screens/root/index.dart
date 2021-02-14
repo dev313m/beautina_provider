@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beautina_provider/screens/gift/index.dart';
 
 class PageRoot extends StatefulWidget {
   @override
@@ -23,7 +24,10 @@ class PageRoot extends StatefulWidget {
 }
 
 class _PageRoot extends State<PageRoot>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver, AutomaticKeepAliveClientMixin<PageRoot> {
+    with
+        SingleTickerProviderStateMixin,
+        WidgetsBindingObserver,
+        AutomaticKeepAliveClientMixin<PageRoot> {
   List<Widget> _pages;
 
   @override
@@ -41,8 +45,11 @@ class _PageRoot extends State<PageRoot>
     _pages = [
       PageSettings(),
       PageNotification(),
+      PageGift(),
+
       PageDate(),
       // PagePackage(),
+
       PageSalon(),
     ];
   }
@@ -73,7 +80,8 @@ class _PageRoot extends State<PageRoot>
     super.build(context);
 
     ///This must be set to initialize sizes of screenutil
-    ScreenUtil.init(context, designSize: Size(1080, 2340), allowFontScaling: true);
+    ScreenUtil.init(context,
+        designSize: Size(1080, 2340), allowFontScaling: true);
     VMRootUi vmRootUi = Provider.of<VMRootUi>(context);
 
     /// This widget is when pressing on the screen the keyboard is removed
@@ -126,12 +134,9 @@ class _PageRoot extends State<PageRoot>
     );
   }
 
+  /// Get permission
+  getNotificationPermission() async {}
 
-  /// Get permission 
-  getNotificationPermission() async{
-
-
-  }
   /// Get notifications settings for android and IOS
 
   setPushNotification() async {
@@ -140,9 +145,9 @@ class _PageRoot extends State<PageRoot>
       print('token is: ' + token);
     });
 
-    
-    await Future.delayed(Duration(seconds: 3)); 
-    _fcmFore.requestNotificationPermissions(IosNotificationSettings(sound: true, badge: true, alert: true, provisional: false));
+    await Future.delayed(Duration(seconds: 3));
+    _fcmFore.requestNotificationPermissions(IosNotificationSettings(
+        sound: true, badge: true, alert: true, provisional: false));
     _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });

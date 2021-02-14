@@ -65,7 +65,7 @@ class NotificationHelper {
   Future<List<MyNotification>> getNotificationList() async {
     Database db = await this.database;
     List<Map<String, dynamic>> list =
-        await db.query(_tableName, orderBy: '$colId DESC'); //DESC
+        await db.query(_tableName, orderBy: '$colId DESC', limit: 15); //DESC
     return list.map((f) => MyNotification.fromMapObject(f)).toList();
   }
 

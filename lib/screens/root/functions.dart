@@ -15,6 +15,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/rendering.dart';
+import 'package:share/share.dart';
+import 'package:clipboard/clipboard.dart';
 
 /// Version checker between the current and the http request of the saved one in server
 versionCheck(BuildContext context) async {
@@ -23,9 +25,9 @@ versionCheck(BuildContext context) async {
 
   //Get Current installed version of app
 
-      RemoteConfigService remote = RemoteConfigService();
-    await remote.initialize();
-    final String nowVersion = remote.defaults['str_version_provider'];
+  RemoteConfigService remote = RemoteConfigService();
+  await remote.initialize();
+  final String nowVersion = remote.defaults['str_version_provider'];
 
   final PackageInfo info = await PackageInfo.fromPlatform();
   double currentVersion = double.parse(info.version.trim().replaceAll(".", ""));
@@ -67,7 +69,8 @@ onNotificationPageVisited(BuildContext context) async {
     } else if (vmRootUi.isVisitedPage) {
       vmRootUi.isVisitedPage = false;
       await vmRootData.notificationHelper.initializeDatabase().then((d) {
-        vmRootData.notificationHelper.updateListToRead(vmRootData.notificationList);
+        vmRootData.notificationHelper
+            .updateListToRead(vmRootData.notificationList);
         vmRootData.refreshNotificationList();
       });
       // _notificationHelper.updateNotification();
@@ -79,7 +82,8 @@ onNotificationPageVisited(BuildContext context) async {
 listenToInternet(BuildContext context) {
   StreamSubscription<ConnectivityResult> subscription;
 
-  subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+  subscription =
+      Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     if (result.index == ConnectivityResult.none.index) {
       Provider.of<VMRootUi>(context).isNoInternet = true;
       // isNoInternet = true;
@@ -120,7 +124,7 @@ lifeCycleChangeAction(AppLifecycleState state, BuildContext context) {
 ///the user to root screen
 Future<bool> willExitApp(BuildContext context) async {
   if (Provider.of<VMRootUi>(context).pageController.page.round() != 3) {
-    Provider.of<VMRootUi>(context).pageController.jumpToPage(3);
+    Provider.of<VMRootUi>(context).pageController.jumpToPage(4);
 
     return false;
   }
@@ -145,11 +149,13 @@ Function onScrollUp = (BuildContext context) {
 };
 
 ///Take an action when scrolling down or up
-onScrollAction(ScrollController scrollController, BuildContext context, {Function onScrolldown, Function onScrollUp}) {
+onScrollAction(ScrollController scrollController, BuildContext context,
+    {Function onScrolldown, Function onScrollUp}) {
   bool hideBars = Provider.of<VMRootUi>(context).hideBars;
 
   ///if scrolilng toward up [and] hidebars is [true] hidden
-  if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
+  if (scrollController.position.userScrollDirection ==
+      ScrollDirection.reverse) {
     if (!hideBars) onScrollUp(context);
   }
 
@@ -158,9 +164,8 @@ onScrollAction(ScrollController scrollController, BuildContext context, {Functio
 }
 
 ///This function updates beautyProvider[user]
-updateUserData(BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {}
-
-
+updateUserData(
+    BuildContext context, ModelBeautyProvider updatedBeautyProvider) async {}
 
 getLaunchMapFunction(List<dynamic> geoPoint) {
   if (geoPoint.length == 0 || geoPoint == null)
@@ -187,4 +192,27 @@ Function getWhatsappFunction(String s) {
   };
 
   return f;
+}
+
+gFunShareAccount(String username) {
+  Share.share(' https://beautina.app.link/$username خدماتنا على هذا الرابط',
+      subject: '');
+}
+
+gFunCopyText(String text) async {
+  await FlutterClipboard.copy(text);
+  showToast('تم نسخ النص');
+}
+
+String convertArabicToEnglish(String number) {
+  number = number.replaceFirst('۱', '1');
+  number = number.replaceFirst('۲', '2');
+  number = number.replaceFirst('۳', '3');
+  number = number.replaceFirst('٤', '4');
+  number = number.replaceFirst('٥', '5');
+  number = number.replaceFirst('٦', '6');
+  number = number.replaceFirst('٧', '7');
+  number = number.replaceFirst('۸', '8');
+  number = number.replaceFirst('۹', '9');
+  return number;
 }

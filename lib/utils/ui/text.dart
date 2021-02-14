@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
-
-
+import 'package:google_fonts_arabic/fonts.dart';
 
 
 class GWdgtTextNavTitle extends StatelessWidget {
@@ -24,7 +23,10 @@ class GWdgtTextNavTitle extends StatelessWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       style: TextStyle(
-        fontSize: 60.sp,
+        fontSize: 55.sp,
+        fontFamily: ArabicFonts.Tajawal,
+        fontWeight: FontWeight.w600,
+        package: 'google_fonts_arabic',
         color: Colors.white,
       ),
     );
@@ -34,11 +36,12 @@ class GWdgtTextNavTitle extends StatelessWidget {
 class GWdgtTextTitle extends StatelessWidget {
   final TextDirection textDirection;
   final TextAlign textAlign;
-
+  final Color color;
   final String string;
   const GWdgtTextTitle(
       {Key key,
       this.textAlign = TextAlign.center,
+      this.color = Colors.white,
       this.textDirection = TextDirection.rtl,
       @required this.string})
       : super(key: key);
@@ -51,7 +54,10 @@ class GWdgtTextTitle extends StatelessWidget {
       textDirection: textDirection,
       style: TextStyle(
         fontSize: 45.sp,
-        color: Colors.white,
+        fontFamily: ArabicFonts.Tajawal,
+        fontWeight: FontWeight.w600,
+        package: 'google_fonts_arabic',
+        color: color ?? Colors.white,
       ),
     );
   }
@@ -72,8 +78,11 @@ class GWdgtTextTitleDesc extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-        fontSize: 34.sp,
-        color: color ?? Colors.white70,
+        fontFamily: ArabicFonts.Tajawal,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
+        fontSize: 38.sp,
+        color: color ?? Colors.white60,
       ),
     );
   }
@@ -94,7 +103,10 @@ class GWdgtTextDescDesc extends StatelessWidget {
       textAlign: textAlgin ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-        fontSize: 25.sp,
+        fontSize: 30.sp,
+        fontFamily: ArabicFonts.Tajawal,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
         color: color ?? Colors.white70,
       ),
     );
@@ -103,14 +115,21 @@ class GWdgtTextDescDesc extends StatelessWidget {
 
 class GWdgtTextButton extends StatelessWidget {
   final String string;
-  final Color color; 
-  const GWdgtTextButton({Key key, @required this.string, this.color}) : super(key: key);
+  final Color color;
+  const GWdgtTextButton({Key key, @required this.string, this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(fontSize: 34.sp, color:color?? Colors.white60),
+      style: TextStyle(
+        fontSize: 34.sp,
+        color: color ?? Colors.white70,
+        fontFamily: ArabicFonts.Tajawal,
+        fontWeight: FontWeight.w500,
+        package: 'google_fonts_arabic',
+      ),
     );
   }
 }
@@ -124,7 +143,13 @@ class GWdgtTextToggle extends StatelessWidget {
     return Center(
       child: Text(
         string,
-        style: TextStyle(fontSize: 29.sp, color: Colors.white.withOpacity(0.7)),
+        style: TextStyle(
+          fontSize: 29.sp,
+          color: Colors.white.withOpacity(0.7),
+          fontFamily: ArabicFonts.Tajawal,
+          fontWeight: FontWeight.normal,
+          package: 'google_fonts_arabic',
+        ),
       ),
     );
   }
@@ -159,7 +184,10 @@ class GWdgtTextProfile extends StatelessWidget {
       textDirection: textDirection,
       style: TextStyle(
         fontSize: ScreenUtil().setSp(26),
-        color: fontColor,
+        fontFamily: ArabicFonts.Tajawal,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
+        color: fontColor.withOpacity(0.6),
       ),
     );
   }
@@ -174,7 +202,12 @@ class GWdgtTextPickerSubmit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(fontSize: ScreenUtil().setSp(30), color: Colors.blue),
+      style: TextStyle(
+        fontSize: ScreenUtil().setSp(30),
+        color: Colors.blue,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
+      ),
     );
   }
 }
@@ -188,7 +221,12 @@ class GWdgtTextPickerCancel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(fontSize: ScreenUtil().setSp(30), color: Colors.red),
+      style: TextStyle(
+        fontSize: ScreenUtil().setSp(30),
+        color: Colors.red,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
+      ),
     );
   }
 }
@@ -201,7 +239,12 @@ class GWdgtTextChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       string,
-      style: TextStyle(fontSize: ScreenUtil().setSp(26), color: Colors.white70),
+      style: TextStyle(
+        fontSize: ScreenUtil().setSp(26),
+        color: Colors.white70,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
+      ),
     );
   }
 }
@@ -226,6 +269,8 @@ class GWdgtTextSmall extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(25),
         color: color ?? Colors.white70,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
       ),
       textAlign: textAlign ?? TextAlign.center,
       textDirection: textDirection ?? TextDirection.rtl,
@@ -253,6 +298,8 @@ class GWdgtTextCalendarDay extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white38,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
       ),
       textAlign: textAlign ?? TextAlign.left,
       textDirection: textDirection,
@@ -280,6 +327,8 @@ class GWdgtTextBadge extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
       ),
       textAlign: textAlign ?? TextAlign.left,
       textDirection: textDirection,
@@ -295,16 +344,15 @@ class GWdgtTextPickerChoices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(edgeText),
-      child: Text(
-        string,
-        textAlign: textAlign ?? TextAlign.center,
-        textDirection: TextDirection.rtl,
-        style: TextStyle(
-          fontSize: 34.sp,
-          color: Colors.blue,
-        ),
+    return Text(
+      string,
+      textAlign: textAlign ?? TextAlign.center,
+      textDirection: TextDirection.rtl,
+      style: TextStyle(
+        fontSize: 34.sp,
+        fontWeight: FontWeight.normal,
+        package: 'google_fonts_arabic',
+        color: Colors.blue,
       ),
     );
   }

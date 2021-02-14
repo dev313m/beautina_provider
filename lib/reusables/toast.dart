@@ -28,7 +28,7 @@ showAlert(context, {@required String msg, @required String dismiss}) {
       isCloseButton: false,
       isOverlayTapDismiss: true,
       descStyle: TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           fontSize: ExtendedText.defaultFont,
           color: ExtendedText.brightColor),
       animationDuration: Duration(milliseconds: durationCalender),

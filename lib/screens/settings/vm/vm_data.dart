@@ -4,7 +4,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class VMSettingsData extends ChangeNotifier {
   RoundedLoadingButtonController _controller = RoundedLoadingButtonController();
-   GlobalKey<FormState> formKey;
+  GlobalKey<FormState> formKey;
   GlobalKey<ScaffoldState> globalKey;
 
   bool _autoValidate = false;
@@ -20,6 +20,15 @@ class VMSettingsData extends ChangeNotifier {
   String _mobile;
 
   String _name;
+
+  String _username;
+
+  String get username => _username;
+
+  set username(String username) {
+    _username = username;
+    notifyListeners();
+  }
 
   VMSettingsData() {
     globalKey = GlobalKey<ScaffoldState>();

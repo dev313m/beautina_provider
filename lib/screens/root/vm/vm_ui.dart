@@ -5,10 +5,10 @@ import 'package:preload_page_view/preload_page_view.dart';
 class VMRootUi with ChangeNotifier {
   ///Page controller of all the app pages
   PreloadPageController pageController = PreloadPageController(
-    initialPage: 3,
+    initialPage: 4,
     keepPage: true,
   );
-  int pageIndex = 3;
+  int pageIndex = 4;
 
   ///Sliding pages of the app
   List<Widget> pages;

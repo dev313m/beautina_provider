@@ -4,6 +4,7 @@ import 'package:beautina_provider/screens/settings/ui/location.dart';
 import 'package:beautina_provider/screens/settings/ui/personal_info.dart';
 import 'package:beautina_provider/screens/settings/ui/profile_image.dart';
 import 'package:beautina_provider/screens/settings/ui/support.dart';
+import 'package:beautina_provider/screens/settings/ui/username.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -56,6 +57,8 @@ class _PageSettingsState extends State<PageSettings> {
                   Y(),
                   WdgtSettingsProfileImage(),
                   Y(),
+                  Y(),
+                  WdgtSettingsUsername(),
                   Y(),
                   WdgtSetttingsPersonalInfo(),
                   new SizedBox(

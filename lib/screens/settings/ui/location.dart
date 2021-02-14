@@ -86,6 +86,7 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                 placeholder:
                     loadingLocation ? 'جاري التحميل' : introLocationStr,
                 readOnly: true,
+                
                 inputType: TextInputType.text,
                 onTap: () async {
                   setState(() {

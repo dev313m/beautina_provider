@@ -106,6 +106,12 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                                     ))),
                 ),
               ),
+
+              Y(),
+              if (!beautyProvider.username.contains('+'))
+                GWdgtTextTitle(
+                  string: beautyProvider.username,
+                ),
               Y(),
               RatingBar.readOnly(
                 maxRating: 5,
@@ -135,7 +141,7 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                     title: strAcheivedOrders,
                     value: beautyProvider.achieved < 100
                         ? 'اقل من 100 طلب'
-                        : 'اكثر من ${beautyProvider.achieved % 100} طلب',
+                        : beautyProvider.achieved,
                   ),
                   CustomDivider(),
                   InfoItem(
@@ -272,7 +278,7 @@ class ImageFirebase extends StatelessWidget {
         );
       },
       image: FirebaseImage(url,
-          shouldCache: true,
+          shouldCache: false,
           cacheRefreshStrategy: CacheRefreshStrategy.BY_METADATA_DATE
           // cache: false,
           // durationExpiration: Duration(milliseconds: 10)

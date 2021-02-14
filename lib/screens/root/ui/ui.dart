@@ -30,7 +30,7 @@ onAlertWithCustomContentPressed(context) {
       isCloseButton: false,
       isButtonVisible: true,
       isOverlayTapDismiss: false,
-      descStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: ExtendedText.bigFont, color: ExtendedText.brightColor),
+      descStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: ExtendedText.bigFont, color: ExtendedText.brightColor),
       animationDuration: Duration(milliseconds: 400),
       alertBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radiusDefault),

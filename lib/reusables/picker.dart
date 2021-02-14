@@ -28,22 +28,22 @@ cityPicker({@required Function onConfirm, @required BuildContext context}) {
       textAlign: TextAlign.left,
       textStyle: const TextStyle(
         color: Colors.black,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w600,
         package: 'google_fonts_arabic',
       ),
       cancelTextStyle: const TextStyle(
         color: Colors.black,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w600,
         package: 'google_fonts_arabic',
       ),
       selectedTextStyle: TextStyle(
         color: Colors.white,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w600,
         package: 'google_fonts_arabic',
       ),
       confirmTextStyle: TextStyle(
         color: Colors.white,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w600,
         package: 'google_fonts_arabic',
       ),
       columnPadding: const EdgeInsets.all(8.0),

@@ -31,15 +31,14 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
                       height: heightTopBar,
                       child: Container(
                         width: double.infinity,
-                        padding: EdgeInsets.only(top:60.h),
+                        padding: EdgeInsets.only(top: 60.h),
                         decoration: BoxDecoration(
                             // borderRadius: BorderRadius.circular(20),
                             color: AppColors.blueOpcity.withOpacity(0.9)),
                         child: Center(
                           child: AnimatedSwitcher(
                             duration: Duration(milliseconds: 500),
-                            child:
-                                getTitleWidget(context, vmRootUi.pageIndex),
+                            child: getTitleWidget(context, vmRootUi.pageIndex),
                           ),
                         ),
                       ),
@@ -48,15 +47,20 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
   }
 
   getTitleWidget(BuildContext context, pageIndex) {
-    if (pageIndex == 3)
+    if (pageIndex == 4)
       return GWdgtTextNavTitle(
         key: ValueKey('value0'),
-        string: '~ الصالون ~',
+        string: '~ خدمات الصالون ~',
+      );
+    else if (pageIndex == 3)
+      return GWdgtTextNavTitle(
+        key: ValueKey('value1'),
+        string: '~ الطلبات ~',
       );
     else if (pageIndex == 2)
       return GWdgtTextNavTitle(
-        key: ValueKey('value1'),
-        string: '~ المواعيد ~',
+        key: ValueKey('value2'),
+        string: '~ العروض والجوائز ~',
       );
     else if (pageIndex == 1)
       return GWdgtTextNavTitle(
@@ -66,7 +70,7 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
     else
       return GWdgtTextNavTitle(
         key: ValueKey('value3'),
-        string: '~ الاعدادات ~',
+        string: '~ اعدادات الحساب ~',
       );
   }
 }

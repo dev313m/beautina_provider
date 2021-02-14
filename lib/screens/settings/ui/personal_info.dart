@@ -14,6 +14,7 @@ import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/screens/root/functions.dart';
 
 class WdgtSetttingsPersonalInfo extends StatefulWidget {
   WdgtSetttingsPersonalInfo({Key key}) : super(key: key);
@@ -27,7 +28,8 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
   ModelBeautyProvider beautyProvider;
   VMSettingsData vmSettingsData;
 
-  RoundedLoadingButtonController buttonController = RoundedLoadingButtonController(); 
+  RoundedLoadingButtonController buttonController =
+      RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
     vmSettingsData = Provider.of<VMSettingsData>(context);
@@ -63,13 +65,14 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             inputType: TextInputType.phone,
             maxLength: 9,
             helperText: '966',
-            placeholder: beautyProvider.phone
-                .substring(4, beautyProvider.phone.length),
+            placeholder:
+                beautyProvider.phone.substring(4, beautyProvider.phone.length),
 
             prefixIcon: Icon(Icons.phone),
             onChanged: (val) {
               vmSettingsData.mobile =
-                  Countries.phoneCodePlus[beautyProvider.country] + val;
+                  Countries.phoneCodePlus[beautyProvider.country] +
+                      convertArabicToEnglish(val);
             },
             // initialValue: beautyProvider.phone.substring(4, beautyProvider.phone.length),
             // decoration: new InputDecoration(

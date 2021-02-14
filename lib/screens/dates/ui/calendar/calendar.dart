@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
+
 ///[radius]
 final double radius = radiusDefault;
 
@@ -32,7 +33,8 @@ class WdgtDateCalendar extends StatefulWidget {
   _CalenderState createState() => _CalenderState();
 }
 
-class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMixin {
+class _CalenderState extends State<WdgtDateCalendar>
+    with TickerProviderStateMixin {
   int month;
   AnimationController _animationController;
   CalendarController _calendarController;
@@ -65,88 +67,111 @@ class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMix
           color: colorContainer,
           child: Stack(
             children: <Widget>[
-              TableCalendar(
-                // locale: 'ar_AR',
-                calendarController: _calendarController,
-                events: getEvents(Provider.of<VmDateData>(context).orderList, context),
-                availableGestures: AvailableGestures.horizontalSwipe,
-                headerVisible: true,
-                initialCalendarFormat: CalendarFormat.month,
-
-                ///[to-do check this ondayselected third parameter]
-                onDaySelected: (date, events, _) async {
-                  onCalendarDaySelected(date, events, context);
-                },
-                calendarStyle: CalendarStyle(
-                  outsideDaysVisible: false,
-                ),
-                onVisibleDaysChanged: (time, date, format) async {
-                  onVisibleDaysChanged(context, date);
-                  // month = time.month;
-                },
-                headerStyle: HeaderStyle(formatButtonVisible: false),
-                formatAnimation: FormatAnimation.slide,
-                builders: CalendarBuilders(
-                  selectedDayBuilder: (context, date, list) {
-                    return WdgtDateCalendarSelectedDay(
-                      animationController: _animationController,
-                      date: date,
-                      list: list,
-                    );
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: TableCalendar(
+                  availableCalendarFormats: {
+                    CalendarFormat.week: 'الاسبوع',
+                    CalendarFormat.month: 'الشهر',
+                    CalendarFormat.twoWeeks: "بعد اسبوعين"
                   },
-                  markersBuilder: (context, date, events, holidays) {
-                    final children = <Widget>[];
-                    List<dynamic> newOrders = events.where((event) => event.status == 0).toList();
-                    List<dynamic> acceptedOrder = events.where((event) => event.status == 1).toList();
-                    List<dynamic> approvedOrder = events.where((event) => event.status == 3).toList();
+                  startingDayOfWeek: StartingDayOfWeek.saturday,
 
-                    if (newOrders.isNotEmpty) {
-                      children.add(
-                        Positioned(
-                          left: 0,
-                          bottom: 0,
-                          child: WdgtDateCalendarEventMarker(
-                              date: date, events: newOrders, calendarController: _calendarController, color: colorBottomLeftNoti),
-                        ),
+                  // locale: 'ar_AR',
+                  calendarController: _calendarController,
+                  events: getEvents(
+                      Provider.of<VmDateData>(context).orderList, context),
+                  availableGestures: AvailableGestures.horizontalSwipe,
+                  headerVisible: true,
+                  initialCalendarFormat: CalendarFormat.month,
+
+                  ///[to-do check this ondayselected third parameter]
+                  onDaySelected: (date, events, _) async {
+                    onCalendarDaySelected(date, events, context);
+                  },
+                  calendarStyle: CalendarStyle(
+                    outsideDaysVisible: false,
+                  ),
+                  onVisibleDaysChanged: (time, date, format) async {
+                    onVisibleDaysChanged(context, date);
+                    // month = time.month;
+                  },
+                  headerStyle: HeaderStyle(formatButtonVisible: false),
+                  formatAnimation: FormatAnimation.slide,
+                  builders: CalendarBuilders(
+                    selectedDayBuilder: (context, date, list) {
+                      return WdgtDateCalendarSelectedDay(
+                        animationController: _animationController,
+                        date: date,
+                        list: list,
                       );
-                    }
+                    },
+                    markersBuilder: (context, date, events, holidays) {
+                      final children = <Widget>[];
+                      List<dynamic> newOrders =
+                          events.where((event) => event.status == 0).toList();
+                      List<dynamic> acceptedOrder =
+                          events.where((event) => event.status == 1).toList();
+                      List<dynamic> approvedOrder =
+                          events.where((event) => event.status == 3).toList();
 
-                    if (acceptedOrder.isNotEmpty) {
-                      children.add(
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: WdgtDateCalendarEventMarker(
-                              date: date, events: acceptedOrder, calendarController: _calendarController, color: colorBottomRightNoti),
-                        ),
-                      );
-                    }
-                    if (approvedOrder.isNotEmpty) {
-                      children.add(
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: WdgtDateCalendarEventMarker(
-                              date: date, events: approvedOrder, calendarController: _calendarController, color: colorTopNoti),
-                        ),
-                      );
-                    }
+                      if (newOrders.isNotEmpty) {
+                        children.add(
+                          Positioned(
+                            left: 0,
+                            bottom: 0,
+                            child: WdgtDateCalendarEventMarker(
+                                date: date,
+                                events: newOrders,
+                                calendarController: _calendarController,
+                                color: colorBottomLeftNoti),
+                          ),
+                        );
+                      }
 
-                    return children;
-                  },
-                  dayBuilder: (_, date, list) {
-                    // if(newOrders ==null || acceptedOrder ==null || approvedOrder == null)
-                    if (list == null) list = [];
-                    return WdgtDateCalendarDayBuilder(
-                      date: date,
-                      list: list,
-                    );
-                  },
-                  todayDayBuilder: (context, date, _) {
-                    return WdgtDateCalendarTodayBuilder(
-                      date: date,
-                    );
-                  },
+                      if (acceptedOrder.isNotEmpty) {
+                        children.add(
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: WdgtDateCalendarEventMarker(
+                                date: date,
+                                events: acceptedOrder,
+                                calendarController: _calendarController,
+                                color: colorBottomRightNoti),
+                          ),
+                        );
+                      }
+                      if (approvedOrder.isNotEmpty) {
+                        children.add(
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: WdgtDateCalendarEventMarker(
+                                date: date,
+                                events: approvedOrder,
+                                calendarController: _calendarController,
+                                color: colorTopNoti),
+                          ),
+                        );
+                      }
+
+                      return children;
+                    },
+                    dayBuilder: (_, date, list) {
+                      // if(newOrders ==null || acceptedOrder ==null || approvedOrder == null)
+                      if (list == null) list = [];
+                      return WdgtDateCalendarDayBuilder(
+                        date: date,
+                        list: list,
+                      );
+                    },
+                    todayDayBuilder: (context, date, _) {
+                      return WdgtDateCalendarTodayBuilder(
+                        date: date,
+                      );
+                    },
+                  ),
                 ),
               ),
               AnimatedSwitcher(
@@ -159,11 +184,13 @@ class _CalenderState extends State<WdgtDateCalendar> with TickerProviderStateMix
                     : SizedBox(),
               ),
               Align(
-                  alignment: Alignment.bottomLeft,
+                  alignment: Alignment.bottomRight,
                   // height: 50,
                   // left: MediaQuery.of(context).size.width / 2 - ScreenUtil().setWidth(ConstDateSizes.reloadLeft),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(radius), bottomRight: Radius.circular(radius)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(radius),
+                        bottomRight: Radius.circular(radius)),
                     // color: Colors.pink,
                     child: Material(
                       color: colorReloadBtn,

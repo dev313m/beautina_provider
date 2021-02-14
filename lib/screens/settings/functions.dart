@@ -12,6 +12,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:regexpattern/regexpattern.dart';
+import 'package:beautina_provider/services/dynamic_links.dart';
 
 Future<List<double>> getMyLocation() async {
   Geolocator.requestPermission();
@@ -20,13 +22,50 @@ Future<List<double>> getMyLocation() async {
   return [position.latitude, position.longitude];
 }
 
+Future funUpdateUsername(BuildContext context,
+    RoundedLoadingButtonController roundedLoadingButtonController) async {
+  ModelBeautyProvider newBeautyProvider = await getNewBeauty(context);
+
+  if (!gFunValidateUsername(newBeautyProvider.username)) {
+    showToast(
+        'اسم المستخدم غير صالح، يجب ان يكون بالانجليزي وغير محتوي مسافات او بعض الرموز');
+    roundedLoadingButtonController.error();
+    await Future.delayed(Duration(seconds: 3));
+    roundedLoadingButtonController.reset();
+    return;
+  }
+  try {
+    roundedLoadingButtonController.start();
+    // setState(() {});
+    Provider.of<VMSalonData>(context).beautyProvider =
+        await apiBeautyProviderUpdate(newBeautyProvider);
+
+    DynamicLinkService links = DynamicLinkService();
+    await links.createDynamicLink(newBeautyProvider.username);
+
+    showToast('تم التحديث');
+    roundedLoadingButtonController.success();
+  } catch (e) {
+    showToast(e.toString());
+    roundedLoadingButtonController.error();
+  }
+  await Future.delayed(Duration(seconds: 3));
+  roundedLoadingButtonController.reset();
+  return;
+}
+
 void urlLaunch({@required String url}) async {
   if (await canLaunch(url)) launch(url);
 }
 
-Future updateBtn(BuildContext context,RoundedLoadingButtonController roundedLoadingButtonController ) async {
- 
+bool gFunValidateUsername(String username) {
+  return username.isUsername();
+}
+
+Future updateBtn(BuildContext context,
+    RoundedLoadingButtonController roundedLoadingButtonController) async {
   if (!_validateInputs(context)) return;
+
   /**
                          * 1- get now beautyProvider from shared
                          * 2- update and save in shared
@@ -68,6 +107,7 @@ Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
   VMSettingsData vmSettingsData = Provider.of<VMSettingsData>(context);
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
 
+  bp.username = vmSettingsData.username;
   bp.name = vmSettingsData.name ?? bp.name;
   bp.phone = vmSettingsData.mobile ?? bp.phone;
   bp.intro = vmSettingsData.description ?? bp.intro;
@@ -109,7 +149,7 @@ String validateName(String value) {
 }
 
 ///[todo valid phone characters]
-String validateMobile(String value) {
+String validateMbile(String value) {
 // Indian Mobile number are of 10 digit only
   // if(value.length==9)
 

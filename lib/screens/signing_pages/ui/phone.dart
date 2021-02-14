@@ -2,7 +2,7 @@ import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:beautina_provider/screens/root/functions.dart';
 class WdgtLoginPhone extends StatefulWidget {
   const WdgtLoginPhone({Key key}) : super(key: key);
 
@@ -13,8 +13,15 @@ class WdgtLoginPhone extends StatefulWidget {
 class _WdgtLoginPhoneState extends State<WdgtLoginPhone> {
   final txtController = TextEditingController(text: '');
 
+  // validateText() {
+  //   Provider.of<VMLoginData>(context).phoneNum = txtController.text;
+  //   print(Provider.of<VMLoginData>(context).phoneNum);
+  // }
+
+
   validateText() {
-    Provider.of<VMLoginData>(context).phoneNum = txtController.text;
+    Provider.of<VMLoginData>(context).phoneNum =
+        convertArabicToEnglish(txtController.text);
     print(Provider.of<VMLoginData>(context).phoneNum);
   }
 
@@ -48,7 +55,7 @@ class _WdgtLoginPhoneState extends State<WdgtLoginPhone> {
       //   border: OutlineInputBorder(
       //       borderRadius: BorderRadius.all(Radius.circular(radius)),
       //       borderSide: BorderSide(color: Colors.pink)),
-      //   labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
+      //   labelStyle: TextStyle(fontWeight: FontWeight.w500, color: Colors.pink),
       //   focusedBorder: OutlineInputBorder(
       //       borderRadius: BorderRadius.all(Radius.circular(radius)),
       //       borderSide: BorderSide(color: Colors.pink)),

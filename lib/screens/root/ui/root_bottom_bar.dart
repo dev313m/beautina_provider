@@ -38,7 +38,8 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                   index: vmRootUi.pageIndex,
                   height: heightNavBar,
                   items: <Widget>[
-                    Icon(CommunityMaterialIcons.settings, size: sizeIcon, color: ConstRootColors.icons),
+                    Icon(CommunityMaterialIcons.settings,
+                        size: sizeIcon, color: ConstRootColors.icons),
                     Stack(
                       overflow: Overflow.visible,
                       fit: StackFit.passthrough,
@@ -55,26 +56,35 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Padding(
-                              padding: EdgeInsets.fromLTRB(ScreenUtil().setHeight(40), 0, 0, ScreenUtil().setHeight(40)),
+                              padding: EdgeInsets.fromLTRB(
+                                  ScreenUtil().setHeight(40),
+                                  0,
+                                  0,
+                                  ScreenUtil().setHeight(40)),
                               child: Align(
                                 alignment: Alignment.topCenter,
-                                child: vmRootData.notificationList.where((n) => n.status == 0).length != 0
+                                child: vmRootData.notificationList
+                                            .where((n) => n.status == 0)
+                                            .length !=
+                                        0
                                     ? new Container(
                                         padding: EdgeInsets.all(2),
                                         decoration: new BoxDecoration(
                                           color: Colors.red,
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
                                         ),
                                         constraints: BoxConstraints(
                                           minWidth: ScreenUtil().setWidth(14),
                                           minHeight: ScreenUtil().setHeight(14),
                                         ),
                                         child: ExtendedText(
-                                          string: Provider.of<VMRootData>(context)
-                                              .notificationList
-                                              .where((n) => n.status == 0)
-                                              .length
-                                              .toString(),
+                                          string:
+                                              Provider.of<VMRootData>(context)
+                                                  .notificationList
+                                                  .where((n) => n.status == 0)
+                                                  .length
+                                                  .toString(),
                                           textAlign: TextAlign.center,
                                         ),
                                       )
@@ -85,6 +95,9 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                         ),
                       ],
                     ),
+                    Icon(CommunityMaterialIcons.gift,
+                        size: sizeIcon, color: Colors.yellow),
+
                     Icon(
                       Icons.date_range,
                       size: sizeIcon,
@@ -96,7 +109,8 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                     //   color: ConstRootColors.icons,
                     // ),
 
-                    Icon(CommunityMaterialIcons.spa_outline, size: sizeIcon, color: ConstRootColors.icons),
+                    Icon(CommunityMaterialIcons.spa_outline,
+                        size: sizeIcon, color: ConstRootColors.icons),
                     // Icon(Icons.live_tv, size: sizeIcon, color: iconColors),
                   ],
                   color: Color(0xff0d3c61),

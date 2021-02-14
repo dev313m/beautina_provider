@@ -2,6 +2,7 @@ import 'package:beautina_provider/screens/dates/ui/calendar/calendar.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 
 class BeautyTextfield extends StatefulWidget {
   final Color backgroundColor, accentColor, textColor;
@@ -122,7 +123,13 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
           controller: widget.readOnly
               ? TextEditingController(text: widget.placeholder)
               : _controller,
-          style: widget.textStyle,
+          style: TextStyle(
+            fontFamily: ArabicFonts.Tajawal,
+            fontWeight: FontWeight.normal,
+            package: 'google_fonts_arabic',
+            // fontSize: 34.sp,
+            // color: Colors.white54,
+          ),
           textInputAction: TextInputAction.done,
           // toolbarOptions: ToolbarOptions(),
 

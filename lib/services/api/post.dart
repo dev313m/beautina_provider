@@ -36,6 +36,7 @@ class PostHelper {
     Future<http.Response> response;
     try {
       response = http.patch(url, headers: header, body: body);
+      print(header);
       return response;
     } catch (e) {
       throw HttpException("حدث خطأ ما");

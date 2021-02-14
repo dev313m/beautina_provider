@@ -149,7 +149,7 @@ updateUserAvailability(
   try {
     ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
 
-    await apiBeautyProviderUpdate(mbp..available = mbp.available);
+    await apiBeautyProviderUpdate(mbp..available = !mbp.available);
 
     // Provider.of<VMSalonData>(context).beautyProvider = mbp;
     // setState(() {});
