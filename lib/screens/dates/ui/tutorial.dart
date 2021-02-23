@@ -7,12 +7,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
+
 ///[strings]
-final strInstruction = 'تعليمات:';
+final strInstruction = 'شرح، مثال:';
 final strInstDesc =
     ''' - الطلبات المقبولة يجب تأكيدها عند الظهور بالاعلى\n - الطلبات المقبولة يجب تأكيدها عند الظهور بالاعلى\n    - فضلا يرجى تأكيد الطلبات التامة عند الظهور بالأعلى''';
-final strOrdersConfirmed = 'طلبات قادمة مؤكدة';
-final strOrdersWaiting = 'تحت انتظار تأكيد الزبون';
+final strOrdersConfirmed = 'طلبات مؤكدة';
+final strOrdersWaiting = 'بإنتظار تأكيد الزبون';
 final strOrdersNew = 'طلبات جديدة';
 
 ///[colors]
@@ -51,7 +52,9 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(radius), bottomRight: Radius.circular(radius)),
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(radius),
+          bottomRight: Radius.circular(radius)),
       child: Container(
         color: colorContainer,
         height: sizeContainer,
@@ -59,7 +62,7 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Positioned(
-              left: 550.w,
+                left: 500.w,
                 // alignment: Alignment(100.w, 100.w),
                 child: Padding(
                   padding: EdgeInsets.all(edgeContainer),
@@ -70,21 +73,25 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                         string: strInstruction,
                         // fontSize: ExtendedText.bigFont,
                       ),
-                      GWdgtTextSmall(string: strInstDesc,color: Colors.white54,),
+                      // GWdgtTextSmall(string: strInstDesc,color: Colors.white54,),
                       SizedBox(
                         height: heightInstruction,
                       ),
                       Container(
                         // color: Colors.white60,
-                        height: sizeHInstructionDay,
-                        width: sizeWInstructionDay,
+                        
+                        height: sizeHInstructionDay + 50.h,
+                        width: sizeWInstructionDay + 50.h,
                         child: Stack(
                           children: <Widget>[
                             Align(
                                 child: Container(
-                              decoration: BoxDecoration(color: colorEvent, borderRadius: BorderRadius.circular(radiusDay)),
-                              height: sizeDay,
-                              width: sizeDay,
+                              decoration: BoxDecoration(
+                                  color: colorEvent,
+                                  borderRadius:
+                                      BorderRadius.circular(radiusDay)),
+                              height: sizeDay + 50.h,
+                              width: sizeDay + 50.h,
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Padding(
@@ -186,7 +193,8 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
                 duration: Duration(seconds: 1),
                 child: Provider.of<VmDateData>(context).isShowAvailableWidget
                     ? WAvailablilityChanger(
-                        changableAvailableDate: Provider.of<VmDateData>(context).calanderChosenDay,
+                        changableAvailableDate:
+                            Provider.of<VmDateData>(context).calanderChosenDay,
                       )
                     : SizedBox(),
               ),

@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:regexpattern/regexpattern.dart';
-import 'package:beautina_provider/services/dynamic_links.dart';
 
 Future<List<double>> getMyLocation() async {
   Geolocator.requestPermission();
@@ -38,10 +37,7 @@ Future funUpdateUsername(BuildContext context,
     roundedLoadingButtonController.start();
     // setState(() {});
     Provider.of<VMSalonData>(context).beautyProvider =
-        await apiBeautyProviderUpdate(newBeautyProvider);
-
-    DynamicLinkService links = DynamicLinkService();
-    await links.createDynamicLink(newBeautyProvider.username);
+        await apiBeautyProviderUpdateUsername(newBeautyProvider);
 
     showToast('تم التحديث');
     roundedLoadingButtonController.success();
@@ -107,13 +103,13 @@ Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
   VMSettingsData vmSettingsData = Provider.of<VMSettingsData>(context);
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
 
-  bp.username = vmSettingsData.username;
   bp.name = vmSettingsData.name ?? bp.name;
   bp.phone = vmSettingsData.mobile ?? bp.phone;
   bp.intro = vmSettingsData.description ?? bp.intro;
   bp.location = vmSettingsData.location ?? bp.location;
   bp.city = vmSettingsData.city ?? bp.city;
   bp.country = vmSettingsData.country ?? bp.country;
+  bp.username = vmSettingsData.username ?? bp.username;
 
   return bp;
 }

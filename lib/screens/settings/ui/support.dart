@@ -93,8 +93,8 @@ final instagramIconColor = Colors.redAccent;
 ///[Strings]
 final complaintStr = "للشكوى والاقتراحات والاستفسارات";
 final telegramUrl = 'https://t.me/beautinapp';
-final whatsappUrl = '+966583122121';
-final instagramUrl = 'https://www.instagram.com/beautina.online';
+final whatsappUrl = '+966598865065';
+final instagramUrl = 'https://www.instagram.com/beautina.app';
 
 ///[Radius]
 double allContainerRadius = radiusDefault;

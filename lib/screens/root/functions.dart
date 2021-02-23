@@ -123,7 +123,7 @@ lifeCycleChangeAction(AppLifecycleState state, BuildContext context) {
 ///To check if the user on the root screen, it will go otherwise it will move
 ///the user to root screen
 Future<bool> willExitApp(BuildContext context) async {
-  if (Provider.of<VMRootUi>(context).pageController.page.round() != 3) {
+  if (Provider.of<VMRootUi>(context).pageController.page.round() != 4) {
     Provider.of<VMRootUi>(context).pageController.jumpToPage(4);
 
     return false;
@@ -195,7 +195,7 @@ Function getWhatsappFunction(String s) {
 }
 
 gFunShareAccount(String username) {
-  Share.share(' https://beautina.app.link/$username خدماتنا على هذا الرابط',
+  Share.share(' https://beautina.app/$username خدماتنا على هذا الرابط',
       subject: '');
 }
 

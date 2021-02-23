@@ -220,13 +220,12 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                 // controller: ,
               ),
             ),
- 
+
             // GWdgtTextTitleDesc(
             //   string: 'عند انشاء اسم مستعارص يمكنكي مشاركة حسابك لدى زبائنك',
             //   // fontColor: ExtendedText.brightColors2,
             // ),
 
-  
             Padding(
               padding: EdgeInsets.all(edgeText),
               child: Row(
@@ -234,13 +233,12 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                   Column(
                     children: [
                       GWdgtTextTitleDesc(
-                        string:
-                            "(شاركي حسابك لزبائنك وفي مواقع التواصل الاجتماعي)",
+                        string: "(شاركي حسابك للزبائن وتطبيقات التواصل)",
                         color: Colors.redAccent,
                       ),
                       GWdgtTextTitleDesc(
                         string:
-                            "https://beautina.app.link/${beautyProvider.username}",
+                            "https://beautina.app/${beautyProvider.username}",
                       ),
                     ],
                   ),
@@ -269,7 +267,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                                 showToast('لم تقومي بحفظ اسم مستعار');
                               else
                                 gFunCopyText(
-                                    'https://beautina.app.link/${beautyProvider.username}');
+                                    'https://beautina.app/${beautyProvider.username}');
                             },
                           ),
                         ],

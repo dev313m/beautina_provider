@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 
-
 class GWdgtTextNavTitle extends StatelessWidget {
   final TextDirection textDirection;
   final TextAlign textAlign;
@@ -103,7 +102,7 @@ class GWdgtTextDescDesc extends StatelessWidget {
       textAlign: textAlgin ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-        fontSize: 30.sp,
+        fontSize: 35.sp,
         fontFamily: ArabicFonts.Tajawal,
         fontWeight: FontWeight.normal,
         package: 'google_fonts_arabic',
@@ -205,6 +204,7 @@ class GWdgtTextPickerSubmit extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(30),
         color: Colors.blue,
+        fontFamily: ArabicFonts.Tajawal,
         fontWeight: FontWeight.normal,
         package: 'google_fonts_arabic',
       ),
@@ -224,6 +224,7 @@ class GWdgtTextPickerCancel extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(30),
         color: Colors.red,
+        fontFamily: ArabicFonts.Tajawal,
         fontWeight: FontWeight.normal,
         package: 'google_fonts_arabic',
       ),
@@ -242,6 +243,7 @@ class GWdgtTextChip extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(26),
         color: Colors.white70,
+        fontFamily: ArabicFonts.Tajawal,
         fontWeight: FontWeight.normal,
         package: 'google_fonts_arabic',
       ),
@@ -270,6 +272,7 @@ class GWdgtTextSmall extends StatelessWidget {
         fontSize: ScreenUtil().setSp(25),
         color: color ?? Colors.white70,
         fontWeight: FontWeight.normal,
+        fontFamily: ArabicFonts.Tajawal,
         package: 'google_fonts_arabic',
       ),
       textAlign: textAlign ?? TextAlign.center,
@@ -299,6 +302,7 @@ class GWdgtTextCalendarDay extends StatelessWidget {
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white38,
         fontWeight: FontWeight.normal,
+        fontFamily: ArabicFonts.Tajawal,
         package: 'google_fonts_arabic',
       ),
       textAlign: textAlign ?? TextAlign.left,
@@ -327,6 +331,7 @@ class GWdgtTextBadge extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white,
+        fontFamily: ArabicFonts.Tajawal,
         fontWeight: FontWeight.normal,
         package: 'google_fonts_arabic',
       ),
@@ -351,6 +356,7 @@ class GWdgtTextPickerChoices extends StatelessWidget {
       style: TextStyle(
         fontSize: 34.sp,
         fontWeight: FontWeight.normal,
+        fontFamily: ArabicFonts.Tajawal,
         package: 'google_fonts_arabic',
         color: Colors.blue,
       ),

@@ -8,6 +8,8 @@ import 'package:beautina_provider/services/api/post.dart';
 import 'package:http/http.dart' as http;
 
 final ERROR = "حدث خطأ ما، الرجاء المحاولة مجددا";
+String URL_UPDATE_USERNAME =
+    'https://app-beautyorder.uc.r.appspot.com/beauty_providers/update_username';
 String URL_ADD_NEW_USER =
     'https://app-beautyorder.uc.r.appspot.com/beauty_providers/login';
 String URL_UPDATE_USER =
@@ -28,6 +30,7 @@ Future<ModelBeautyProvider> apiUserProviderAddNew(
   ph.auth = false;
   http.Response response;
   try {
+    var bp = modelBeautyProvider.getMap();
     response = await ph.makePostRequest(modelBeautyProvider.getMap());
     if (response.statusCode != 200)
       throw HttpException(jsonDecode(response.body)['message']);
@@ -57,6 +60,35 @@ Future<ModelBeautyProvider> apiLoadOneBeautyProvider() async {
 ModelBeautyProvider parseOne(String responseBody) {
   final parsed = json.decode(responseBody);
   return ModelBeautyProvider.fromMap(parsed);
+}
+
+Future<ModelBeautyProvider> apiBeautyProviderUpdateUsername(
+    ModelBeautyProvider beautyProvider) async {
+  // ModelBeautyProvider beautyProvider = await sharedUserProviderGetInfo();
+  http.Response response;
+  PostHelper ph = PostHelper(auth: true, url: URL_UPDATE_USERNAME);
+
+  //because busy dates contains datetime so please convert them to string to be encodable
+
+  Map<String, dynamic> body = {
+    'name': beautyProvider.name,
+    'client_id': beautyProvider.uid,
+    'username': beautyProvider.username,
+  };
+
+  try {
+    response = await ph.makePatchRequest(body);
+
+    if (response.statusCode != 200)
+      throw HttpException(jsonDecode(response.body)['message']);
+    // ModelBeautyProvider model = parseOne(response.body);
+    // await sharedUserProviderSet(beautyProvider: model);
+    await sharedUserProviderSet(beautyProvider: beautyProvider);
+
+    return beautyProvider;
+  } catch (e) {
+    throw HttpException(ERROR);
+  }
 }
 
 Future<ModelBeautyProvider> apiBeautyProviderUpdate(

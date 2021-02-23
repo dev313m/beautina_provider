@@ -10,12 +10,13 @@ class ModelBeautyProvider {
   int type; //whether it was a salon or a simple woman 1 for salon
   bool _available;
   String _image;
+  double customers;
   String _intro;
   String email;
   List<dynamic> _location;
   String _name;
   int _voter;
-  String username; 
+  String username;
   String _uid = '';
   String tokenId; // this is the jwt token for authority
   int _achieved;
@@ -90,6 +91,7 @@ class ModelBeautyProvider {
       Map<String, dynamic> package,
       String intro,
       String name,
+      double customers,
       int points,
       String tokenId,
       List<Map<String, DateTime>> busyDates,
@@ -118,6 +120,7 @@ class ModelBeautyProvider {
         this.type = type,
         this.busyDates = busyDates,
         this.tokenId = tokenId,
+        this.customers = customers,
         this._rating = rating,
         this.auth_login = auth_login,
         this._phone = phone,
@@ -142,8 +145,9 @@ class ModelBeautyProvider {
     map['image'] = this._image ?? '';
     map['package'] = this.package ?? {};
     map['busy_dates'] = this.busyDates ?? [];
-    map['username']  = this.username; 
-
+    map['username'] = this.username;
+    map['customers'] = this.customers ?? 0;
+    map['acheived'] = this.achieved?.toInt() ?? 0;
     map['intro'] = this._intro ?? '';
     map['favorite_count'] = this.favorite_count ?? 0;
     map['location'] = this._location ?? [];
@@ -155,9 +159,9 @@ class ModelBeautyProvider {
     map['phone'] = this._phone;
     map['city'] = this._city;
     map['country'] = this._country;
-    map['voter'] = this.voter ?? 0;
+    map['voter'] = this.voter?.toInt() ?? 0;
     map['email'] = this.email ?? '';
-    map['likes'] = this.likes ?? 0;
+    map['likes'] = this.likes?.toInt() ?? 0;
     map['achieved'] = this.achieved ?? 0;
     map['services'] = this.servicespro ?? {};
     map['token'] = this.token;
@@ -170,7 +174,8 @@ class ModelBeautyProvider {
     _image = data['image'] ?? '';
     _intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
-    username  = data['username']; 
+    username = data['username'];
+    customers = data['customers'].toDouble() ?? 0;
     // package = data['package'] ?? {};
     _location = data['location'] == [] ? [1, 2] : data['location'];
     _name = data['name'] ?? '';
