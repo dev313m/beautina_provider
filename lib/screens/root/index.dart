@@ -97,7 +97,7 @@ class _PageRoot extends State<PageRoot>
             primary: false,
             // resizeToAvoidBottomPadding: false,
             // resizeToAvoidBottomInset: true,
-            resizeToAvoidBottomPadding: false,
+            // resizeToAvoidBottomPadding: false,
             backgroundColor: scafoldBackgroundColor,
             body: GestureDetector(
               behavior: HitTestBehavior.opaque,

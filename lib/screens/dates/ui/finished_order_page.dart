@@ -36,7 +36,7 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
     return Consumer<VmDateData>(builder: (_, VmDateData, child) {
       return Scaffold(
         primary: false,
-        resizeToAvoidBottomPadding: false,
+        // resizeToAvoidBottomPadding: false,
         backgroundColor: colorBackground,
         body: SingleChildScrollView(
           child: Column(

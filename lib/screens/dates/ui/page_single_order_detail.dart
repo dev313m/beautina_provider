@@ -44,7 +44,7 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
         .first;
     return Scaffold(
       primary: false,
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       backgroundColor: colorBackground,
       body: SingleChildScrollView(
         child: Column(

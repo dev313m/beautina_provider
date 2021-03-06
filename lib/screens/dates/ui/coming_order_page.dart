@@ -39,7 +39,7 @@ class _OrderListPageState extends State<OrderListPage> {
     vmDateData = Provider.of<VmDateData>(context);
     return Scaffold(
       primary: false,
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       backgroundColor: AppColors.purpleColor,
       body: SingleChildScrollView(
         child: Column(
