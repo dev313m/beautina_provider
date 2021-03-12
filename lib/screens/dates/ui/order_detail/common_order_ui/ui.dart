@@ -1,13 +1,10 @@
-import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
-import 'package:beautina_provider/utils/ui/space.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:spring_button/spring_button.dart';
@@ -32,7 +29,7 @@ class AllSingleServiceWidget extends StatelessWidget {
     return Builder(builder: (_) {
       List<String> list = [];
       Map<String, dynamic> mapper =
-          Provider.of<VMSalonData>(context).providedServices;
+          Get.find<VMSalonDataTest>().providedServices;
 
       services.forEach((k, v) {
         v.forEach((kk, vv) {

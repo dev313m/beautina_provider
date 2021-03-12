@@ -3,13 +3,13 @@ import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/picker.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
-import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
+import 'package:beautina_provider/screens/settings/vm/vm_data_test.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:regexpattern/regexpattern.dart';
@@ -36,7 +36,7 @@ Future funUpdateUsername(BuildContext context,
   try {
     roundedLoadingButtonController.start();
     // setState(() {});
-    Provider.of<VMSalonData>(context).beautyProvider =
+    Get.find<VMSalonDataTest>().beautyProvider =
         await apiBeautyProviderUpdateUsername(newBeautyProvider);
 
     showToast('تم التحديث');
@@ -74,7 +74,7 @@ Future updateBtn(BuildContext context,
   try {
     roundedLoadingButtonController.start();
     // setState(() {});
-    Provider.of<VMSalonData>(context).beautyProvider =
+    Get.find<VMSalonDataTest>().beautyProvider =
         await apiBeautyProviderUpdate(newBeautyProvider);
     showToast('تم التحديث');
     roundedLoadingButtonController.success();
@@ -88,19 +88,19 @@ Future updateBtn(BuildContext context,
 }
 
 bool _validateInputs(BuildContext context) {
-  if (Provider.of<VMSettingsData>(context).formKey.currentState.validate()) {
+  if (Get.find<VMSettingsDataTest>().formKey.currentState.validate()) {
 //    If all data are correct then save data to out variables
-    Provider.of<VMSettingsData>(context).formKey..currentState.save();
+    Get.find<VMSettingsDataTest>().formKey..currentState.save();
     return true;
   } else {
 //    If all data are not valid then start auto validation.
-    Provider.of<VMSettingsData>(context).autoValidate = true;
+    Get.find<VMSettingsDataTest>().autoValidate = true;
     return false;
   }
 }
 
 Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
-  VMSettingsData vmSettingsData = Provider.of<VMSettingsData>(context);
+  VMSettingsDataTest vmSettingsData = Get.find<VMSettingsDataTest>();
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
 
   bp.name = vmSettingsData.name ?? bp.name;
@@ -117,7 +117,7 @@ Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
 showMenuLocation(
     BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
   Function onConfirm() {
-    VMSettingsData vmSettingsData = Provider.of<VMSettingsData>(context);
+    VMSettingsDataTest vmSettingsData = Get.find<VMSettingsDataTest>();
 
     return (Picker picker, List value) {
       // Provider.of<VMLoginData>(context).city =

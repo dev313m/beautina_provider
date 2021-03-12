@@ -1,21 +1,19 @@
 import 'package:beautina_provider/models/order.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/dates/ui/page_single_order_detail.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:spring_button/spring_button.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 
 ///[String]
 final strDetail = 'التفاصيل';
@@ -47,7 +45,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
 
   @override
   Widget build(BuildContext context) {
-    ordersList = Provider.of<VmDateData>(context).listOfDay;
+    ordersList = Get.find<VmDateDataTest>().listOfDay;
     return AnimatedSwitcher(
       duration: Duration(seconds: 1),
       child: ordersList.length == 0
@@ -92,7 +90,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (_) => WdgtDatePageSingleOrderDetail(
-                                    orderId: Provider.of<VmDateData>(context)
+                                    orderId: Get.find<VmDateDataTest>()
                                         .listOfDay[index]
                                         .doc_id,
                                     heroTag: ordersList[index].doc_id),
@@ -175,7 +173,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                   Builder(builder: (_) {
                                     List<String> list = [];
                                     Map<String, dynamic> mapper =
-                                        Provider.of<VMSalonData>(context)
+                                        Get.find<VMSalonDataTest>()
                                             .providedServices;
 
                                     ordersList[index].services.forEach((k, v) {

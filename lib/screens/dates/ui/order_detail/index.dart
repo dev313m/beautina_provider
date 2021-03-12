@@ -5,9 +5,9 @@ import 'package:beautina_provider/screens/dates/ui/order_detail/order_confirmed.
 import 'package:beautina_provider/screens/dates/ui/order_detail/order_only_details.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/order_outdated.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/order_waiting_customer.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class WdgtDateOrderDetails extends StatefulWidget {
   final String orderId;
@@ -22,7 +22,7 @@ class _WdgtDateOrderDetailsState extends State<WdgtDateOrderDetails> {
 
   @override
   Widget build(BuildContext context) {
-    order = Provider.of<VmDateData>(context)
+    order = Get.find<VmDateDataTest>()
         .orderList
         .where((element) => element.doc_id == widget.orderId)
         .first;

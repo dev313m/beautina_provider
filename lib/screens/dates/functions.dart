@@ -1,10 +1,9 @@
 import 'package:beautina_provider/models/order.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/services/api/db_orders.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:get/get.dart';
 
 String getDateString(DateTime dateTime) {
   String year = dateTime.year.toString();
@@ -64,10 +63,10 @@ Future<bool> getFunctionReject(
 }
 
 Future refreshList(BuildContext context) async {
-  // Provider.of<VmDateData>(context).isLoading = true;
-  // Provider.of<VmDateData>(context).notifyListeners();
+  // Get.find<VmDateDataTest>().isLoading = true;
+  // Get.find<VmDateDataTest>().notifyListeners();
   // await Future.delayed(Duration(seconds: 1));
-  await Provider.of<VmDateData>(context).iniState();
+  await Get.find<VmDateDataTest>().iniState();
 }
 
 Future<bool> getFunctionAccept(Order order, BuildContext context) async {
@@ -136,5 +135,5 @@ List<Order> getFilteredList(List<Order> list, int index) {
 }
 
 Future<void> pagesRefresh(BuildContext context) async {
-  Provider.of<VmDateData>(context).iniState(); //this will refresh orders list
+  Get.find<VmDateDataTest>().iniState(); //this will refresh orders list
 }

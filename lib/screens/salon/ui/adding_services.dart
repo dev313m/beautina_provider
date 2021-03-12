@@ -1,15 +1,15 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
@@ -96,142 +96,145 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
   @override
   Widget build(BuildContext context) {
-    mapServices =
-        Provider.of<VMSalonData>(context).providedServices['services'];
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(radiusContainer),
-        child: Container(
-          padding: EdgeInsets.all(edgeMainContainer),
-          color: colorContainerBg,
-          // height: ScreenUtil().setHeight(400),
-          child: Stack(
-            children: [
-              Align(
-                  child: IconButton(
-                    icon: Icon(Icons.add_circle, color: Colors.white24),
-                  ),
-                  alignment: Alignment.topLeft),
-              Column(
-                children: <Widget>[
-                  Y(height: BoxHeight.heightBtwTitle),
-                  GWdgtTextTitle(
-                    string: strAddingNewService,
-                  ),
-                  Y(height: BoxHeight.heightBtwContainers),
-                  GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
-                  Y(height: BoxHeight.heightBtwTitle),
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: ToggleButtons(
-                          children: mapServices.entries
-                              .toList()
-                              .map((e) => e.value['ar'])
-                              .toList()
-                              .map((e) => WdgtSalonServiceItem(serviceName: e))
-                              .toList(),
-                          //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
 
-                          isSelected: !isToggleButtonsSet
-                              ? toggleSelectBoolList = mapServices.entries
-                                  .toList()
-                                  .map((e) => false)
-                                  .toList()
-                              : toggleSelectBoolList,
-                          borderRadius: BorderRadius.circular(radiusContainer),
-                          fillColor: Colors.pink,
-                          selectedColor: Colors.pink,
-                          renderBorder: false,
-                          onPressed: (index) {
-                            toggleButtonUiUpdater(index);
-                            setSubCategoryDropdownMenu(index);
-                            otherOptionChosenListener(index);
-                            clearFields();
-
-                            if (index != toggleSelectBoolList.length - 1)
-                              _showPicker();
-
-                            isShowPrice = false;
-
-                            setState(() {});
-                          })),
-                  Y(height: BoxHeight.heightBtwContainers),
-                  if (showOther)
-                    Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: BeautyTextfield(
-                        onChanged: (str) {
-                          otherServiceName = str;
-                          isShowPrice = true;
-                          setState(() {});
-                        },
-                        prefixIcon: Icon(
-                          CommunityMaterialIcons.ticket,
-                          color: AppColors.pinkBright,
-                        ),
-                        // placeholder: strServiceName,
-                        helperText: strServiceName,
-                        textStyle: TextStyle(color: AppColors.pinkBright),
-                        inputType: TextInputType.text,
+    return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+mapServices =
+        vMSalonData.providedServices['services'];        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(radiusContainer),
+            child: Container(
+              padding: EdgeInsets.all(edgeMainContainer),
+              color: colorContainerBg,
+              // height: ScreenUtil().setHeight(400),
+              child: Stack(
+                children: [
+                  Align(
+                      child: IconButton(
+                        icon: Icon(Icons.add_circle, color: Colors.white24),
                       ),
-                    ),
-                  Y(),
-                  if (isShowPrice)
-                    Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: BeautyTextfield(
-                        // height: ScreenUtil().setHeight(90),
-                        onChanged: (String s) {
-                          priceAfter = double.parse(s);
-                        },
-                        // textStyle: TextStyle(color: AppColors.pinkBright),
-                        suffixIcon: Icon(
-                          Icons.attach_money,
-                        ),
-                        helperText: strServicePrice,
-                        inputType: TextInputType.number,
+                      alignment: Alignment.topLeft),
+                  Column(
+                    children: <Widget>[
+                      Y(height: BoxHeight.heightBtwTitle),
+                      GWdgtTextTitle(
+                        string: strAddingNewService,
                       ),
-                    ),
-                  Y(),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(radiusButton),
-                    child: RoundedLoadingButton(
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(radiusButton),
+                      Y(height: BoxHeight.heightBtwContainers),
+                      GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
+                      Y(height: BoxHeight.heightBtwTitle),
+                      SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ToggleButtons(
+                              children: mapServices.entries
+                                  .toList()
+                                  .map((e) => e.value['ar'])
+                                  .toList()
+                                  .map((e) => WdgtSalonServiceItem(serviceName: e))
+                                  .toList(),
+                              //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
+
+                              isSelected: !isToggleButtonsSet
+                                  ? toggleSelectBoolList = mapServices.entries
+                                      .toList()
+                                      .map((e) => false)
+                                      .toList()
+                                  : toggleSelectBoolList,
+                              borderRadius: BorderRadius.circular(radiusContainer),
+                              fillColor: Colors.pink,
+                              selectedColor: Colors.pink,
+                              renderBorder: false,
+                              onPressed: (index) {
+                                toggleButtonUiUpdater(index);
+                                setSubCategoryDropdownMenu(index);
+                                otherOptionChosenListener(index);
+                                clearFields();
+
+                                if (index != toggleSelectBoolList.length - 1)
+                                  _showPicker();
+
+                                isShowPrice = false;
+
+                                setState(() {});
+                              })),
+                      Y(height: BoxHeight.heightBtwContainers),
+                      if (showOther)
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: BeautyTextfield(
+                            onChanged: (str) {
+                              otherServiceName = str;
+                              isShowPrice = true;
+                              setState(() {});
+                            },
+                            prefixIcon: Icon(
+                              CommunityMaterialIcons.ticket,
+                              color: AppColors.pinkBright,
+                            ),
+                            // placeholder: strServiceName,
+                            helperText: strServiceName,
+                            textStyle: TextStyle(color: AppColors.pinkBright),
+                            inputType: TextInputType.text,
                           ),
-                          height: 100,
-                          width: double.infinity,
-                          child:
-                              Center(child: GWdgtTextButton(string: strAdd))),
-                      onPressed: () async {
-                        if (checkFields()) {
-                          await updateProviderServices(
-                              context,
-                              showOther,
-                              chosenService,
-                              priceBefore,
-                              priceAfter,
-                              otherServiceName,
-                              _btnController);
-                          clearFields();
-                        }
+                        ),
+                      Y(),
+                      if (isShowPrice)
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: BeautyTextfield(
+                            // height: ScreenUtil().setHeight(90),
+                            onChanged: (String s) {
+                              priceAfter = double.parse(s);
+                            },
+                            // textStyle: TextStyle(color: AppColors.pinkBright),
+                            suffixIcon: Icon(
+                              Icons.attach_money,
+                            ),
+                            helperText: strServicePrice,
+                            inputType: TextInputType.number,
+                          ),
+                        ),
+                      Y(),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(radiusButton),
+                        child: RoundedLoadingButton(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(radiusButton),
+                              ),
+                              height: 100,
+                              width: double.infinity,
+                              child:
+                                  Center(child: GWdgtTextButton(string: strAdd))),
+                          onPressed: () async {
+                            if (checkFields()) {
+                              await updateProviderServices(
+                                  context,
+                                  showOther,
+                                  chosenService,
+                                  priceBefore,
+                                  priceAfter,
+                                  otherServiceName,
+                                  _btnController);
+                              clearFields();
+                            }
 
-                        _btnController.reset();
-                      },
-                      controller: _btnController,
-                    ),
-                  ),              Y(height: heightBottomContainer,)
+                            _btnController.reset();
+                          },
+                          controller: _btnController,
+                        ),
+                      ),              Y(height: heightBottomContainer,)
 
-                  // SizedBox(height: ScreenUtil().setHeight(100))
+                      // SizedBox(height: ScreenUtil().setHeight(100))
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 
@@ -240,7 +243,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
     if (indexCategory == null) return;
     String categoryKey = mapServices.keys.toList()[indexCategory];
     Map<String, dynamic> allServices =
-        Provider.of<VMSalonData>(context).providedServices['services'];
+       Get.find<VMSalonDataTest>().providedServices['services'];
     mapServices[categoryKey]['items']?.forEach((k, v) {
       subCategoryList
           .add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});

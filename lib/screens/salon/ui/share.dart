@@ -1,16 +1,14 @@
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
-import 'package:beautina_provider/screens/salon/functions.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
-import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
+import 'package:beautina_provider/screens/settings/vm/vm_data_test.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:loading/loading.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
@@ -54,9 +52,11 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
   ModelBeautyProvider beautyProvider;
   @override
   Widget build(BuildContext context) {
-    beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
+    return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+               beautyProvider = vMSalonData.beautyProvider;
 
-    if (beautyProvider.username.contains('+9'))
+      if (vMSalonData. beautyProvider.username.contains('+9'))
+
       return Container(
         decoration: BoxDecoration(
             color: colorContainerBg,
@@ -102,7 +102,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                 child: BeautyTextfield(
                   // height: ScreenUtil().setHeight(90),
                   onChanged: (String s) {
-                    Provider.of<VMSettingsData>(context).username = s;
+                    Get.find<VMSettingsDataTest>().username = s;
                   },
                   // textStyle: TextStyle(color: AppColors.pinkBright),
                   suffixIcon: Icon(
@@ -195,92 +195,93 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
           ),
         ),
       );
-    return Container(
-      decoration: BoxDecoration(
-          color: colorContainerBg,
-          // image: AsssetImage(assetName),
-          borderRadius: BorderRadius.circular(radiusContainer)),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Y(
-              height: BoxHeight.heightBtwTitle,
-            ),
-            // GWdgtTextTitle(string: 'رابط حسابي'),
-            Container(
-              height: 400.h,
-              child: FlareActor(
-                strFlare,
-                animation: 'Untitled',
-                shouldClip: false,
-                snapToEnd: false,
-                // controller: ,
+      return Container(
+        decoration: BoxDecoration(
+            color: colorContainerBg,
+            // image: AsssetImage(assetName),
+            borderRadius: BorderRadius.circular(radiusContainer)),
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Y(
+                height: BoxHeight.heightBtwTitle,
               ),
-            ),
+              // GWdgtTextTitle(string: 'رابط حسابي'),
+              Container(
+                height: 400.h,
+                child: FlareActor(
+                  strFlare,
+                  animation: 'Untitled',
+                  shouldClip: false,
+                  snapToEnd: false,
+                  // controller: ,
+                ),
+              ),
 
-            // GWdgtTextTitleDesc(
-            //   string: 'عند انشاء اسم مستعارص يمكنكي مشاركة حسابك لدى زبائنك',
-            //   // fontColor: ExtendedText.brightColors2,
-            // ),
+              // GWdgtTextTitleDesc(
+              //   string: 'عند انشاء اسم مستعارص يمكنكي مشاركة حسابك لدى زبائنك',
+              //   // fontColor: ExtendedText.brightColors2,
+              // ),
 
-            Padding(
-              padding: EdgeInsets.all(edgeText),
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      GWdgtTextTitleDesc(
-                        string: "(شاركي حسابك للزبائن وتطبيقات التواصل)",
-                        color: Colors.redAccent,
-                      ),
-                      GWdgtTextTitleDesc(
-                        string:
-                            "https://beautina.app/${beautyProvider.username}",
-                      ),
-                    ],
-                  ),
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Expanded(
-                      child: Row(
-                        children: [
-                          IconButton(
-                            color: Colors.white70,
-                            icon: Icon(Icons.ios_share),
-                            onPressed: () {
-                              gFunShareAccount(beautyProvider.username);
-
-                              if (beautyProvider.username.contains('+9'))
-                                showToast('لم تقومي بحفظ اسم مستعار');
-                              else
-                                gFunShareAccount(beautyProvider.username);
-                            },
-                          ),
-                          IconButton(
-                            color: Colors.white70,
-                            icon: Icon(Icons.copy),
-                            onPressed: () {
-                              if (beautyProvider.username.contains('+9'))
-                                showToast('لم تقومي بحفظ اسم مستعار');
-                              else
-                                gFunCopyText(
-                                    'https://beautina.app/${beautyProvider.username}');
-                            },
-                          ),
-                        ],
-                      ),
+              Padding(
+                padding: EdgeInsets.all(edgeText),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        GWdgtTextTitleDesc(
+                          string: "(شاركي حسابك للزبائن وتطبيقات التواصل)",
+                          color: Colors.redAccent,
+                        ),
+                        GWdgtTextTitleDesc(
+                          string:
+                              "https://beautina.app/${beautyProvider.username}",
+                        ),
+                      ],
                     ),
-                  )
-                ],
-              ),
-            )
-          ],
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Expanded(
+                        child: Row(
+                          children: [
+                            IconButton(
+                              color: Colors.white70,
+                              icon: Icon(Icons.ios_share),
+                              onPressed: () {
+                                gFunShareAccount(beautyProvider.username);
+
+                                if (beautyProvider.username.contains('+9'))
+                                  showToast('لم تقومي بحفظ اسم مستعار');
+                                else
+                                  gFunShareAccount(beautyProvider.username);
+                              },
+                            ),
+                            IconButton(
+                              color: Colors.white70,
+                              icon: Icon(Icons.copy),
+                              onPressed: () {
+                                if (beautyProvider.username.contains('+9'))
+                                  showToast('لم تقومي بحفظ اسم مستعار');
+                                else
+                                  gFunCopyText(
+                                      'https://beautina.app/${beautyProvider.username}');
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Function onAvailableChangeComplete() {

@@ -1,8 +1,8 @@
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
+import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,34 +16,36 @@ class WdgtRootTopBar extends StatefulWidget {
 class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
   @override
   Widget build(BuildContext context) {
-    VMRootUi vmRootUi = Provider.of<VMRootUi>(context);
     return Align(
         alignment: Alignment.topCenter,
-        child: AnimatedSwitcher(
-            duration: Duration(milliseconds: 500),
-            child: Provider.of<VMRootUi>(context).hideBars
-                ? SizedBox()
-                : ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(radius),
-                        bottomRight: Radius.circular(radius)),
-                    child: Container(
-                      height: heightTopBar,
+        child: GetBuilder<VMRootUiTest>(builder: (vMRootUiTest) {
+          return AnimatedSwitcher(
+              duration: Duration(milliseconds: 500),
+              child: vMRootUiTest.hideBars
+                  ? SizedBox()
+                  : ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(radius),
+                          bottomRight: Radius.circular(radius)),
                       child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.only(top: 60.h),
-                        decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.circular(20),
-                            color: AppColors.blueOpcity.withOpacity(0.9)),
-                        child: Center(
-                          child: AnimatedSwitcher(
-                            duration: Duration(milliseconds: 500),
-                            child: getTitleWidget(context, vmRootUi.pageIndex),
+                        height: heightTopBar,
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.only(top: 60.h),
+                          decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(20),
+                              color: AppColors.blueOpcity.withOpacity(0.9)),
+                          child: Center(
+                            child: AnimatedSwitcher(
+                              duration: Duration(milliseconds: 500),
+                              child:
+                                  getTitleWidget(context, vMRootUiTest.pageIndex),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )));
+                    ));
+        }));
   }
 
   getTitleWidget(BuildContext context, pageIndex) {

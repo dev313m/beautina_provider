@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/dates/index.dart';
+import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/screens/salon/index.dart';
 import 'package:beautina_provider/screens/notification/index.dart';
 import 'package:beautina_provider/screens/refresh.dart';
@@ -8,13 +9,12 @@ import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/root/ui/no_internet.dart';
 import 'package:beautina_provider/screens/root/ui/root_bottom_bar.dart';
 import 'package:beautina_provider/screens/root/ui/root_top_bar.dart';
-import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
 import 'package:beautina_provider/screens/settings/index.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:preload_page_view/preload_page_view.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/screens/gift/index.dart';
 
@@ -65,8 +65,7 @@ class _PageRoot extends State<PageRoot>
 
   @override
   void dispose() {
-    VMRootUi vmRootUi = Provider.of<VMRootUi>(context);
-    vmRootUi.pageController.dispose();
+    Get.find<VMRootUiTest>().dispose();
     super.dispose();
   }
 
@@ -82,7 +81,6 @@ class _PageRoot extends State<PageRoot>
     ///This must be set to initialize sizes of screenutil
     ScreenUtil.init(context,
         designSize: Size(1080, 2340), allowFontScaling: true);
-    VMRootUi vmRootUi = Provider.of<VMRootUi>(context);
 
     /// This widget is when pressing on the screen the keyboard is removed
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -106,27 +104,36 @@ class _PageRoot extends State<PageRoot>
               },
               child: Stack(
                 children: <Widget>[
-                  PreloadPageView(
-                    children: _pages,
-                    controller: vmRootUi.pageController,
-                    preloadPagesCount: 2,
-                    physics: AlwaysScrollableScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (index) {
-                      if (vmRootUi.hideBars == true) vmRootUi.hideBars = false;
+                      PreloadPageView(
+                        children: _pages,
+                        controller: Get.find<VMRootUiTest>().pageController,
+                        preloadPagesCount: 2,
+                        physics: AlwaysScrollableScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (index) {
+                          // if (Get.find<VMRootUiTest>().hideBars == true)
+                          //   Get.find<VMRootUiTest>().hideBars = false;
 
-                      setState(() {
-                        vmRootUi.pageIndex = index;
-                      });
-                    },
-                    pageSnapping: true,
-                  ),
+                          // // setState(() {
+                          // //   vmRootUi.pageIndex = index;
+                          // // });
+                          // Get.find<VMRootUiTest>().pageIndex = index;
+                        },
+                        pageSnapping: true,
+                      ),
                   WdgtRootBottomBar(),
-                  vmRootUi.isNoInternet ? WidgetNoConnection() : SizedBox(),
-                  AnimatedSwitcher(
-                    child: vmRootUi.hideBars ? SizedBox() : WdgtRootTopBar(),
+                  GetBuilder<VMRootUiTest>(builder: (vMRootUiTest) {
+                    return vMRootUiTest.isNoInternet
+                        ? WidgetNoConnection()
+                        : SizedBox();
+                  }),
+                  GetBuilder<VMRootUiTest>(builder: (vMRootUiTest) {
+                    return AnimatedSwitcher(
+                    child: vMRootUiTest.hideBars ? SizedBox() : WdgtRootTopBar(),
                     duration: Duration(milliseconds: 303),
-                  )
+                  );
+                  }),
+ 
                 ],
               ),
             )),
@@ -169,7 +176,7 @@ class _PageRoot extends State<PageRoot>
       // },
       onLaunch: (Map<String, dynamic> message) async {
         await Future.delayed(Duration(seconds: onNotificationClickDuration));
-        Provider.of<VMRootUi>(context).pageController.jumpTo(1);
+        Get.find<VMRootUiTest>().pageController.jumpTo(1);
       },
     );
   }

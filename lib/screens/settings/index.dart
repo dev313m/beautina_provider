@@ -1,5 +1,4 @@
 import 'package:beautina_provider/screens/root/functions.dart';
-import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
 import 'package:beautina_provider/screens/settings/ui/location.dart';
 import 'package:beautina_provider/screens/settings/ui/personal_info.dart';
 import 'package:beautina_provider/screens/settings/ui/profile_image.dart';
@@ -9,7 +8,6 @@ import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 
@@ -34,7 +32,6 @@ class _PageSettingsState extends State<PageSettings> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
-      bool hideBars = Provider.of<VMRootUi>(context).hideBars;
       onScrollAction(_scrollController, context,
           onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
@@ -42,7 +39,6 @@ class _PageSettingsState extends State<PageSettings> {
 
   @override
   Widget build(BuildContext context) {
-    vmSettingsData = Provider.of<VMSettingsData>(context);
     return Scaffold(
         // key: vmSettingsData.globalKey,
         backgroundColor: Colors.transparent,
@@ -53,7 +49,7 @@ class _PageSettingsState extends State<PageSettings> {
               child: ListView(
                 controller: _scrollController,
                 children: <Widget>[
-                  Y(height: heightNavBar + 25.h),
+                  Y(height: heightNavBar + 75.h),
                   Y(),
                   WdgtSettingsProfileImage(),
                   Y(),

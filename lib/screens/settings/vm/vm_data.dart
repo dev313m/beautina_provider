@@ -3,91 +3,91 @@ import 'package:flutter/material.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class VMSettingsData extends ChangeNotifier {
-  RoundedLoadingButtonController _controller = RoundedLoadingButtonController();
-  GlobalKey<FormState> formKey;
-  GlobalKey<ScaffoldState> globalKey;
+  // RoundedLoadingButtonController _controller = RoundedLoadingButtonController();
+  // GlobalKey<FormState> formKey;
+  // GlobalKey<ScaffoldState> globalKey;
 
-  bool _autoValidate = false;
+  // bool _autoValidate = false;
 
-  String _description;
+  // String _description;
 
-  String _city;
+  // String _city;
 
-  String _country;
+  // String _country;
 
-  List<dynamic> _location;
+  // List<dynamic> _location;
 
-  String _mobile;
+  // String _mobile;
 
-  String _name;
+  // String _name;
 
-  String _username;
+  // String _username;
 
-  String get username => _username;
+  // String get username => _username;
 
-  set username(String username) {
-    _username = username;
-    notifyListeners();
-  }
+  // set username(String username) {
+  //   _username = username;
+  //   notifyListeners();
+  // }
 
-  VMSettingsData() {
-    globalKey = GlobalKey<ScaffoldState>();
-    formKey = GlobalKey<FormState>();
-  }
+  // VMSettingsData() {
+  //   globalKey = GlobalKey<ScaffoldState>();
+  //   formKey = GlobalKey<FormState>();
+  // }
 
-  RoundedLoadingButtonController get controller => _controller;
+  // RoundedLoadingButtonController get controller => _controller;
 
-  set controller(RoundedLoadingButtonController controller) {
-    _controller = controller;
-    notifyListeners();
-  }
+  // set controller(RoundedLoadingButtonController controller) {
+  //   _controller = controller;
+  //   notifyListeners();
+  // }
 
-  List<dynamic> get location => _location;
+  // List<dynamic> get location => _location;
 
-  bool get autoValidate => _autoValidate;
+  // bool get autoValidate => _autoValidate;
 
-  set autoValidate(bool autoValidate) {
-    _autoValidate = autoValidate;
-    notifyListeners();
-  }
+  // set autoValidate(bool autoValidate) {
+  //   _autoValidate = autoValidate;
+  //   notifyListeners();
+  // }
 
-  String get country => _country;
+  // String get country => _country;
 
-  set country(String country) {
-    _country = country;
-    notifyListeners();
-  }
+  // set country(String country) {
+  //   _country = country;
+  //   notifyListeners();
+  // }
 
-  String get description => _description;
+  // String get description => _description;
 
-  set description(String description) {
-    _description = description;
-    notifyListeners();
-  }
+  // set description(String description) {
+  //   _description = description;
+  //   notifyListeners();
+  // }
 
-  String get city => _city;
+  // String get city => _city;
 
-  set city(String city) {
-    _city = city;
-    notifyListeners();
-  }
+  // set city(String city) {
+  //   _city = city;
+  //   notifyListeners();
+  // }
 
-  String get mobile => _mobile;
+  // String get mobile => _mobile;
 
-  set mobile(String mobile) {
-    _mobile = mobile;
-    notifyListeners();
-  }
+  // set mobile(String mobile) {
+  //   _mobile = mobile;
+  //   notifyListeners();
+  // }
 
-  String get name => _name;
+  // String get name => _name;
 
-  set name(String name) {
-    _name = name;
-    notifyListeners();
-  }
+  // set name(String name) {
+  //   _name = name;
+  //   notifyListeners();
+  // }
 
-  set location(List<dynamic> location) {
-    _location = location;
-    notifyListeners();
-  }
+  // set location(List<dynamic> location) {
+  //   _location = location;
+  //   notifyListeners();
+  // }
 }

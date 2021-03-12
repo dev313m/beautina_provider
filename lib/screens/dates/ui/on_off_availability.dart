@@ -1,14 +1,13 @@
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:loading/loading.dart';
-import 'package:provider/provider.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 
 ///[String]
@@ -89,8 +88,8 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
 
                       await apiBeautyProviderUpdate(mbp..busyDates = newBusyDates);
 
-                      Provider.of<VMSalonData>(context).beautyProvider = mbp;
-                      Provider.of<VMSalonData>(context).beautyProvider = await sharedUserProviderGetInfo();
+                      Get.find<VMSalonDataTest>().beautyProvider = mbp;
+                      Get.find<VMSalonDataTest>().beautyProvider = await sharedUserProviderGetInfo();
 
                       isAvailabilityChecked = false;
                       checkAvalability(widget.changableAvailableDate);
@@ -168,7 +167,7 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     if (isAvailabilityChecked) return available;
     bool availableDate = true;
     await Future.delayed(Duration(milliseconds: 300));
-    ModelBeautyProvider beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
+    ModelBeautyProvider beautyProvider = Get.find<VMSalonDataTest>().beautyProvider;
     List<Map<String, DateTime>> busyDates = beautyProvider.busyDates;
     busyDates.forEach((element) {
       if (requiredDate.isAfter(element['from'].subtract(Duration(minutes: 1))) && requiredDate.isBefore(element['to']))

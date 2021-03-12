@@ -2,12 +2,12 @@ import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/index.dart';
-import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/prefrences/services.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/picker.dart';
 import 'package:beautina_provider/reusables/toast.dart';
+import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data_test.dart';
 import 'package:beautina_provider/services/api/api_provided_services.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:beautina_provider/services/auth/apple_auth.dart';
@@ -16,8 +16,8 @@ import 'package:beautina_provider/services/auth/google_auth.dart';
 import 'package:beautina_provider/services/notification/token.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
 SmsAuth smsAuth = SmsAuth();
@@ -25,19 +25,19 @@ SmsAuth smsAuth = SmsAuth();
 loginWithApple(BuildContext context) async {
   if (!isNameChosen(context)) throw Exception('الرجاء وضع الاسم');
 
-  if (Provider.of<VMLoginData>(context).city == null) {
+  if (Get.find<VMLoginDataTest>().city == null) {
     throw Exception('الرجاء اختيار المنطقة');
   }
-  if (Provider.of<VMLoginData>(context).accountType == -1) {
+  if (Get.find<VMLoginDataTest>().accountType == -1) {
     throw Exception('الرجاء اختيار نوع الحساب');
   }
   // animationController.forward();
   smsAuth.phoneNum =
-      Countries.phoneCode[Provider.of<VMLoginData>(context).city.elementAt(0)] +
-          Provider.of<VMLoginData>(context).phoneNum;
+      Countries.phoneCode[Get.find<VMLoginDataTest>().city.elementAt(0)] +
+          Get.find<VMLoginDataTest>().phoneNum;
 
   // Function success = () {
-  //   Provider.of<VMLoginData>(context).showCode = true;
+  //   Get.find<VMLoginDataTest>().showCode = true;
   //   animationController.reverse();
   //   showToast('الرجاء ادراج الكود من الرساله');
   // };
@@ -62,19 +62,19 @@ loginWithApple(BuildContext context) async {
 
 loginWithGoogle(BuildContext context) async {
   if (!isNameChosen(context)) throw Exception('الرجاء وضع الاسم');
-  if (Provider.of<VMLoginData>(context).city == null) {
+  if (Get.find<VMLoginDataTest>().city == null) {
     throw Exception('الرجاء اختيار المنطقة');
   }
-  if (Provider.of<VMLoginData>(context).accountType == -1) {
+  if (Get.find<VMLoginDataTest>().accountType == -1) {
     throw Exception('الرجاء اختيار نوع الحساب');
   }
   // animationController.forward();
   smsAuth.phoneNum =
-      Countries.phoneCode[Provider.of<VMLoginData>(context).city.elementAt(0)] +
-          Provider.of<VMLoginData>(context).phoneNum;
+      Countries.phoneCode[Get.find<VMLoginDataTest>().city.elementAt(0)] +
+          Get.find<VMLoginDataTest>().phoneNum;
 
   // Function success = () {
-  //   Provider.of<VMLoginData>(context).showCode = true;
+  //   Get.find<VMLoginDataTest>().showCode = true;
   //   animationController.reverse();
   //   showToast('الرجاء ادراج الكود من الرساله');
   // };
@@ -101,11 +101,11 @@ Function onConfirmPhoneNumber(BuildContext context) {
     if (!isNameChosen(context)) return () {};
     // animationController.forward();
     smsAuth.phoneNum = Countries
-            .phoneCode[Provider.of<VMLoginData>(context).city.elementAt(0)] +
-        Provider.of<VMLoginData>(context).phoneNum;
+            .phoneCode[Get.find<VMLoginDataTest>().city.elementAt(0)] +
+        Get.find<VMLoginDataTest>().phoneNum;
 
     // Function success = () {
-    //   Provider.of<VMLoginData>(context).showCode = true;
+    //   Get.find<VMLoginDataTest>().showCode = true;
     //   animationController.reverse();
     //   showToast('الرجاء ادراج الكود من الرساله');
     // };
@@ -156,7 +156,7 @@ Future<Null> saveUserData(BuildContext context) async {
 
 ModelBeautyProvider getUserData(
     String uid, String token, BuildContext context) {
-  VMLoginData signInData = Provider.of<VMLoginData>(context, listen: false);
+  VMLoginDataTest signInData = Get.find<VMLoginDataTest>();
   String country = Countries.countriesMap[signInData.city.elementAt(0)];
   String city = Countries.citiesMap[signInData.city.elementAt(1)];
 
@@ -192,7 +192,7 @@ routeToRoot(BuildContext context) {
 showPicker(BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
   Function onConfirm() {
     return (Picker picker, List value) {
-      Provider.of<VMLoginData>(context).city = [
+      Get.find<VMLoginDataTest>().city = [
         'السعوديه',
         picker.adapter.getSelectedValues().elementAt(0),
       ];
@@ -205,33 +205,33 @@ showPicker(BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
 }
 
 saveName(BuildContext context, String name) {
-  Provider.of<VMLoginData>(context).name = name;
+  Get.find<VMLoginDataTest>().name = name;
 }
 
 bool isCityChosen(BuildContext context) {
-  return Provider.of<VMLoginData>(context).city == null ? false : true;
+  return Get.find<VMLoginDataTest>().city == null ? false : true;
 }
 
 String getCity(BuildContext context) {
-  return Provider.of<VMLoginData>(context).city == null
+  return Get.find<VMLoginDataTest>().city == null
       ? 'المدينة'
-      : Provider.of<VMLoginData>(context).city.elementAt(1).toString();
+      : Get.find<VMLoginDataTest>().city.elementAt(1).toString();
 }
 
 String getCountry(BuildContext context) {
-  return Provider.of<VMLoginData>(context).city == null
+  return Get.find<VMLoginDataTest>().city == null
       ? 'المنطقة'
-      // : Provider.of<VMLoginData>(context).city.elementAt(1).toString();
+      // : Get.find<VMLoginDataTest>().city.elementAt(1).toString();
       : "السعوديه";
 }
 
 String getPhoneCode(BuildContext context) {
-  VMLoginData sp = Provider.of<VMLoginData>(context);
+  VMLoginDataTest sp = Get.find<VMLoginDataTest>();
   return sp.city == null ? '' : Countries.phoneCode[sp.city.elementAt(0)];
 }
 
 bool isNameChosen(BuildContext context) {
-  VMLoginData sp = Provider.of<VMLoginData>(context);
+  VMLoginDataTest sp = Get.find<VMLoginDataTest>();
 
   if (sp.name == null || sp.name == '') {
     return false;

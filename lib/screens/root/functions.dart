@@ -1,17 +1,16 @@
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/refresh.dart';
-import 'package:beautina_provider/screens/root/vm/vm_data.dart';
 import 'package:beautina_provider/screens/root/ui/ui.dart';
-import 'package:beautina_provider/screens/root/vm/vm_ui.dart';
+import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
+import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/services/remote_config.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/rendering.dart';
@@ -61,8 +60,8 @@ launchURL(String url) async {
 ///1- clear the numbers on the notification
 ///2- set a flag to await the process to finish [[isVisitedPage]]
 onNotificationPageVisited(BuildContext context) async {
-  VMRootUi vmRootUi = Provider.of<VMRootUi>(context);
-  VMRootData vmRootData = Provider.of<VMRootData>(context);
+  VMRootUiTest vmRootUi = Get.find<VMRootUiTest>();
+  VMRootDataTest vmRootData = Get.find<VMRootDataTest>();
   vmRootUi.pageController.addListener(() async {
     if (vmRootUi.pageController.page.toInt() == 1.0) {
       vmRootUi.isVisitedPage = true;
@@ -85,10 +84,10 @@ listenToInternet(BuildContext context) {
   subscription =
       Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     if (result.index == ConnectivityResult.none.index) {
-      Provider.of<VMRootUi>(context).isNoInternet = true;
+      Get.find<VMRootUiTest>().isNoInternet = true;
       // isNoInternet = true;
     } else {
-      Provider.of<VMRootUi>(context).isNoInternet = false;
+      Get.find<VMRootUiTest>().isNoInternet = false;
 
       // refreshApp(context);
       // isNoInternet = false;
@@ -123,8 +122,8 @@ lifeCycleChangeAction(AppLifecycleState state, BuildContext context) {
 ///To check if the user on the root screen, it will go otherwise it will move
 ///the user to root screen
 Future<bool> willExitApp(BuildContext context) async {
-  if (Provider.of<VMRootUi>(context).pageController.page.round() != 4) {
-    Provider.of<VMRootUi>(context).pageController.jumpToPage(4);
+  if (Get.find<VMRootUiTest>().pageController.page.round() != 4) {
+    Get.find<VMRootUiTest>().pageController.jumpToPage(4);
 
     return false;
   }
@@ -139,19 +138,19 @@ closeKeyboard(BuildContext context) {
 
 ///Hide bar when scroll down
 Function onScrollDown = (BuildContext context) {
-  Provider.of<VMRootUi>(context).hideBars = false;
+  Get.find<VMRootUiTest>().hideBars = false;
 };
 
 ///Show bar when scroll up
 
 Function onScrollUp = (BuildContext context) {
-  Provider.of<VMRootUi>(context).hideBars = true;
+  Get.find<VMRootUiTest>().hideBars = true;
 };
 
 ///Take an action when scrolling down or up
 onScrollAction(ScrollController scrollController, BuildContext context,
     {Function onScrolldown, Function onScrollUp}) {
-  bool hideBars = Provider.of<VMRootUi>(context).hideBars;
+  bool hideBars = Get.find<VMRootUiTest>().hideBars;
 
   ///if scrolilng toward up [and] hidebars is [true] hidden
   if (scrollController.position.userScrollDirection ==

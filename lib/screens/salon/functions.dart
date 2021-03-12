@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:beautina_provider/services/api/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 Future<ModelBeautyProvider> updateDataFromServer() async {
@@ -26,7 +26,7 @@ Future<ModelBeautyProvider> updateDataFromServer() async {
 Map<String, dynamic> getNewServicesMap(BuildContext context, showOther,
     chosenService, priceBefore, priceAfter, otherServiceName) {
   ModelBeautyProvider beautyProvider =
-      Provider.of<VMSalonData>(context).beautyProvider;
+      Get.find<VMSalonDataTest>().beautyProvider;
   Map<String, dynamic> map =
       new Map<String, dynamic>.of(beautyProvider.servicespro);
   Map<String, dynamic> newMap = copyDeepMap(map);
@@ -71,7 +71,7 @@ updateProviderServices(
 
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
   try {
-    Provider.of<VMSalonData>(context).beautyProvider =
+    Get.find<VMSalonDataTest>().beautyProvider =
         await apiBeautyProviderUpdate(bp
           ..servicespro = getNewServicesMap(context, showOther, chosenService,
               priceBefore, priceAfter, otherServiceName));
@@ -123,7 +123,7 @@ removeServiceByCodeAndUpdate(
 
   /// 3- update
   try {
-    Provider.of<VMSalonData>(context).beautyProvider =
+    Get.find<VMSalonDataTest>().beautyProvider =
         await apiBeautyProviderUpdate(bp..servicespro = newMap);
     onDeleteServiceSuccess();
   } catch (e) {
@@ -151,9 +151,9 @@ updateUserAvailability(
 
     await apiBeautyProviderUpdate(mbp..available = !mbp.available);
 
-    // Provider.of<VMSalonData>(context).beautyProvider = mbp;
+    // Get.find<VMSalonDataTest>().beautyProvider = mbp;
     // setState(() {});
-    Provider.of<VMSalonData>(context).beautyProvider =
+    Get.find<VMSalonDataTest>().beautyProvider =
         await sharedUserProviderGetInfo();
     onAvailableChangeSuccess();
     // var don;
@@ -174,7 +174,7 @@ updateProfileImage(
   if (await file.exists() == false) return;
   DefaultCacheManager manager = new DefaultCacheManager();
   ModelBeautyProvider beautyProvider =
-      Provider.of<VMSalonData>(context).beautyProvider;
+      Get.find<VMSalonDataTest>().beautyProvider;
   manager.emptyCache();
   onProfileImageChangeLoad();
   bool response = await imageUpload(file, beautyProvider.uid);
@@ -192,9 +192,9 @@ updateProfileImage(
 
       await apiBeautyProviderUpdate(mbp..available = mbp.available);
 
-      // Provider.of<VMSalonData>(context).beautyProvider = mbp;
+      // Get.find<VMSalonDataTest>().beautyProvider = mbp;
       // setState(() {});
-      Provider.of<VMSalonData>(context).beautyProvider =
+      Get.find<VMSalonDataTest>().beautyProvider =
           await sharedUserProviderGetInfo();
     } catch (e) {
       onProfileImageChangeError();

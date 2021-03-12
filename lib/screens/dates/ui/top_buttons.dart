@@ -1,11 +1,11 @@
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/ui/coming_order_page.dart';
 import 'package:beautina_provider/screens/dates/ui/finished_order_page.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:spring_button/spring_button.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
@@ -112,7 +112,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorBadge),
                       child: Center(
                         child: ExtendedText(
-                          string: Provider.of<VmDateData>(context).comingConfirmedList.length.toString(),
+                          string: Get.find<VmDateDataTest>().comingConfirmedList.length.toString(),
                         ),
                       )),
                 ),

@@ -1,7 +1,7 @@
 import 'package:beautina_provider/reusables/animated_textfield.dart';
-import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
+import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data_test.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 class WdgtLoginPhone extends StatefulWidget {
   const WdgtLoginPhone({Key key}) : super(key: key);
@@ -14,15 +14,15 @@ class _WdgtLoginPhoneState extends State<WdgtLoginPhone> {
   final txtController = TextEditingController(text: '');
 
   // validateText() {
-  //   Provider.of<VMLoginData>(context).phoneNum = txtController.text;
-  //   print(Provider.of<VMLoginData>(context).phoneNum);
+  //   Get.find<VMLoginDataTest>().phoneNum = txtController.text;
+  //   print(Get.find<VMLoginDataTest>().phoneNum);
   // }
 
 
   validateText() {
-    Provider.of<VMLoginData>(context).phoneNum =
+    Get.find<VMLoginDataTest>().phoneNum =
         convertArabicToEnglish(txtController.text);
-    print(Provider.of<VMLoginData>(context).phoneNum);
+    print(Get.find<VMLoginDataTest>().phoneNum);
   }
 
   @override

@@ -1,10 +1,11 @@
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data.dart';
+import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data_test.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///[size]
@@ -38,7 +39,7 @@ class _WdgtLoginUserTypeState extends State<WdgtLoginUserType> {
               accountTypeBool[index] = true;
               setState(() {});
               // showToast(index.toString());
-              Provider.of<VMLoginData>(context).accountType = index == 1 ? 1 : 0;
+              Get.find<VMLoginDataTest>().accountType = index == 1 ? 1 : 0;
             },
 
             // color: Colors.blue,

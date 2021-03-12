@@ -6,15 +6,15 @@ import 'package:beautina_provider/screens/salon/ui/share.dart';
 import 'package:beautina_provider/screens/salon/ui/location_not_set.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
 import 'package:beautina_provider/screens/salon/ui/ui_displayed_services.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class PageSalon extends StatefulWidget {
@@ -37,6 +37,7 @@ class _PageSalonState extends State<PageSalon> {
       onScrollAction(_scrollController, context,
           onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
+    
     // initBeautyProvider();
   }
 
@@ -55,27 +56,31 @@ class _PageSalonState extends State<PageSalon> {
               Y(),
               WdgtSalonShare(),
               Y(),
-              if (Provider.of<VMSalonData>(context)
-                      .beautyProvider
-                      .location
-                      .length !=
-                  2)
-                WdgtSalonLocationNotSet(),
+
+              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
+                if (vMSalonDataTest.beautyProvider.location.length != 2)
+                  return WdgtSalonLocationNotSet();
+                return SizedBox();
+              }),
 
               Y(),
               WdgtSalonCloseOpenSalon(),
-              if (Provider.of<VMSalonData>(context).providedServices != null)
-                WdgtSalonMyServices(),
+
+              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
+                if (vMSalonDataTest.providedServices != null)
+                  return WdgtSalonMyServices();
+                return SizedBox();
+              }),
+
               Y(),
-              if (Provider.of<VMSalonData>(context)
-                  .providedServices
-                  .containsKey('services'))
-                if (Provider.of<VMSalonData>(context)
-                        .providedServices['services']
-                        .keys
-                        .length !=
-                    0)
-                  WdgtSalonAddService(),
+              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
+                if (vMSalonDataTest.providedServices
+                    .containsKey('services')) if (vMSalonDataTest
+                        .providedServices['services'].keys.length !=
+                    0) return WdgtSalonAddService();
+                return SizedBox();
+              }),
+
               // Y(),
               // WdgtSalonHowLookProfile(),
 

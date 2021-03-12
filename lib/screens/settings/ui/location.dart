@@ -1,14 +1,12 @@
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/text.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
-import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
+import 'package:beautina_provider/screens/settings/vm/vm_data_test.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading/loading.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
@@ -24,14 +22,13 @@ class WdgtSettingsLocation extends StatefulWidget {
 
 class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
   bool loadingLocation = false;
-  ModelBeautyProvider beautyProvider;
-  VMSettingsData vmSettingsData;
-  RoundedLoadingButtonController buttonController = RoundedLoadingButtonController();
+  // ModelBeautyProvider beautyProvider;
+  // VMSettingsData vmSettingsData;
+  RoundedLoadingButtonController buttonController =
+      RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
-    vmSettingsData = Provider.of<VMSettingsData>(context);
-    beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
     return Container(
         width: double.infinity,
         padding: EdgeInsets.all(allContainerPadding),
@@ -46,66 +43,75 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
               string: locationDetails,
             ),
             Y(),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: BeautyTextfield(
-                suffixIcon: Icon(
-                  CommunityMaterialIcons.home_city_outline,
-                  // size: ScreenUtil().setSp(40),
+            GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: BeautyTextfield(
+                  suffixIcon: Icon(
+                    CommunityMaterialIcons.home_city_outline,
+                    // size: ScreenUtil().setSp(40),
+                  ),
+                  helperText: 'المنطقة',
+                  readOnly: true,
+                  inputType: TextInputType.text,
+                  onTap: () {
+                    showMenuLocation(context, vmSettingsData.globalKey);
+                  },
                 ),
-                helperText: 'المنطقة',
-                readOnly: true,
-                inputType: TextInputType.text,
-                onTap: () {
-                  showMenuLocation(context, vmSettingsData.globalKey);
-                },
-              ),
+              );
+            }),
+                        GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+
+                return GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
+                  return Row(
+                    children: <Widget>[
+                      Chip(
+                          label: ExtendedText(
+                        string: vmSettingsData.city == null
+                            ? vMSalonData.beautyProvider.city
+                            : vmSettingsData.country,
+                        fontColor: Colors.black,
+                      )),
+                      Chip(
+                          label: ExtendedText(
+                        string: vmSettingsData.country == null
+                            ?vMSalonData.  beautyProvider.country
+                            : vmSettingsData.city,
+                        fontColor: Colors.black,
+                      ))
+                    ],
+                  );
+                });
+              }
             ),
-            Row(
-              children: <Widget>[
-                Chip(
-                    label: ExtendedText(
-                  string: vmSettingsData.city == null
-                      ? beautyProvider.city
-                      : vmSettingsData.country,
-                  fontColor: Colors.black,
-                )),
-                Chip(
-                    label: ExtendedText(
-                  string: vmSettingsData.country == null
-                      ? beautyProvider.country
-                      : vmSettingsData.city,
-                  fontColor: Colors.black,
-                ))
-              ],
-            ),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: BeautyTextfield(
-                suffixIcon: Icon(Icons.location_on),
-                placeholder:
-                    loadingLocation ? 'جاري التحميل' : introLocationStr,
-                readOnly: true,
-                
-                inputType: TextInputType.text,
-                onTap: () async {
-                  setState(() {
-                    loadingLocation = true;
-                  });
-                  List<dynamic> location = await getMyLocation();
-                  setState(() {
-                    loadingLocation = false;
-                    if (loadingLocation == null)
-                      introLocationStr = locationErrStr;
-                    else {
-                      introLocationStr = locationSuccessStr +
-                          vmSettingsData.location.toString();
-                      vmSettingsData.location = location;
-                    }
-                  });
-                },
-              ),
-            ),
+            GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: BeautyTextfield(
+                  suffixIcon: Icon(Icons.location_on),
+                  placeholder:
+                      loadingLocation ? 'جاري التحميل' : introLocationStr,
+                  readOnly: true,
+                  inputType: TextInputType.text,
+                  onTap: () async {
+                    setState(() {
+                      loadingLocation = true;
+                    });
+                    List<dynamic> location = await getMyLocation();
+                    setState(() {
+                      loadingLocation = false;
+                      if (loadingLocation == null)
+                        introLocationStr = locationErrStr;
+                      else {
+                        introLocationStr = locationSuccessStr +
+                            vmSettingsData.location.toString();
+                        vmSettingsData.location = location;
+                      }
+                    });
+                  },
+                ),
+              );
+            }),
             Y(),
             RoundedLoadingButton(
               controller: buttonController,

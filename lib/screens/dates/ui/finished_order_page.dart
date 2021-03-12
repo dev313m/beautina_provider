@@ -1,10 +1,8 @@
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
@@ -33,7 +31,7 @@ class OrderListFinishedPage extends StatefulWidget {
 class _OrderListFinishedState extends State<OrderListFinishedPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<VmDateData>(builder: (_, VmDateData, child) {
+    return GetBuilder<VmDateDataTest>(builder: (VmDateData) {
       return Scaffold(
         primary: false,
         // resizeToAvoidBottomPadding: false,

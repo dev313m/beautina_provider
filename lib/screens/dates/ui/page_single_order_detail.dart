@@ -2,13 +2,12 @@ import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
+import 'package:get/get.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 ///[strings]
@@ -38,7 +37,7 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
   Order order;
   @override
   Widget build(BuildContext context) {
-    order = Provider.of<VmDateData>(context)
+    order = Get.find<VmDateDataTest>()
         .orderList
         .where((element) => element.doc_id == widget.orderId)
         .first;

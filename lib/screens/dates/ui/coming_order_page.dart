@@ -1,12 +1,11 @@
 import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
-import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///[string]
 final strComingOrders = 'طلبات مؤكدة قادمة';
@@ -33,10 +32,10 @@ class OrderListPage extends StatefulWidget {
 }
 
 class _OrderListPageState extends State<OrderListPage> {
-  VmDateData vmDateData;
+  VmDateDataTest vmDateData;
   @override
   Widget build(BuildContext context) {
-    vmDateData = Provider.of<VmDateData>(context);
+    vmDateData = Get.find<VmDateDataTest>();
     return Scaffold(
       primary: false,
       // resizeToAvoidBottomPadding: false,

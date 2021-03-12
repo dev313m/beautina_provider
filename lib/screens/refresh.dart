@@ -1,16 +1,16 @@
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
-import 'package:beautina_provider/screens/root/vm/vm_data.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
+import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 refreshApp(BuildContext context) {
-  Provider.of<VMRootData>(context).shareRoot();
-  Provider.of<VMSalonData>(context).init();
-  Provider.of<VmDateData>(context).iniState();
+  Get.find<VMRootDataTest>().shareRoot();
+  Get.find<VMSalonDataTest>().init();
+  Get.find<VmDateDataTest>().iniState();
 }
 
 refreshResume(BuildContext context) async {
-  Provider.of<VmDateData>(context).iniState();
-  Provider.of<VMRootData>(context).initNotificationDb();
+  Get.find<VmDateDataTest>().iniState();
+  Get.find<VMRootDataTest>().initNotificationDb();
 }

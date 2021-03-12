@@ -1,9 +1,9 @@
 import 'package:beautina_provider/screens/root/functions.dart';
-import 'package:beautina_provider/screens/root/vm/vm_data.dart';
+import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:beautina_provider/screens/notification/ui/notification_item.dart';
 import 'package:beautina_provider/screens/notification/ui/broadcast.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
@@ -43,45 +43,49 @@ class _PageNotification extends State<PageNotification>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        await Provider.of<VMRootData>(context).refreshNotificationList();
-        return;
-      },
-      child: ListView(
-        controller: _scrollController,
-        children: <Widget>[
-          Y(height: heightNavBar + 25.h),
-          Y(),
-          WdgtNotificationAnimation(key: ValueKey('flower')),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: Provider.of<VMRootData>(context).notificationList.length,
-            itemBuilder: (_, index) {
-              return Padding(
-                  padding: EdgeInsets.only(top: edgeContainer),
-                  child: Provider.of<VMRootData>(context)
-                              .notificationList
-                              .elementAt(index)
-                              .type ==
-                          ''
-                      ? WdgtNotificationItem(
-                          notification: Provider.of<VMRootData>(context)
-                              .notificationList
-                              .elementAt(index),
-                        )
-                      : WdgtNotificationBroadcast(
-                          notification: Provider.of<VMRootData>(context)
-                              .notificationList
-                              .elementAt(index)));
-            },
+    return GetBuilder<VMRootDataTest>(
+      builder: (vmRootData) {
+        return RefreshIndicator(
+          onRefresh: () async {
+            await vmRootData.refreshNotificationList();
+            return;
+          },
+          child: ListView(
+            controller: _scrollController,
+            children: <Widget>[
+              Y(height: heightNavBar + 25.h),
+              Y(),
+              WdgtNotificationAnimation(key: ValueKey('flower')),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: vmRootData.notificationList.length,
+                itemBuilder: (_, index) {
+                  return Padding(
+                      padding: EdgeInsets.only(top: edgeContainer),
+                      child: vmRootData
+                                  .notificationList
+                                  .elementAt(index)
+                                  .type ==
+                              ''
+                          ? WdgtNotificationItem(
+                              notification: vmRootData
+                                  .notificationList
+                                  .elementAt(index),
+                            )
+                          : WdgtNotificationBroadcast(
+                              notification: vmRootData
+                                  .notificationList
+                                  .elementAt(index)));
+                },
+              ),
+              Y(
+                height: bottomNavPadding,
+              )
+            ],
           ),
-          Y(
-            height: bottomNavPadding,
-          )
-        ],
-      ),
+        );
+      }
     );
   }
 

@@ -3,41 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 class VMRootUi with ChangeNotifier {
-  ///Page controller of all the app pages
-  PreloadPageController pageController = PreloadPageController(
-    initialPage: 4,
-    keepPage: true,
-  );
-  int pageIndex = 4;
+  // ///Page controller of all the app pages
+  // PreloadPageController pageController = PreloadPageController(
+  //   initialPage: 4,
+  //   keepPage: true,
+  // );
+  // int pageIndex = 4;
 
-  ///Sliding pages of the app
-  List<Widget> pages;
+  // ///Sliding pages of the app
+  // List<Widget> pages;
 
-  /// Hide appbar top and buttom flag
-  bool _hideBars = false;
+  // /// Hide appbar top and buttom flag
+  // bool _hideBars = false;
 
-  ///if notification page is visited flag
-  bool isVisitedPage = false;
+  // ///if notification page is visited flag
+  // bool isVisitedPage = false;
 
-  ///If there is no internet flag
-  bool _isNoInternet = false;
+  // ///If there is no internet flag
+  // bool _isNoInternet = false;
 
-  ///Getters
-  ///
-  ///
-  bool get isNoInternet => _isNoInternet;
-  bool get hideBars => _hideBars;
-  PreloadPageController getPageRootPageCntr() => pageController;
+  // ///Getters
+  // ///
+  // ///
+  // bool get isNoInternet => _isNoInternet;
+  // bool get hideBars => _hideBars;
+  // PreloadPageController getPageRootPageCntr() => pageController;
 
-  ///setters
+  // ///setters
 
-  set hideBars(bool hideBars) {
-    _hideBars = hideBars;
-    notifyListeners();
-  }
+  // set hideBars(bool hideBars) {
+  //   _hideBars = hideBars;
+  //   notifyListeners();
+  // }
 
-  set isNoInternet(bool isNoInternet) {
-    _isNoInternet = isNoInternet;
-    notifyListeners();
-  }
+  // set isNoInternet(bool isNoInternet) {
+  //   _isNoInternet = isNoInternet;
+  //   notifyListeners();
+  // }
 }

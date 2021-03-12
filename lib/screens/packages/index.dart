@@ -1,17 +1,16 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
-import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data.dart';
 import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
 import 'package:beautina_provider/screens/packages/constants.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:credit_card/credit_card_model.dart';
 import 'package:credit_card/flutter_credit_card.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:spring_button/spring_button.dart';
 
@@ -27,7 +26,7 @@ class _PagePackageState extends State<PagePackage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<VMSalonData>(builder: (_, VMSalonData, child) {
+    return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
       return Stack(
         children: <Widget>[
           Scaffold(
@@ -40,7 +39,7 @@ class _PagePackageState extends State<PagePackage> {
                   SizedBox(
                     height: ScreenUtil().setHeight(200),
                   ),
-                  !checkPackage(VMSalonData.beautyProvider.package)
+                  !checkPackage(vMSalonData.beautyProvider.package)
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(14),
                           child: Container(
@@ -55,7 +54,7 @@ class _PagePackageState extends State<PagePackage> {
                                 Icon(Icons.subtitles, size: ScreenUtil().setSp(200)),
                                 ExtendedText(
                                   string:
-                                      'ينتهي الاشتراك في: ${getDateString(DateTime.parse(VMSalonData.beautyProvider.package['01']['to']))}',
+                                      'ينتهي الاشتراك في: ${getDateString(DateTime.parse(vMSalonData.beautyProvider.package['01']['to']))}',
                                 )
                               ],
                             ),

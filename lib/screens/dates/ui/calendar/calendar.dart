@@ -5,10 +5,10 @@ import 'package:beautina_provider/screens/dates/ui/calendar/event_marker.dart';
 import 'package:beautina_provider/screens/dates/ui/calendar/function.dart';
 import 'package:beautina_provider/screens/dates/ui/calendar/selected_day.dart';
 import 'package:beautina_provider/screens/dates/ui/calendar/today_builder.dart';
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:get/get.dart';
 import 'package:loading/loading.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
@@ -80,7 +80,7 @@ class _CalenderState extends State<WdgtDateCalendar>
                   // locale: 'ar_AR',
                   calendarController: _calendarController,
                   events: getEvents(
-                      Provider.of<VmDateData>(context).orderList, context),
+                      Get.find<VmDateDataTest>().orderList, context),
                   availableGestures: AvailableGestures.horizontalSwipe,
                   headerVisible: true,
                   initialCalendarFormat: CalendarFormat.month,
@@ -176,7 +176,7 @@ class _CalenderState extends State<WdgtDateCalendar>
               ),
               AnimatedSwitcher(
                 duration: Duration(seconds: 1),
-                child: Provider.of<VmDateData>(context).isLoading
+                child: Get.find<VmDateDataTest>().isLoading
                     ? Align(
                         child: Loading(),
                         alignment: Alignment.center,
@@ -203,7 +203,7 @@ class _CalenderState extends State<WdgtDateCalendar>
                           hoverColor: Colors.deepOrangeAccent,
                           splashColor: Colors.pink,
                           onPressed: () async {
-                            Provider.of<VmDateData>(context).isLoading = true;
+                            Get.find<VmDateDataTest>().isLoading = true;
                             await pagesRefresh(context);
                           }),
                     ),
