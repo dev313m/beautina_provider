@@ -66,15 +66,23 @@ updateProviderServices(
     priceBefore,
     priceAfter,
     otherServiceName,
+    serviceDuration,
     RoundedLoadingButtonController _btnController) async {
   _btnController.start();
 
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
   try {
-    Get.find<VMSalonDataTest>().beautyProvider =
-        await apiBeautyProviderUpdate(bp
-          ..servicespro = getNewServicesMap(context, showOther, chosenService,
-              priceBefore, priceAfter, otherServiceName));
+    if(showOther)
+      bp.service_duration[otherServiceName] = serviceDuration; 
+      else 
+    bp.service_duration[chosenService] = serviceDuration;
+
+    ModelBeautyProvider newBp = await apiBeautyProviderUpdate(bp
+      ..servicespro = getNewServicesMap(context, showOther, chosenService,
+          priceBefore, priceAfter, otherServiceName));
+
+    Get.find<VMSalonDataTest>().beautyProvider = newBp;
+
     // setState(() {});
     showToast('تمت الاضافة بنجاح');
     _btnController.success();

@@ -7,6 +7,7 @@ import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -44,7 +45,7 @@ final strValidChooseServiceName = 'يجب اختيار اسم الخدمة';
 final strValidChooseService = 'يجب اختيار خدمة';
 final strValidPrice = 'يجب وضع ملبغ الخدمة';
 final strValidOffer = 'سعر العرض يجب ان يكون اقل من سعر قبل العرض';
-
+final strValidDuration ="يجب ادخال المدة المتوقعة لعمل الخدمة"; 
 class WdgtSalonAddService extends StatefulWidget {
   // final Map<String, dynamic> mapServices;
   WdgtSalonAddService({
@@ -93,6 +94,11 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   ///This is a list of DropdownMenuItem base on a selected category from the toggleButtons
   ///The default is [] so there is no items in the dropdownMenu
   List<Map<String, String>> subCategoryList = [];
+ TextEditingController durationTextFieldController =
+      TextEditingController(text: 'لم يتم التحديد');
+
+  Duration serviceDuration = Duration();
+  int serviceDurationInt  = 0; 
 
   @override
   Widget build(BuildContext context) {
@@ -195,6 +201,98 @@ mapServices =
                           ),
                         ),
                       Y(),
+                      if(isShowPrice)
+                       Container(
+                         // width: 200.w,
+                         child: BeautyTextfield(
+                           // prefixText: durationTextFieldController.text,
+                           placeholder: durationTextFieldController.text,
+                           helperText: 'المدة المتوقعة:  ',
+                           readOnly: true,
+                           isBox: true,
+                           prefixIcon: Icon(CommunityMaterialIcons.watch),
+                           onTap: () {
+                             Picker picker;
+
+                             picker = Picker(
+                                 // backgroundColor: Colors.pink.withOpacity(0.3),
+                                 adapter: NumberPickerAdapter(
+                                     data: <NumberPickerColumn>[
+                                       const NumberPickerColumn(
+                                           begin: 0,
+                                           end: 60,
+                                           postfix: GWdgtTextDescDesc(
+                                               string: ' دقيقة ',
+                                               color: Colors.black),
+                                           jump: 15),
+                                       const NumberPickerColumn(
+                                           begin: 0,
+                                           end: 12,
+                                           postfix: GWdgtTextDescDesc(
+                                               color: Colors.black,
+                                               string: ' ساعة '),
+                                           columnFlex: 1),
+                                     ]),
+                                 delimiter: <PickerDelimiter>[
+                                   PickerDelimiter(
+                                     child: Container(
+                                       width: 30.0.h,
+                                       alignment: Alignment.center,
+                                       child: Icon(Icons.more_vert),
+                                     ),
+                                   )
+                                 ],
+                                 hideHeader: false,
+                                 confirmTextStyle: TextStyle(
+                                     inherit: false,
+                                     color: Colors.red,
+                                     fontSize: 22),
+                                 // title: Text(
+                                 //   'الوقت المتوقع لإنهاء الخدمة',
+                                 //   textAlign: TextAlign.right,
+                                 // ),
+                                 containerColor: Colors.pink,
+                                 selectedTextStyle:
+                                     TextStyle(color: Colors.blue),
+                                 onConfirm: (Picker picker, List<int> value) {
+                                   // You get your duration here
+                                   serviceDuration = Duration(
+                                       hours: picker.getSelectedValues()[1],
+                                       minutes: picker.getSelectedValues()[0]);
+                                   // picker.doCancel(context);
+                                   durationTextFieldController.text =
+                                       " ${(serviceDuration.inHours).toString()} س ${(serviceDuration.inMinutes.remainder(60)).toString()} د ";
+                                   // showToast(orderDuration.inMinutes.toString());
+
+                                   serviceDurationInt =
+                                       serviceDuration.inMinutes;
+                                   setState(() {});
+                                 },
+                                 cancel: IconButton(
+                                   icon: Icon(
+                                     Icons.cancel,
+                                     color: Colors.red,
+                                   ),
+                                   onPressed: () {
+                                     picker.doCancel(context);
+                                   },
+                                 ),
+                                 confirm: IconButton(
+                                   icon: Icon(
+                                     Icons.done,
+                                     color: Colors.blue,
+                                   ),
+                                   onPressed: () {
+                                     picker.doConfirm(context);
+                                   },
+                                 ),
+                                 cancelTextStyle: TextStyle(color: Colors.red),
+                                 textStyle: TextStyle(color: Colors.blue));
+                             picker.showModal(context);
+                           },
+                           inputType: TextInputType.text,
+                         ),
+                       ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(radiusButton),
                         child: RoundedLoadingButton(
@@ -216,6 +314,8 @@ mapServices =
                                   priceBefore,
                                   priceAfter,
                                   otherServiceName,
+                                                                    serviceDuration.inMinutes,
+
                                   _btnController);
                               clearFields();
                             }
@@ -344,6 +444,10 @@ mapServices =
     }
     if (priceBefore != 0 && priceAfter >= priceBefore) {
       showToast(strValidOffer);
+      return false;
+    }
+     if (serviceDurationInt == 0) {
+      showToast(strValidDuration);
       return false;
     }
     return true;

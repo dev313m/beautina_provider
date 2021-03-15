@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /**
  * This class is a model for the type Prefrence
  */
@@ -13,6 +15,7 @@ class ModelBeautyProvider {
   double customers;
   String _intro;
   String email;
+  Map<String,dynamic> service_duration; 
   List<dynamic> _location;
   String _name;
   int _voter;
@@ -93,6 +96,8 @@ class ModelBeautyProvider {
       String name,
       double customers,
       int points,
+        Map<String,int> service_duration,
+
       String tokenId,
       List<Map<String, DateTime>> busyDates,
       int favorite_count,
@@ -122,6 +127,8 @@ class ModelBeautyProvider {
         this.tokenId = tokenId,
         this.customers = customers,
         this._rating = rating,
+          this. service_duration = service_duration, 
+
         this.auth_login = auth_login,
         this._phone = phone,
         this._available = available,
@@ -139,6 +146,7 @@ class ModelBeautyProvider {
   Map<String, dynamic> getMap() {
     Map<String, dynamic> map = new Map<String, dynamic>();
     map['type'] = this.type;
+    map['service_duration'] = this.service_duration; 
     map['available'] = this._available ?? true;
     map['auth_login'] = this.auth_login ?? '';
     map['tokenId'] = this.tokenId ?? '';
@@ -172,6 +180,7 @@ class ModelBeautyProvider {
   ModelBeautyProvider.fromMap(Map<String, dynamic> data) {
     _available = data['available'] ?? true;
     _image = data['image'] ?? '';
+    service_duration = data['service_duration'];
     _intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
     username = data['username'];

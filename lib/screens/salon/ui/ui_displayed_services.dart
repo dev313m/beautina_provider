@@ -1,5 +1,6 @@
 import 'package:beautina_provider/constants/duration.dart';
 import 'package:beautina_provider/reusables/divider.dart';
+import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
@@ -27,147 +28,148 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
 
   @override
   Widget build(BuildContext context) {
+    return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+      mapServices = vMSalonData.beautyProvider.servicespro;
 
-    return GetBuilder<VMSalonDataTest>(
-      builder: (vMSalonData) {
-            mapServices =vMSalonData.beautyProvider.servicespro;
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(radiusContainer),
+        child: Container(
+          height: 0.4.sh,
+          width: MediaQuery.of(context).size.width,
+          color: colorContainerBg,
+          child: Padding(
+            padding: EdgeInsets.all(edgeMainContainer),
+            child: Stack(
+              children: [
+                Align(
+                    child: IconButton(
+                      icon: Icon(Icons.edit_off, color: Colors.white24),
+                    ),
+                    alignment: Alignment.topLeft),
+                Column(
+                  // key: ValueKey('value'),
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
 
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(radiusContainer),
-          child: Container(
-            height: 0.4.sh,
-            width: MediaQuery.of(context).size.width,
-            color: colorContainerBg,
-            child: Padding(
-              padding: EdgeInsets.all(edgeMainContainer),
-              child: Stack(
-                children: [
-                  Align(
-                      child: IconButton(
-                        icon: Icon(Icons.edit_off, color: Colors.white24),
-                      ),
-                      alignment: Alignment.topLeft),
-                  Column(
-                    // key: ValueKey('value'),
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Y(
+                      height: BoxHeight.heightBtwTitle,
+                    ),
+                    GWdgtTextTitle(string: strMyServices),
+                    Y(
+                      height: BoxHeight.heightBtwContainers,
+                    ),
+                    GWdgtTextTitleDesc(
+                      string: strMyServicesDesc,
+                      // fontColor: ExtendedText.brightColors2,
+                    ),
 
-                    children: <Widget>[
-                      Y(
-                        height: BoxHeight.heightBtwTitle,
-                      ),
-                      GWdgtTextTitle(string: strMyServices),
-                      Y(
-                        height: BoxHeight.heightBtwContainers,
-                      ),
-                      GWdgtTextTitleDesc(
-                        string: strMyServicesDesc,
-                        // fontColor: ExtendedText.brightColors2,
-                      ),
+                    Y(
+                      height: BoxHeight.heightBtwTitle,
+                    ),
 
-                      Y(
-                        height: BoxHeight.heightBtwTitle,
-                      ),
+                    if (mapServices.keys.length > 0)
+                      ListView.builder(
+                        itemCount: mapServices.keys.length,
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(5.w),
+                        addRepaintBoundaries: true,
+                        itemBuilder: (_, index) {
+                          allDefaultServicesMap = Get.find<VMSalonDataTest>()
+                              .providedServices['services'];
+                          // List<Widget> list = [];
+                          mainServiceKey = mapServices.keys.toList()[index];
 
-                      if (mapServices.keys.length > 0)
-                        ListView.builder(
-                          itemCount: mapServices.keys.length,
-                          scrollDirection: Axis.vertical,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(5.w),
-                          addRepaintBoundaries: true,
-                          itemBuilder: (_, index) {
-                            allDefaultServicesMap =
-                                Get.find<VMSalonDataTest>()
-                                    .providedServices['services'];
-                            // List<Widget> list = [];
-                            mainServiceKey = mapServices.keys.toList()[index];
+                          if (mainServiceKey == 'other')
+                            return Container(
+                              height: sizeElementListContainer,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                reverse: true,
+                                itemBuilder: (_, rowIndex) {
+                                  String itemKey = mapServices['other']
+                                      .keys
+                                      .toList()[rowIndex];
 
-                            if (mainServiceKey == 'other')
-                              return Container(
-                                height: sizeElementListContainer,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  reverse: true,
-                                  itemBuilder: (_, rowIndex) {
-                                    String itemKey = mapServices['other']
-                                        .keys
-                                        .toList()[rowIndex];
-                                      
+                                  return SingleService(
+                                    serviceName: itemKey,
+                                    prices: mapServices['other'][itemKey],
+                                    serviceCode: itemKey,
+                                    serviceRoot: mainServiceKey,
+                                    duration: vMSalonData.beautyProvider
+                                        .service_duration[itemKey],
+                                    // priceBefore: v[0].toString(),
+                                    // priceAfter: v[1]?.toString() ?? v[0].toString(),
+                                  );
+                                },
+                                itemCount:
+                                    mapServices[mainServiceKey].keys.length,
+                              ),
+                            );
+
+                          if (allDefaultServicesMap.containsKey(
+                              mainServiceKey)) if (allDefaultServicesMap[
+                                  mainServiceKey]
+                              .containsKey('items')) if (allDefaultServicesMap[
+                                  mainServiceKey]
+                              .containsKey('ar'))
+                            return Container(
+                              height: sizeElementListContainer,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                reverse: true,
+                                itemBuilder: (_, rowIndex) {
+                                  itemKey = mapServices[mainServiceKey]
+                                      .keys
+                                      .toList()[rowIndex];
+
+                                  if (allDefaultServicesMap[mainServiceKey]
+                                          ['items']
+                                      .containsKey(itemKey))
                                     return SingleService(
-                                      serviceName: itemKey,
-                                      prices: mapServices['other'][itemKey],
+                                      serviceName:
+                                          allDefaultServicesMap[mainServiceKey]
+                                                  ['items'][itemKey]['ar']
+                                              ?.toString(),
+                                      prices: mapServices[mainServiceKey]
+                                          [itemKey],
                                       serviceCode: itemKey,
                                       serviceRoot: mainServiceKey,
+                                      duration: vMSalonData.beautyProvider
+                                          .service_duration[itemKey],
+
                                       // priceBefore: v[0].toString(),
                                       // priceAfter: v[1]?.toString() ?? v[0].toString(),
                                     );
-                                  },
-                                  itemCount:
-                                      mapServices[mainServiceKey].keys.length,
-                                ),
-                              );
+                                  return SizedBox();
+                                },
+                                itemCount:
+                                    mapServices[mainServiceKey].keys.length,
+                              ),
+                            );
+                          return SizedBox();
+                        },
+                      ),
 
-                            if (allDefaultServicesMap.containsKey(
-                                mainServiceKey)) if (allDefaultServicesMap[
-                                    mainServiceKey]
-                                .containsKey('items')) if (allDefaultServicesMap[
-                                    mainServiceKey]
-                                .containsKey('ar'))
-                              return Container(
-                                height: sizeElementListContainer,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  reverse: true,
-                                  itemBuilder: (_, rowIndex) {
-                                    itemKey = mapServices[mainServiceKey]
-                                        .keys
-                                        .toList()[rowIndex];
+                    if (mapServices.keys.length == 0)
+                      GWdgtTextTitleDesc(
+                        string: strThereIsNoServices,
+                      ),
 
-                                    if (allDefaultServicesMap[mainServiceKey]
-                                            ['items']
-                                        .containsKey(itemKey))
-                                      return SingleService(
-                                        serviceName:
-                                            allDefaultServicesMap[mainServiceKey]
-                                                    ['items'][itemKey]['ar']
-                                                ?.toString(),
-                                        prices: mapServices[mainServiceKey]
-                                            [itemKey],
-                                        serviceCode: itemKey,
-                                        serviceRoot: mainServiceKey,
-                                        // priceBefore: v[0].toString(),
-                                        // priceAfter: v[1]?.toString() ?? v[0].toString(),
-                                      );
-                                    return SizedBox();
-                                  },
-                                  itemCount:
-                                      mapServices[mainServiceKey].keys.length,
-                                ),
-                              );
-                            return SizedBox();
-                          },
-                        ),
-
-                      if (mapServices.keys.length == 0)
-                        GWdgtTextTitleDesc(
-                          string: strThereIsNoServices,
-                        ),
-
-                      // ...getWidgetList(),
-                      // SizedBox(height: ScreenUtil().setHeight(70))
-                    ],
-                  ),
-                ],
-              ),
+                    // ...getWidgetList(),
+                    // SizedBox(height: ScreenUtil().setHeight(70))
+                  ],
+                ),
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }
 
@@ -176,10 +178,12 @@ class SingleService extends StatefulWidget {
   final String serviceRoot;
   final String serviceCode;
   final List<dynamic> prices;
+  final duration;
 
   const SingleService(
       {Key key,
       this.prices,
+      this.duration,
       this.serviceName,
       @required this.serviceRoot,
       @required this.serviceCode})
@@ -191,6 +195,13 @@ class SingleService extends StatefulWidget {
 
 class _SingleServiceState extends State<SingleService> {
   bool loading = false;
+  Duration _duration; 
+  @override
+  void initState() {
+    super.initState();
+    _duration = Duration(minutes: widget.duration); 
+
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -239,7 +250,24 @@ class _SingleServiceState extends State<SingleService> {
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: edgeText,
-              ),              child: Center(
+              ),
+              child: Row(
+                children: <Widget>[
+                  GWdgtTextTitleDesc(string: getTimeString()),
+                ],
+              ),
+            ),
+            CustomDivider(
+              height: 100.h,
+            ),
+            SizedBox(
+              width: 40.w,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: edgeText,
+              ),
+              child: Center(
                 child: InkWell(
                     onTap: () async {
                       await removeServiceByCodeAndUpdate(
@@ -266,6 +294,9 @@ class _SingleServiceState extends State<SingleService> {
         ),
       ),
     );
+  }
+  getTimeString(){
+    return _duration.inHours >0  ?' ${_duration.inHours.toString()}س و ${_duration.inMinutes.toString()} دقيقة' : ' ${_duration.inMinutes.toString()} دقيقة'; 
   }
 
   Function onDeleteServiceSuccess() {
