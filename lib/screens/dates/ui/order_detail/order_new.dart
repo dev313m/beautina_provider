@@ -38,226 +38,369 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
 
   Duration orderDuration = Duration();
 
+  var rebookStatus = 2;
+  var rebookBoolList = [true, false, false];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: ScreenResolution.width,
-      decoration: BoxDecoration(
-          color: colorContainer, borderRadius: BorderRadius.circular(radius)),
-      child: Padding(
-        padding: EdgeInsets.all(edgeContainer),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            WdgtDateSharedOrderDetails(order: widget.order),
-            Center(
-                child: Container(
-                    width: 0.3.sw, height: 5.w, color: Colors.white30)),
-            Y(),
-            Y(),
-            Y(),
-            Y(),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(radius),
-                            child: BeautyTextfield(
-                              maxLines: 3,
-                              isSquare: true,
-                              isBox: true,
-                              maxLength: 250,
+    return Padding(
+      padding: EdgeInsets.all(edgeContainer),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Container(
+            child: WdgtDateSharedOrderDetails(order: widget.order),
+            width: ScreenResolution.width,
+            decoration: BoxDecoration(
+                color: colorContainer,
+                borderRadius: BorderRadius.circular(radius)),
+          ),
+          Y(),
+          Y(),
+          Y(),
+          Y(),
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(radius),
+                child: BeautyTextfield(
+                  maxLines: 2,
+                  isSquare: true,
+                  isBox: true,
+                  maxLength: 250,
 
-                              onChanged: (str) {
-                                widget.order.provider_notes = str;
-                              },
-                              prefixIcon: Icon(
-                                CommunityMaterialIcons.ticket,
-                                // color: AppColors.pinkBright,
-                              ),
+                  onChanged: (str) {
+                    widget.order.provider_notes = str;
+                  },
+                  prefixIcon: Icon(
+                    CommunityMaterialIcons.ticket,
+                    // color: AppColors.pinkBright,
+                  ),
 
-                              // placeholder: ,
-                              helperText: 'ملاحظاتي',
+                  // placeholder: ,
+                  helperText: 'ملاحظاتي',
 
-                              // textStyle: TextStyle(color: AppColors.pinkBright),
-                              inputType: TextInputType.text,
-                            )),
-                      ),
-                      SizedBox(width: 10.w),
-                      Flexible(
-                        flex: 3,
+                  // textStyle: TextStyle(color: AppColors.pinkBright),
+                  inputType: TextInputType.text,
+                )),
+          ),
+          Y(),
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: BeautyTextfield(
+              // prefixText: durationTextFieldController.text,
+              placeholder: durationTextFieldController.text,
+              helperText: 'المدة المتوقعة:  ',
+              readOnly: true,
+              isBox: true,
+              prefixIcon: Icon(CommunityMaterialIcons.watch),
+              onTap: () {
+                Picker picker;
+
+                picker = Picker(
+                    // backgroundColor: Colors.pink.withOpacity(0.3),
+                    adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
+                      const NumberPickerColumn(
+                          begin: 0,
+                          end: 60,
+                          postfix: GWdgtTextDescDesc(
+                              string: ' دقيقة ', color: Colors.black),
+                          jump: 15),
+                      const NumberPickerColumn(
+                          begin: 0,
+                          end: 12,
+                          postfix: GWdgtTextDescDesc(
+                              color: Colors.black, string: ' ساعة '),
+                          columnFlex: 1),
+                    ]),
+                    delimiter: <PickerDelimiter>[
+                      PickerDelimiter(
                         child: Container(
-                          // width: 200.w,
-                          child: BeautyTextfield(
-                            // prefixText: durationTextFieldController.text,
-                            placeholder: durationTextFieldController.text,
-                            helperText: 'المدة المتوقعة:  ',
-                            readOnly: true,
-                            isBox: true,
-                            prefixIcon: Icon(CommunityMaterialIcons.watch),
-                            onTap: () {
-                              Picker picker;
+                          width: 30.0.h,
+                          alignment: Alignment.center,
+                          child: Icon(Icons.more_vert),
+                        ),
+                      )
+                    ],
+                    hideHeader: false,
+                    confirmTextStyle: TextStyle(
+                        inherit: false, color: Colors.red, fontSize: 22),
+                    // title: Text(
+                    //   'الوقت المتوقع لإنهاء الخدمة',
+                    //   textAlign: TextAlign.right,
+                    // ),
+                    containerColor: Colors.pink,
+                    selectedTextStyle: TextStyle(color: Colors.blue),
+                    onConfirm: (Picker picker, List<int> value) {
+                      // You get your duration here
+                      orderDuration = Duration(
+                          hours: picker.getSelectedValues()[1],
+                          minutes: picker.getSelectedValues()[0]);
+                      // picker.doCancel(context);
+                      durationTextFieldController.text =
+                          " ${(orderDuration.inHours).toString()} س ${(orderDuration.inMinutes.remainder(60)).toString()} د ";
+                      // showToast(orderDuration.inMinutes.toString());
 
-                              picker = Picker(
-                                  // backgroundColor: Colors.pink.withOpacity(0.3),
-                                  adapter: NumberPickerAdapter(
-                                      data: <NumberPickerColumn>[
-                                        const NumberPickerColumn(
-                                            begin: 0,
-                                            end: 60,
-                                            postfix: GWdgtTextDescDesc(
-                                                string: ' دقيقة ',
-                                                color: Colors.black),
-                                            jump: 15),
-                                        const NumberPickerColumn(
-                                            begin: 0,
-                                            end: 12,
-                                            postfix: GWdgtTextDescDesc(
-                                                color: Colors.black,
-                                                string: ' ساعة '),
-                                            columnFlex: 1),
-                                      ]),
-                                  delimiter: <PickerDelimiter>[
-                                    PickerDelimiter(
-                                      child: Container(
-                                        width: 30.0.h,
-                                        alignment: Alignment.center,
-                                        child: Icon(Icons.more_vert),
-                                      ),
-                                    )
-                                  ],
-                                  hideHeader: false,
-                                  confirmTextStyle: TextStyle(
-                                      inherit: false,
-                                      color: Colors.red,
-                                      fontSize: 22),
-                                  // title: Text(
-                                  //   'الوقت المتوقع لإنهاء الخدمة',
-                                  //   textAlign: TextAlign.right,
-                                  // ),
-                                  containerColor: Colors.pink,
-                                  selectedTextStyle:
-                                      TextStyle(color: Colors.blue),
-                                  onConfirm: (Picker picker, List<int> value) {
-                                    // You get your duration here
-                                    orderDuration = Duration(
-                                        hours: picker.getSelectedValues()[1],
-                                        minutes: picker.getSelectedValues()[0]);
-                                    // picker.doCancel(context);
-                                    durationTextFieldController.text =
-                                        " ${(orderDuration.inHours).toString()} س ${(orderDuration.inMinutes.remainder(60)).toString()} د ";
-                                    // showToast(orderDuration.inMinutes.toString());
+                      widget.order.order_duration =
+                          orderDuration.inMinutes.toDouble();
+                      setState(() {});
+                    },
+                    cancel: IconButton(
+                      icon: Icon(
+                        Icons.cancel,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        picker.doCancel(context);
+                      },
+                    ),
+                    confirm: IconButton(
+                      icon: Icon(
+                        Icons.done,
+                        color: Colors.blue,
+                      ),
+                      onPressed: () {
+                        picker.doConfirm(context);
+                      },
+                    ),
+                    cancelTextStyle: TextStyle(color: Colors.red),
+                    textStyle: TextStyle(color: Colors.blue));
+                picker.showModal(context);
+              },
+              inputType: TextInputType.text,
+            ),
+          ),
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Y(
+                          height: heightBottomContainer,
+                        ),
+                        Center(
+                            child: GWdgtTextTitleDesc(
+                                string: 'حالة الحجز في نفس الموعد',
+                                textAlign: TextAlign.left,
+                                color: Colors.white)),
+                        Y(),
+                        GWdgtTextDescDesc(
+                          string: 'حالة حجز طلب اخر بنفس الموعد',
+                        ),
+                        Y(
+                          height: heightBottomContainer,
+                        )
+                      ],
+                    ),
+                    Expanded(
+                      child: SizedBox(),
+                    ),
+                    ToggleButtons(
+                      borderColor: Colors.blue[400],
+                      selectedBorderColor: Colors.blue[400],
+                      borderRadius: BorderRadius.circular(radiusDefault),
+                      isSelected: rebookBoolList,
+                      onPressed: (index) {
+                        if (index == 0) {
+                          rebookBoolList = [true, false, false];
+                          rebookStatus = 2;
+                        } else if (index == 1) {
+                          rebookBoolList = [false, true, false];
+                          rebookStatus = 1;
+                        } else {
+                          rebookBoolList = [false, false, true];
+                          rebookStatus = 0;
+                        }
 
-                                    widget.order.order_duration =
-                                        orderDuration.inMinutes.toDouble();
-                                    setState(() {});
-                                  },
-                                  cancel: IconButton(
-                                    icon: Icon(
-                                      Icons.cancel,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () {
-                                      picker.doCancel(context);
-                                    },
-                                  ),
-                                  confirm: IconButton(
-                                    icon: Icon(
-                                      Icons.done,
-                                      color: Colors.blue,
-                                    ),
-                                    onPressed: () {
-                                      picker.doConfirm(context);
-                                    },
-                                  ),
-                                  cancelTextStyle: TextStyle(color: Colors.red),
-                                  textStyle: TextStyle(color: Colors.blue));
-                              picker.showModal(context);
-                            },
-                            inputType: TextInputType.text,
+                        widget.order.rebook_status = rebookStatus;
+                        setState(() {});
+
+                        // updateUserDefaults(
+                        //     context,
+                        //     onAvailableChangeSuccess(),
+                        //     onAvailableChangeLoad(),
+                        //     onAvailableChangeError(),
+                        //     onAvailableChangeComplete(),
+                        //     defaultAccept: chosed,
+                        //     defaultAfterAccept:
+                        //         beautyProvider.default_after_accept);
+                      },
+                      selectedColor: Colors.blue,
+                      fillColor: Colors.blue,
+                      // selectedBorderColor: Colors.white,
+                      color: Colors.pink,
+
+                      children: [
+                        Container(
+                          child: GWdgtTextSmall(
+                            string: 'اغلاق',
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Y(),
-                  Row(
+                        Container(
+                          child: GWdgtTextSmall(
+                            string: 'تحت الموافقة',
+                          ),
+                        ),
+                        Container(
+                          child: GWdgtTextSmall(
+                            string: 'مفتوح',
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Y(),
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal:20.0.w),
+                  child: Row(
                     children: [
                       // Expanded(child: SizedBox()),
-                      Expanded(
-                        child: RoundedLoadingButton(
-                          color: colorButtonAccept,
-                          height: 250.h,
-                          // width: sizeButtonHeight,
-                          child: Center(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GWdgtTextButton(
-                                  string: 'قبول',
-                                ),
-                                Icon(Icons.done, color: Colors.white54),
-                              ],
-                            ),
+                      ClipOval(
+                        child: Container(
+                          height: 200.h,
+                          width: 200.h,
+                          child: RoundedLoadingButton(
+                            color: Colors.transparent,
+                            height: 200.h,
+                            width: 200.h,
+                            // width: sizeButtonHeight,
+                            controller: _cancelButtonController,
+                            animateOnTap: true,
+                            borderRadius: radius,
+                            child: Center(
+                                child: Icon(
+                              Icons.cancel_outlined,
+                              color: AppColors.pinkOpcity,
+                              size: 100.ssp,
+                            )),
+                            onPressed: () async {
+                              bool result = false;
+                              _cancelButtonController.start();
+
+                              // _buttonController.start();
+                              result =
+                                  await getFunctionReject(widget.order, context);
+                              if (result)
+                                _cancelButtonController.success();
+                              else
+                                _cancelButtonController.error();
+                              await Future.delayed(Duration(seconds: 1));
+                              _cancelButtonController.reset();
+                            },
                           ),
-                          controller: _submitButtonController,
-                          animateOnTap: true,
-                          borderRadius: radius,
-                          onPressed: () async {
-                            bool result = false;
-                            _submitButtonController.start();
-
-                            // _buttonController.start();
-                            result =
-                                await getFunctionAccept(widget.order, context);
-                            if (result)
-                              _submitButtonController.success();
-                            else
-                              _submitButtonController.error();
-                            await Future.delayed(Duration(seconds: 1));
-                            _submitButtonController.reset();
-                          },
                         ),
                       ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: RoundedLoadingButton(
-                          color: colorButtonReject,
-                          height: 250.h,
-                          // width: sizeButtonHeight,
-                          controller: _cancelButtonController,
-                          animateOnTap: true,
-                          borderRadius: radius,
-                          child: GWdgtTextButton(string: 'رفض'),
-                          onPressed: () async {
-                            bool result = false;
-                            _cancelButtonController.start();
 
-                            // _buttonController.start();
-                            result =
-                                await getFunctionReject(widget.order, context);
-                            if (result)
-                              _cancelButtonController.success();
-                            else
-                              _cancelButtonController.error();
-                            await Future.delayed(Duration(seconds: 1));
-                            _cancelButtonController.reset();
-                          },
+                      Expanded(child: SizedBox()),
+                      ClipOval(
+                        child: Container(
+                          height: 200.h,
+                          width: 200.h,
+                          child: RoundedLoadingButton(
+                            color: Colors.transparent,
+                            height: 200.h,
+                            width: 200.h,
+                            // width: sizeButtonHeight,
+                            controller: _submitButtonController,
+                            animateOnTap: true,
+                            borderRadius: radius,
+                            child: Center(
+                                child: Icon(
+                              Icons.done_sharp,
+                              color: Colors.greenAccent,
+                              size: 100.ssp,
+                            )),
+                            onPressed: () async {
+                              bool result = false;
+                              _submitButtonController.start();
+
+                              // _buttonController.start();
+                              result =
+                                  await getFunctionAccept(widget.order, context);
+                              if (result)
+                                _submitButtonController.success();
+                              else
+                                _submitButtonController.error();
+                              await Future.delayed(Duration(seconds: 1));
+                              _submitButtonController.reset();
+                            },
+                          ),
                         ),
                       ),
+                      // Expanded(
+                      //   child: RoundedLoadingButton(
+                      //     color: colorButtonReject,
+                      //     height: 150.h,
+                      //     width: 150.h,
+                      //     controller: _cancelButtonController,
+                      //     animateOnTap: true,
+                      //     borderRadius: radius,
+                      //     child: GWdgtTextButton(string: 'رفض'),
+                      //     onPressed: () async {
+                      //       bool result = false;
+                      //       _cancelButtonController.start();
+
+                      //       // _buttonController.start();
+                      //       result =
+                      //           await getFunctionReject(widget.order, context);
+                      //       if (result)
+                      //         _cancelButtonController.success();
+                      //       else
+                      //         _cancelButtonController.error();
+                      //       await Future.delayed(Duration(seconds: 1));
+                      //       _cancelButtonController.reset();
+                      //     },
+                      //   ),
+                      // ),
+
+                      // Expanded(
+                      //   child: RoundedLoadingButton(
+                      //     color: colorButtonAccept,
+                      //     height: 150.h,
+                      //     width: 150.w,
+                      //     child: Center(
+                      //       child: Row(
+                      //         crossAxisAlignment: CrossAxisAlignment.center,
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         children: [
+                      //           GWdgtTextButton(
+                      //             string: 'قبول',
+                      //           ),
+                      //           Icon(Icons.done, color: Colors.white54),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     controller: _submitButtonController,
+                      //     animateOnTap: true,
+                      //     borderRadius: radius,
+                      //     onPressed: () async {
+                      //       bool result = false;
+                      //       _submitButtonController.start();
+
+                      //       // _buttonController.start();
+                      //       result =
+                      //           await getFunctionAccept(widget.order, context);
+                      //       if (result)
+                      //         _submitButtonController.success();
+                      //       else
+                      //         _submitButtonController.error();
+                      //       await Future.delayed(Duration(seconds: 1));
+                      //       _submitButtonController.reset();
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:get/get.dart';
+
 class VMRootUiTest extends GetxController {
   ///Page controller of all the app pages
   PreloadPageController pageController = PreloadPageController(
     initialPage: 4,
     keepPage: true,
   );
-  int pageIndex = 4;
+  int _pageIndex = 4;
+
+  int get pageIndex => _pageIndex;
+
+  set pageIndex(int pageIndex) {
+    _pageIndex = pageIndex;
+    update();
+  }
 
   ///Sliding pages of the app
   List<Widget> pages;

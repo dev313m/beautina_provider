@@ -1,3 +1,4 @@
+import 'package:beautina_provider/reusables/divider.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -28,6 +29,8 @@ class AllSingleServiceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (_) {
       List<String> list = [];
+      int index = 0;
+
       Map<String, dynamic> mapper =
           Get.find<VMSalonDataTest>().providedServices;
 
@@ -43,21 +46,41 @@ class AllSingleServiceWidget extends StatelessWidget {
             }
         });
       });
-      return Wrap(
+      return Row(
         textDirection: TextDirection.rtl,
         // verticalDirection: VerticalDirection.down,
         // direction: Axis.horizontal,
-        children: list
-            .map((f) => Container(
+        children: list.map((f) {
+          index++;
+          if (index == 1)
+            return Container(
                 padding: EdgeInsets.all(30.w),
                 decoration: BoxDecoration(
-                  color: Colors.white12,
+                  // color: Colors.white12,
                   borderRadius: BorderRadius.circular(radius),
                 ),
                 child: GWdgtTextChip(
                   string: f,
-                )))
-            .toList(),
+                ));
+          else
+            return Row(
+              children: [
+                Container(
+                    padding: EdgeInsets.all(30.w),
+                    decoration: BoxDecoration(
+                      // color: Colors.white12,
+                      borderRadius: BorderRadius.circular(radius),
+                    ),
+                    child: GWdgtTextChip(
+                      string: f,
+                    )),
+                CustomDivider(
+                  color: Colors.white30,
+                  height: 30.h,
+                ),
+              ],
+            );
+        }).toList(),
       );
     });
   }
@@ -82,7 +105,7 @@ class OrderDetails extends StatelessWidget {
     // return SizedBox();
 
     return Container(
-      // width: 900,
+      // height: 230.h ,
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -91,7 +114,7 @@ class OrderDetails extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: muteRowCell(
-                    price.toString(),
+                    price.toString() + " ريال",
                     strPrice,
                     CommunityMaterialIcons.sack,
                     getWhatsappFunction(phoneNum),
@@ -102,12 +125,16 @@ class OrderDetails extends StatelessWidget {
               ),
               Expanded(
                 flex: 1,
-                child: WdgtDateCalendarWatch(
-                  dateTime: date,
-                  icon: Icons.date_range,
-                  function: () {},
-                  backgroundColor: backgroundColor,
-                ),
+                child: muteRowCell(
+                    getStrTime(date),
+                    date.day.toString() +
+                        "-" +
+                        date.month.toString() +
+                        "-" +
+                        date.year.toString(),
+                    Icons.date_range,
+                    getWhatsappFunction(phoneNum),
+                    backgroundColor),
               ),
               SizedBox(
                 width: 10.w,
@@ -143,7 +170,7 @@ Widget muteRowCell(String desc, String type, IconData icon, Function function,
   return SpringButton(
     SpringButtonType.OnlyScale,
     Container(
-      padding: EdgeInsets.symmetric(vertical: 44.h),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
 
       // w,
       decoration: BoxDecoration(
@@ -153,7 +180,7 @@ Widget muteRowCell(String desc, String type, IconData icon, Function function,
           IconButton(
             icon: Icon(
               icon,
-              // size: ScreenUtil().setSp(40),
+              size: 80.ssp,
               color: color,
             ),
             onPressed: () async {},
@@ -288,3 +315,9 @@ class WdgtDateCalendarWatch extends StatelessWidget {
 }
 
 final double radius = radiusDefault;
+
+String getStrTime(DateTime date) {
+  return date.hour > 12
+      ? '${date.hour}:${date.minute} م'
+      : '${date.hour}:${date.minute} ص';
+}

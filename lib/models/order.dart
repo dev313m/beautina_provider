@@ -26,6 +26,7 @@ class Order {
   Map<String, dynamic> _services;
   int _status;
   int _total_price;
+  int rebook_status; 
   int _type;
   // Map<String, dynamic> _prices;
   String _client_phone;
@@ -43,6 +44,7 @@ class Order {
 
   Order.fromMap(Map<String, dynamic> data) {
     client_id = data['client_id'];
+    rebook_status = data['rebook_status']; 
     creation_data = data['creation_data'] == null ? null : DateTime.parse(data['creation_data']);
     evaluation_date = data['evaluation_date'] == null ? null : DateTime.parse(data['evaluation_date']);
     doc_id = data['_id'];
@@ -81,6 +83,7 @@ class Order {
       @required String beauty_provider,
       @required String city,
       @required DateTime creation_date,
+      @required int rebook_status,
       DateTime client_cancel_date,
       @required List<double> client_location,
       @required DateTime client_order_date,
@@ -108,6 +111,7 @@ class Order {
         this.evaluation_date = evaluation_date,
         this._beauty_provider = beauty_provider,
         this._city = city,
+        this.rebook_status = rebook_status,
         this.order_duration = order_duration,
         this.creation_data = creation_date,
         this._client_cancel_date = client_cancel_date,
@@ -138,7 +142,8 @@ class Order {
     map['_id'] = doc_id;
     map['creation_data'] = creation_data.toString();
     map['city'] = _city;
-    map['provider_notes'] ?? provider_notes;
+    map['rebook_status'] = rebook_status ?? 1;
+    map['provider_notes'] = provider_notes ?? '';
     if (provider_agree_date != null) map['provider_agree_date'] = provider_agree_date.toString();
     if (provider_refuse_date != null) map['provider_refuse_date'] = provider_refuse_date.toString();
     if (finish_date != null) map['finish_date'] = finish_date;

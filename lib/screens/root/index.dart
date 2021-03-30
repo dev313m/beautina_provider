@@ -111,13 +111,13 @@ class _PageRoot extends State<PageRoot>
                         physics: AlwaysScrollableScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         onPageChanged: (index) {
-                          // if (Get.find<VMRootUiTest>().hideBars == true)
-                          //   Get.find<VMRootUiTest>().hideBars = false;
+                          if (Get.find<VMRootUiTest>().hideBars == true)
+                            Get.find<VMRootUiTest>().hideBars = false;
 
-                          // // setState(() {
-                          // //   vmRootUi.pageIndex = index;
-                          // // });
-                          // Get.find<VMRootUiTest>().pageIndex = index;
+                          // setState(() {
+                          //   vmRootUi.pageIndex = index;
+                          // });
+                          Get.find<VMRootUiTest>().pageIndex = index;
                         },
                         pageSnapping: true,
                       ),

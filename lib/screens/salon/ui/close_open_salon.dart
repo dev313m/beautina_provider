@@ -142,3 +142,5 @@ class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
     };
   }
 }
+
+

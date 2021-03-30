@@ -18,34 +18,28 @@ class _WdgtRootTopBarState extends State<WdgtRootTopBar> {
   Widget build(BuildContext context) {
     return Align(
         alignment: Alignment.topCenter,
-        child: GetBuilder<VMRootUiTest>(builder: (vMRootUiTest) {
-          return AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
-              child: vMRootUiTest.hideBars
-                  ? SizedBox()
-                  : ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(radius),
-                          bottomRight: Radius.circular(radius)),
-                      child: Container(
-                        height: heightTopBar,
-                        child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.only(top: 60.h),
-                          decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.circular(20),
-                              color: AppColors.blueOpcity.withOpacity(0.9)),
-                          child: Center(
-                            child: AnimatedSwitcher(
-                              duration: Duration(milliseconds: 500),
-                              child:
-                                  getTitleWidget(context, vMRootUiTest.pageIndex),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ));
-        }));
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(radius),
+              bottomRight: Radius.circular(radius)),
+          child: Container(
+            height: heightTopBar,
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(top: 60.h),
+              decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(20),
+                  color: AppColors.blueOpcity.withOpacity(0.9)),
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 500),
+                  child: getTitleWidget(
+                      context, Get.find<VMRootUiTest>().pageIndex),
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 
   getTitleWidget(BuildContext context, pageIndex) {

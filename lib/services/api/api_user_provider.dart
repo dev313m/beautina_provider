@@ -108,12 +108,15 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
   }).toList();
 
   Map<String, dynamic> body = {
+    'default_accept': beautyProvider.default_accept, 
+    'default_after_accept': beautyProvider.default_after_accept,
     'phone': beautyProvider.phone,
     'intro': beautyProvider.intro,
     'name': beautyProvider.name,
     'services': beautyProvider.servicespro,
     'client_id': beautyProvider.uid,
     'username': beautyProvider.username,
+    'service_duration': beautyProvider.service_duration,
     'available': beautyProvider.available,
     'busy_dates': busyDates,
     'location': beautyProvider.location,

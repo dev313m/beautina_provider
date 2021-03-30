@@ -32,6 +32,8 @@ class ModelBeautyProvider {
   double _rating;
   Map<String, dynamic> package;
   Map<String, dynamic> servicespro;
+  bool default_accept; 
+  int default_after_accept; 
 
   String _phone;
   String _token; // notification token
@@ -89,6 +91,7 @@ class ModelBeautyProvider {
       bool available,
       String image,
       int type,
+        bool default_accept,
       String email,
       String token,
       Map<String, dynamic> package,
@@ -97,7 +100,7 @@ class ModelBeautyProvider {
       double customers,
       int points,
         Map<String,int> service_duration,
-
+      int default_after_accept,
       String tokenId,
       List<Map<String, DateTime>> busyDates,
       int favorite_count,
@@ -123,12 +126,13 @@ class ModelBeautyProvider {
         this.favorite_count = favorite_count,
         this._points = points,
         this.type = type,
+        this.default_accept = default_accept,
         this.busyDates = busyDates,
         this.tokenId = tokenId,
         this.customers = customers,
         this._rating = rating,
           this. service_duration = service_duration, 
-
+this.default_after_accept = default_after_accept,
         this.auth_login = auth_login,
         this._phone = phone,
         this._available = available,
@@ -147,9 +151,11 @@ class ModelBeautyProvider {
     Map<String, dynamic> map = new Map<String, dynamic>();
     map['type'] = this.type;
     map['service_duration'] = this.service_duration; 
+    map['default_after_accept'] = this.default_after_accept.toInt(); 
     map['available'] = this._available ?? true;
     map['auth_login'] = this.auth_login ?? '';
     map['tokenId'] = this.tokenId ?? '';
+    map['default_accept'] = this.default_accept; 
     map['image'] = this._image ?? '';
     map['package'] = this.package ?? {};
     map['busy_dates'] = this.busyDates ?? [];
@@ -180,7 +186,9 @@ class ModelBeautyProvider {
   ModelBeautyProvider.fromMap(Map<String, dynamic> data) {
     _available = data['available'] ?? true;
     _image = data['image'] ?? '';
-    service_duration = data['service_duration'];
+    default_after_accept = data['default_after_accept']; 
+    default_accept = data['default_accept']; 
+    service_duration = data['service_duration'] ?? {};
     _intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
     username = data['username'];

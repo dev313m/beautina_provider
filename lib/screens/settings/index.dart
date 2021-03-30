@@ -47,9 +47,10 @@ class _PageSettingsState extends State<PageSettings> {
             child: Container(
               width: double.infinity,
               child: ListView(
+                padding: EdgeInsets.all(0),
                 controller: _scrollController,
                 children: <Widget>[
-                  Y(height: heightNavBar + 75.h),
+              Y(height: heightTopBar), Y(),
                   Y(),
                   WdgtSettingsProfileImage(),
                   Y(),

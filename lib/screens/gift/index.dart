@@ -13,16 +13,14 @@ class PageGift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Y(height: heightNavBar),
-          GWdgtGiftFlare(),
-          GWdgtGift50(),
-          Y(),
-          WdgtGiftOfferContainer(),
-        ],
-      ),
+    return ListView(
+      children: [
+        Y(height: heightTopBar),
+        GWdgtGiftFlare(),
+        GWdgtGift50(),
+        Y(),
+        WdgtGiftOfferContainer(),
+      ],
     );
   }
 }

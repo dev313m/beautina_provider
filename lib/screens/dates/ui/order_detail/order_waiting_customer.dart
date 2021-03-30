@@ -1,9 +1,11 @@
+import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/shared_order_details.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/common_order_ui/ui.dart';
+import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,40 +27,56 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
       RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: ScreenResolution.width,
-      decoration: BoxDecoration(
-          color: colorContainer, borderRadius: BorderRadius.circular(radius)),
-      child: Padding(
-        padding: EdgeInsets.all(edgeContainer),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            WdgtDateSharedOrderDetails(order: widget.order),
-            RoundedLoadingButton(
-              color: colorButtonReject,
-              height: 250.h,
-              width: double.infinity,
-              controller: _buttonController,
-              animateOnTap: true,
-              borderRadius: radius,
-              child: GWdgtTextButton(string: 'رفض'),
-              onPressed: () async {
-                bool result = false;
-                _buttonController.start();
+    return Padding(
+      padding: EdgeInsets.all(edgeContainer),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center ,
+        children: <Widget>[
+          Container(
+            child: WdgtDateSharedOrderDetails(order: widget.order),
+            decoration: BoxDecoration(
+                color: colorContainer,
+                borderRadius: BorderRadius.circular(radius)),
+          ),
+          Y(
+            height: 0.08.sh,
+          ),
+          ClipOval(
+            child: Container(
+              height: 200.h,
+              width: 200.h,
+              child: RoundedLoadingButton(
+                color: Colors.transparent,
+                height: 200.h,
+                width: 200.h,
+                // width: sizeButtonHeight,
+                animateOnTap: true,
+                borderRadius: radius,
+                child: Center(
+                    child: Icon(
+                  Icons.cancel_outlined,
+                  color: AppColors.pinkOpcity,
+                  size: 100.ssp,
+                )),
+                controller: _buttonController,
 
-                // _buttonController.start();
-                result = await getFunctionReject(widget.order, context);
-                if (result)
-                  _buttonController.success();
-                else
-                  _buttonController.error();
-                await Future.delayed(Duration(seconds: 1));
-                _buttonController.reset();
-              },
+                onPressed: () async {
+                  bool result = false;
+                  _buttonController.start();
+
+                  // _buttonController.start();
+                  result = await getFunctionReject(widget.order, context);
+                  if (result)
+                    _buttonController.success();
+                  else
+                    _buttonController.error();
+                  await Future.delayed(Duration(seconds: 1));
+                  _buttonController.reset();
+                },
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
@@ -52,7 +53,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
           ? SizedBox()
           : ListView.builder(
               shrinkWrap: true,
-              padding: EdgeInsets.only(top:BoxHeight.heightBtwContainers),
+              padding: EdgeInsets.only(top: BoxHeight.heightBtwContainers),
               itemCount: ordersList.length,
               // cacheExtent: 8,
               physics: NeverScrollableScrollPhysics(),
@@ -239,4 +240,195 @@ class _OrdersListState extends State<WdgtDateOrderList> {
 
 String getDate(DateTime date) {
   return 'الوقت ${date.hour}:${date.minute}';
+}
+
+class WdgtOrderItemBrief extends StatelessWidget {
+  final Order order;
+  final bool isArgent;
+  final String hero;
+  const WdgtOrderItemBrief(
+      {Key key, this.order, this.hero, this.isArgent = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 8.0.h),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: isArgent
+                ? AppColors.pinkOpcity.withOpacity(0.8)
+                : colorContainer,
+          ),
+          // height: ScreenUtil().setHeight(210),
+          child: Padding(
+            padding: EdgeInsets.all(paddingContainer),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CupertinoButton(
+                    padding: EdgeInsets.all(0),
+                    // SpringButtonType.OnlyScale,
+                    child: Hero(
+                      tag: order.doc_id + 'ok' + hero,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: colorBtn,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Icon(
+                          Icons.navigate_before,
+                          color: Colors.white,
+                        ),
+                        width: sizeBtnWidth,
+                        height: sizeBtnHeight,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => WdgtDatePageSingleOrderDetail(
+                              orderId: order?.doc_id,
+                              heroTag: order.doc_id + hero)));
+                    }),
+                SizedBox(
+                  width: 10.w,
+                ),
+                SpringButton(
+                  SpringButtonType.OnlyScale,
+                  Container(
+                    // padding: EdgeInsets.symmetric(vertical: 44.h),
+                    width: sizeBtnHeight,
+                    height: sizeBtnHeight,
+                    // w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Colors.green[900]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Icon(
+                          CommunityMaterialIcons.sack,
+                          size: 80.sp,
+                          color: Colors.white70,
+                        ),
+                        new GWdgtTextSmall(
+                          string: '${order.total_price} ريال',
+                        ),
+                      ],
+                    ),
+                  ),
+                  key: GlobalKey(),
+                  onTap: () async {},
+                  scaleCoefficient: 0.9,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                SpringButton(
+                  SpringButtonType.OnlyScale,
+                  Container(
+                    // padding: EdgeInsets.symmetric(vertical: 44.h),
+                    width: sizeBtnHeight,
+                    height: sizeBtnHeight,
+                    // w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(radius),
+                        color: Colors.white38),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Icon(
+                          CommunityMaterialIcons.calendar_clock,
+                          color: Colors.white70,
+                          size: 80.sp,
+                        ),
+                        new GWdgtTextSmall(
+                            string: order.client_order_date.hour >= 12
+                                ? '${order.client_order_date.hour}:${order.client_order_date.minute} م'
+                                : '${order.client_order_date.hour}:${order.client_order_date.minute} ص'),
+                      ],
+                    ),
+                  ),
+                  key: GlobalKey(),
+                  onTap: () async {},
+                  scaleCoefficient: 0.9,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(11.0.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        GWdgtTextTitleDesc(string: getText()),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Builder(builder: (_) {
+                              List<String> list = [];
+                              Map<String, dynamic> mapper =
+                                  Get.find<VMSalonDataTest>().providedServices;
+
+                              order.services.forEach((k, v) {
+                                v.forEach((kk, vv) {
+                                  if (k == 'other')
+                                    list.add(kk.toString());
+                                  else {
+                                    try {
+                                      list.add(mapper['services'][k]['items']
+                                          [kk]['ar']);
+                                    } catch (e) {
+                                      list.add(k.toString());
+                                    }
+                                  }
+                                });
+                              });
+                              return Wrap(
+                                textDirection: TextDirection.rtl,
+                                // verticalDirection: VerticalDirection.down,
+                                // direction: Axis.horizontal,
+                                children: list
+                                    .map((f) => Container(
+                                        height: 100.h,
+                                        padding: EdgeInsets.all(16.w),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(radius),
+                                          color: Colors.white38,
+                                        ),
+                                        // backgroundColor: Colors.white12,
+                                        child: Center(
+                                          child: GWdgtTextChip(
+                                            string: f,
+                                          ),
+                                        )))
+                                    .toList(),
+                              );
+                            }),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  String getText() {
+    return "طلبك من ${order.provider_name}";
+    if (order.client_order_date.isBefore(DateTime.now().toLocal()) &&
+        (order.status == 3 || order.status == 8))
+      return 'مرحبا، نرجو تأكيد اتمام العملية  (${order.provider_name})  ${order.client_order_date})';
+    else
+      return '${getOrderStatus(order.status)} (${order.provider_name}) ';
+  }
 }

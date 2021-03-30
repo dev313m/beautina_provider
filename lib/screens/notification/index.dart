@@ -43,50 +43,45 @@ class _PageNotification extends State<PageNotification>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return GetBuilder<VMRootDataTest>(
-      builder: (vmRootData) {
-        return RefreshIndicator(
-          onRefresh: () async {
-            await vmRootData.refreshNotificationList();
-            return;
-          },
-          child: ListView(
-            controller: _scrollController,
-            children: <Widget>[
-              Y(height: heightNavBar + 25.h),
-              Y(),
-              WdgtNotificationAnimation(key: ValueKey('flower')),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: vmRootData.notificationList.length,
-                itemBuilder: (_, index) {
-                  return Padding(
-                      padding: EdgeInsets.only(top: edgeContainer),
-                      child: vmRootData
-                                  .notificationList
-                                  .elementAt(index)
-                                  .type ==
-                              ''
-                          ? WdgtNotificationItem(
-                              notification: vmRootData
-                                  .notificationList
-                                  .elementAt(index),
-                            )
-                          : WdgtNotificationBroadcast(
-                              notification: vmRootData
-                                  .notificationList
-                                  .elementAt(index)));
-                },
-              ),
-              Y(
-                height: bottomNavPadding,
-              )
-            ],
-          ),
-        );
-      }
-    );
+    return GetBuilder<VMRootDataTest>(builder: (vmRootData) {
+      return RefreshIndicator(
+        onRefresh: () async {
+          await vmRootData.refreshNotificationList();
+          return;
+        },
+        child: ListView(
+          padding: EdgeInsets.all(0),
+          controller: _scrollController,
+          children: <Widget>[
+            Y(height: heightTopBar),
+            Y(),
+            WdgtNotificationAnimation(key: ValueKey('flower')),
+            ListView.builder(
+              padding: EdgeInsets.all(0),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: vmRootData.notificationList.length,
+              itemBuilder: (_, index) {
+                return Padding(
+                    padding: EdgeInsets.only(top: edgeContainer),
+                    child: vmRootData.notificationList.elementAt(index).type ==
+                            ''
+                        ? WdgtNotificationItem(
+                            notification:
+                                vmRootData.notificationList.elementAt(index),
+                          )
+                        : WdgtNotificationBroadcast(
+                            notification:
+                                vmRootData.notificationList.elementAt(index)));
+              },
+            ),
+            Y(
+              height: bottomNavPadding,
+            )
+          ],
+        ),
+      );
+    });
   }
 
   @override

@@ -62,7 +62,7 @@ Map<String, dynamic> getNewServicesMap(BuildContext context, showOther,
 updateProviderServices(
     BuildContext context,
     showOther,
-    chosenService,
+    String chosenService,
     priceBefore,
     priceAfter,
     otherServiceName,
@@ -72,10 +72,10 @@ updateProviderServices(
 
   ModelBeautyProvider bp = await sharedUserProviderGetInfo();
   try {
-    if(showOther)
-      bp.service_duration[otherServiceName] = serviceDuration; 
-      else 
-    bp.service_duration[chosenService] = serviceDuration;
+    if (showOther)
+      bp.service_duration[otherServiceName] = serviceDuration;
+    else
+      bp.service_duration[chosenService.split('-')[1]] = serviceDuration;
 
     ModelBeautyProvider newBp = await apiBeautyProviderUpdate(bp
       ..servicespro = getNewServicesMap(context, showOther, chosenService,
@@ -138,6 +138,41 @@ removeServiceByCodeAndUpdate(
     onDeleteServiceError();
   }
   onDeleteServiceComplete();
+}
+
+/**
+                             * 1- get now beautyProvider from shared
+                             * 2- update and save in shared
+                             * 3- get shared and notifylisteners
+                             */
+
+updateUserDefaults(
+    BuildContext context,
+    Function onDefaultsChangeSuccess,
+    Function onDefaultsChangeLoad,
+    Function onADefaultsChangeError,
+    Function onDefaultsChangeComplete,
+    {@required bool defaultAccept,
+    @required int defaultAfterAccept}) async {
+  onDefaultsChangeLoad();
+  try {
+    ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
+
+    await apiBeautyProviderUpdate(mbp
+      ..default_accept = defaultAccept
+      ..default_after_accept = defaultAfterAccept);
+
+    // Get.find<VMSalonDataTest>().beautyProvider = mbp;
+    // setState(() {});
+    Get.find<VMSalonDataTest>().beautyProvider =
+        await sharedUserProviderGetInfo();
+    onDefaultsChangeSuccess();
+    // var don;
+  } catch (e) {
+    onADefaultsChangeError();
+  }
+
+  onDefaultsChangeComplete();
 }
 
 /**

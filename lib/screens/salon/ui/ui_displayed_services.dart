@@ -178,7 +178,7 @@ class SingleService extends StatefulWidget {
   final String serviceRoot;
   final String serviceCode;
   final List<dynamic> prices;
-  final duration;
+  final int duration;
 
   const SingleService(
       {Key key,
@@ -195,13 +195,13 @@ class SingleService extends StatefulWidget {
 
 class _SingleServiceState extends State<SingleService> {
   bool loading = false;
-  Duration _duration; 
+  Duration _duration;
   @override
   void initState() {
     super.initState();
-    _duration = Duration(minutes: widget.duration); 
-
+    _duration = Duration(minutes: widget.duration);
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -253,7 +253,9 @@ class _SingleServiceState extends State<SingleService> {
               ),
               child: Row(
                 children: <Widget>[
-                  GWdgtTextTitleDesc(string: getTimeString()),
+                  GWdgtTextTitleDesc(
+                      string: getTimeString(),
+                      key: ValueKey(widget.serviceCode)),
                 ],
               ),
             ),
@@ -295,8 +297,11 @@ class _SingleServiceState extends State<SingleService> {
       ),
     );
   }
-  getTimeString(){
-    return _duration.inHours >0  ?' ${_duration.inHours.toString()}س و ${_duration.inMinutes.toString()} دقيقة' : ' ${_duration.inMinutes.toString()} دقيقة'; 
+
+  String getTimeString() {
+    return _duration.inHours > 0
+        ? ' ${_duration.inHours.toString()}س و ${_duration.inMinutes.remainder(60).toString()} دقيقة'
+        : ' ${_duration.inMinutes.remainder(60).toString()} دقيقة';
   }
 
   Function onDeleteServiceSuccess() {

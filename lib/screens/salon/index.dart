@@ -1,5 +1,6 @@
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
+import 'package:beautina_provider/screens/salon/ui/auto_accept_default.dart';
 import 'package:beautina_provider/screens/salon/ui/close_open_salon.dart';
 import 'package:beautina_provider/screens/salon/ui/share.dart';
 
@@ -37,7 +38,7 @@ class _PageSalonState extends State<PageSalon> {
       onScrollAction(_scrollController, context,
           onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
-    
+
     // initBeautyProvider();
   }
 
@@ -48,11 +49,14 @@ class _PageSalonState extends State<PageSalon> {
         Container(
           color: AppColors.purpleColor,
           child: ListView(
+            padding: EdgeInsets.all(0),
             controller: _scrollController,
             physics: AlwaysScrollableScrollPhysics(),
             children: <Widget>[
-              Y(height: heightNavBar),
-              WdgtSalonProfileDetails(),
+              Y(height: heightTopBar), Y(),
+              WdgtSalonProfileDetails(
+                key: ValueKey('tdest'),
+              ),
               Y(),
               WdgtSalonShare(),
               Y(),
@@ -62,7 +66,6 @@ class _PageSalonState extends State<PageSalon> {
                   return WdgtSalonLocationNotSet();
                 return SizedBox();
               }),
-
               Y(),
               WdgtSalonCloseOpenSalon(),
 
@@ -80,6 +83,9 @@ class _PageSalonState extends State<PageSalon> {
                     0) return WdgtSalonAddService();
                 return SizedBox();
               }),
+              Y(),
+
+              WdgtSalonDefaultAccept(),
 
               // Y(),
               // WdgtSalonHowLookProfile(),

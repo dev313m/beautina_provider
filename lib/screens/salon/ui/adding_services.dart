@@ -45,7 +45,8 @@ final strValidChooseServiceName = 'يجب اختيار اسم الخدمة';
 final strValidChooseService = 'يجب اختيار خدمة';
 final strValidPrice = 'يجب وضع ملبغ الخدمة';
 final strValidOffer = 'سعر العرض يجب ان يكون اقل من سعر قبل العرض';
-final strValidDuration ="يجب ادخال المدة المتوقعة لعمل الخدمة"; 
+final strValidDuration = "يجب ادخال المدة المتوقعة لعمل الخدمة";
+
 class WdgtSalonAddService extends StatefulWidget {
   // final Map<String, dynamic> mapServices;
   WdgtSalonAddService({
@@ -94,248 +95,250 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   ///This is a list of DropdownMenuItem base on a selected category from the toggleButtons
   ///The default is [] so there is no items in the dropdownMenu
   List<Map<String, String>> subCategoryList = [];
- TextEditingController durationTextFieldController =
+  TextEditingController durationTextFieldController =
       TextEditingController(text: 'لم يتم التحديد');
 
   Duration serviceDuration = Duration();
-  int serviceDurationInt  = 0; 
+  int serviceDurationInt = 0;
 
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-mapServices =
-        vMSalonData.providedServices['services'];        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(radiusContainer),
-            child: Container(
-              padding: EdgeInsets.all(edgeMainContainer),
-              color: colorContainerBg,
-              // height: ScreenUtil().setHeight(400),
-              child: Stack(
-                children: [
-                  Align(
-                      child: IconButton(
-                        icon: Icon(Icons.add_circle, color: Colors.white24),
-                      ),
-                      alignment: Alignment.topLeft),
-                  Column(
-                    children: <Widget>[
-                      Y(height: BoxHeight.heightBtwTitle),
-                      GWdgtTextTitle(
-                        string: strAddingNewService,
-                      ),
-                      Y(height: BoxHeight.heightBtwContainers),
-                      GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
-                      Y(height: BoxHeight.heightBtwTitle),
-                      SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: ToggleButtons(
-                              children: mapServices.entries
-                                  .toList()
-                                  .map((e) => e.value['ar'])
-                                  .toList()
-                                  .map((e) => WdgtSalonServiceItem(serviceName: e))
-                                  .toList(),
-                              //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
+      mapServices = vMSalonData.providedServices['services'];
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(radiusContainer),
+          child: Container(
+            padding: EdgeInsets.all(edgeMainContainer),
+            color: colorContainerBg,
+            // height: ScreenUtil().setHeight(400),
+            child: Stack(
+              children: [
+                Align(
+                    child: IconButton(
+                      icon: Icon(Icons.add_circle, color: Colors.white24),
+                    ),
+                    alignment: Alignment.topLeft),
+                Column(
+                  children: <Widget>[
+                    Y(height: BoxHeight.heightBtwTitle),
+                    GWdgtTextTitle(
+                      string: strAddingNewService,
+                    ),
+                    Y(height: BoxHeight.heightBtwContainers),
+                    GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
+                    Y(height: BoxHeight.heightBtwTitle),
+                    SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: ToggleButtons(
+                            children: mapServices.entries
+                                .toList()
+                                .map((e) => e.value['ar'])
+                                .toList()
+                                .map(
+                                    (e) => WdgtSalonServiceItem(serviceName: e))
+                                .toList(),
+                            //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
 
-                              isSelected: !isToggleButtonsSet
-                                  ? toggleSelectBoolList = mapServices.entries
-                                      .toList()
-                                      .map((e) => false)
-                                      .toList()
-                                  : toggleSelectBoolList,
-                              borderRadius: BorderRadius.circular(radiusContainer),
-                              fillColor: Colors.pink,
-                              selectedColor: Colors.pink,
-                              renderBorder: false,
-                              onPressed: (index) {
-                                toggleButtonUiUpdater(index);
-                                setSubCategoryDropdownMenu(index);
-                                otherOptionChosenListener(index);
-                                clearFields();
-
-                                if (index != toggleSelectBoolList.length - 1)
-                                  _showPicker();
-
-                                isShowPrice = false;
-
-                                setState(() {});
-                              })),
-                      Y(height: BoxHeight.heightBtwContainers),
-                      if (showOther)
-                        Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: BeautyTextfield(
-                            onChanged: (str) {
-                              otherServiceName = str;
-                              isShowPrice = true;
-                              setState(() {});
-                            },
-                            prefixIcon: Icon(
-                              CommunityMaterialIcons.ticket,
-                              color: AppColors.pinkBright,
-                            ),
-                            // placeholder: strServiceName,
-                            helperText: strServiceName,
-                            textStyle: TextStyle(color: AppColors.pinkBright),
-                            inputType: TextInputType.text,
-                          ),
-                        ),
-                      Y(),
-                      if (isShowPrice)
-                        Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: BeautyTextfield(
-                            // height: ScreenUtil().setHeight(90),
-                            onChanged: (String s) {
-                              priceAfter = double.parse(s);
-                            },
-                            // textStyle: TextStyle(color: AppColors.pinkBright),
-                            suffixIcon: Icon(
-                              Icons.attach_money,
-                            ),
-                            helperText: strServicePrice,
-                            inputType: TextInputType.number,
-                          ),
-                        ),
-                      Y(),
-                      if(isShowPrice)
-                       Container(
-                         // width: 200.w,
-                         child: BeautyTextfield(
-                           // prefixText: durationTextFieldController.text,
-                           placeholder: durationTextFieldController.text,
-                           helperText: 'المدة المتوقعة:  ',
-                           readOnly: true,
-                           isBox: true,
-                           prefixIcon: Icon(CommunityMaterialIcons.watch),
-                           onTap: () {
-                             Picker picker;
-
-                             picker = Picker(
-                                 // backgroundColor: Colors.pink.withOpacity(0.3),
-                                 adapter: NumberPickerAdapter(
-                                     data: <NumberPickerColumn>[
-                                       const NumberPickerColumn(
-                                           begin: 0,
-                                           end: 60,
-                                           postfix: GWdgtTextDescDesc(
-                                               string: ' دقيقة ',
-                                               color: Colors.black),
-                                           jump: 15),
-                                       const NumberPickerColumn(
-                                           begin: 0,
-                                           end: 12,
-                                           postfix: GWdgtTextDescDesc(
-                                               color: Colors.black,
-                                               string: ' ساعة '),
-                                           columnFlex: 1),
-                                     ]),
-                                 delimiter: <PickerDelimiter>[
-                                   PickerDelimiter(
-                                     child: Container(
-                                       width: 30.0.h,
-                                       alignment: Alignment.center,
-                                       child: Icon(Icons.more_vert),
-                                     ),
-                                   )
-                                 ],
-                                 hideHeader: false,
-                                 confirmTextStyle: TextStyle(
-                                     inherit: false,
-                                     color: Colors.red,
-                                     fontSize: 22),
-                                 // title: Text(
-                                 //   'الوقت المتوقع لإنهاء الخدمة',
-                                 //   textAlign: TextAlign.right,
-                                 // ),
-                                 containerColor: Colors.pink,
-                                 selectedTextStyle:
-                                     TextStyle(color: Colors.blue),
-                                 onConfirm: (Picker picker, List<int> value) {
-                                   // You get your duration here
-                                   serviceDuration = Duration(
-                                       hours: picker.getSelectedValues()[1],
-                                       minutes: picker.getSelectedValues()[0]);
-                                   // picker.doCancel(context);
-                                   durationTextFieldController.text =
-                                       " ${(serviceDuration.inHours).toString()} س ${(serviceDuration.inMinutes.remainder(60)).toString()} د ";
-                                   // showToast(orderDuration.inMinutes.toString());
-
-                                   serviceDurationInt =
-                                       serviceDuration.inMinutes;
-                                   setState(() {});
-                                 },
-                                 cancel: IconButton(
-                                   icon: Icon(
-                                     Icons.cancel,
-                                     color: Colors.red,
-                                   ),
-                                   onPressed: () {
-                                     picker.doCancel(context);
-                                   },
-                                 ),
-                                 confirm: IconButton(
-                                   icon: Icon(
-                                     Icons.done,
-                                     color: Colors.blue,
-                                   ),
-                                   onPressed: () {
-                                     picker.doConfirm(context);
-                                   },
-                                 ),
-                                 cancelTextStyle: TextStyle(color: Colors.red),
-                                 textStyle: TextStyle(color: Colors.blue));
-                             picker.showModal(context);
-                           },
-                           inputType: TextInputType.text,
-                         ),
-                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(radiusButton),
-                        child: RoundedLoadingButton(
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(radiusButton),
-                              ),
-                              height: 100,
-                              width: double.infinity,
-                              child:
-                                  Center(child: GWdgtTextButton(string: strAdd))),
-                          onPressed: () async {
-                            if (checkFields()) {
-                              await updateProviderServices(
-                                  context,
-                                  showOther,
-                                  chosenService,
-                                  priceBefore,
-                                  priceAfter,
-                                  otherServiceName,
-                                                                    serviceDuration.inMinutes,
-
-                                  _btnController);
+                            isSelected: !isToggleButtonsSet
+                                ? toggleSelectBoolList = mapServices.entries
+                                    .toList()
+                                    .map((e) => false)
+                                    .toList()
+                                : toggleSelectBoolList,
+                            borderRadius:
+                                BorderRadius.circular(radiusContainer),
+                            fillColor: Colors.pink,
+                            selectedColor: Colors.pink,
+                            renderBorder: false,
+                            onPressed: (index) {
+                              toggleButtonUiUpdater(index);
+                              setSubCategoryDropdownMenu(index);
+                              otherOptionChosenListener(index);
                               clearFields();
-                            }
 
-                            _btnController.reset();
+                              if (index != toggleSelectBoolList.length - 1)
+                                _showPicker();
+
+                              isShowPrice = false;
+
+                              setState(() {});
+                            })),
+                    Y(height: BoxHeight.heightBtwContainers),
+                    if (showOther)
+                      Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: BeautyTextfield(
+                          onChanged: (str) {
+                            otherServiceName = str;
+                            isShowPrice = true;
+                            setState(() {});
                           },
-                          controller: _btnController,
+                          prefixIcon: Icon(
+                            CommunityMaterialIcons.ticket,
+                            color: AppColors.pinkBright,
+                          ),
+                          // placeholder: strServiceName,
+                          helperText: strServiceName,
+                          textStyle: TextStyle(color: AppColors.pinkBright),
+                          inputType: TextInputType.text,
                         ),
-                      ),              Y(height: heightBottomContainer,)
+                      ),
+                    Y(),
+                    if (isShowPrice)
+                      Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: BeautyTextfield(
+                          // height: ScreenUtil().setHeight(90),
+                          onChanged: (String s) {
+                            priceAfter = double.parse(s);
+                          },
+                          // textStyle: TextStyle(color: AppColors.pinkBright),
+                          suffixIcon: Icon(
+                            Icons.attach_money,
+                          ),
+                          helperText: strServicePrice,
+                          inputType: TextInputType.number,
+                        ),
+                      ),
+                    Y(),
+                    if (isShowPrice)
+                      Container(
+                        // width: 200.w,
+                        child: BeautyTextfield(
+                          // prefixText: durationTextFieldController.text,
+                          placeholder: durationTextFieldController.text,
+                          helperText: 'المدة المتوقعة:  ',
+                          readOnly: true,
+                          isBox: true,
+                          prefixIcon: Icon(CommunityMaterialIcons.watch),
+                          onTap: () {
+                            Picker picker;
 
-                      // SizedBox(height: ScreenUtil().setHeight(100))
-                    ],
-                  ),
-                ],
-              ),
+                            picker = Picker(
+                                // backgroundColor: Colors.pink.withOpacity(0.3),
+                                adapter: NumberPickerAdapter(
+                                    data: <NumberPickerColumn>[
+                                      const NumberPickerColumn(
+                                          begin: 0,
+                                          end: 60,
+                                          postfix: GWdgtTextDescDesc(
+                                              string: ' دقيقة ',
+                                              color: Colors.black),
+                                          jump: 15),
+                                      const NumberPickerColumn(
+                                          begin: 0,
+                                          end: 12,
+                                          postfix: GWdgtTextDescDesc(
+                                              color: Colors.black,
+                                              string: ' ساعة '),
+                                          columnFlex: 1),
+                                    ]),
+                                delimiter: <PickerDelimiter>[
+                                  PickerDelimiter(
+                                    child: Container(
+                                      width: 30.0.h,
+                                      alignment: Alignment.center,
+                                      child: Icon(Icons.more_vert),
+                                    ),
+                                  )
+                                ],
+                                hideHeader: false,
+                                confirmTextStyle: TextStyle(
+                                    inherit: false,
+                                    color: Colors.red,
+                                    fontSize: 22),
+                                // title: Text(
+                                //   'الوقت المتوقع لإنهاء الخدمة',
+                                //   textAlign: TextAlign.right,
+                                // ),
+                                containerColor: Colors.pink,
+                                selectedTextStyle:
+                                    TextStyle(color: Colors.blue),
+                                onConfirm: (Picker picker, List<int> value) {
+                                  // You get your duration here
+                                  serviceDuration = Duration(
+                                      hours: picker.getSelectedValues()[1],
+                                      minutes: picker.getSelectedValues()[0]);
+                                  // picker.doCancel(context);
+                                  durationTextFieldController.text =
+                                      " ${(serviceDuration.inHours).toString()} س ${(serviceDuration.inMinutes.remainder(60) % 60).toString()} د ";
+                                  // showToast(orderDuration.inMinutes.toString());
+
+                                  serviceDurationInt =
+                                      serviceDuration.inMinutes;
+                                  setState(() {});
+                                },
+                                cancel: IconButton(
+                                  icon: Icon(
+                                    Icons.cancel,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    picker.doCancel(context);
+                                  },
+                                ),
+                                confirm: IconButton(
+                                  icon: Icon(
+                                    Icons.done,
+                                    color: Colors.blue,
+                                  ),
+                                  onPressed: () {
+                                    picker.doConfirm(context);
+                                  },
+                                ),
+                                cancelTextStyle: TextStyle(color: Colors.red),
+                                textStyle: TextStyle(color: Colors.blue));
+                            picker.showModal(context);
+                          },
+                          inputType: TextInputType.text,
+                        ),
+                      ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(radiusButton),
+                      child: RoundedLoadingButton(
+                        child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(radiusButton),
+                            ),
+                            height: 100,
+                            width: double.infinity,
+                            child:
+                                Center(child: GWdgtTextButton(string: strAdd))),
+                        onPressed: () async {
+                          if (checkFields()) {
+                            await updateProviderServices(
+                                context,
+                                showOther,
+                                chosenService,
+                                priceBefore,
+                                priceAfter,
+                                otherServiceName,
+                                serviceDuration.inMinutes,
+                                _btnController);
+                            clearFields();
+                          }
+
+                          _btnController.reset();
+                        },
+                        controller: _btnController,
+                      ),
+                    ),
+                    Y(
+                      height: heightBottomContainer,
+                    )
+
+                    // SizedBox(height: ScreenUtil().setHeight(100))
+                  ],
+                ),
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 
   setSubCategoryDropdownMenu(int indexCategory) {
@@ -343,7 +346,7 @@ mapServices =
     if (indexCategory == null) return;
     String categoryKey = mapServices.keys.toList()[indexCategory];
     Map<String, dynamic> allServices =
-       Get.find<VMSalonDataTest>().providedServices['services'];
+        Get.find<VMSalonDataTest>().providedServices['services'];
     mapServices[categoryKey]['items']?.forEach((k, v) {
       subCategoryList
           .add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
@@ -446,7 +449,7 @@ mapServices =
       showToast(strValidOffer);
       return false;
     }
-     if (serviceDurationInt == 0) {
+    if (serviceDurationInt == 0) {
       showToast(strValidDuration);
       return false;
     }
