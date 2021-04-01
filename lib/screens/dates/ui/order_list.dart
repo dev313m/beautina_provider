@@ -422,13 +422,21 @@ class WdgtOrderItemBrief extends StatelessWidget {
       ),
     );
   }
-
   String getText() {
-    return "طلبك من ${order.provider_name}";
-    if (order.client_order_date.isBefore(DateTime.now().toLocal()) &&
+    if (order
+            .client_order_date
+            .isBefore(DateTime.now().toLocal()) &&
         (order.status == 3 || order.status == 8))
-      return 'مرحبا، نرجو تأكيد اتمام العملية  (${order.provider_name})  ${order.client_order_date})';
+      return 'مرحبا، نرجو تأكيد اتمام العملية  (${order.client_name})  ${getDate(order.client_order_date)}';
     else
-      return '${getOrderStatus(order.status)} (${order.provider_name}) ';
+      return '${getOrderStatus(order.status)} (${order.client_name}) ';
   }
+  // String getText() {
+  //   return "طلبك من ${order.provider_name}";
+  //   if (order.client_order_date.isBefore(DateTime.now().toLocal()) &&
+  //       (order.status == 3 || order.status == 8))
+  //     return 'مرحبا، نرجو تأكيد اتمام العملية  (${order.provider_name})  ${order.client_order_date})';
+  //   else
+  //     return '${getOrderStatus(order.status)} (${order.provider_name}) ';
+  // }
 }

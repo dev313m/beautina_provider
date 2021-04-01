@@ -1,6 +1,5 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
-import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/ui/order_detail/index.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
+
 ///[strings]
 final strDetails = 'تفاصيل';
 
@@ -34,45 +34,53 @@ class WdgtDatePageSingleOrderDetail extends StatefulWidget {
 }
 
 class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
-  Order order;
   @override
   Widget build(BuildContext context) {
-    order = Get.find<VmDateDataTest>()
-        .orderList
-        .where((element) => element.doc_id == widget.orderId)
-        .first;
-    return Scaffold(
-      primary: false,
-      // resizeToAvoidBottomPadding: false,
-      backgroundColor: colorBackground,
-      body: SingleChildScrollView(
-        child: Column(
-          // addRepaintBoundaries: false,
+    return GetBuilder<VmDateDataTest>(builder: (
+      vm,
+    ) {
+      return Scaffold(
+        primary: false,
+        // resizeToAvoidBottomPadding: false,
+        backgroundColor: colorBackground,
+        body: SingleChildScrollView(
+          child: Column(
+            // addRepaintBoundaries: false,
 
-          children: <Widget>[
-            Hero(
-              tag: order.doc_id + 'ok',
-              transitionOnUserGestures: true,
-              child: Container(
-                width: double.infinity,
-                height: sizePageTitle,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(radiusPageTitle),
-                  color: colorPageTitle,
+            children: <Widget>[
+              Hero(
+                tag: vm.orderList
+                        .where((element) => element.doc_id == widget.orderId)
+                        .first
+                        .doc_id +
+                    'ok',
+                transitionOnUserGestures: true,
+                child: Container(
+                  width: double.infinity,
+                  height: sizePageTitle,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(radiusPageTitle),
+                    color: colorPageTitle,
+                  ),
+                  child: Center(
+                      child: AnimatedSwitcher(
+                          // key: ValueKey('any'),
+                          duration: Duration(milliseconds: durationCalender),
+                          child: GWdgtTextTitle(
+                            string: strDetails,
+                          ))),
                 ),
-                child: Center(
-                    child: AnimatedSwitcher(
-                        // key: ValueKey('any'),
-                        duration: Duration(milliseconds: durationCalender),
-                        child: GWdgtTextTitle(
-                          string: strDetails,
-                        ))),
               ),
-            ),Y(),
-            WdgtDateOrderDetails(orderId: order.doc_id)
-          ],
+              Y(),
+              WdgtDateOrderDetails(
+                  orderId: vm.orderList
+                      .where((element) => element.doc_id == widget.orderId)
+                      .first
+                      .doc_id)
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
