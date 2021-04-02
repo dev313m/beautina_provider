@@ -207,15 +207,15 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
                               borderRadius:
                                   BorderRadius.circular(radiusDefault),
                               isSelected:
-                                  beautyProvider.default_after_accept == 0
-                                      ? [true, false]
-                                      : [false, true],
+                                  beautyProvider.default_after_accept == 1
+                                      ? [false , true]
+                                      : [true, false],
                               onPressed: (values) {
                                 int chosed;
-                                if (values == 0)
-                                  chosed = 2;
-                                else
+                                if (values == 1)
                                   chosed = 1;
+                                else
+                                  chosed = 2;
                                 updateUserDefaults(
                                     context,
                                     onAvailableChangeSuccess(),

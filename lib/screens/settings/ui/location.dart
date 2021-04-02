@@ -60,37 +60,36 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                 ),
               );
             }),
-                        GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-
-                return GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
-                  return Row(
-                    children: <Widget>[
-                      Chip(
-                          label: ExtendedText(
-                        string: vmSettingsData.city == null
-                            ? vMSalonData.beautyProvider.city
-                            : vmSettingsData.country,
-                        fontColor: Colors.black,
-                      )),
-                      Chip(
-                          label: ExtendedText(
-                        string: vmSettingsData.country == null
-                            ?vMSalonData.  beautyProvider.country
-                            : vmSettingsData.city,
-                        fontColor: Colors.black,
-                      ))
-                    ],
-                  );
-                });
-              }
-            ),
+            GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+              return GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
+                return Row(
+                  children: <Widget>[
+                    Chip(
+                        label: ExtendedText(
+                      string: vmSettingsData.city == null
+                          ? vMSalonData.beautyProvider.city
+                          : vmSettingsData.country,
+                      fontColor: Colors.black,
+                    )),
+                    Chip(
+                        label: ExtendedText(
+                      string: vmSettingsData.country == null
+                          ? vMSalonData.beautyProvider.country
+                          : vmSettingsData.city,
+                      fontColor: Colors.black,
+                    ))
+                  ],
+                );
+              });
+            }),
             GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
               return Directionality(
                 textDirection: TextDirection.rtl,
                 child: BeautyTextfield(
                   suffixIcon: Icon(Icons.location_on),
-                  placeholder:
-                      loadingLocation ? 'جاري التحميل' : introLocationStr,
+                  placeholder: loadingLocation
+                      ? 'جاري التحميل، انقري مره اخرى عند التآخير'
+                      : introLocationStr,
                   readOnly: true,
                   inputType: TextInputType.text,
                   onTap: () async {
@@ -98,16 +97,16 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                       loadingLocation = true;
                     });
                     List<dynamic> location = await getMyLocation();
-                    setState(() {
-                      loadingLocation = false;
-                      if (loadingLocation == null)
-                        introLocationStr = locationErrStr;
-                      else {
-                        introLocationStr = locationSuccessStr +
-                            vmSettingsData.location.toString();
-                        vmSettingsData.location = location;
-                      }
-                    });
+                    loadingLocation = false;
+                    if (location.toString() == null)
+                      introLocationStr = locationErrStr;
+                    else {
+                      introLocationStr =
+                          locationSuccessStr + location.toString();
+                      vmSettingsData.location = location;
+                    }
+                    await Future.delayed(Duration(seconds: 3));
+                    setState(() {});
                   },
                 ),
               );
@@ -154,7 +153,7 @@ final updateBtnColor = Colors.lightBlue;
 final inkBtnColor = Colors.pink;
 
 ///[Strings]
-String introLocationStr = 'انقري هنا بعد تفعيل الخرائظ لإضافة احداثيات موقعك';
+String introLocationStr = 'انقري هنا لإضافة احداثيات موقعك';
 String locationErrStr = 'حدث خطأ ما، الرجاء تفعيل تحديد الموقع';
 String locationSuccessStr = "تمت الاضافة ";
 final String locationDetails = 'بيانات الموقع';

@@ -88,6 +88,7 @@ Future updateBtn(BuildContext context,
 }
 
 bool _validateInputs(BuildContext context) {
+
   if (Get.find<VMSettingsDataTest>().formKey.currentState.validate()) {
 //    If all data are correct then save data to out variables
     Get.find<VMSettingsDataTest>().formKey..currentState.save();
