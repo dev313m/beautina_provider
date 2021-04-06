@@ -1,7 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
-const String str_version = 'str_version_provider';
-const String str_update_details = 'str_desc_provider';
+const String _STRING_VALUE = 'str_version_provider';
 
 class RemoteConfigService {
   final RemoteConfig _remoteConfig;
@@ -9,8 +8,7 @@ class RemoteConfigService {
       : _remoteConfig = remoteConfig;
 
   final defaults = <String, dynamic>{
-    str_version: '1.0.0',
-    str_update_details: "",
+    _STRING_VALUE: "1.1.1",
   };
 
   static RemoteConfigService _instance;
@@ -22,6 +20,8 @@ class RemoteConfigService {
     }
     return _instance;
   }
+
+  String get getStringValue => _remoteConfig.getString(_STRING_VALUE);
 
   Future initialize() async {
     try {
@@ -37,7 +37,7 @@ class RemoteConfigService {
   Future _fetchAndActivate() async {
     await _remoteConfig.fetch(expiration: Duration(seconds: 0));
     await _remoteConfig.activateFetched();
-    print("int::: $str_version");
-    print("string::: $str_update_details");
+
+    print("string::: $getStringValue");
   }
 }

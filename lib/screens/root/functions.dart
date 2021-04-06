@@ -18,22 +18,22 @@ import 'package:share/share.dart';
 import 'package:clipboard/clipboard.dart';
 
 /// Version checker between the current and the http request of the saved one in server
+/// Version checker between the current and the http request of the saved one in server
 versionCheck(BuildContext context) async {
   await Future.delayed(Duration(seconds: 4));
   // onAlertWithCustomContentPressed(context);
 
   //Get Current installed version of app
-
-  RemoteConfigService remote = RemoteConfigService();
-  await remote.initialize();
-  final String nowVersion = remote.defaults['str_version_provider'];
-
   final PackageInfo info = await PackageInfo.fromPlatform();
   double currentVersion = double.parse(info.version.trim().replaceAll(".", ""));
 
   //Get Latest version info from firebase config
   try {
     // Using default duration to force fetching from remote server.
+
+    RemoteConfigService remote = await RemoteConfigService.getInstance();
+    await remote.initialize();
+    final String nowVersion = remote.getStringValue; 
 
     double newVersion = double.parse(nowVersion.trim().replaceAll(".", ""));
     if (newVersion > currentVersion) {

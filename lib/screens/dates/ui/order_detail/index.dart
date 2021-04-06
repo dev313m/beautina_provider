@@ -36,8 +36,7 @@ class _WdgtDateOrderDetailsState extends State<WdgtDateOrderDetails> {
       return WidgetCanceledOrder(order: order);
     else if (order.status == 3) // order is confirmed by costomer
     {
-      if (order.client_order_date.month == DateTime.now().month &&
-          DateTime.now().day == order.client_order_date.day)
+      if (DateTime.now().toLocal().isAfter(order.client_order_date.toLocal()))
 
         ///When order is submitted by user but outdated
         return WidgetOutdatedOrder(
@@ -46,10 +45,10 @@ class _WdgtDateOrderDetailsState extends State<WdgtDateOrderDetails> {
       return WidgetConfirmedByCustomerOrder(order: order);
     }
 
-    /// [status = 8]: finished successfully,
+    /// [status = 5]: finished successfully,
     /// [status = 7]: finished unsuccessfully,
     /// [status = 6]: is in evaluation status,
-    /// [status = 5]: user claim finished complete
+    /// [status = 8]: user claim finished complete
     else if (order.status == 5 ||
         order.status == 6 ||
         order.status == 7 ||

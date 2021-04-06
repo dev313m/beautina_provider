@@ -63,7 +63,7 @@ class Order {
     client_location = data['client_location'];
     client_order_date = data['client_order_date'] == null
         ? null
-        : DateTime.parse(data['client_order_date']);
+        : DateTime.parse(data['client_order_date']).toLocal();
     client_submit_order_date = data['client_submit_order_date'] == null
         ? null
         : DateTime.parse(data['client_submit_order_date']);

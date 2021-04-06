@@ -21,10 +21,7 @@
                  there is no splash screen (such as the default splash screen
                  defined in @style/LaunchTheme). -->
 
-                         <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
-
+                         
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
                 android:value="true" />
@@ -36,6 +33,11 @@
              <action android:name="FLUTTER_NOTIFICATION_CLICK" />
              <category android:name="android.intent.category.DEFAULT" />
   </intent-filter>
+<meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
+          
         </activity>
     </application>
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
