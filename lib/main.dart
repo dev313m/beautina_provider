@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts_arabic/fonts.dart';
-import 'package:home_indicator/home_indicator.dart';
+// import 'package:home_indicator/home_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -32,7 +32,7 @@ void main() async {
   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
   // FullScreen fullscreen = FullScreen();
 
-  await HomeIndicator.hide();
+  // await HomeIndicator.hide();
 
   return runApp(MyApp(
     registered: registered,

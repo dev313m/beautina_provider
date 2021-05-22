@@ -7,6 +7,7 @@ import 'dart:convert';
 class ModelBeautyProvider {
   static int TYPE_SALON = 1;
   static int TYPE_INDIVIDUAL = 1;
+  String firebaseUid = '';
   List<Map<String, DateTime>> busyDates =
       []; // Date that provider is not available for order
   int type; //whether it was a salon or a simple woman 1 for salon
@@ -15,7 +16,7 @@ class ModelBeautyProvider {
   double customers;
   String _intro;
   String email;
-  Map<String,dynamic> service_duration; 
+  Map<String, dynamic> service_duration;
   List<dynamic> _location;
   String _name;
   int _voter;
@@ -32,8 +33,8 @@ class ModelBeautyProvider {
   double _rating;
   Map<String, dynamic> package;
   Map<String, dynamic> servicespro;
-  bool default_accept; 
-  int default_after_accept; 
+  bool default_accept;
+  int default_after_accept;
 
   String _phone;
   String _token; // notification token
@@ -91,7 +92,7 @@ class ModelBeautyProvider {
       bool available,
       String image,
       int type,
-        bool default_accept,
+      bool default_accept,
       String email,
       String token,
       Map<String, dynamic> package,
@@ -99,7 +100,7 @@ class ModelBeautyProvider {
       String name,
       double customers,
       int points,
-        Map<String,int> service_duration,
+      Map<String, int> service_duration,
       int default_after_accept,
       String tokenId,
       List<Map<String, DateTime>> busyDates,
@@ -111,6 +112,7 @@ class ModelBeautyProvider {
       String country,
       int likes,
       int visitors,
+      String firebaseUid,
       String city,
       String uid,
       String username,
@@ -130,9 +132,10 @@ class ModelBeautyProvider {
         this.busyDates = busyDates,
         this.tokenId = tokenId,
         this.customers = customers,
+        this.firebaseUid = firebaseUid,
         this._rating = rating,
-          this. service_duration = service_duration, 
-this.default_after_accept = default_after_accept,
+        this.service_duration = service_duration,
+        this.default_after_accept = default_after_accept,
         this.auth_login = auth_login,
         this._phone = phone,
         this._available = available,
@@ -150,12 +153,12 @@ this.default_after_accept = default_after_accept,
   Map<String, dynamic> getMap() {
     Map<String, dynamic> map = new Map<String, dynamic>();
     map['type'] = this.type;
-    map['service_duration'] = this.service_duration; 
-    map['default_after_accept'] = this.default_after_accept?.toInt(); 
+    map['service_duration'] = this.service_duration;
+    map['default_after_accept'] = this.default_after_accept?.toInt();
     map['available'] = this._available ?? true;
     map['auth_login'] = this.auth_login ?? '';
     map['tokenId'] = this.tokenId ?? '';
-    map['default_accept'] = this.default_accept; 
+    map['default_accept'] = this.default_accept;
     map['image'] = this._image ?? '';
     map['package'] = this.package ?? {};
     map['busy_dates'] = this.busyDates ?? [];
@@ -168,6 +171,7 @@ this.default_after_accept = default_after_accept,
     map['name'] = this._name ?? '';
     map['visitors'] = this.visitors ?? 0;
     map['points'] = this._points ?? 0;
+    map['firebase_uid'] = this.firebaseUid ?? ""; 
     map['reg_date'] = this.register_date?.toString();
     map['rating'] = this._rating ?? 0;
     map['phone'] = this._phone;
@@ -186,8 +190,8 @@ this.default_after_accept = default_after_accept,
   ModelBeautyProvider.fromMap(Map<String, dynamic> data) {
     _available = data['available'] ?? true;
     _image = data['image'] ?? '';
-    default_after_accept = data['default_after_accept']; 
-    default_accept = data['default_accept']; 
+    default_after_accept = data['default_after_accept'];
+    default_accept = data['default_accept'];
     service_duration = data['service_duration'] ?? {};
     _intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
@@ -202,6 +206,7 @@ this.default_after_accept = default_after_accept,
     _points = data['points'] ?? 0;
     package = data['package'] ?? {};
     visitors = data['visitors'] ?? 0;
+    firebaseUid = data['firebase_uid'] ?? ""; 
     _register_date =
         DateTime.parse(data['reg_date']) ?? DateTime.now().toLocal();
     _rating = data['rating'].toDouble() ?? 0;

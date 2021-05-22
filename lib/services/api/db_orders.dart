@@ -2,6 +2,7 @@ import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/services/api/post.dart';
+import 'package:beautina_provider/services/api_config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -12,24 +13,22 @@ final CANCEL_DATE_STATUS = 2;
 final SUBMIT_STATUS = 3;
 final AFTER_EVALUATION_STATUS = 6;
 
-final POST_GET_URL =
-    'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider';
+final POST_GET_URL = '${URL_DATABASE_LIVE}orders_beauty_provider';
 final POST_GET_URL_CONFIRMED =
-    'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/getconfirmed';
+    '${URL_DATABASE_LIVE}orders_beauty_provider/getconfirmed';
 
-final POST_REJECT_URL =
-    'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/reject';
+final POST_REJECT_URL = '${URL_DATABASE_LIVE}orders_beauty_provider/reject';
 
 // ignore: non_constant_identifier_names
 final String POST_ACCEPT_URL =
-    'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/accept';
+    '${URL_DATABASE_LIVE}orders_beauty_provider/accept';
 
 // ignore: non_constant_identifier_names
 final POST_FINISHED_INCOMPLETE =
-    'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/finished_incomplete';
+    '${URL_DATABASE_LIVE}orders_beauty_provider/finished_incomplete';
 
 final POST_FINISHED_COMPLETE =
-    'https://app-beautyorder.uc.r.appspot.com/orders_beauty_provider/finished_complete';
+    '${URL_DATABASE_LIVE}orders_beauty_provider/finished_complete';
 
 final ERROR = 'حدث خطأ ما، الرجاء المحاولة مجددا';
 Future<http.Response> apiOrderReject(Order order) async {

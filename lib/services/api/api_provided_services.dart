@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:beautina_provider/prefrences/services.dart';
+import 'package:beautina_provider/services/api_config.dart';
 import 'package:http/http.dart' as http;
 
-var SALON_SERVICES = 'https://app-beautyorder.uc.r.appspot.com/salon_services';
+var SALON_SERVICES = '${URL_DATABASE_LIVE}salon_services';
 
 Future<Map<String, dynamic>> apiProvidedServices() async {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
