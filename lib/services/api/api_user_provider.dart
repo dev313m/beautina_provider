@@ -5,15 +5,16 @@ import 'dart:io';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/services/api/post.dart';
+import 'package:beautina_provider/services/api_config.dart';
 import 'package:http/http.dart' as http;
 
 final ERROR = "حدث خطأ ما، الرجاء المحاولة مجددا";
 String URL_UPDATE_USERNAME =
-    'https://app-beautyorder.uc.r.appspot.com/beauty_providers/update_username';
+    '${URL_DATABASE_LIVE}beauty_providers/update_username';
 String URL_ADD_NEW_USER =
-    'https://app-beautyorder.uc.r.appspot.com/beauty_providers/login';
+    '${URL_DATABASE_LIVE}beauty_providers/login';
 String URL_UPDATE_USER =
-    'https://app-beautyorder.uc.r.appspot.com/beauty_providers/update';
+    '${URL_DATABASE_LIVE}beauty_providers/update';
 // String URL_ADD_FAVORITE = 'https://beautyorders.herokuapp.com/favorite';
 
 // Future<Null> apiUserAddNew(ModelUser user) async {
@@ -46,7 +47,7 @@ Future<ModelBeautyProvider> apiLoadOneBeautyProvider() async {
   http.Response response;
   try {
     response = await http.Client().get(
-        'https://app-beautyorder.uc.r.appspot.com/beauty_providers/' +
+        '${URL_DATABASE_LIVE}beauty_providers/' +
             beautyProvider.uid);
 
     if (response.statusCode != 200)
