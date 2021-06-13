@@ -14,7 +14,7 @@ Future<Map<String, dynamic>> apiProvidedServices() async {
   http.Response response;
 
   try {
-    response = await http.get(SALON_SERVICES);
+    response = await http.get( Uri.parse(SALON_SERVICES));
     // if (response.statusCode != 200) {
     //   throw HttpException('An error occured.');
     // }

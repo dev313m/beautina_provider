@@ -13,8 +13,8 @@ Future<String> signInWithApple({List<Scope> scopes = const []}) async {
   switch (result.status) {
     case AuthorizationStatus.authorized:
       final appleIdCredential = result.credential;
-      final oAuthProvider = OAuthProvider(providerId: 'apple.com');
-      final credential = oAuthProvider.getCredential(
+      final oAuthProvider = OAuthProvider('apple.com');
+      final credential = oAuthProvider.credential(
         idToken: String.fromCharCodes(appleIdCredential.identityToken),
         accessToken: String.fromCharCodes(appleIdCredential.authorizationCode),
       );

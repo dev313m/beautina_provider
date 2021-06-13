@@ -15,17 +15,17 @@ Future<String> signInWithGoogle() async {
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
-    final AuthResult authResult =
+    final UserCredential authResult =
         (await _auth.signInWithCredential(credential));
-    FirebaseUser user = authResult.user;
+    User user = authResult.user;
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
+    final User currentUser =  _auth.currentUser;
     if (user.uid == currentUser.uid) return user.uid;
     return null;
   } catch (e) {

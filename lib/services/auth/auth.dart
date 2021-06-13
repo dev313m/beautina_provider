@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SmsAuth {
-  String _phoneNum;
-  String _codeNum;
+  String phoneNum;
+  String codeNum;
   BuildContext context;
-  String _verificationId;
+  String verificationId;
 
   AnimationController animationController;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -24,7 +24,7 @@ class SmsAuth {
       success();
     };
     final PhoneVerificationFailed verifyFailed =
-        (AuthException exception) async {
+        (exception) async {
       print(exception.message);
       error();
     };
@@ -39,35 +39,19 @@ class SmsAuth {
   }
 
   Future<bool> signInWithPhoneNumber() async {
-    final AuthCredential credential = PhoneAuthProvider.getCredential(
-      verificationId: _verificationId,
+    final AuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
       smsCode: codeNum,
     );
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    FirebaseUser user = authResult.user; 
-    final FirebaseUser currentUser = await _auth.currentUser();
+    final UserCredential authResult = await _auth.signInWithCredential(credential);
+    User user = authResult.user; 
+    final User currentUser =  _auth.currentUser;
     assert(user.uid == currentUser.uid);
 
     if (currentUser == null) return false;
     return true;
   }
 
-  String get phoneNum => _phoneNum;
 
-  set phoneNum(String phoneNum) {
-    _phoneNum = phoneNum;
-  }
-
-  String get codeNum => _codeNum;
-
-  set codeNum(String codeNum) {
-    _codeNum = codeNum;
-  }
-
-  String get verificationId => _verificationId;
-
-  set verificationId(String verificationId) {
-    _verificationId = verificationId;
-  }
 }

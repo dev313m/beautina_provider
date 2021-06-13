@@ -21,13 +21,13 @@ Future<bool> imageUpload(File file, String name,
   String base64Image = base64Encode(file.readAsBytesSync());
   String ext = file.path.split(".").last;
 
-  StorageUploadTask task =  FirebaseStorage.instance.ref().child('image_profile/$name').putFile(file); 
-  try{
-    await task.onComplete; 
-    return true; 
-  }catch(e){
-
-    return false; 
+  var task =
+      FirebaseStorage.instance.ref().child('image_profile/$name').putFile(file);
+  try {
+    var s = await task;
+    if (s.state == TaskState.success) return true;
+  } catch (e) {
+    return false;
   }
   // http.Response response = await http.post(url, body: {
   //   "image": base64Image,

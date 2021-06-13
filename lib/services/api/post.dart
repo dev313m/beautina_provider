@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
-import 'package:beautina_provider/reusables/toast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -16,10 +15,10 @@ class PostHelper {
   bool auth = true;
 
   Future<Map<String, String>> getAuthHeader() async {
-    ModelBeautyProvider userProvider = await sharedUserProviderGetInfo();
+    ModelBeautyProvider user = await sharedUserProviderGetInfo();
     return {
       "Content-type": "application/json ",
-      HttpHeaders.authorizationHeader: 'Bearer ${userProvider.tokenId}'
+      HttpHeaders.authorizationHeader: 'Bearer ${user.tokenId}'
     };
   }
 
@@ -31,27 +30,26 @@ class PostHelper {
     String body = json.encode(map);
     // showToast(body);
     // make POST request
+
     Map<String, String> header = await getAuthHeader();
 
     Future<http.Response> response;
     try {
-      response = http.patch(url, headers: header, body: body);
-      print(header);
-      return response;
-    } catch (e) {
-      throw HttpException("حدث خطأ ما");
-    }
+      response = http.patch(Uri.parse(url), headers: header, body: body);
+    } catch (e) {}
+
+    return response;
   }
 
   Future<http.Response> makePostRequest(Map<String, dynamic> map) async {
     // set up POST request arguments
     print(json.encode(map));
     String body = json.encode(map);
-    // showToast(body);
+    print(body);
     // make POST request
     if (auth) header = await getAuthHeader();
     http.Response response = await http.post(
-      url,
+      Uri.parse(url),
       headers: header,
       body: body,
     );
@@ -70,7 +68,7 @@ class PostHelper {
   }
 
   Future<String> makeGetRequest(String param) async {
-    http.Response response = await http.post(url + "/$param", headers: header);
+    http.Response response = await http.post(Uri.parse(url + "/$param"), headers: header);
     return response.body;
   }
 }

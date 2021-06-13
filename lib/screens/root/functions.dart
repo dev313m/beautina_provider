@@ -39,7 +39,7 @@ versionCheck(BuildContext context) async {
     if (newVersion > currentVersion) {
       onAlertWithCustomContentPressed(context);
     }
-  } on FetchThrottledException catch (exception) {
+  } on Exception catch (exception) {
     // Fetch throttled.
     print(exception);
   } catch (exception) {

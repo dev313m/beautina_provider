@@ -146,40 +146,56 @@ class _PageRoot extends State<PageRoot>
 
   /// Get notifications settings for android and IOS
 
-  setPushNotification() async {
-    FirebaseMessaging _fcmFore = FirebaseMessaging();
-    _fcmFore.getToken().then((token) {
-      print('token is: ' + token);
-    });
+
+setPushNotification() async {
+    await Future.delayed(Duration(seconds: 3));
+    FirebaseMessaging _fcmFore = FirebaseMessaging.instance;
+    // _fcmFore.getToken().then((token) {
+    //   // print('token is: ' + token);
+    // });
 
     await Future.delayed(Duration(seconds: 3));
-    _fcmFore.requestNotificationPermissions(IosNotificationSettings(
-        sound: true, badge: true, alert: true, provisional: false));
-    _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
+    _fcmFore.requestPermission(
+        sound: true, badge: true, alert: true, provisional: false);
+    // _fcmFore.requestPermission(IosNotificationSettings(
+    //     sound: true, badge: true, alert: true, provisional: false));
+    // _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
+    //   print("Settings registered: $settings");
+    // });
 
-    _fcmFore.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        // await onNotificationMessage(message['data']['doc_id']);
-        print(message);
-        refreshResume(context);
-        // pagesRefresh(context);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        refreshResume(context);
-        // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
-      },
-      // onBackgroundMessage: (Map<String, dynamic> message) async {
-      //   refreshResume(context);
-      //   // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
-      // },
-      onLaunch: (Map<String, dynamic> message) async {
+    FirebaseMessaging.onMessage.listen((message) {
+      // print(message.);
+      refreshResume(context);
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      refreshResume(context);
+    });
+    FirebaseMessaging.onBackgroundMessage((message) async {
         await Future.delayed(Duration(seconds: onNotificationClickDuration));
         Get.find<VMRootUiTest>().pageController.jumpTo(1);
-      },
-    );
+    });
+    // FirebaseMessaging.onMessageOpenedApp(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     // await onNotificationMessage(message['data']['doc_id']);
+    //     print(message);
+    //     refreshResume(context);
+    //     // pagesRefresh(context);
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     refreshResume(context);
+    //     // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
+    //   },
+    //   // onBackgroundMessage: (Map<String, dynamic> message) async {
+    //   //   refreshResume(context);
+    //   //   // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
+    //   // },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     await Future.delayed(Duration(seconds: onNotificationClickDuration));
+    //     Get.find<VMRootUiTest>().pageController.jumpTo(1);
+    //   },
+    // );
   }
+  
 }
 
 /// [Durations] */

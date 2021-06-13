@@ -15,9 +15,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:regexpattern/regexpattern.dart';
 
 Future<List<double>> getMyLocation() async {
-  Geolocator.requestPermission();
-  Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high);
+  Position position = await Geolocator()
+      .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
   return [position.latitude, position.longitude];
 }
 

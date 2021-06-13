@@ -47,8 +47,8 @@ Future<ModelBeautyProvider> apiLoadOneBeautyProvider() async {
   http.Response response;
   try {
     response = await http.Client().get(
-        '${URL_DATABASE_LIVE}beauty_providers/' +
-            beautyProvider.uid);
+         Uri.parse('${URL_DATABASE_LIVE}beauty_providers/' +
+            beautyProvider.uid));
 
     if (response.statusCode != 200)
       throw HttpException(jsonDecode(response.body)['message']);

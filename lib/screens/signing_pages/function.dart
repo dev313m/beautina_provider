@@ -10,6 +10,7 @@ import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data_test.dart';
 import 'package:beautina_provider/services/api/api_provided_services.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
+import 'package:beautina_provider/services/api/token.dart';
 import 'package:beautina_provider/services/auth/apple_auth.dart';
 import 'package:beautina_provider/services/auth/auth.dart';
 import 'package:beautina_provider/services/auth/google_auth.dart';
@@ -132,12 +133,14 @@ Future<Null> saveUserData(BuildContext context) async {
   // DocumentSnapshot userInfo = await apiUserCheckExist(currentUser.uid);
 
   try {
-    final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+    final User currentUser = FirebaseAuth.instance.currentUser;
 
     String token = await apiTokenGet();
 
     ModelBeautyProvider modelBeautyProvider =
         getUserData(currentUser.uid, token, context);
+        // var firebaseUser = await FirebaseAuth.instance.currentUser(); 
+        modelBeautyProvider.firebaseUid = currentUser.uid; 
     modelBeautyProvider = await apiUserProviderAddNew(modelBeautyProvider);
     if (modelBeautyProvider == null)
       throw Exception('هناك خطأ');
