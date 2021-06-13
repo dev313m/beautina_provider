@@ -1,6 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
-const String _STRING_VALUE = 'str_version_provider';
+const String _STRING_VALUE = 'str_version';
 
 class RemoteConfigService {
   final RemoteConfig _remoteConfig;
@@ -19,7 +19,7 @@ class RemoteConfigService {
       );
     }
     return _instance;
-  }
+  }  
 
   String get getStringValue => _remoteConfig.getString(_STRING_VALUE);
 
@@ -27,16 +27,14 @@ class RemoteConfigService {
     try {
       await _remoteConfig.setDefaults(defaults);
       await _fetchAndActivate();
-    } on FetchThrottledException catch (e) {
-      print("Rmeote Config fetch throttled: $e");
     } catch (e) {
-      print("Unable to fetch remote config. Default value will be used");
-    }
+      print("Rmeote Config fetch throttled: $e");
+    } 
   }
 
   Future _fetchAndActivate() async {
-    await _remoteConfig.fetch(expiration: Duration(seconds: 0));
-    await _remoteConfig.activateFetched();
+    await _remoteConfig.fetch();
+    await _remoteConfig.activate();
 
     print("string::: $getStringValue");
   }

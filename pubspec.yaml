@@ -20,54 +20,54 @@ dependencies:
   flutter:
     sdk: flutter
   # provider: 3.2.0
+  firebase_messaging: ^9.1.1
+
   flare_flutter: ^2.0.6
-  firebase_auth: ^0.15.0+1
+  firebase_auth: ^1.1.0
   flutter_screenutil: ^3.2.0
-  google_sign_in: ^4.0.14
+  google_sign_in: ^5.0.2
   fluttertoast: ^3.1.0
   community_material_icon: 3.5.95
   bot_toast: ^2.2.1
   package_info: ^0.4.0+13
-  google_fonts: ^0.3.7
+  google_fonts: ^2.0.0
   flutter_rounded_date_picker: ^1.0.3
   flutter_datetime_picker: ^1.4.0
   shared_preferences: ^0.5.2
-  sqflite: ^1.1.0
+  sqflite: ^2.0.0+3
   timeago: ^2.0.14
   connectivity: ^0.4.5+7
   curved_navigation_bar: ^0.2.20
-  cached_network_image: ^2.0.0
+  cached_network_image: ^3.0.0
   city_picker: ^0.1.4
   flutter_cupertino_date_picker: ^1.0.8
   flutter_picker: ^1.1.4
   rflutter_alert: ^1.0.3
-  firebase_messaging: ^6.0.16	
   url_launcher: ^5.1.2
-  firebase_remote_config: ^0.3.0+1
+  firebase_remote_config: ^0.10.0-dev.0
   page_transition: ^1.1.5
   rating_bar: ^0.2.0
   spring_button: ^1.0.13
   dropdownfield: ^1.0.3
-  # geolocator: ^5.1.1+1
-  cloud_firestore: ^0.13.4+1
+  cloud_firestore: ^1.0.5
   loading: ^1.0.1
   table_calendar: ^2.2.3
   image_picker: ^0.6.3+4
   # image_picker_modern: ^0.4.12+3
   rounded_loading_button: ^1.0.4
-  geolocator: ^6.1.2
+  geolocator: ^5.1.1+1
   credit_card: ^0.1.8
   smart_flare: ^0.2.9
   clay_containers: ^0.2.2
   preload_page_view: ^0.1.5
-  meet_network_image: ^0.1.2
-  flutter_launcher_icons: ^0.8.1
+  # meet_network_image: ^0.1.2
+  # flutter_launcher_icons: ^0.8.1
   home_indicator: ^1.1.5
   apple_sign_in: ^0.1.0
-  flutter_cache_manager: ^1.2.2
+  flutter_cache_manager: ^3.1.1
   google_fonts_arabic: ^1.1.7
-  dio_http_cache: 
-  dio: 
+  # dio_http_cache: 
+  # dio: 
   timeline_editor: ^0.3.4
   modal_bottom_sheet: ^0.2.2
   flutter_duration_picker: ^1.0.4
@@ -76,9 +76,12 @@ dependencies:
   steps: ^1.0.1
   fluttericon: ^1.0.7
   firebase_dynamic_links: 0.5.3
-  firebase_storage: ^3.0.3   
-  firebase_image: 0.1.6
-  cache_image: ^1.0.5
+  firebase_storage: ^8.1.3
+  firebase_core: ^1.0.3
+  flutter_firebase_chat_core: ^1.0.0
+  firebase_database: ^6.1.2  
+  firebase_image: ^1.0.1
+  # cache_image: ^1.0.5
   share: 0.6.2+4	
   clipboard: ^0.1.2+8
   regexpattern: ^1.0.0

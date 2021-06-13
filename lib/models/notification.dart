@@ -151,14 +151,15 @@ MyNotification parse(String responseBody) {
   return list[0];
 }
 
-/**
+/*
  *
  * This one is to get a specific notification where in my case 
  * a notification comes from adding a notification 
  */
 Future<MyNotification> dbServerloadNotification(String id) async {
-  DocumentSnapshot querySnapshot = await Firestore.instance.collection('notifications').document(id).get();
-  return MyNotification.fromFirebase(querySnapshot.data);
+  DocumentSnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('notifications').doc(id).get();
+  return MyNotification.fromFirebase(querySnapshot.data());
 }
 
 Future<String> getClientId() async {
@@ -167,38 +168,48 @@ Future<String> getClientId() async {
 }
 
 //Load all new notification based on last time as string
-Future<List<MyNotification>> dbServerloadAllNewNotification(String lastDate) async {
+Future<List<MyNotification>> dbServerloadAllNewNotification(
+    String lastDate) async {
+  // ignore: non_constant_identifier_names
   String client_id = await getClientId();
 
   Timestamp date = Timestamp.fromDate(DateTime.parse(lastDate));
-  QuerySnapshot querySnapshot =
-      await Firestore.instance.collection('notifications').where("client_id", isEqualTo: client_id).where('create_date', isGreaterThan: date).orderBy('create_date').getDocuments();
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection('notifications')
+      .where("client_id", isEqualTo: client_id)
+      .where('create_date', isGreaterThan: date)
+      .orderBy('create_date')
+      .get();
 
   return compute(computeMe, querySnapshot);
 }
 
 List<MyNotification> computeMe(QuerySnapshot querySnapshot) {
-  return querySnapshot.documents.map((item) => MyNotification.fromFirebase(item.data)).toList();
+  return querySnapshot.docs
+      .map((item) => MyNotification.fromFirebase(item.data()))
+      .toList();
 }
 
 List<MyNotification> parseNewList(QuerySnapshot querySnapshot) {
-  List<MyNotification> notificationMap = querySnapshot.documents.map((item) => MyNotification.fromFirebase(item.data)).toList();
+  List<MyNotification> notificationMap = querySnapshot.docs
+      .map((item) => MyNotification.fromFirebase(item.data()))
+      .toList();
 
   return notificationMap;
 }
 
-/**
+/*
  * Get all notifications for the current user
  */
 Future<List<MyNotification>> dbServerloadAllNotification() async {
+  // ignore: non_constant_identifier_names
   String client_id = await getClientId();
 
-  QuerySnapshot snapshot;
+  QuerySnapshot snapshot = await FirebaseFirestore.instance
+      .collection('notifications')
+      .where('client_id', isEqualTo: client_id)
+      .orderBy('create_date')
+      .get();
 
-  try {
-    snapshot = await Firestore.instance.collection('notifications').where('client_id', isEqualTo: client_id).orderBy('create_date').getDocuments();
-  } catch (e) {
-    showToast(e.toString());
-  }
   return compute(parseNewList, snapshot);
 }

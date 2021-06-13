@@ -66,16 +66,24 @@ class GWdgtTextTitleDesc extends StatelessWidget {
   final String string;
   final TextAlign textAlign;
   final Color color;
+  final textDirection;
+  final int maxLine;
   const GWdgtTextTitleDesc(
-      {Key key, @required this.string, this.textAlign, this.color})
+      {Key key,
+      @required this.string,
+      this.textAlign,
+      this.color,
+      this.textDirection,
+      this.maxLine})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       string,
+      maxLines: maxLine ?? null,
       textAlign: textAlign ?? TextAlign.center,
-      textDirection: TextDirection.rtl,
+      textDirection: textDirection ?? TextDirection.rtl,
       style: TextStyle(
         fontFamily: ArabicFonts.Tajawal,
         fontWeight: FontWeight.normal,
