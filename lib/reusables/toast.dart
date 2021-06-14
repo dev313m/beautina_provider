@@ -15,7 +15,7 @@ showToast(String msg) {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       
-      timeInSecForIos: 1,
+      // timeInSecForIos: 1,
       backgroundColor: Colors.white,
       textColor: Colors.black,
       fontSize: 16.0);

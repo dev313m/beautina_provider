@@ -19,7 +19,7 @@ cityPicker({@required Function onConfirm, @required BuildContext context}) {
       confirmText: 'تأكيد',
       containerColor: AppColors.pinkBright,
       backgroundColor: Colors.transparent,
-      headercolor: AppColors.pinkBright,
+      // headercolor: AppColors.pinkBright,
       // confirm: Padding(
       //   padding: const EdgeInsets.all(8.0),
       //   child: Icon(CommunityMaterialIcons.check_circle_outline,
