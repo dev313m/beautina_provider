@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:darty_commons/darty_commons.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_pay/flutter_pay.dart';
 import 'package:jomla/Core/data/models/requests/confirm_checkout_request.dart';
 import 'package:jomla/Core/data/models/requests/payment_request.dart';
 import 'package:jomla/Core/data/models/responses/data/cart_data/cart_data.dart';
@@ -13,7 +14,6 @@ import 'package:jomla/Core/data/repositories/network/jomla_api_repository/resour
 import 'package:jomla/Core/domain/blocs/global/global_bloc.dart';
 import 'package:jomla/Core/error/failures.dart';
 import 'package:jomla/Core/utils/card_card_validator.dart';
-import 'package:jomla/features/CheckOut/data/models/SaveQuotationModel.dart';
 import 'package:jomla/features/CheckOut/data/models/confirm_payment_request.dart';
 import 'package:jomla/features/CheckOut/data/models/installments_reponse_model.dart';
 import 'package:jomla/features/CheckOut/data/models/installments_request_model.dart';
@@ -53,11 +53,12 @@ class GeneralCheckoutBloc
 
   Stream<CartData> get updateOrderStream => _updateOrderController.stream;
 
-  GeneralCheckoutBloc(this.globalBloc, this._checkoutUseCase, this._cartUseCase)
-      : super(InitGeneralCheckoutState()) {
+  GeneralCheckoutBloc(
+      this.globalBloc, this._checkoutUseCase, this._cartUseCase) {
     _subscribePaymentProcessStatus();
   }
 
+  @override
   GeneralCheckoutState get initialState => InitGeneralCheckoutState();
 
   _subscribePaymentProcessStatus() {
@@ -88,17 +89,7 @@ class GeneralCheckoutBloc
       firebaseAnalytics.purchaseSuccessfulEvent(cartData.amountTotal);
       facebookAnalytics.purchaseSuccessfulEvent(cartData.amountTotal);
       isSuccessPaymentProcess = true;
-      merchantRefrence.log(className: "GeneralCheckOutBloc");
-      await _checkoutUseCase.saveQuotation(SaveQuotationModel(
-        fort_id: fortid,
-        isPayByCard: true,
-        isPartialDelivery: globalBloc.managingCartUseCase.isPartialDelivery(),
-        merchant_refrence: merchantRefrence,
-        orderId: sharedPreferences.getOrderId(),
-        partnerShippingId: selectedPartner.id,
-        payment_method: '${selectedCreditCard.paymentBrand}',
-      ));
-      var failureOrConfirmedCheckOut = await _checkoutUseCase.confirmCheckout(
+      await _checkoutUseCase.confirmCheckout(
           ConfirmCheckoutRequest(
               sharedPreferences.getOrderId(),
               selectedPartner.id,
@@ -110,22 +101,11 @@ class GeneralCheckoutBloc
               sharedPreferences.getOrderId(),
               fort_id: fortid,
               merchant_refrence: merchantRefrence));
-      failureOrConfirmedCheckOut.fold((failure) {
-        if (failure is TimeOutFailure) {
-          add(ErrorConfirmingEvent(failure, "CreditCard"));
-        } else if (failure is ServerFailure) {
-          add(ErrorConfirmingEvent(failure, "CreditCard"));
-        }
-      }, (r) async {
-        await _clearCartData();
-        await _checkoutUseCase.deleteQuotationID();
-        add(SuccessPurchaseGeneralCheckoutEvent("Sales Order"));
-      });
-
+      await _clearCartData();
+      add(SuccessPurchaseGeneralCheckoutEvent("Sales Order"));
       hideLoading();
     } catch (e) {
-      showErrorDialog(localizationKey: '${e}');
-      rethrow;
+      showErrorDialog(localizationKey: '${e.message}');
     } finally {
       hideLoading();
     }
@@ -137,16 +117,7 @@ class GeneralCheckoutBloc
       firebaseAnalytics.purchaseSuccessfulEvent(cartData.amountTotal);
       facebookAnalytics.purchaseSuccessfulEvent(cartData.amountTotal);
       isSuccessPaymentProcess = true;
-      await _checkoutUseCase.saveQuotation(SaveQuotationModel(
-        isPayByCard: false,
-        isPartialDelivery: globalBloc.managingCartUseCase.isPartialDelivery(),
-        merchant_refrence: merchantRefrence,
-        orderId: sharedPreferences.getOrderId(),
-        partnerShippingId: selectedPartner.id,
-        payment_method: '${selectedCreditCard.paymentBrand}',
-      ));
-
-      var failureOrConfirmedCheckOut = await _checkoutUseCase.confirmCheckout(
+      await _checkoutUseCase.confirmCheckout(
           ConfirmCheckoutRequest(
               sharedPreferences.getOrderId(),
               selectedPartner.id,
@@ -155,17 +126,8 @@ class GeneralCheckoutBloc
               paymentType: APPLEPAY),
           PaymentRequest('PayWithApplePay', sharedPreferences.getOrderId(),
               merchant_refrence: merchantRefrence));
-      failureOrConfirmedCheckOut.fold((failure) {
-        if (failure is TimeOutFailure) {
-          add(ErrorConfirmingEvent(failure, "APPLEPAY"));
-        } else if (failure is ServerFailure) {
-          add(ErrorConfirmingEvent(failure, "APPLEPAY"));
-        }
-      }, (r) async {
-        await _clearCartData();
-        await _checkoutUseCase.deleteQuotationID();
-        add(SuccessPurchaseGeneralCheckoutEvent("Sales Order"));
-      });
+      await _clearCartData();
+      add(SuccessPurchaseGeneralCheckoutEvent("Sales Order"));
       hideLoading();
     } catch (e) {
       showErrorDialog(localizationKey: '${e.message}');
@@ -213,7 +175,7 @@ class GeneralCheckoutBloc
         add(ShowLoadingPageEvent());
         _payByBankTransfer();
       } else if (selectedPaymentType == PAYONDELIVERY) {
-        "PayOnDelivery".log(className: "GeneralCheckOutBloc");
+        print("PayOnDelivery");
         add(ShowLoadingPageEvent());
         _payOnDelivery();
       } else if (selectedPaymentType == APPLEPAY) {
@@ -245,13 +207,6 @@ class GeneralCheckoutBloc
     if (event is FailurePurchaseGeneralCheckoutEvent) {
       showErrorDialog(localizationKey: '${event.message}');
     }
-    if (event is ErrorConfirmingEvent) {
-      if (event.failure is TimeOutFailure) {
-        yield TimeOutErrorState();
-      } else {
-        yield ServerErrorState();
-      }
-    }
     if (event is ShowInstallmentsDialogEvent) {
       yield ShowInstallmentsDialogState();
     }
@@ -263,10 +218,6 @@ class GeneralCheckoutBloc
           .plan_details
           .firstWhere((element) =>
               element.plan_code == event.selectedPlanCode.plan_code);
-    }
-
-    if (event is GeneralErrorEvent) {
-      yield GeneralErrorState();
     }
 
     if (event is PayWithInstallmentEvent) {
@@ -285,6 +236,7 @@ class GeneralCheckoutBloc
     if (_checkoutDataIsValid() && CreditCardValidator.validateCvv(cvv)) {
       try {
         showLoading();
+        var uuid = Uuid();
         String ip = await Wifi.ip;
         _payDirect({
           PaymentConstants.customerEmail: globalBloc.partnerData.email,
@@ -292,7 +244,7 @@ class GeneralCheckoutBloc
           PaymentConstants.amount:
               (double.parse(cartData.amountTotal) * 100).toInt(),
           PaymentConstants.currency: "SAR",
-          PaymentConstants.merchantReference: cartData.id.toString(),
+          PaymentConstants.merchantReference: uuid.v4(),
           PaymentConstants.customer_name: globalBloc.partnerData.name,
           PaymentConstants.merchant_identifier: MERCHANT_IDENTIFIER,
           PaymentConstants.access_code: ACCESS_CODE,
@@ -317,26 +269,27 @@ class GeneralCheckoutBloc
     PaymentItem item = PaymentItem(
         name: "Jomla user ${globalBloc.partnerData.name} Order",
         price: double.parse(cartData.amountTotal));
+    var uuid = Uuid();
+    final merchantReference = uuid.v4();
     var result = await _checkoutUseCase.payWithApplePayment({
       PaymentConstants.customerEmail: globalBloc.partnerData.email,
       PaymentConstants.amount:
           (double.parse(cartData.amountTotal) * 100).toInt(),
       PaymentConstants.currency: "SAR",
-      PaymentConstants.merchantReference: cartData.id.toString(),
+      PaymentConstants.merchantReference: merchantReference,
       PaymentConstants.customer_name: globalBloc.partnerData.name,
       PaymentConstants.merchant_identifier: MERCHANT_IDENTIFIER,
       PaymentConstants.access_code: APPLE_ACCESS_CODE,
       PaymentConstants.lang: "en",
       PaymentConstants.item: item.toJson(),
     }, deviceId);
-    result.fold((l) {
-      showErrorDialog(
-          localizationKey:
-              'Apple Pay Failed cause:${(l as ApplePayFailure).message}');
-      add(GeneralErrorEvent());
-    }, (r) {
+    result.fold(
+        (l) => showErrorDialog(
+            localizationKey:
+                'Apple Pay Failed cause:${(l as ApplePayFailure).message}'),
+        (r) {
       add(ShowLoadingPageEvent());
-      confirmCheckoutAfterPayByApplePay(cartData.id.toString());
+      confirmCheckoutAfterPayByApplePay(merchantReference);
     });
   }
 
@@ -353,7 +306,7 @@ class GeneralCheckoutBloc
           PaymentConstants.amount:
               (double.parse(cartData.amountTotal) * 100).toInt(),
           PaymentConstants.currency: "SAR",
-          PaymentConstants.merchantReference: cartData.id.toString(),
+          PaymentConstants.merchantReference: uuid.v4(),
           PaymentConstants.customer_name: globalBloc.partnerData.name,
           PaymentConstants.merchant_identifier: MERCHANT_IDENTIFIER,
           PaymentConstants.access_code: ACCESS_CODE,
@@ -363,7 +316,6 @@ class GeneralCheckoutBloc
       } catch (ex) {
         hideLoading();
         showErrorDialog(localizationKey: ex);
-        add(GeneralErrorEvent());
         rethrow;
       } finally {}
     } else {
@@ -390,7 +342,6 @@ class GeneralCheckoutBloc
         isSuccessPaymentProcess = true;
       } catch (ex) {
         showErrorDialog(localizationKey: ex.toString());
-        add(GeneralErrorEvent());
         rethrow;
       } finally {
         hideLoading();
@@ -418,7 +369,6 @@ class GeneralCheckoutBloc
         add(SuccessPurchaseGeneralCheckoutEvent("Quotation Sent"));
         isSuccessPaymentProcess = true;
       } catch (ex) {
-        add(GeneralErrorEvent());
         showErrorDialog(localizationKey: ex.message);
       } finally {
         hideLoading();
@@ -483,16 +433,16 @@ class GeneralCheckoutBloc
     editedMap.putIfAbsent('remember_me', () => 'YES');
     String signatureGenerate = REQUEST_PHRASE;
     var map = SortedMap.from(editedMap, Ordering.byKey());
-    'Map: ${map.toString()}'.log(className: "GeneralCheckOutBloc");
+    print('Map: ${map.toString()}');
     map.forEach((key, value) {
       signatureGenerate += '$key=$value';
     });
     signatureGenerate = signatureGenerate + REQUEST_PHRASE;
     var bytes = utf8.encode(signatureGenerate);
-    'Signature: $signatureGenerate'.log(className: "GeneralCheckOutBloc");
+    print('Signature: $signatureGenerate');
     var digest = sha256.convert(bytes);
-    'Digest: $digest'.log(className: "GeneralCheckOutBloc");
-    model.toJson().toString().log(className: "GeneralCheckOutBloc");
+    print('Digest: $digest');
+    print(model.toJson());
 
     var ressponse = await _checkoutUseCase.confirmPayment(ConfirmPaymentRequest(
         amount: paymentParams[PaymentConstants.amount],
@@ -525,18 +475,17 @@ class GeneralCheckoutBloc
     editedMap.putIfAbsent(
         'return_url', () => '$JOMLA_BASE_DOMAIN/payment/process');
     editedMap.putIfAbsent('remember_me', () => 'YES');
-
     String signatureGenerate = REQUEST_PHRASE;
     var map = SortedMap.from(editedMap, Ordering.byKey());
-    'Map: ${map.toString()}'.log(className: "GeneralCheckOutBloc");
+    print('Map: ${map.toString()}');
     map.forEach((key, value) {
       signatureGenerate += '$key=$value';
     });
     signatureGenerate = signatureGenerate + REQUEST_PHRASE;
     var bytes = utf8.encode(signatureGenerate);
-    'Signature: $signatureGenerate'.log(className: "GeneralCheckOutBloc");
+    print('Signature: $signatureGenerate');
     var digest = sha256.convert(bytes);
-    'Digest: $digest'.log(className: "GeneralCheckOutBloc");
+    print('Digest: $digest');
     // print(model.toJson());
 
     var ressponse = await _checkoutUseCase.confirmPayment(ConfirmPaymentRequest(
@@ -561,14 +510,10 @@ class GeneralCheckoutBloc
       if (ressponse.redirect_url != null && ressponse.redirect_url.isNotEmpty) {
         add(ShowHtmlDialogEvent(ressponse.redirect_url, ressponse.fort_id));
       } else if (ressponse.response_message == 'Success') {
+        add(ShowLoadingPageEvent());
         confirmCheckoutAfterPayByCard(
             ressponse.fort_id, ressponse.merchant_reference);
-        add(ShowLoadingPageEvent());
       }
-    } else {
-      hideLoading();
-      add(GeneralErrorEvent());
-      showErrorDialog(localizationKey: 'general_error');
     }
   }
 
@@ -582,15 +527,15 @@ class GeneralCheckoutBloc
 
     String signatureGenerate = REQUEST_PHRASE;
     var map = SortedMap.from(editedMap, Ordering.byKey());
-    'Map: ${map.toString()}'.log(className: "GeneralCheckOutBloc");
+    print('Map: ${map.toString()}');
     map.forEach((key, value) {
       signatureGenerate += '$key=$value';
     });
     signatureGenerate = signatureGenerate + REQUEST_PHRASE;
     var bytes = utf8.encode(signatureGenerate);
-    'Signature: $signatureGenerate'.log(className: "GeneralCheckOutBloc");
+    print('Signature: $signatureGenerate');
     var digest = sha256.convert(bytes);
-    'Digest: $digest'.log(className: "GeneralCheckOutBloc");
+    print('Digest: $digest');
     var response =
         await _checkoutUseCase.getInstallmentsDetails(InstallmentsRequestModel(
       signature: digest.toString(),
@@ -604,16 +549,14 @@ class GeneralCheckoutBloc
       query_command: "GET_INSTALLMENTS_PLANS",
     ));
     if (response != null && response.response_code == "62000") {
-      'installments: ${response.toJson()}'
-          .log(className: "GeneralCheckOutBloc");
+      print('installments: ${response.toJson()}');
       installmentData.value = response;
     }
     hideLoading();
   }
 
   void compareWithSelectedCard(IssuerDetail issuerDetail, PlanDetails details) {
-    ("number" + selectedCreditCard.number.substring(0, 6))
-        .log(className: "GeneralCheckOutBloc");
+    print("number" + selectedCreditCard.number.substring(0, 6));
     if (issuerDetail.bins.any((element) =>
         element.bin == selectedCreditCard.number.substring(0, 6))) {
       var amount = (double.parse(cartData.amountTotal) * 100).toInt();
@@ -643,15 +586,15 @@ class GeneralCheckoutBloc
     editedMap.putIfAbsent('remember_me', () => 'YES');
     String signatureGenerate = REQUEST_PHRASE;
     var map = SortedMap.from(editedMap, Ordering.byKey());
-    'Map: ${map.toString()}'.log(className: "GeneralCheckOutBloc");
+    print('Map: ${map.toString()}');
     map.forEach((key, value) {
       signatureGenerate += '$key=$value';
     });
     signatureGenerate = signatureGenerate + REQUEST_PHRASE;
     var bytes = utf8.encode(signatureGenerate);
-    'Signature: $signatureGenerate'.log(className: "GeneralCheckOutBloc");
+    print('Signature: $signatureGenerate');
     var digest = sha256.convert(bytes);
-    'Digest: $digest'.log(className: "GeneralCheckOutBloc");
+    print('Digest: $digest');
     // print(model.toJson());
     showLoading();
     var ressponse = await _checkoutUseCase.confirmPayment(ConfirmPaymentRequest(
@@ -680,26 +623,10 @@ class GeneralCheckoutBloc
         add(ShowHtmlDialogEvent(ressponse.redirect_url, ressponse.fort_id));
       } else if (ressponse.response_message == 'Success') {
         hideLoading();
+        add(ShowLoadingPageEvent());
         confirmCheckoutAfterPayByCard(
             ressponse.fort_id, ressponse.merchant_reference);
-        add(ShowLoadingPageEvent());
       }
-    } else {
-      hideLoading();
-      add(GeneralErrorEvent());
-      showErrorDialog(localizationKey: 'general_error');
     }
   }
-}
-
-class PaymentItem {
-  final String name;
-  final double price;
-
-  PaymentItem({@required this.name, @required this.price});
-
-  Map<String, String> toJson() => {
-        "name": name,
-        "price": price.toStringAsFixed(2),
-      };
 }
