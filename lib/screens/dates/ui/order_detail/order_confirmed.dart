@@ -57,7 +57,7 @@ class _WidgetConfirmedByCustomerOrderState
                   
                   // width: sizeButtonHeight,
                   animateOnTap: true,
-                  borderRadius: radius,
+                  // borderRadius: radius,
                   child: Center(
                       child: Icon(
                     Icons.cancel_outlined,

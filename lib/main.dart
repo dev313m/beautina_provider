@@ -1,9 +1,9 @@
+import 'package:beautina_provider/screens/chat_pages/rooms/vm/vm_chats_data.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/screens/root/index.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
-import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/signing_pages/index.dart';
@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts_arabic/fonts.dart';
-// import 'package:home_indicator/home_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   //just be aware here.
@@ -69,7 +67,9 @@ class InitialBinding extends Bindings {
     Get.put(VmDateDataTest(build: false));
     Get.put(VMSettingsDataTest(), permanent: true);
     Get.put(VMLoginDataTest(), permanent: true);
-
+    Get.lazyPut<VMChatRooms>(() {
+      return VMChatRooms();
+    }, fenix: true);
     Get.put(VMSalonDataTest(build: false), permanent: true);
   }
 }
@@ -81,6 +81,9 @@ class InitialBindingRegistered extends Bindings {
     Get.put(VMRootDataTest(build: true), permanent: true);
     Get.put(VmDateDataTest(build: true));
     Get.put(VMSettingsDataTest(), permanent: true);
+        Get.lazyPut<VMChatRooms>(() {
+      return VMChatRooms();
+    }, fenix: true);
     Get.put(VMSalonDataTest(build: true), permanent: true);
   }
 }

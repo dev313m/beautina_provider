@@ -1,12 +1,15 @@
-
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/models/chat/message.dart';
 import 'package:beautina_provider/models/chat/rooms.dart';
 import 'package:beautina_provider/screens/chat_pages/chat_room/functions.dart';
 import 'package:beautina_provider/screens/chat_pages/chat_room/ui/chat_input_field.dart';
 import 'package:beautina_provider/screens/chat_pages/chat_room/ui/message.dart';
+import 'package:beautina_provider/screens/chat_pages/chat_room/vm/vm_chats_data.dart';
+import 'package:beautina_provider/screens/signing_pages/vm/vm_login_data_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ChatPageFromChatRooms extends StatefulWidget {
   final ModelRoom room;
@@ -26,44 +29,53 @@ class _ChatPageFromChatRoomsState extends State<ChatPageFromChatRooms> {
   void initState() {
     super.initState();
 
-    cleanNewMessages(widget.room.chatId);
+    updateRoomDetails(chatId: widget.room.chatId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-          appBar: buildAppBar(),
-          body: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
-                    child: StreamBuilder(
-                      stream: ModelMessage.apiMessageStream(widget.room.chatId),
-                      builder: (_, snapshot) {
-                        if (snapshot.hasData && snapshot.data != null)
-                          return ListView.builder(
-                            itemCount: snapshot.data.length,
-                            reverse: true,
-                            itemBuilder: (context, index) {
-                              // if(Message)
-                              //
-                              return Message(message: snapshot.data[index]);
-                              // return snapshot.data[index];
+    return GetBuilder(
+        init: VMChatRoomData(),
+        builder: (vm) {
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            child: Scaffold(
+                appBar: buildAppBar(),
+                body: Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: StreamBuilder(
+                            stream: ModelMessage.apiMessageStream(
+                                widget.room.chatId),
+                            builder: (_, snapshot) {
+                              if (snapshot.hasData && snapshot.data != null)
+                                return ListView.builder(
+                                  itemCount: snapshot.data.length,
+                                  reverse: true,
+                                  itemBuilder: (context, index) {
+                                    // if(Message)
+                                    //
+
+                                    return Message(
+                                      message: snapshot.data[index],
+                                      chatId: widget.room.chatId,
+                                    );
+                                    // return snapshot.data[index];
+                                  },
+                                );
+                              return SizedBox();
                             },
-                          );
-                        return SizedBox();
-                      },
-                    )),
-              ),
-              ChatInputFieldFromChatRoom(
-                room: widget.room,
-              ),
-            ],
-          )),
-    );
+                          )),
+                    ),
+                    ChatInputFieldFromChatRoom(
+                      room: widget.room,
+                    ),
+                  ],
+                )),
+          );
+        });
   }
 
   AppBar buildAppBar() {
@@ -80,28 +92,28 @@ class _ChatPageFromChatRoomsState extends State<ChatPageFromChatRooms> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.room.providerName,
+                widget.room.clientName,
                 style: TextStyle(fontSize: 16),
               ),
-              Text(
-                "Active 3m ago",
-                style: TextStyle(fontSize: 12),
-              )
+              // Text(
+              //   "Active 3m ago",
+              //   style: TextStyle(fontSize: 12),
+              // )
             ],
           )
         ],
       ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.local_phone),
-          onPressed: () {},
-        ),
-        // IconButton(
-        //   icon: Icon(Icons.videocam),
-        //   onPressed: () {},
-        // ),
-        SizedBox(width: 20 / 2),
-      ],
+      // actions: [
+      //   IconButton(
+      //     icon: Icon(Icons.local_phone),
+      //     onPressed: () {},
+      //   ),
+      //   // IconButton(
+      //   //   icon: Icon(Icons.videocam),
+      //   //   onPressed: () {},
+      //   // ),
+      //   SizedBox(width: 20 / 2),
+      // ],
     );
   }
 }
@@ -147,15 +159,14 @@ class _ChatPageState extends State<ChatPage> {
                         itemBuilder: (context, index) {
                           // if(Message)
                           //
-                          return Message(
-                              message: snapshot.data[index]);
+                          return Message(message: snapshot.data[index]);
                           // return snapshot.data[index];
                         },
                       ),
                     ),
                     ChatInputField(
                       beautyProvider: widget.beautyProvider,
-                      isNewMessage: snapshot.data.length==0? true:false,
+                      isNewMessage: snapshot.data.length == 0 ? true : false,
                     ),
                   ],
                 );
@@ -182,25 +193,25 @@ class _ChatPageState extends State<ChatPage> {
                 widget.beautyProvider.name,
                 style: TextStyle(fontSize: 16),
               ),
-              Text(
-                "Active 3m ago",
-                style: TextStyle(fontSize: 12),
-              )
+              // Text(
+              //   "Active 3m ago",
+              //   style: TextStyle(fontSize: 12),
+              // )
             ],
           )
         ],
       ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.local_phone),
-          onPressed: () {},
-        ),
-        // IconButton(
-        //   icon: Icon(Icons.videocam),
-        //   onPressed: () {},
-        // ),
-        SizedBox(width: 20 / 2),
-      ],
+      // actions: [
+      //   IconButton(
+      //     icon: Icon(Icons.local_phone),
+      //     onPressed: () {},
+      //   ),
+      //   // IconButton(
+      //   //   icon: Icon(Icons.videocam),
+      //   //   onPressed: () {},
+      //   // ),
+      //   SizedBox(width: 20 / 2),
+      // ],
     );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/models/chat/rooms.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -70,9 +69,7 @@ class _PageChatRoomsState extends State<PageChatRooms> {
                       onTap: () async {
                         var user = await sharedUserProviderGetInfo();
                         Get.to(ChatPageFromChatRooms(
-                          room: room,
-                          clientUid: user.uid
-                        ));
+                            room: room, clientUid: user.uid));
                       },
                       child: Card(
                         elevation: 0,
@@ -83,17 +80,17 @@ class _PageChatRoomsState extends State<PageChatRooms> {
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundImage:
-                                AssetImage(('assets/images/icon_app.png')),
+                                AssetImage(('assets/images/icon.png')),
                           ),
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GWdgtTextTitle(
-                                string: room.providerName,
+                                string: room.clientName,
                                 color: Colors.black,
                               ),
-                              GWdgtBadge(
-                                number: room.notReadCount,
+                              GWdgtBadgeCircle(
+                                number: room.notReadCountProvider,
                               ),
                               // Container(
                               //   height: 40.w,

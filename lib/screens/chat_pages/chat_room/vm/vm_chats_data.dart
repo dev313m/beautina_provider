@@ -1,32 +1,21 @@
+import 'package:beautina_provider/models/chat/chat_user.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 
-class VMFeedData extends GetxController {
-  bool isLoading = true;
+class VMChatRoomData extends GetxController {
+  String userToken = "";
 
-  bool isError = false;
-  
-  VMFeedData() {
-    init();
-  }
+  // VMChatRoomData() {
+  //   init();
+  // }
 
-  init() async {
-    reset();
+  Future<String> getToken(String uid) async {
     try {
-      // final ipa = InstaPublicApi('beautina.app');
-      // posts = await ipa.getAllPosts(); 
-
-      isLoading = false;
+      if (userToken == "") userToken = await ModelChatUser.getUserToken(uid);
+      return userToken;
     } catch (e) {
-      isError = true;
+      return userToken = "";
     }
-    update();
-  }
-
-  reset() {
-    isError = false;
-    isLoading = true;
-    update();
   }
 }

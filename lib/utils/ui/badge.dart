@@ -19,3 +19,21 @@ class GWdgtBadge extends StatelessWidget {
     );
   }
 }
+
+class GWdgtBadgeCircle extends StatelessWidget {
+  final int number;
+  const GWdgtBadgeCircle({Key key, this.number = 0}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (number == 0) return SizedBox();
+    return Container(
+      height: 40.w,
+      width: 40.w,
+      child: CircleAvatar(
+        backgroundColor: Colors.pink,
+        child: Center(child: GWdgtTextBadge(string: "")),
+      ),
+    );
+  }
+}

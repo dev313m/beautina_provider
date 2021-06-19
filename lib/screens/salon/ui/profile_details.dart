@@ -1,11 +1,15 @@
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/divider.dart';
+import 'package:beautina_provider/screens/chat_pages/rooms/index.dart';
+import 'package:beautina_provider/screens/chat_pages/rooms/vm/vm_chats_data.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
+import 'package:beautina_provider/utils/ui/badge.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -56,116 +60,144 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
 
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-          beautyProvider = vMSalonData.beautyProvider;
+      beautyProvider = vMSalonData.beautyProvider;
 
-        return Container(
-            decoration: BoxDecoration(
-                color: colorContainerBg,
-                // image: AsssetImage(assetName),
-                borderRadius: BorderRadius.circular(radiusContainer)),
-            child: Padding(
-              padding: EdgeInsets.all(edgeMainContainer),
-              child: Column(
-                children: <Widget>[
-                  InkWell(
-                    onTap: () async {
-                      imageCache.clear();
+      return Container(
+          decoration: BoxDecoration(
+              color: colorContainerBg,
+              // image: AsssetImage(assetName),
+              borderRadius: BorderRadius.circular(radiusContainer)),
+          child: Padding(
+            padding: EdgeInsets.all(edgeMainContainer),
+            child: Column(
+              children: <Widget>[
+                InkWell(
+                  onTap: () async {
+                    imageCache.clear();
 
-                      updateProfileImage(
-                          context,
-                          onProfileImageChangeLoad(),
-                          onProfileImageChangeSuccess(),
-                          onProfileImageChangeError(),
-                          onProfileImageChangeComplete());
-                    },
-                    child: Container(
-                      height: sizeImageProfile,
-                      width: sizeImageProfile,
-                      child: ClipOval(
-                          // clipper: ,
-                          // height: ScreenUtil().setHeight(300),
-                          child: AnimatedSwitcher(
-                              duration: Duration(seconds: 1),
-                              child: imageLoad
-                                  ? Loading()
-                                  : beautyProvider.image != ''
-                                      ? ImageFirebase(
-                                          height: sizeImageProfile,
-                                          width: sizeImageProfile,
-                                          url:
-                                              'gs://beautina-firebase.appspot.com/image_profile/' +
-                                                  beautyProvider.uid,
-                                        )
-                                      : Image.asset(
-                                          strDefaultProfileImage,
-                                          height: sizeImageProfile,
-                                          width: sizeImageProfile,
-                                          fit: BoxFit.cover,
-                                        ))),
+                    updateProfileImage(
+                        context,
+                        onProfileImageChangeLoad(),
+                        onProfileImageChangeSuccess(),
+                        onProfileImageChangeError(),
+                        onProfileImageChangeComplete());
+                  },
+                  child: Container(
+                    height: sizeImageProfile,
+                    width: sizeImageProfile,
+                    child: ClipOval(
+                        // clipper: ,
+                        // height: ScreenUtil().setHeight(300),
+                        child: AnimatedSwitcher(
+                            duration: Duration(seconds: 1),
+                            child: imageLoad
+                                ? Loading()
+                                : beautyProvider.image != ''
+                                    ? ImageFirebase(
+                                        height: sizeImageProfile,
+                                        width: sizeImageProfile,
+                                        url:
+                                            'gs://beautina-firebase.appspot.com/image_profile/' +
+                                                beautyProvider.uid,
+                                      )
+                                    : Image.asset(
+                                        strDefaultProfileImage,
+                                        height: sizeImageProfile,
+                                        width: sizeImageProfile,
+                                        fit: BoxFit.cover,
+                                      ))),
+                  ),
+                ),
+
+                Y(),
+                if (!beautyProvider.username.contains('+'))
+                  GWdgtTextTitle(
+                    string: beautyProvider.username,
+                  ),
+                Y(),
+                RatingBar.readOnly(
+                  maxRating: 5,
+                  initialRating:
+                      (beautyProvider.points / beautyProvider.achieved),
+                  filledIcon: CommunityMaterialIcons.heart,
+                  emptyIcon: CommunityMaterialIcons.heart_outline,
+                  halfFilledIcon: CommunityMaterialIcons.heart_half,
+                  isHalfAllowed: true,
+                  filledColor: colorIconFavorite,
+                  size: sizeIconFavorite,
+                ),
+                Y(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                  // childAspectRatio: 0.3,
+                  children: <Widget>[
+                    InfoItem(
+                      icon: CommunityMaterialIcons.gift,
+                      title: strMyPoints,
+                      value: beautyProvider.points.toString(),
                     ),
-                  ),
-
-                  Y(),
-                  if (!beautyProvider.username.contains('+'))
-                    GWdgtTextTitle(
-                      string: beautyProvider.username,
+                    CustomDivider(),
+                    InfoItem(
+                      icon: CommunityMaterialIcons.certificate,
+                      title: strAcheivedOrders,
+                      value: beautyProvider.achieved < 100
+                          ? 'اقل من 100 طلب'
+                          : beautyProvider.achieved,
                     ),
-                  Y(),
-                  RatingBar.readOnly(
-                    maxRating: 5,
-                    initialRating:
-                        (beautyProvider.points / beautyProvider.achieved),
-                    filledIcon: CommunityMaterialIcons.heart,
-                    emptyIcon: CommunityMaterialIcons.heart_outline,
-                    halfFilledIcon: CommunityMaterialIcons.heart_half,
-                    isHalfAllowed: true,
-                    filledColor: colorIconFavorite,
-                    size: sizeIconFavorite,
-                  ),
-                  Y(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                    // childAspectRatio: 0.3,
-                    children: <Widget>[
-                      InfoItem(
-                        icon: CommunityMaterialIcons.gift,
-                        title: strMyPoints,
-                        value: beautyProvider.points.toString(),
-                      ),
-                      CustomDivider(),
-                      InfoItem(
-                        icon: CommunityMaterialIcons.certificate,
-                        title: strAcheivedOrders,
-                        value: beautyProvider.achieved < 100
-                            ? 'اقل من 100 طلب'
-                            : beautyProvider.achieved,
-                      ),
-                      CustomDivider(),
-                      InfoItem(
-                        icon: CommunityMaterialIcons.map_plus,
-                        title: strLocation,
-                        value: beautyProvider.city.toString(),
-                      ),
-                      CustomDivider(),
-                      InfoItem(
-                        icon: CommunityMaterialIcons.whatsapp,
-                        title: strMobile,
-                        value: beautyProvider.phone.toString(),
-                      ),
-                    ],
-                  ),
-                  Y(
-                    height: heightBottomContainer,
-                  )
-                  // Y()
-                ],
-              ),
-            ));
-      }
-    );
+                    CustomDivider(),
+                    InfoItem(
+                      icon: CommunityMaterialIcons.map_plus,
+                      title: strLocation,
+                      value: beautyProvider.city.toString(),
+                    ),
+                    CustomDivider(),
+                    Stack(
+                      children: [
+                        Center(
+                          child: InfoItem(
+                            icon: CupertinoIcons.chat_bubble,
+                            title: "الرسائل",
+                            onClick: () {
+                              return Get.to(() => PageChatRooms());
+                            },
+                            value: "",
+                          ),
+                        ),
+                        if (Get.find<VMChatRooms>().chatRooms.value != null)
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    ScreenUtil().setHeight(40),
+                                    ScreenUtil().setHeight(60),
+                                    ScreenUtil().setHeight(40),
+                                    ScreenUtil().setHeight(40)),
+                                child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: GWdgtBadge(
+                                      number: Get.find<VMChatRooms>()
+                                          .newMessages
+                                          .value,
+                                    )),
+                              ),
+                            ],
+                          )
+                      ],
+                    ),
+                  ],
+                ),
+                Y(
+                  height: heightBottomContainer,
+                )
+                // Y()
+              ],
+            ),
+          ));
+    });
   }
 
   Function onProfileImageChangeComplete() {
@@ -197,31 +229,37 @@ class InfoItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String value;
-  const InfoItem({Key key, this.icon, this.title, this.value})
+  final Function onClick;
+  const InfoItem({Key key, this.icon, this.title, this.value, this.onClick})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4),
-      // height: ScreenUtil().setHeight(200),
-      child: Column(
-        children: <Widget>[
-          GWdgtTextProfile(
-            string: title,
-          ),
-          Icon(
-            icon,
-            size: sizeIconDetails,
-            color: colorIconDetails,
-          ),
-          Y(
-            height: BoxHeight.heightBtwContainers,
-          ),
-          GWdgtTextProfile(
-            string: value,
-          )
-        ],
+    return InkWell(
+      onTap: () {
+        if (onClick != null) onClick();
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        // height: ScreenUtil().setHeight(200),
+        child: Column(
+          children: <Widget>[
+            GWdgtTextProfile(
+              string: title,
+            ),
+            Icon(
+              icon,
+              size: sizeIconDetails,
+              color: colorIconDetails,
+            ),
+            Y(
+              height: BoxHeight.heightBtwContainers,
+            ),
+            GWdgtTextProfile(
+              string: value,
+            )
+          ],
+        ),
       ),
     );
   }

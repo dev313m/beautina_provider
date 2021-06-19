@@ -10,13 +10,31 @@ class ModelChatUser {
 
   ModelChatUser({this.id, this.lastSeen, this.token});
 
+  ModelChatUser.fromMap(Map<String, dynamic> data) {
+    // this.id = id;
+    this.token = data['token'];
+    // this.lastSeen =
+    //     DateTime.fromMicrosecondsSinceEpoch(data['last_seen']) ?? DateTime.now();
+  }
+
+  static Future<String> getUserToken(String uid) async {
+    var user =
+        await FirebaseDatabase.instance.reference().child("user/$uid").once();
+    return user.value["token"];
+  }
+
   ModelChatUser.fromFirebase(
       Map<String, dynamic> data, String id, String token) {
     this.id = id;
     this.token = token;
-    this.lastSeen =
-        DateTime.fromMicrosecondsSinceEpoch(data['last_seen']) ?? DateTime.now();
+    this.lastSeen = DateTime.fromMicrosecondsSinceEpoch(data['last_seen']) ??
+        DateTime.now();
   }
+
+  // Future<String> getUser(String uid) async{
+  //  var user =await FirebaseDatabase.instance.reference().child("user/$uid").once();
+  //  user.
+  // }
 
   Map<String, dynamic> toMap() {
     return {"last_seen": DateTime.now().microsecondsSinceEpoch, "token": token};

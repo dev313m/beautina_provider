@@ -89,7 +89,6 @@ class VmDateDataTest extends GetxController {
       comingConfirmedList = await getComingConfirmed();
 
       if (orderList.length != 0) lastDoc = orderList.last.doc_id;
-      // sort();
       setInitialDayList();
 
       isLoading = false;

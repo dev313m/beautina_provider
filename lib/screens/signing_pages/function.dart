@@ -1,5 +1,6 @@
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/models/chat/chat_user.dart';
 import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/index.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
@@ -101,9 +102,9 @@ Function onConfirmPhoneNumber(BuildContext context) {
   Function f = (AnimationController animationController) async {
     if (!isNameChosen(context)) return () {};
     // animationController.forward();
-    smsAuth.phoneNum = Countries
-            .phoneCode[Get.find<VMLoginDataTest>().city.elementAt(0)] +
-        Get.find<VMLoginDataTest>().phoneNum;
+    smsAuth.phoneNum =
+        Countries.phoneCode[Get.find<VMLoginDataTest>().city.elementAt(0)] +
+            Get.find<VMLoginDataTest>().phoneNum;
 
     // Function success = () {
     //   Get.find<VMLoginDataTest>().showCode = true;
@@ -139,18 +140,21 @@ Future<Null> saveUserData(BuildContext context) async {
 
     ModelBeautyProvider modelBeautyProvider =
         getUserData(currentUser.uid, token, context);
-        // var firebaseUser = await FirebaseAuth.instance.currentUser(); 
-        modelBeautyProvider.firebaseUid = currentUser.uid; 
+    // var firebaseUser = await FirebaseAuth.instance.currentUser();
+    modelBeautyProvider.firebaseUid = currentUser.uid;
     modelBeautyProvider = await apiUserProviderAddNew(modelBeautyProvider);
     if (modelBeautyProvider == null)
       throw Exception('هناك خطأ');
     else {
       await saveData(modelBeautyProvider);
+
+      /// create firebase user for chat
+      await ModelChatUser.apiCreateChatUser(token);
+
       await sharedRegistered(true);
       routeToRoot(context);
-      await Future.delayed(Duration(seconds: 3)); 
-            showToast('مرحبا بك في عالم الجمال');
-
+      await Future.delayed(Duration(seconds: 3));
+      showToast('مرحبا بك في عالم الجمال');
     }
   } catch (e) {
     throw Exception(e.toString());

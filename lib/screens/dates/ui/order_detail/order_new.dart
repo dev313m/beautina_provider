@@ -271,7 +271,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                             // width: sizeButtonHeight,
                             controller: _cancelButtonController,
                             animateOnTap: true,
-                            borderRadius: radius,
+                            // borderRadius: radius,
                             child: Center(
                                 child: Icon(
                               Icons.cancel_outlined,
@@ -308,7 +308,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                             // width: sizeButtonHeight,
                             controller: _submitButtonController,
                             animateOnTap: true,
-                            borderRadius: radius,
+                            // borderRadius: radius,
                             child: Center(
                                 child: Icon(
                               Icons.done_sharp,

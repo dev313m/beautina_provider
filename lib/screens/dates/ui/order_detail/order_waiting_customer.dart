@@ -51,7 +51,7 @@ class _WidgetWaitingCustomerState extends State<WidgetWaitingCustomer> {
                 width: 200.h,
                 // width: sizeButtonHeight,
                 animateOnTap: true,
-                borderRadius: radius,
+                // borderRadius: radius,
                 child: Center(
                     child: Icon(
                   Icons.cancel_outlined,

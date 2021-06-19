@@ -61,7 +61,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                       ),
                       controller: _submitButtonController,
                       animateOnTap: true,
-                      borderRadius: radius,
+                      // borderRadius: radius,
                       onPressed: () async {
                         bool result = false;
                         _submitButtonController.start();
@@ -87,7 +87,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
                       // width: sizeButtonHeight,
                       controller: _cancelButtonController,
                       animateOnTap: true,
-                      borderRadius: radius,
+                      // borderRadius: radius,
                       child: GWdgtTextButton(string: "لم يتم عمل الخدمة بنجاح"),
                       onPressed: () async {
                         bool result = false;

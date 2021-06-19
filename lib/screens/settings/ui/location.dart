@@ -114,7 +114,7 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
             Y(),
             RoundedLoadingButton(
               controller: buttonController,
-              borderRadius: allContainerRadius,
+              // borderRadius: allContainerRadius,
               child: Column(
                 children: <Widget>[
                   Expanded(

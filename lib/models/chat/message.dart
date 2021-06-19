@@ -13,6 +13,7 @@ class ModelMessage {
   String id;
   DateTime date;
   bool read;
+  bool clientRead;
   bool fromProvider; // if 1 then from provider else from sender
 
   ModelMessage({this.date, this.fromProvider, this.read, this.message});
@@ -21,6 +22,7 @@ class ModelMessage {
     this.key = message['key'] ?? "";
     this.message = message['msg'] ?? "";
     this.read = message['read'] ?? true;
+    this.clientRead = message['client_read'] ?? true;
     this.id = id;
     this.fromProvider = message['from'];
     this.date =
@@ -28,12 +30,12 @@ class ModelMessage {
   }
 
   Future<Map<String, dynamic>> getMap(String providerId) async {
-      var user = await sharedUserProviderGetInfo();
+    var user = await sharedUserProviderGetInfo();
     return {
       "msg": message,
       "key": "$providerId|${user.uid}",
-      "read": false, // it must be initialized with false
-      "from": false, // it must always be false
+      "read": false, // it must be initialized with true
+      "from": true, // it must always be trur, because he is the provider
       "dt": date.microsecondsSinceEpoch
     };
   }
@@ -59,12 +61,31 @@ class ModelMessage {
     }
   }
 
+  /// update message status wheather it is read or not 
+
+  static Future updateMessageStatus({String chatId, String messageId}) async {
+    final fb = FirebaseDatabase.instance;
+    // fb.setPersistenceEnabled(true);
+
+    try {
+      await fb
+          .reference()
+          .child('msg/$chatId/msgs/$messageId')
+          .update({"read": true});
+      //  await fb.reference().once().then((value) => showToast(value.value.toString())
+      //       );
+
+    } catch (e) {
+      throw Exception('حدث خطآ ما');
+    }
+  }
+
   /// create key for the message and put firebase client uid and provider_uid for security
   static Future apiCreateKeyForMessage(
       String chatId, String providerId, String providerFirebaseUid) async {
     final fb = FirebaseDatabase.instance;
     // fb.setPersistenceEnabled(true);
-      var user = await sharedUserProviderGetInfo();
+    var user = await sharedUserProviderGetInfo();
     var key = providerId + "|" + user.uid;
 
     try {
@@ -110,9 +131,9 @@ class ModelMessage {
 List<ModelMessage> getModel(DataSnapshot dataSnapshot) {
   if (dataSnapshot == null) return [];
   List<ModelMessage> list = [];
-  var messages = dataSnapshot.value.values.first;
+  var messages = dataSnapshot.value["msgs"];
 
-  messages['msgs'].forEach((key, value) {
+  messages.forEach((key, value) {
     list.add(ModelMessage.fromFirebase(value, key));
   });
   list.sort((a, b) => (b.date.compareTo(a.date)));

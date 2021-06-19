@@ -1,14 +1,15 @@
-
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/models/chat/message.dart';
 import 'package:beautina_provider/models/chat/rooms.dart';
 import 'package:beautina_provider/models/firebase_notification.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
+import 'package:beautina_provider/screens/chat_pages/chat_room/vm/vm_chats_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ChatInputFieldFromChatRoom extends StatefulWidget {
   final ModelRoom room;
@@ -104,7 +105,7 @@ class _ChatInputFieldFromChatRoomState
               icon: Icon(
                 Icons.send,
               ),
-              onPressed: () {
+              onPressed: () async {
                 try {
                   var message = ModelMessage(
                     date: DateTime.now(),
@@ -112,6 +113,17 @@ class _ChatInputFieldFromChatRoomState
                   );
                   ModelMessage.apiCreateMassage(
                       message, widget.room.chatId, widget.room.providerId);
+                  ModelFirebaseNotification(
+                    body: textFeildCtr.text,
+                    title: "رساله من ${widget.room.providerName}",
+                    from: widget.room.providerName,
+                    // type: ,
+                    token: await Get.find<VMChatRoomData>()
+                        .getToken(widget.room.clientId),
+                  )..sendPushNotification();
+                  ModelRoom.updateRoomDetails(
+                      chatId: widget.room.chatId,
+                      lastMessage: textFeildCtr.text);
 
                   ///[todo] send notification
                   textFeildCtr.text = '';
@@ -223,7 +235,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
               ),
               onPressed: () async {
                 try {
-      var user = await sharedUserProviderGetInfo();
+                  var user = await sharedUserProviderGetInfo();
 
                   /// if chatId is already not null
                   if (chatId == "") {

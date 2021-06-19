@@ -1,4 +1,3 @@
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 
@@ -31,7 +30,7 @@ class ModelRoom {
       this.providerName,
       this.notReadCountProvider,
       this.notReadCount,
-      this.clientFirebaseUid, 
+      this.clientFirebaseUid,
       this.providerFirebaseUid,
       this.clientId,
       this.chatId,
@@ -43,9 +42,12 @@ class ModelRoom {
     providerId = map['provider_id'];
     providerName = map['provider_name'];
     notReadCount = map['msg_client_count'];
-
+    clientName = map['client_name'];
+    providerFirebaseUid = map['client_frbase_uid'];
+    clientId = map["client_id"];
     notReadCountProvider = map['msg_provider_count'];
     this.chatId = chatId;
+    clientFirebaseUid = map["client_frbase_uid"];
   }
 
   Map<String, dynamic> getMapForFirebase() {
@@ -59,8 +61,8 @@ class ModelRoom {
     map['client_name'] = this.clientName;
     map['msg_provider_count'] = this.notReadCountProvider;
     map['key'] = this.providerId + "|" + this.clientId;
-    map['client_frbase_uid'] = this.clientFirebaseUid; 
-    map['provider_frbase_id'] = this.providerFirebaseUid; 
+    map['client_frbase_uid'] = this.clientFirebaseUid;
+    map['provider_frbase_id'] = this.providerFirebaseUid;
     return map;
   }
 
@@ -78,14 +80,14 @@ class ModelRoom {
     }
   }
 
-  static Stream<List<ModelRoom>> apiGetRooms(String clientId) {
+  static Stream<List<ModelRoom>> apiGetRooms(String providerId) {
     final fb = FirebaseDatabase.instance;
     try {
       return fb
           .reference()
           .child("room")
-          .orderByChild('client_id')
-          .equalTo(clientId)
+          .orderByChild('provider_id')
+          .equalTo(providerId)
           .onValue
           .asyncMap((event) async => await compute(getModel, event.snapshot));
     } catch (e) {
@@ -94,16 +96,27 @@ class ModelRoom {
   }
 
   /// update lastmessage, lastmaessagedate and not read for provider, it should be used after creating a message
-  static Future resetNotRead(String id) async {
+  static Future updateRoomDetails(
+      {String chatId, String lastMessage = ""}) async {
     final fb = FirebaseDatabase.instance;
 
+    var body;
+    if (lastMessage == "")
+      body = {"msg_provider_count": 0};
+    else
+      body = {
+        "msg_provider_count": 0,
+        "last_msg": lastMessage,
+        "last_msg_date": DateTime.now().microsecondsSinceEpoch
+      };
     try {
-      await fb.reference().child('room/$id').update({"cnt": 0});
+      await fb.reference().child('room/$chatId').update(body);
     } catch (e) {
       throw Exception(e.toString());
     }
     return;
   }
+
   static Future<String> getRoomId({String clientId, String providerID}) async {
     final fb = FirebaseDatabase.instance;
 
@@ -116,8 +129,8 @@ class ModelRoom {
           .orderByChild('key')
           .equalTo(key)
           .once();
-      Map map =  result.value ; 
-      
+      Map map = result.value;
+
       return map.keys.first;
     } catch (e) {
       throw Exception(e);
