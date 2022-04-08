@@ -27,7 +27,7 @@ Color colorButton = ConstDatesColors.topBtns;
 Color colorBadge = Colors.red;
 
 class WdgtDateTopButtons extends StatefulWidget {
-  WdgtDateTopButtons({Key key}) : super(key: key);
+  WdgtDateTopButtons({Key? key}) : super(key: key);
 
   @override
   _WdgtDateTopButtonsState createState() => _WdgtDateTopButtonsState();
@@ -112,7 +112,7 @@ class _WdgtDateTopButtonsState extends State<WdgtDateTopButtons> {
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorBadge),
                       child: Center(
                         child: ExtendedText(
-                          string: Get.find<VmDateDataTest>().comingConfirmedList.length.toString(),
+                          string: Get.find<VmDateDataTest>().comingConfirmedList!.length.toString(),
                         ),
                       )),
                 ),

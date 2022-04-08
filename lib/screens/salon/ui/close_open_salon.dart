@@ -2,12 +2,12 @@ import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
+import 'package:beautina_provider/utils/animated/loading.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading/loading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
@@ -32,7 +32,7 @@ double flareHeightSize = 0.23.sh;
 // double flareWidthSize = 0.23.sh;
 
 class WdgtSalonCloseOpenSalon extends StatefulWidget {
-  WdgtSalonCloseOpenSalon({Key key}) : super(key: key);
+  WdgtSalonCloseOpenSalon({Key? key}) : super(key: key);
 
   @override
   _WdgtSalonCloseOpenSalonState createState() => _WdgtSalonCloseOpenSalonState();
@@ -42,7 +42,7 @@ class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
   ///Show loading animation when updating flag
   bool availableLoad = false;
 
-  ModelBeautyProvider beautyProvider;
+  late ModelBeautyProvider beautyProvider;
   @override
   Widget build(BuildContext context) {
 
@@ -89,7 +89,7 @@ class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
                       children: <Widget>[
                         FlareActor(
                           strFlare,
-                          animation: beautyProvider.available ? strFlareAnimationStart : strFlareAnimationFinish,
+                          animation: beautyProvider.available! ? strFlareAnimationStart : strFlareAnimationFinish,
                           shouldClip: false,
                           snapToEnd: false,
                           // controller: ,
@@ -98,7 +98,7 @@ class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
                           alignment: Alignment.bottomCenter,
                           child: AnimatedSwitcher(
                             duration: Duration(seconds: 1),
-                            child: availableLoad ? Loading() : SizedBox(),
+                            child: availableLoad ? GetLoadingWidget() : SizedBox(),
                           ),
                         )
                       ],

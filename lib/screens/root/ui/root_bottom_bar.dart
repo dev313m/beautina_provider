@@ -1,18 +1,15 @@
-import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/utils/redesigned_packages/curved_navbar.dart';
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class WdgtRootBottomBar extends StatefulWidget {
-  WdgtRootBottomBar({Key key}) : super(key: key);
+  WdgtRootBottomBar({Key? key}) : super(key: key);
 
   @override
   _WdgtRootBottomBarState createState() => _WdgtRootBottomBarState();
@@ -32,8 +29,8 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                   backgroundColor: Colors.transparent,
                   index: vMRootUiTest.pageIndex,
                   height: 0.06.sh + MediaQuery.of(context).padding.bottom,
-                   items: <Widget>[
-                    Icon(CommunityMaterialIcons.settings,
+                  items: <Widget>[
+                    Icon(CommunityMaterialIcons.settings_helper,
                         size: sizeIcon, color: ConstRootColors.icons),
                     Stack(
                       fit: StackFit.passthrough,

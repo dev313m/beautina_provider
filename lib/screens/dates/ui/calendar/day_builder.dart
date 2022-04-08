@@ -22,10 +22,10 @@ double edgeDayToContainer = 4.w;
 double edgeDayStr = 15.w;
 
 class WdgtDateCalendarDayBuilder extends StatelessWidget {
-  final List list;
-  final DateTime date;
+  final List? list;
+  final DateTime? date;
 
-  const WdgtDateCalendarDayBuilder({Key key, this.date, this.list}) : super(key: key);
+  const WdgtDateCalendarDayBuilder({Key? key, this.date, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class WdgtDateCalendarDayBuilder extends StatelessWidget {
           decoration: BoxDecoration(
 
               ///if there is no event then add orginal color
-              color: list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList().length == 0
+              color: list!.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList().length == 0
                   ? colorNoEvent
                   : colorEvent,
               borderRadius: BorderRadius.circular(radius)),
@@ -44,13 +44,13 @@ class WdgtDateCalendarDayBuilder extends StatelessWidget {
           width: sizeDayWidth,
           height: sizeDayHeight,
           child: GWdgtTextCalendarDay(
-            string: '${date.day}',
+            string: '${date!.day}',
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.left,
             // style: TextStyle().copyWith(fontSize: 16.0),
           ),
         ),
-        if (list.where((element) => element.status == -1).length > 0)
+        if (list!.where((element) => element.status == -1).length > 0)
           Align(
             alignment: Alignment.center,
             child: Icon(CommunityMaterialIcons.lock),

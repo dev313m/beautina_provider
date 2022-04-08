@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AnimatedSubmitButton extends StatefulWidget {
-  final Function function;
-  final Color color;
-  final double height;
-  final double width;
-  final Widget insideWidget;
-  final Duration animationDuration;
-  final Color splashColor;
+  final Function? function;
+  final Color? color;
+  final double? height;
+  final double? width;
+  final Widget? insideWidget;
+  final Duration? animationDuration;
+  final Color? splashColor;
   AnimatedSubmitButton(
-      {Key key,
+      {Key? key,
       this.splashColor,
       this.animationDuration,
       this.function,
@@ -24,14 +24,14 @@ class AnimatedSubmitButton extends StatefulWidget {
 
 class _AnimatedSubmitButtonState extends State<AnimatedSubmitButton>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
 
   @override
   void initState() {
     animationController = AnimationController(
         vsync: this,
         duration: widget.animationDuration,
-        upperBound: widget.width - widget.height,
+        upperBound: widget.width! - widget.height!,
         lowerBound: 1);
     animationController.addListener(() async {
       this.setState(() {});
@@ -50,17 +50,17 @@ class _AnimatedSubmitButtonState extends State<AnimatedSubmitButton>
   Widget build(BuildContext context) {
     return Container(
       height: widget.height,
-      width: widget.width - animationController.value,
+      width: widget.width! - animationController.value,
       child: Material(
         borderRadius: BorderRadius.circular(12),
-        shadowColor: widget.color.withAlpha(99),
+        shadowColor: widget.color!.withAlpha(99),
         color: widget.color,
         elevation: 7.0,
         child: InkWell(
           borderRadius: new BorderRadius.circular(22),
           splashColor: widget.splashColor,
           onTap: () async {
-            widget.function(animationController);
+            widget.function!(animationController);
           },
           child: animationController.isCompleted
               ? CircularProgressIndicator(

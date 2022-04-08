@@ -29,20 +29,20 @@ final String strAdv = """
 
 """;
 final String q1 =
-    'لكل 50 طلب تسويق ممول مجاني ${Emoji.byName('smiling face with sunglasses').char}';
+    'لكل 50 طلب تسويق ممول مجاني ${Emoji.byName('smiling face with sunglasses')!.char}';
 final String a1 = '''
 عند وصول عدد الطلبات في حسابك 50 طلب من أشخاص مختلفين تحصين على مكافأة تسويق تستهدف لايقل عن 5000 شخص مهتم في منطقتك مقدمة لك من فريق تسويق بيوتينا، سيتم التواصل والتنسيق معك.
 ''';
 
 final String q2 =
-    '''كيف أحصل على 50 طلب؟ ${Emoji.byName('face with monocle').char}''';
+    '''كيف أحصل على 50 طلب؟ ${Emoji.byName('face with monocle')!.char}''';
 final String a2 = 'عن طريق حصولك على الطلبات في صفحتك';
 
 final String q3 = 'مثال:';
 final String a3 =
     'شاركي صفحتك مع زبائنك وفي مواقع التواصل، ويطلبون خدماتك من التطبيق';
 
-final String q4 = 'فوائد العرض: ${Emoji.byName('two hearts').char}';
+final String q4 = 'فوائد العرض: ${Emoji.byName('two hearts')!.char}';
 final String a4 = '''- تسويق ممنهج مجاني يستهدف 5000 شخص مهتم
 - كلما زاد عدد طلباتك تزداد أولوية ظهورك في بحث الزبائن
 ''';

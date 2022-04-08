@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class WdgtLoginLocation extends StatelessWidget {
   final GlobalKey globalKey;
-  const WdgtLoginLocation({Key key, @required this.globalKey})
+  const WdgtLoginLocation({Key? key, required this.globalKey})
       : super(key: key);
 
   @override

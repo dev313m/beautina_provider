@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class WdgtSettingsUsername extends StatefulWidget {
-  WdgtSettingsUsername({Key key}) : super(key: key);
+  WdgtSettingsUsername({Key? key}) : super(key: key);
 
   @override
   _WdgtSettingsUsernameState createState() => _WdgtSettingsUsernameState();
@@ -75,7 +75,7 @@ class _WdgtSettingsUsernameState extends State<WdgtSettingsUsername> {
                     suffixIcon: Icon(
                       Icons.supervised_user_circle_outlined,
                     ),
-                    helperText:vMSalonData. beautyProvider.username.contains('+')
+                    helperText:vMSalonData. beautyProvider.username!.contains('+')
                         ? 'مثال: beauty_salon'
                         : vMSalonData.beautyProvider.username,
                     inputType: TextInputType.text,

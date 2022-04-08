@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GWdgtChip extends StatelessWidget {
-  final Function function;
-  final Color color;
-  const GWdgtChip({Key key, this.function, this.color}) : super(key: key);
+  final Function? function;
+  final Color? color;
+  const GWdgtChip({Key? key, this.function, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class GWdgtChip extends StatelessWidget {
         children: <Widget>[
           InkWell(
               onTap: () {
-                function();
+                function!();
               },
               child: Chip(
                 label: ExtendedText(string: getCountry(context)),
@@ -30,7 +30,7 @@ class GWdgtChip extends StatelessWidget {
           ),
           InkWell(
               onTap: () {
-                function();
+                function!();
               },
               child: Chip(
                 label: ExtendedText(string: getCity(context)),

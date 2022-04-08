@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class WidgetChangeEmail extends StatefulWidget {
-  final ModelBeautyProvider beautyProvider;
-  WidgetChangeEmail({Key key, this.beautyProvider}) : super(key: key);
+  final ModelBeautyProvider? beautyProvider;
+  WidgetChangeEmail({Key? key, this.beautyProvider}) : super(key: key);
 
   @override
   _WidgetChangeEmailState createState() => _WidgetChangeEmailState();
@@ -30,12 +30,12 @@ class _WidgetChangeEmailState extends State<WidgetChangeEmail> {
               ),
             ),
           ),
-          ExtendedText(string: widget.beautyProvider.email),
+          ExtendedText(string: widget.beautyProvider?.email),
           SizedBox(height: ScreenUtil().setHeight(10))
         ],
       ),
       onPressed: () async {
-        String result;
+        String? result;
         try {
           result = await signInWithGoogle();
           // showToast(result);

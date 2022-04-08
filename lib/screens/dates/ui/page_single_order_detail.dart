@@ -24,9 +24,9 @@ final Color colorPageTitle = ConstDatesColors.littleList.withAlpha(200);
 final Color colorBackground = AppColors.purpleColor;
 
 class WdgtDatePageSingleOrderDetail extends StatefulWidget {
-  final String orderId;
-  final String heroTag;
-  WdgtDatePageSingleOrderDetail({Key key, this.heroTag, this.orderId})
+  final String? orderId;
+  final String? heroTag;
+  WdgtDatePageSingleOrderDetail({Key? key, this.heroTag, this.orderId})
       : super(key: key);
 
   @override
@@ -49,10 +49,10 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
 
             children: <Widget>[
               Hero(
-                tag: vm.orderList
+                tag: vm.orderList!
                         .where((element) => element.doc_id == widget.orderId)
                         .first
-                        .doc_id +
+                        .doc_id! +
                     'ok',
                 transitionOnUserGestures: true,
                 child: Container(
@@ -73,7 +73,7 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
               ),
               Y(),
               WdgtDateOrderDetails(
-                  orderId: vm.orderList
+                  orderId: vm.orderList!
                       .where((element) => element.doc_id == widget.orderId)
                       .first
                       .doc_id)

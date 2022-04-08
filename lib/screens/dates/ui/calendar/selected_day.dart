@@ -21,11 +21,11 @@ double edgeDayToContainer = 20.w;
 double edgeDayStr = 35.w;
 
 class WdgtDateCalendarSelectedDay extends StatefulWidget {
-  final DateTime date;
-  final List list;
-  final AnimationController animationController;
+  final DateTime? date;
+  final List? list;
+  final AnimationController? animationController;
   const WdgtDateCalendarSelectedDay(
-      {Key key, this.date, this.list, this.animationController})
+      {Key? key, this.date, this.list, this.animationController})
       : super(key: key);
 
   @override
@@ -38,7 +38,7 @@ class _WdgtDateCalendarSelectedDayState
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: Tween(begin: 0.0, end: 1.0).animate(widget.animationController),
+      opacity: Tween(begin: 0.0, end: 1.0).animate(widget.animationController!),
       child: Stack(
         children: [
           Container(
@@ -50,22 +50,22 @@ class _WdgtDateCalendarSelectedDayState
                 top: edgeDayToContainer, left: edgeDayToContainer),
             width: sizeDayWidth,
             height: sizeDayHeight,
-            child: (widget.date.day == DateTime.now().day &&
-                    DateTime.now().month == widget.date.month)
+            child: (widget.date!.day == DateTime.now().day &&
+                    DateTime.now().month == widget.date!.month)
                 ? Center(
                   child: GWdgtTextCalendarDay(
                       string: "اليوم",
                     ),
                 )
                 : GWdgtTextCalendarDay(
-                    string: '${widget.date.day}',
+                    string: '${widget.date!.day}',
                     textDirection: TextDirection.ltr,
                     textAlign: TextAlign.left,
                     // style: TextStyle().copyWith(fontSize: 16.0),
                   ),
           ),
           if (widget.list != null)
-            if (widget.list.where((element) => element.status == -1).length > 0)
+            if (widget.list!.where((element) => element.status == -1).length > 0)
               Align(
                 alignment: Alignment.center,
                 child: Icon(CommunityMaterialIcons.lock),

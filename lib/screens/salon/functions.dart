@@ -9,9 +9,10 @@ import 'package:beautina_provider/services/api/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-Future<ModelBeautyProvider> updateDataFromServer() async {
+Future<ModelBeautyProvider?> updateDataFromServer() async {
   try {
     ModelBeautyProvider beautyProvider = await apiLoadOneBeautyProvider();
     sharedUserProviderSet(beautyProvider: beautyProvider);
@@ -28,7 +29,7 @@ Map<String, dynamic> getNewServicesMap(BuildContext context, showOther,
   ModelBeautyProvider beautyProvider =
       Get.find<VMSalonDataTest>().beautyProvider;
   Map<String, dynamic> map =
-      new Map<String, dynamic>.of(beautyProvider.servicespro);
+      new Map<String, dynamic>.of(beautyProvider.servicespro!);
   Map<String, dynamic> newMap = copyDeepMap(map);
 
   if (!showOther) {
@@ -70,12 +71,12 @@ updateProviderServices(
     RoundedLoadingButtonController _btnController) async {
   _btnController.start();
 
-  ModelBeautyProvider bp = await sharedUserProviderGetInfo();
+  ModelBeautyProvider bp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
   try {
     if (showOther)
-      bp.service_duration[otherServiceName] = serviceDuration;
+      bp.service_duration![otherServiceName] = serviceDuration;
     else
-      bp.service_duration[chosenService.split('-')[1]] = serviceDuration;
+      bp.service_duration![chosenService.split('-')[1]] = serviceDuration;
 
     ModelBeautyProvider newBp = await apiBeautyProviderUpdate(bp
       ..servicespro = getNewServicesMap(context, showOther, chosenService,
@@ -100,7 +101,7 @@ Map<String, dynamic> copyDeepMap(Map<String, dynamic> map) {
   Map<String, dynamic> newMap = {};
 
   map.forEach((key, value) {
-    newMap[key] = (value is Map) ? copyDeepMap(value) : value;
+    newMap[key] = (value is Map) ? copyDeepMap(value as Map<String, dynamic>) : value;
   });
 
   return newMap;
@@ -114,8 +115,8 @@ Map<String, dynamic> copyDeepMap(Map<String, dynamic> map) {
 
 removeServiceByCodeAndUpdate(
     BuildContext context,
-    String serviceCode,
-    String serviceRoot,
+    String? serviceCode,
+    String? serviceRoot,
     Function onDeleteServiceSuccess,
     Function onDeleteServiceError,
     Function onDeleteServiceLoad,
@@ -123,11 +124,11 @@ removeServiceByCodeAndUpdate(
   onDeleteServiceLoad();
 
   /// 1- Get current userData
-  ModelBeautyProvider bp = await sharedUserProviderGetInfo();
+  ModelBeautyProvider bp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
 
   /// 2- Remove
-  Map<String, dynamic> newMap = bp.servicespro;
-  newMap[serviceRoot].remove(serviceCode);
+  Map<String, dynamic> newMap = bp.servicespro!;
+  newMap[serviceRoot!].remove(serviceCode);
 
   /// 3- update
   try {
@@ -152,11 +153,11 @@ updateUserDefaults(
     Function onDefaultsChangeLoad,
     Function onADefaultsChangeError,
     Function onDefaultsChangeComplete,
-    {@required bool defaultAccept,
-    @required int defaultAfterAccept}) async {
+    {required bool? defaultAccept,
+    required int? defaultAfterAccept}) async {
   onDefaultsChangeLoad();
   try {
-    ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
+    ModelBeautyProvider mbp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
 
     await apiBeautyProviderUpdate(mbp
       ..default_accept = defaultAccept
@@ -190,9 +191,9 @@ updateUserAvailability(
 ) async {
   onAvailableChangeLoad();
   try {
-    ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
+    ModelBeautyProvider mbp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
 
-    await apiBeautyProviderUpdate(mbp..available = !mbp.available);
+    await apiBeautyProviderUpdate(mbp..available = !mbp.available!);
 
     // Get.find<VMSalonDataTest>().beautyProvider = mbp;
     // setState(() {});
@@ -213,8 +214,8 @@ updateProfileImage(
     Function onProfileImageChangeSuccess,
     Function onProfileImageChangeError,
     Function onProfileImageChangeComplete) async {
-  File file = await imageChoose();
-  if (await file.exists() == false) return;
+  XFile file = await (imageChoose() as Future<XFile>);
+  if (await File(file.path).exists() == false) return;
   DefaultCacheManager manager = new DefaultCacheManager();
   ModelBeautyProvider beautyProvider =
       Get.find<VMSalonDataTest>().beautyProvider;
@@ -231,7 +232,7 @@ updateProfileImage(
       // super.setState(() {});
       // setState(() {});
 
-      ModelBeautyProvider mbp = await sharedUserProviderGetInfo();
+      ModelBeautyProvider mbp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
 
       await apiBeautyProviderUpdate(mbp..available = mbp.available);
 

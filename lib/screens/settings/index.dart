@@ -12,18 +12,18 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 
 class PageSettings extends StatefulWidget {
-  PageSettings({Key key}) : super(key: key);
+  PageSettings({Key? key}) : super(key: key);
 
   @override
   _PageSettingsState createState() => _PageSettingsState();
 }
 
 class _PageSettingsState extends State<PageSettings> {
-  VMSettingsData vmSettingsData;
-  ScrollController _scrollController;
+  VMSettingsData? vmSettingsData;
+  ScrollController? _scrollController;
   @override
   void dispose() {
-    _scrollController.dispose();
+    _scrollController!.dispose();
     super.dispose();
   }
 
@@ -31,8 +31,8 @@ class _PageSettingsState extends State<PageSettings> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      onScrollAction(_scrollController, context,
+    _scrollController!.addListener(() {
+      onScrollAction(_scrollController!, context,
           onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
   }

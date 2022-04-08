@@ -10,7 +10,7 @@ import 'dart:async';
 
 class NotificationHelper {
   String _tableName = 'notification';
-  static Database _database;
+  static Database? _database;
 
 /**
  * These are the table column to be generated 
@@ -31,14 +31,14 @@ class NotificationHelper {
 
   /// This is the singleton declaration
 
-  static NotificationHelper _NotificationHelper;
+  static NotificationHelper? _NotificationHelper;
   NotificationHelper._createInstance();
 
   factory NotificationHelper() {
     if (_NotificationHelper == null) {
       _NotificationHelper = NotificationHelper._createInstance();
     }
-    return _NotificationHelper;
+    return _NotificationHelper!;
   }
 
   Future<Database> initializeDatabase() async {
@@ -47,7 +47,7 @@ class NotificationHelper {
     return await openDatabase(path, version: 1, onCreate: _createDb);
   }
 
-  Future<Database> get database async {
+  Future<Database?> get database async {
     if (_database == null) _database = await initializeDatabase();
     return _database;
   }
@@ -63,7 +63,7 @@ class NotificationHelper {
  * getPrefrencesList() is to get all table list
  */
   Future<List<MyNotification>> getNotificationList() async {
-    Database db = await this.database;
+    Database? db = await (this.database as FutureOr<Database>);
     List<Map<String, dynamic>> list =
         await db.query(_tableName, orderBy: '$colId DESC', limit: 15); //DESC
     return list.map((f) => MyNotification.fromMapObject(f)).toList();
@@ -73,9 +73,9 @@ class NotificationHelper {
  * insertPrefrences() method is to insert a prefrence 
  */
   Future<int> insertNotification(MyNotification notification) async {
-    Database db = await this.database;
+    Database db = await (this.database as FutureOr<Database>);
     int result = await db.insert(_tableName, notification.toMap());
-    await updateLastNotificationDate(notification.createDate);
+    await updateLastNotificationDate(notification.createDate!);
     return result;
   }
 
@@ -95,7 +95,7 @@ class NotificationHelper {
  * Updating a prefrence
  */
   Future<int> updateNotification(MyNotification notification) async {
-    Database db = await this.database;
+    Database db = await (this.database as FutureOr<Database>);
     notification.status = 1;
     return await db.update(
       _tableName,
@@ -115,7 +115,7 @@ class NotificationHelper {
    * Delete a prefrence
    */
   Future<int> deleteNotification(MyNotification notification) async {
-    Database db = await this.database;
+    Database db = await (this.database as FutureOr<Database>);
     return await db.delete(_tableName,
         where: '$colId = ?', whereArgs: [notification.colId]);
   }

@@ -34,15 +34,15 @@ final sizeBtnHeight = heightBtnSquare;
 final sizeBtnWidth = 200.w;
 
 class WdgtDateOrderList extends StatefulWidget {
-  final String hero;
-  WdgtDateOrderList({Key key, this.hero}) : super(key: key);
+  final String? hero;
+  WdgtDateOrderList({Key? key, this.hero}) : super(key: key);
 
   @override
   _OrdersListState createState() => _OrdersListState();
 }
 
 class _OrdersListState extends State<WdgtDateOrderList> {
-  List<Order> ordersList;
+  late List<Order> ordersList;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                             padding: EdgeInsets.all(0),
                             // SpringButtonType.OnlyScale,
                             child: Hero(
-                              tag: ordersList[index].doc_id + 'ok',
+                              tag: ordersList[index].doc_id! + 'ok',
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: colorBtn,
@@ -152,7 +152,7 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                 ),
                                 new GWdgtTextSmall(
                                   string:
-                                      '${ordersList[index].client_order_date.hour}:${ordersList[index].client_order_date.minute}',
+                                      '${ordersList[index].client_order_date!.hour}:${ordersList[index].client_order_date!.minute}',
                                 ),
                               ],
                             ),
@@ -172,18 +172,18 @@ class _OrdersListState extends State<WdgtDateOrderList> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   Builder(builder: (_) {
-                                    List<String> list = [];
-                                    Map<String, dynamic> mapper =
+                                    List<String?> list = [];
+                                    Map<String, dynamic>? mapper =
                                         Get.find<VMSalonDataTest>()
                                             .providedServices;
 
-                                    ordersList[index].services.forEach((k, v) {
+                                    ordersList[index].services!.forEach((k, v) {
                                       v.forEach((kk, vv) {
                                         if (k == 'other')
                                           list.add(kk.toString());
                                         else {
                                           try {
-                                            list.add(mapper['services'][k]
+                                            list.add(mapper!['services'][k]
                                                 ['items'][kk]['ar']);
                                           } catch (e) {
                                             list.add(k.toString());
@@ -229,10 +229,10 @@ class _OrdersListState extends State<WdgtDateOrderList> {
 
   String getText(int index) {
     if (ordersList[index]
-            .client_order_date
+            .client_order_date!
             .isBefore(DateTime.now().toLocal()) &&
         (ordersList[index].status == 3 || ordersList[index].status == 8))
-      return 'مرحبا، نرجو تأكيد اتمام العملية  (${ordersList[index].client_name})  ${getDate(ordersList[index].client_order_date)}';
+      return 'مرحبا، نرجو تأكيد اتمام العملية  (${ordersList[index].client_name})  ${getDate(ordersList[index].client_order_date!)}';
     else
       return '${getOrderStatus(ordersList[index].status)} (${ordersList[index].client_name}) ';
   }
@@ -243,11 +243,11 @@ String getDate(DateTime date) {
 }
 
 class WdgtOrderItemBrief extends StatelessWidget {
-  final Order order;
+  final Order? order;
   final bool isArgent;
-  final String hero;
+  final String? hero;
   const WdgtOrderItemBrief(
-      {Key key, this.order, this.hero, this.isArgent = false})
+      {Key? key, this.order, this.hero, this.isArgent = false})
       : super(key: key);
 
   @override
@@ -273,7 +273,7 @@ class WdgtOrderItemBrief extends StatelessWidget {
                     padding: EdgeInsets.all(0),
                     // SpringButtonType.OnlyScale,
                     child: Hero(
-                      tag: order.doc_id + 'ok' + hero,
+                      tag: order!.doc_id! + 'ok' + hero!,
                       child: Container(
                         decoration: BoxDecoration(
                           color: colorBtn,
@@ -291,7 +291,7 @@ class WdgtOrderItemBrief extends StatelessWidget {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (_) => WdgtDatePageSingleOrderDetail(
                               orderId: order?.doc_id,
-                              heroTag: order.doc_id + hero)));
+                              heroTag: order!.doc_id! + hero!)));
                     }),
                 SizedBox(
                   width: 10.w,
@@ -315,7 +315,7 @@ class WdgtOrderItemBrief extends StatelessWidget {
                           color: Colors.white70,
                         ),
                         new GWdgtTextSmall(
-                          string: '${order.total_price} ريال',
+                          string: '${order!.total_price} ريال',
                         ),
                       ],
                     ),
@@ -346,9 +346,9 @@ class WdgtOrderItemBrief extends StatelessWidget {
                           size: 80.sp,
                         ),
                         new GWdgtTextSmall(
-                            string: order.client_order_date.hour >= 12
-                                ? '${order.client_order_date.hour}:${order.client_order_date.minute} م'
-                                : '${order.client_order_date.hour}:${order.client_order_date.minute} ص'),
+                            string: order!.client_order_date!.hour >= 12
+                                ? '${order!.client_order_date!.hour}:${order!.client_order_date!.minute} م'
+                                : '${order!.client_order_date!.hour}:${order!.client_order_date!.minute} ص'),
                       ],
                     ),
                   ),
@@ -369,17 +369,17 @@ class WdgtOrderItemBrief extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             Builder(builder: (_) {
-                              List<String> list = [];
-                              Map<String, dynamic> mapper =
+                              List<String?> list = [];
+                              Map<String, dynamic>? mapper =
                                   Get.find<VMSalonDataTest>().providedServices;
 
-                              order.services.forEach((k, v) {
+                              order!.services!.forEach((k, v) {
                                 v.forEach((kk, vv) {
                                   if (k == 'other')
                                     list.add(kk.toString());
                                   else {
                                     try {
-                                      list.add(mapper['services'][k]['items']
+                                      list.add(mapper!['services'][k]['items']
                                           [kk]['ar']);
                                     } catch (e) {
                                       list.add(k.toString());
@@ -423,13 +423,13 @@ class WdgtOrderItemBrief extends StatelessWidget {
     );
   }
   String getText() {
-    if (order
-            .client_order_date
+    if (order!
+            .client_order_date!
             .isBefore(DateTime.now().toLocal()) &&
-        (order.status == 3 || order.status == 8))
-      return 'مرحبا، نرجو تأكيد اتمام العملية  (${order.client_name})  ${getDate(order.client_order_date)}';
+        (order!.status == 3 || order!.status == 8))
+      return 'مرحبا، نرجو تأكيد اتمام العملية  (${order!.client_name})  ${getDate(order!.client_order_date!)}';
     else
-      return '${getOrderStatus(order.status)} (${order.client_name}) ';
+      return '${getOrderStatus(order!.status)} (${order!.client_name}) ';
   }
   // String getText() {
   //   return "طلبك من ${order.provider_name}";

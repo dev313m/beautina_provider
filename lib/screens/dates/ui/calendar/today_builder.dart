@@ -19,8 +19,8 @@ double edgeDayToContainer = 4.w;
 double edgeDayStr = 15.w;
 
 class WdgtDateCalendarTodayBuilder extends StatelessWidget {
-  final DateTime date;
-  const WdgtDateCalendarTodayBuilder({Key key, this.date}) : super(key: key);
+  final DateTime? date;
+  const WdgtDateCalendarTodayBuilder({Key? key, this.date}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class WdgtDateCalendarTodayBuilder extends StatelessWidget {
       width: sizeDayWidth,
       height: sizeDayHeight,
       child: GWdgtTextCalendarDay(
-        string: 'اليوم: ${date.day} ',
+        string: 'اليوم: ${date!.day} ',
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.left,
       ),

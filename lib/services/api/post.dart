@@ -8,15 +8,15 @@ import 'dart:async';
 import 'dart:convert';
 
 class PostHelper {
-  String url;
+  String? url;
   static const Map<String, String> JSON_TYPE_HEADER = {
     "Content-type": "application/json ",
   };
 
-  bool auth = true;
+  bool? auth = true;
 
   Future<Map<String, String>> getAuthHeader() async {
-    ModelBeautyProvider userProvider = await sharedUserProviderGetInfo();
+    ModelBeautyProvider userProvider = await (sharedUserProviderGetInfo() as FutureOr<ModelBeautyProvider>);
     return {
       "Content-type": "application/json ",
       HttpHeaders.authorizationHeader: 'Bearer ${userProvider.tokenId}'
@@ -35,7 +35,7 @@ class PostHelper {
 
     Future<http.Response> response;
     try {
-      response = http.patch(url, headers: header, body: body);
+      response = http.patch(Uri.parse(url!), headers: header, body: body);
       print(header);
       return response;
     } catch (e) {
@@ -49,9 +49,9 @@ class PostHelper {
     String body = json.encode(map);
     // showToast(body);
     // make POST request
-    if (auth) header = await getAuthHeader();
+    if (auth!) header = await getAuthHeader();
     http.Response response = await http.post(
-      url,
+      Uri.parse(url!),
       headers: header,
       body: body,
     );
@@ -70,7 +70,7 @@ class PostHelper {
   }
 
   Future<String> makeGetRequest(String param) async {
-    http.Response response = await http.post(url + "/$param", headers: header);
+    http.Response response = await http.post(Uri.parse(url! + "/$param"), headers: header);
     return response.body;
   }
 }

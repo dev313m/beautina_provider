@@ -7,16 +7,16 @@ class CurvedNavigationBarC extends StatefulWidget {
   final List<Widget> items;
   final int index;
   final Color color;
-  final Color buttonBackgroundColor;
+  final Color? buttonBackgroundColor;
   final Color backgroundColor;
-  final ValueChanged<int> onTap;
+  final ValueChanged<int>? onTap;
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
 
   CurvedNavigationBarC({
-    Key key,
-    @required this.items,
+    Key? key,
+    required this.items,
     this.index = 0,
     this.color = Colors.white,
     this.buttonBackgroundColor,
@@ -36,13 +36,13 @@ class CurvedNavigationBarC extends StatefulWidget {
 
 class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
     with SingleTickerProviderStateMixin {
-  double _startingPos;
+  double? _startingPos;
   int _endingIndex = 0;
-  double _pos;
+  double? _pos;
   double _buttonHide = 0;
-  Widget _icon;
-  AnimationController _animationController;
-  int _length;
+  Widget? _icon;
+  late AnimationController _animationController;
+  late int _length;
 
   @override
   void initState() {
@@ -56,12 +56,12 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
       setState(() {
         _pos = _animationController.value;
         final endingPos = _endingIndex / widget.items.length;
-        final middle = (endingPos + _startingPos) / 2;
-        if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
+        final middle = (endingPos + _startingPos!) / 2;
+        if ((endingPos - _pos!).abs() < (_startingPos! - _pos!).abs()) {
           _icon = widget.items[_endingIndex];
         }
         _buttonHide =
-            (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
+            (1 - ((middle - _pos!) / (_startingPos! - middle)).abs()).abs();
       });
     });
   }
@@ -98,9 +98,9 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
             bottom: -40 - (75.0 - widget.height),
             left: Directionality.of(context) == TextDirection.rtl
                 ? null
-                : _pos * size.width,
+                : _pos! * size.width,
             right: Directionality.of(context) == TextDirection.rtl
-                ? _pos * size.width
+                ? _pos! * size.width
                 : null,
             width: size.width / _length,
             child: Center(
@@ -132,7 +132,7 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
             bottom: 0 - (75.0 - widget.height),
             child: CustomPaint(
               painter: NavCustomPainter(
-                  _pos, _length, widget.color, Directionality.of(context)),
+                  _pos!, _length, widget.color, Directionality.of(context)),
               child: Container(
                 height: 75.0,
               ),
@@ -148,7 +148,7 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
                     children: widget.items.map((item) {
                   return NavButton(
                     onTap: _buttonTap,
-                    position: _pos,
+                    position: _pos!,
                     length: _length,
                     index: widget.items.indexOf(item),
                     child: item,
@@ -162,7 +162,7 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
 
   void _buttonTap(int index) {
     if (widget.onTap != null) {
-      widget.onTap(index);
+      widget.onTap!(index);
     }
     final newPosition = index / _length;
     setState(() {

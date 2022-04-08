@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GlobalWidgetText extends StatelessWidget {
   final String text;
-  final Color color;
-  final TextAlign textAlign;
-  final TextStyle style;
+  final Color? color;
+  final TextAlign? textAlign;
+  final TextStyle? style;
   static final TextStyle textStyleBigFontBlack = TextStyle(
     color: Colors.black,
     fontSize: 60.sp,
@@ -36,7 +36,7 @@ class GlobalWidgetText extends StatelessWidget {
     fontSize: 30.sp,
   );
   const GlobalWidgetText(this.text,
-      {Key key, this.color, this.style, this.textAlign})
+      {Key? key, this.color, this.style, this.textAlign})
       : super(key: key);
 
   @override

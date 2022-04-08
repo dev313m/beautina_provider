@@ -3,7 +3,6 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_fonts_arabic/fonts.dart';
 
 ///[size]
 double sizeContainer = 1000.h;
@@ -12,7 +11,7 @@ double sizeBeautinaHeight = 400.h;
 double sizeBeautinaWidth = 180.h;
 
 class WdgtLoginFlare extends StatelessWidget {
-  const WdgtLoginFlare({Key key}) : super(key: key);
+  const WdgtLoginFlare({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +49,10 @@ class WdgtLoginFlare extends StatelessWidget {
                       child: Text(
                         "بيوتينا",
                         style: TextStyle(
-                          fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
                           fontSize: 35.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.pink,
-                          package: 'google_fonts_arabic',
                         ),
                         textAlign: TextAlign.end,
                       ),

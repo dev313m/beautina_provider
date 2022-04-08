@@ -4,17 +4,15 @@ import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
+import 'package:beautina_provider/utils/animated/loading.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
-import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:loading/loading.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 /// [radius]
@@ -51,7 +49,7 @@ final strValidOffer = 'سعر العرض يجب ان يكون اقل من سعر
 final strValidDuration = "يجب ادخال المدة المتوقعة لعمل الخدمة";
 
 class WdgtSalonDefaultAccept extends StatefulWidget {
-  WdgtSalonDefaultAccept({Key key}) : super(key: key);
+  WdgtSalonDefaultAccept({Key? key}) : super(key: key);
 
   @override
   _WdgtSalonDefaultAcceptState createState() => _WdgtSalonDefaultAcceptState();
@@ -61,7 +59,7 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
   ///Show loading animation when updating flag
   bool availableLoad = false;
 
-  ModelBeautyProvider beautyProvider;
+  late ModelBeautyProvider beautyProvider;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
@@ -132,13 +130,13 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
                         child: SizedBox(),
                       ),
                       availableLoad
-                          ? Loading()
+                          ? GetLoadingWidget()
                           : ToggleButtons(
                               borderRadius:
                                   BorderRadius.circular(radiusDefault),
                               isSelected: [
-                                beautyProvider.default_accept,
-                                !beautyProvider.default_accept
+                                beautyProvider.default_accept!,
+                                !beautyProvider.default_accept!
                               ],
                               onPressed: (values) {
                                 bool chosed;
@@ -202,7 +200,7 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
                         child: SizedBox(),
                       ),
                       availableLoad
-                          ? Loading()
+                          ? GetLoadingWidget()
                           : ToggleButtons(
                               borderRadius:
                                   BorderRadius.circular(radiusDefault),

@@ -1,4 +1,4 @@
-package com.beautina.service_provider
+package app.banafsaj.service
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -8,7 +8,6 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spring_button/spring_button.dart';
-import 'package:steps/steps.dart';
 
 ///[size]
 double sizeTitle = 80.h;
@@ -33,8 +32,8 @@ final strNotes = 'ملاحظات الطلب:';
 final double radius = radiusDefault;
 
 class WdgtDateSharedOrderDetails extends StatelessWidget {
-  final Order order;
-  const WdgtDateSharedOrderDetails({Key key, this.order}) : super(key: key);
+  final Order? order;
+  const WdgtDateSharedOrderDetails({Key? key, this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           ),
           child: Center(
               child: GWdgtTextTitle(
-            string: '${getOrderStatus(order.status)} (${order.client_name})',
+            string: '${getOrderStatus(order!.status)} (${order!.client_name})',
             // fontSize: ExtendedText.bigFont,
             // style: TextStyle(color: Colors.white),
           )),
@@ -181,10 +180,10 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
             ),
             Container(
               child: OrderDetails(
-                  date: order.client_order_date,
-                  location: order.client_location,
-                  phoneNum: order.client_phone,
-                  price: order.total_price,
+                  date: order!.client_order_date,
+                  location: order!.client_location,
+                  phoneNum: order!.client_phone,
+                  price: order!.total_price,
                   backgroundColor: colorContainer),
             ),
           ],
@@ -197,7 +196,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           width: double.infinity,
           child: Row(
             children: [
-              if (order.order_info != '')
+              if (order!.order_info != '')
                 Flexible(
                   flex: 3,
                   fit: FlexFit.loose,
@@ -229,9 +228,9 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.all(edgeText + 10.h),
                                 child: GWdgtTextDescDesc(
-                                  string: order.order_info == ''
+                                  string: order!.order_info == ''
                                       ? strEmpty
-                                      : order.order_info,
+                                      : order!.order_info,
                                   // fontSize: ExtendedText.bigFont,
                                 ),
                               ),
@@ -275,7 +274,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   reverse: true,
                   child: AllSingleServiceWidget(
-                    services: order.services,
+                    services: order!.services,
                   ),
                 ),
               ),
@@ -291,7 +290,7 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
           width: double.infinity,
           child: Row(
             children: [
-              if (order.provider_notes != '')
+              if (order!.provider_notes != '')
                 Flexible(
                   flex: 3,
                   fit: FlexFit.loose,
@@ -323,9 +322,9 @@ class WdgtDateSharedOrderDetails extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.all(edgeText + 10.h),
                                 child: GWdgtTextDescDesc(
-                                  string: order.provider_notes == ''
+                                  string: order!.provider_notes == ''
                                       ? strEmpty
-                                      : order.provider_notes,
+                                      : order!.provider_notes,
                                   // fontSize: ExtendedText.bigFont,
                                 ),
                               ),

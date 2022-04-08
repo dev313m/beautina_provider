@@ -10,33 +10,33 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WdgtDateOrderDetails extends StatefulWidget {
-  final String orderId;
-  const WdgtDateOrderDetails({Key key, this.orderId}) : super(key: key);
+  final String? orderId;
+  const WdgtDateOrderDetails({Key? key, this.orderId}) : super(key: key);
 
   @override
   _WdgtDateOrderDetailsState createState() => _WdgtDateOrderDetailsState();
 }
 
 class _WdgtDateOrderDetailsState extends State<WdgtDateOrderDetails> {
-  Order order;
+  Order? order;
 
   @override
   Widget build(BuildContext context) {
     order = Get.find<VmDateDataTest>()
-        .orderList
+        .orderList!
         .where((element) => element.doc_id == widget.orderId)
         .first;
 
-    if (order.status == 0) //new order
+    if (order!.status == 0) //new order
       return WidgetNewOrder(order: order);
-    else if (order.status == 1) // order approved by provider
+    else if (order!.status == 1) // order approved by provider
       return WidgetWaitingCustomer(order: order);
-    else if (order.status == 2 ||
-        order.status == 4) //order is canceled by customer or provider
+    else if (order!.status == 2 ||
+        order!.status == 4) //order is canceled by customer or provider
       return WidgetCanceledOrder(order: order);
-    else if (order.status == 3) // order is confirmed by costomer
+    else if (order!.status == 3) // order is confirmed by costomer
     {
-      if (DateTime.now().toLocal().isAfter(order.client_order_date.toLocal()))
+      if (DateTime.now().toLocal().isAfter(order!.client_order_date!.toLocal()))
 
         ///When order is submitted by user but outdated
         return WidgetOutdatedOrder(
@@ -49,10 +49,10 @@ class _WdgtDateOrderDetailsState extends State<WdgtDateOrderDetails> {
     /// [status = 7]: finished unsuccessfully,
     /// [status = 6]: is in evaluation status,
     /// [status = 8]: user claim finished complete
-    else if (order.status == 5 ||
-        order.status == 6 ||
-        order.status == 7 ||
-        order.status == 8) return WidgetOnlyDetailsOrder(order: order);
+    else if (order!.status == 5 ||
+        order!.status == 6 ||
+        order!.status == 7 ||
+        order!.status == 8) return WidgetOnlyDetailsOrder(order: order);
     return SizedBox();
   }
 }

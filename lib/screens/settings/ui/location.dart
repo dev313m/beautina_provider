@@ -14,7 +14,7 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
 
 class WdgtSettingsLocation extends StatefulWidget {
-  WdgtSettingsLocation({Key key}) : super(key: key);
+  WdgtSettingsLocation({Key? key}) : super(key: key);
 
   @override
   _WdgtSettingsLocationState createState() => _WdgtSettingsLocationState();
@@ -96,7 +96,7 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                     setState(() {
                       loadingLocation = true;
                     });
-                    List<dynamic> location = await getMyLocation();
+                    List<double> location = await getMyLocation();
                     loadingLocation = false;
                     if (location.toString() == null)
                       introLocationStr = locationErrStr;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GetOnErrorWidget extends StatefulWidget {
-  final Function onTap;
+  final Function? onTap;
   const GetOnErrorWidget({this.onTap});
   @override
   _GetOnErrorWidgetState createState() => _GetOnErrorWidgetState();
@@ -38,7 +38,7 @@ class _GetOnErrorWidgetState extends State<GetOnErrorWidget> {
               padding:  EdgeInsets.only(bottom: 40.h, right: 60.w),
               child: InkWell(
                 onTap: () {
-                  widget.onTap();
+                  widget.onTap!();
                 },
                 // padding:
                 //     EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20)),

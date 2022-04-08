@@ -8,14 +8,14 @@ import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 
 class WdgtNotificationItem extends StatelessWidget {
-  final MyNotify.MyNotification _notification;
-  WdgtNotificationItem({MyNotify.MyNotification notification})
+  final MyNotify.MyNotification? _notification;
+  WdgtNotificationItem({MyNotify.MyNotification? notification})
       : _notification = notification;
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: _notification.status == 0
+      color: _notification!.status == 0
           ? AppColors.blue.withAlpha(200)
           : AppColors.blue.withOpacity(0.1),
       borderOnForeground: true,
@@ -38,14 +38,14 @@ class WdgtNotificationItem extends StatelessWidget {
                         child: Icon(
                       Icons.circle_notifications,
                       size: 90.sp,
-                      color: _notification.status == 0
+                      color: _notification!.status == 0
                           ? Colors.yellow.withAlpha(200)
                           : Colors.yellow.withOpacity(0.1),
                     )),
                     Center(
                       child: Builder(builder: (_) {
                         DateTime test =
-                            DateTime.parse(_notification.createDate);
+                            DateTime.parse(_notification!.createDate!);
                         // test = test.toLocal();
                         return GWdgtTextSmall(
                           string: timeago.format(test,
@@ -66,7 +66,7 @@ class WdgtNotificationItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     GWdgtTextTitleDesc(
-                      string: "${_notification.title} ",
+                      string: "${_notification!.title} ",
                       textAlign: TextAlign.start,
                       // fontSize: ExtendedText.bigFont,
                     ),
@@ -75,7 +75,7 @@ class WdgtNotificationItem extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: GWdgtTextDescDesc(
-                            string: _notification.describ,
+                            string: _notification!.describ,
                             textAlgin: TextAlign.start,
                             // textAlign: TextAlign.right,
                             // overflow: TextOverflow

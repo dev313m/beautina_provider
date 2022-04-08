@@ -4,25 +4,25 @@ import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-Map<DateTime, List<dynamic>> getBusyDatesEvents(BuildContext context) {
-  Map<DateTime, List<dynamic>> events = {};
+Map<DateTime, List<dynamic>?> getBusyDatesEvents(BuildContext context) {
+  Map<DateTime, List<dynamic>?> events = {};
 
-  Get.find<VMSalonDataTest>().beautyProvider.busyDates.forEach((f) {
-    DateTime fromDate = DateTime.utc(f['from'].year, f['from'].month, f['from'].day);
-    DateTime toDate = f['to'];
+  Get.find<VMSalonDataTest>().beautyProvider.busyDates!.forEach((f) {
+    DateTime fromDate = DateTime.utc(f['from']!.year, f['from']!.month, f['from']!.day);
+    DateTime? toDate = f['to'];
     if (events[fromDate] == null) events[fromDate] = [];
 
     //if there is only one day add it
     if (fromDate == toDate)
-      events[fromDate] = events[fromDate]..add(Order(status: -1));
+      events[fromDate] = events[fromDate]?..add(Order(status: -1));
     else {
       //add first day in the range
-      events[fromDate] = events[fromDate]..add(Order(status: -1));
+      events[fromDate] = events[fromDate]?..add(Order(status: -1));
       int i = 1;
       // add all the days in the range
-      while (fromDate.add(Duration(days: i)).isBefore(toDate)) {
+      while (fromDate.add(Duration(days: i)).isBefore(toDate!)) {
         if (events[fromDate.add(Duration(days: i))] == null) events[fromDate.add(Duration(days: i))] = [];
-        events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]..add(Order(status: -1));
+        events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]?..add(Order(status: -1));
         i++;
       }
     }
@@ -32,11 +32,11 @@ Map<DateTime, List<dynamic>> getBusyDatesEvents(BuildContext context) {
 
 ///This method combine events and use busy dates as also events
 
-Map<DateTime, List<dynamic>> getEvents(List<Order> orders, BuildContext context) {
-  Map<DateTime, List<dynamic>> events = getBusyDatesEvents(context);
+Map<DateTime, List<dynamic>?> getEvents(List<Order> orders, BuildContext context) {
+  Map<DateTime, List<dynamic>?> events = getBusyDatesEvents(context);
 
-  Get.find<VmDateDataTest>().orderList.forEach((f) {
-    DateTime dbDate = f.client_order_date;
+  Get.find<VmDateDataTest>().orderList!.forEach((f) {
+    DateTime dbDate = f.client_order_date!;
     DateTime date = DateTime.utc(dbDate.year, dbDate.month, dbDate.day);
     // events[date] = events[date] == null ? [f] : events[date]
     //  ..add(f);
@@ -44,7 +44,7 @@ Map<DateTime, List<dynamic>> getEvents(List<Order> orders, BuildContext context)
     if (events[date] == null)
       events[date] = [f];
     else
-      events[date] = events[date]..add(f);
+      events[date] = events[date]?..add(f);
   });
   return events;
 }

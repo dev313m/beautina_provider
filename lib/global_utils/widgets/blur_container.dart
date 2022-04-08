@@ -3,16 +3,16 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class GlobalWidgetBlurContainer extends StatelessWidget {
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final Color backgroundColor;
   final double opcity;
   final double borderRadius;
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry? alignment;
   final double blurLevel;
-  final Widget child;
+  final Widget? child;
   const GlobalWidgetBlurContainer(
-      {Key key,
+      {Key? key,
       this.alignment,
       this.borderRadius = 15,
       this.opcity = 0.15,

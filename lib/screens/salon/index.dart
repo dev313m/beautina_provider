@@ -19,7 +19,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class PageSalon extends StatefulWidget {
-  const PageSalon({Key key}) : super(key: key);
+  const PageSalon({Key? key}) : super(key: key);
 
   @override
   _PageSalonState createState() => _PageSalonState();
@@ -62,27 +62,29 @@ class _PageSalonState extends State<PageSalon> {
               Y(),
 
               GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
-                if (vMSalonDataTest.beautyProvider.location.length != 2)
+                if(vMSalonDataTest.beautyProvider == null)
+                 return SizedBox();
+                if (vMSalonDataTest.beautyProvider.location!.length != 2)
                   return WdgtSalonLocationNotSet();
                 return SizedBox();
               }),
               Y(),
               WdgtSalonCloseOpenSalon(),
 
-              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
-                if (vMSalonDataTest.providedServices != null)
-                  return WdgtSalonMyServices();
-                return SizedBox();
-              }),
+              // GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
+              //   if (vMSalonDataTest.providedServices != null)
+              //     return WdgtSalonMyServices();
+              //   return SizedBox();
+              // }),
 
-              Y(),
-              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
-                if (vMSalonDataTest.providedServices
-                    .containsKey('services')) if (vMSalonDataTest
-                        .providedServices['services'].keys.length !=
-                    0) return WdgtSalonAddService();
-                return SizedBox();
-              }),
+              // Y(),
+              // GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
+              //   if (vMSalonDataTest.providedServices!
+              //       .containsKey('services')) if (vMSalonDataTest
+              //           .providedServices!['services'].keys.length !=
+              //       0) return WdgtSalonAddService();
+              //   return SizedBox();
+              // }),
               Y(),
 
               WdgtSalonDefaultAccept(),

@@ -4,7 +4,7 @@ import 'package:beautina_provider/global_utils/widgets/blur_container.dart';
 
 class UiHomeToggleBar extends StatelessWidget {
   const UiHomeToggleBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -57,11 +57,11 @@ class UiHomeToggleBar extends StatelessWidget {
 }
 
 class UiHomeHelperToggleItem extends StatelessWidget {
-  final String text;
+  final String? text;
 
   /// Wheater this choise is chosen or not
   final bool isChoose;
-  const UiHomeHelperToggleItem({Key key, this.text, this.isChoose = false}) : super(key: key);
+  const UiHomeHelperToggleItem({Key? key, this.text, this.isChoose = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class UiHomeHelperToggleItem extends StatelessWidget {
         padding: EdgeInsets.all(15.w),
         child: Center(
           child: Text(
-            text,
+            text!,
             textAlign: TextAlign.center,
           ),
         ),

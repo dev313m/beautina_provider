@@ -2,8 +2,8 @@ import 'package:beautina_provider/utils/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class GlobalWidgetBackground extends StatelessWidget {
-  final Widget child;
-  const GlobalWidgetBackground({Key key, this.child}) : super(key: key);
+  final Widget? child;
+  const GlobalWidgetBackground({Key? key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

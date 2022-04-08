@@ -36,7 +36,7 @@ double flareHeightSize = 0.23.sh;
 // double flareWidthSize = 0.23.sh;
 
 class WdgtSalonShare extends StatefulWidget {
-  WdgtSalonShare({Key key}) : super(key: key);
+  WdgtSalonShare({Key? key}) : super(key: key);
 
   @override
   _WdgtSalonShareState createState() => _WdgtSalonShareState();
@@ -49,13 +49,15 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
       RoundedLoadingButtonController();
   bool availableLoad = false;
 
-  ModelBeautyProvider beautyProvider;
+  late ModelBeautyProvider beautyProvider;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
                beautyProvider = vMSalonData.beautyProvider;
 
-      if (vMSalonData. beautyProvider.username.contains('+9'))
+      if (beautyProvider == null)
+        return SizedBox();
+      if (vMSalonData. beautyProvider.username!.contains('+9'))
 
       return Container(
         decoration: BoxDecoration(
@@ -167,7 +169,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                               onPressed: () {
                                 gFunShareAccount(beautyProvider.username);
 
-                                if (beautyProvider.username.contains('+9'))
+                                if (beautyProvider.username!.contains('+9'))
                                   showToast('لم تقومي بحفظ اسم مستعار');
                                 else
                                   gFunShareAccount(beautyProvider.username);
@@ -177,7 +179,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                               color: Colors.white70,
                               icon: Icon(Icons.copy),
                               onPressed: () {
-                                if (beautyProvider.username.contains('+9'))
+                                if (beautyProvider.username!.contains('+9'))
                                   showToast('لم تقومي بحفظ اسم مستعار');
                                 else
                                   gFunCopyText(
@@ -253,7 +255,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                               onPressed: () {
                                 gFunShareAccount(beautyProvider.username);
 
-                                if (beautyProvider.username.contains('+9'))
+                                if (beautyProvider.username!.contains('+9'))
                                   showToast('لم تقومي بحفظ اسم مستعار');
                                 else
                                   gFunShareAccount(beautyProvider.username);
@@ -263,7 +265,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                               color: Colors.white70,
                               icon: Icon(Icons.copy),
                               onPressed: () {
-                                if (beautyProvider.username.contains('+9'))
+                                if (beautyProvider.username!.contains('+9'))
                                   showToast('لم تقومي بحفظ اسم مستعار');
                                 else
                                   gFunCopyText(

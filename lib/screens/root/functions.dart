@@ -1,3 +1,4 @@
+import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/refresh.dart';
@@ -6,7 +7,6 @@ import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/services/remote_config.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
@@ -31,15 +31,15 @@ versionCheck(BuildContext context) async {
   try {
     // Using default duration to force fetching from remote server.
 
-    RemoteConfigService remote = await RemoteConfigService.getInstance();
+    RemoteConfigService remote = await (RemoteConfigService.getInstance() as FutureOr<RemoteConfigService>);
     await remote.initialize();
-    final String nowVersion = remote.getStringValue; 
+    final String nowVersion = remote.getStringValue;
 
     double newVersion = double.parse(nowVersion.trim().replaceAll(".", ""));
     if (newVersion > currentVersion) {
       onAlertWithCustomContentPressed(context);
     }
-  } on FetchThrottledException catch (exception) {
+  } on Exception catch (exception) {
     // Fetch throttled.
     print(exception);
   } catch (exception) {
@@ -63,12 +63,12 @@ onNotificationPageVisited(BuildContext context) async {
   VMRootUiTest vmRootUi = Get.find<VMRootUiTest>();
   VMRootDataTest vmRootData = Get.find<VMRootDataTest>();
   vmRootUi.pageController.addListener(() async {
-    if (vmRootUi.pageController.page.toInt() == 1.0) {
+    if (vmRootUi.pageController.page!.toInt() == 1.0) {
       vmRootUi.isVisitedPage = true;
     } else if (vmRootUi.isVisitedPage) {
       vmRootUi.isVisitedPage = false;
-      await vmRootData.notificationHelper.initializeDatabase().then((d) {
-        vmRootData.notificationHelper
+      await vmRootData.notificationHelper!.initializeDatabase().then((d) {
+        vmRootData.notificationHelper!
             .updateListToRead(vmRootData.notificationList);
         vmRootData.refreshNotificationList();
       });
@@ -122,7 +122,7 @@ lifeCycleChangeAction(AppLifecycleState state, BuildContext context) {
 ///To check if the user on the root screen, it will go otherwise it will move
 ///the user to root screen
 Future<bool> willExitApp(BuildContext context) async {
-  if (Get.find<VMRootUiTest>().pageController.page.round() != 4) {
+  if (Get.find<VMRootUiTest>().pageController.page!.round() != 4) {
     Get.find<VMRootUiTest>().pageController.jumpToPage(4);
 
     return false;
@@ -149,17 +149,17 @@ Function onScrollUp = (BuildContext context) {
 
 ///Take an action when scrolling down or up
 onScrollAction(ScrollController scrollController, BuildContext context,
-    {Function onScrolldown, Function onScrollUp}) {
+    {Function? onScrolldown, Function? onScrollUp}) {
   bool hideBars = Get.find<VMRootUiTest>().hideBars;
 
   ///if scrolilng toward up [and] hidebars is [true] hidden
   if (scrollController.position.userScrollDirection ==
       ScrollDirection.reverse) {
-    if (!hideBars) onScrollUp(context);
+    if (!hideBars) onScrollUp!(context);
   }
 
   /// if scrolling towards down and hidebars is [false] shown
-  else if (hideBars) onScrolldown(context);
+  else if (hideBars) onScrolldown!(context);
 }
 
 ///This function updates beautyProvider[user]
@@ -183,7 +183,7 @@ getLaunchMapFunction(List<dynamic> geoPoint) {
   return f;
 }
 
-Function getWhatsappFunction(String s) {
+Function getWhatsappFunction(String? s) {
   String url = 'tel://$s';
   String whatsappUrl = "whatsapp://send?phone=$s";
   Function f = () async {
@@ -193,7 +193,7 @@ Function getWhatsappFunction(String s) {
   return f;
 }
 
-gFunShareAccount(String username) {
+gFunShareAccount(String? username) {
   Share.share(' https://beautina.app/$username خدماتنا على هذا الرابط',
       subject: '');
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 class WdgtLoginPhone extends StatefulWidget {
-  const WdgtLoginPhone({Key key}) : super(key: key);
+  const WdgtLoginPhone({Key? key}) : super(key: key);
 
   @override
   _WdgtLoginPhoneState createState() => _WdgtLoginPhoneState();

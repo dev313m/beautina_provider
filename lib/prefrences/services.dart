@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 // [id, name, phone, city, country]
-Future<Null> memorySetServices(Map<String, dynamic> map) async {
+Future<Null> memorySetServices(Map<String, dynamic>? map) async {
   String jsonUser = json.encode(map);
 
   // List<String> userInfo = [
@@ -26,9 +26,9 @@ Future<Null> memorySetServices(Map<String, dynamic> map) async {
   prefs.setString('services', jsonUser);
 }
 
-Future<Map<String, dynamic>> memoryGetServices() async {
+Future<Map<String, dynamic>?> memoryGetServices() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String userInfo = prefs.getString('services');
+  String? userInfo = prefs.getString('services');
 
   if (userInfo != null) {
     // ModelUser user = ModelUser.fromMap(json.decode(userInfo));

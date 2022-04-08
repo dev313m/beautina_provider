@@ -25,7 +25,7 @@ Future funUpdateUsername(BuildContext context,
     RoundedLoadingButtonController roundedLoadingButtonController) async {
   ModelBeautyProvider newBeautyProvider = await getNewBeauty(context);
 
-  if (!gFunValidateUsername(newBeautyProvider.username)) {
+  if (!gFunValidateUsername(newBeautyProvider.username!)) {
     showToast(
         'اسم المستخدم غير صالح، يجب ان يكون بالانجليزي وغير محتوي مسافات او بعض الرموز');
     roundedLoadingButtonController.error();
@@ -50,7 +50,7 @@ Future funUpdateUsername(BuildContext context,
   return;
 }
 
-void urlLaunch({@required String url}) async {
+void urlLaunch({required String url}) async {
   if (await canLaunch(url)) launch(url);
 }
 
@@ -89,9 +89,9 @@ Future updateBtn(BuildContext context,
 
 bool _validateInputs(BuildContext context) {
 
-  if (Get.find<VMSettingsDataTest>().formKey.currentState.validate()) {
+  if (Get.find<VMSettingsDataTest>().formKey!.currentState!.validate()) {
 //    If all data are correct then save data to out variables
-    Get.find<VMSettingsDataTest>().formKey..currentState.save();
+    Get.find<VMSettingsDataTest>().formKey?..currentState!.save();
     return true;
   } else {
 //    If all data are not valid then start auto validation.
@@ -102,7 +102,7 @@ bool _validateInputs(BuildContext context) {
 
 Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
   VMSettingsDataTest vmSettingsData = Get.find<VMSettingsDataTest>();
-  ModelBeautyProvider bp = await sharedUserProviderGetInfo();
+  ModelBeautyProvider bp = await sharedUserProviderGetInfo() ;
 
   bp.name = vmSettingsData.name ?? bp.name;
   bp.phone = vmSettingsData.mobile ?? bp.phone;
@@ -116,7 +116,7 @@ Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
 }
 
 showMenuLocation(
-    BuildContext context, GlobalKey<State<StatefulWidget>> globalKey) {
+    BuildContext context, GlobalKey<State<StatefulWidget>>? globalKey) {
   Function onConfirm() {
     VMSettingsDataTest vmSettingsData = Get.find<VMSettingsDataTest>();
 
@@ -138,7 +138,7 @@ showMenuLocation(
 }
 
 ///Valid name is more than three char
-String validateName(String value) {
+String? validateName(String value) {
   if (value.length < 3)
     return errValidName;
   else
@@ -146,7 +146,7 @@ String validateName(String value) {
 }
 
 ///[todo valid phone characters]
-String validateMbile(String value) {
+String? validateMbile(String value) {
 // Indian Mobile number are of 10 digit only
   // if(value.length==9)
 
@@ -156,7 +156,7 @@ String validateMbile(String value) {
     return null;
 }
 
-bool checkValidPhoneChar(String number) {}
+bool? checkValidPhoneChar(String number) {}
 
 ///[String]
 const errValidName = 'Name must be more than 2 charater';

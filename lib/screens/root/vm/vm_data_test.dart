@@ -14,10 +14,10 @@ class VMRootDataTest extends GetxController {
   bool isBusyAddingAddingNotifications = false;
 
   /// sqlite database class initializer
-  NotificationHelper _notificationHelper;
+  NotificationHelper? _notificationHelper;
 
   /// The date of last notifications recieved.
-  DateTime lastNotifyDate;
+  DateTime? lastNotifyDate;
 
   /// If the initilizing is required do two things:
   ///     1- Get saved notification list from sqlite.
@@ -48,10 +48,10 @@ class VMRootDataTest extends GetxController {
 
   initNotificationDb() async {
     try {
-      String lastNotificationDate = await getPrefrenceLastNotifyDate();
+      String? lastNotificationDate = await getPrefrenceLastNotifyDate();
 
       _notificationHelper = NotificationHelper();
-      await _notificationHelper.initializeDatabase();
+      await _notificationHelper!.initializeDatabase();
 
       List<noti.MyNotification> newList = [];
       if (lastNotificationDate != null)
@@ -62,7 +62,7 @@ class VMRootDataTest extends GetxController {
       if (!isBusyAddingAddingNotifications)
         newList.forEach((dbNotification) async {
           isBusyAddingAddingNotifications = true;
-          await _notificationHelper.insertNotification(dbNotification);
+          await _notificationHelper!.insertNotification(dbNotification);
         });
       refreshNotificationList();
       isBusyAddingAddingNotifications = false;
@@ -87,17 +87,17 @@ class VMRootDataTest extends GetxController {
   /// initialize sqlite and get saved notifications.
   initialize() async {
     _notificationHelper = NotificationHelper();
-    await _notificationHelper.initializeDatabase();
+    await _notificationHelper!.initializeDatabase();
     await getNotificationList();
   }
 
   /// get sqlite stored notfications and update the list
   Future getNotificationList() async {
-    _notificationList = await _notificationHelper.getNotificationList();
+    _notificationList = await _notificationHelper!.getNotificationList();
     update();
   }
 
-  NotificationHelper get notificationHelper => _notificationHelper;
+  NotificationHelper? get notificationHelper => _notificationHelper;
 
   List<noti.MyNotification> get notificationList => _notificationList;
 

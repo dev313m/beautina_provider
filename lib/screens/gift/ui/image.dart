@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class GWdgtGift50 extends StatefulWidget {
-  const GWdgtGift50({Key key}) : super(key: key);
+  const GWdgtGift50({Key? key}) : super(key: key);
 
   @override
   _GWdgtGift50State createState() => _GWdgtGift50State();

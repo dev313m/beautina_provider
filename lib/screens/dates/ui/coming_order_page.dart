@@ -24,7 +24,7 @@ final Color colorTitleContainer = ConstDatesColors.topBtns;
 class OrderListPage extends StatefulWidget {
   // final List<Order> orderList;
   OrderListPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class OrderListPage extends StatefulWidget {
 }
 
 class _OrderListPageState extends State<OrderListPage> {
-  VmDateDataTest vmDateData;
+  late VmDateDataTest vmDateData;
   @override
   Widget build(BuildContext context) {
     vmDateData = Get.find<VmDateDataTest>();
@@ -66,14 +66,14 @@ class _OrderListPageState extends State<OrderListPage> {
               ),
             ),
             ListView.builder(
-              itemCount: vmDateData.comingConfirmedList.length,
+              itemCount: vmDateData.comingConfirmedList!.length,
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (_, index) {
                 return Padding(
                   padding: EdgeInsets.only(top: edgeContainer),
                   child: WdgtDateOrderDetails(
-                    orderId: vmDateData.orderList
+                    orderId: vmDateData.orderList!
                         .where((item) => item.status == 3)
                         .toList()[index]
                         .doc_id,

@@ -13,8 +13,8 @@ const SizedBox _kSizedBoxW8 = const SizedBox(width: 8.0);
 class WdgtScrollableListTabView extends StatefulWidget {
   /// Create a new [ScrollableListTabView]
   const WdgtScrollableListTabView(
-      {Key key,
-      this.tabs,
+      {Key? key,
+      required this.tabs,
       this.tabHeight = kToolbarHeight,
       this.tabAnimationDuration = _kScrollDuration,
       this.bodyAnimationDuration = _kScrollDuration,
@@ -160,7 +160,7 @@ class _WdgtScrollableListTabViewState extends State<WdgtScrollableListTabView> {
     var tab = widget.tabs[index].tab;
     var textStyle = Theme.of(context)
         .textTheme
-        .bodyText1
+        .bodyText1!
         .copyWith(fontWeight: FontWeight.w500);
     return Builder(
       builder: (_) {
@@ -170,13 +170,13 @@ class _WdgtScrollableListTabViewState extends State<WdgtScrollableListTabView> {
         return DefaultTextStyle(
           style: Theme.of(context)
               .textTheme
-              .bodyText1
+              .bodyText1!
               .copyWith(fontWeight: FontWeight.w500),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
-            children: [tab.icon, _kSizedBoxW8, tab.label],
+            children: [tab.icon!, _kSizedBoxW8, tab.label],
           ),
         );
       },
@@ -190,7 +190,7 @@ class _WdgtScrollableListTabViewState extends State<WdgtScrollableListTabView> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      children: [tab.icon, _kSizedBoxW8, tab.label],
+      children: [tab.icon!, _kSizedBoxW8, tab.label],
     );
   }
 
@@ -242,9 +242,9 @@ class _WdgtScrollableListTabViewState extends State<WdgtScrollableListTabView> {
 class ListTab {
   /// Create a new [ListTab]
   const ListTab(
-      {Key key,
+      {Key? key,
       this.icon,
-      @required this.label,
+      required this.label,
       this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
       this.activeBackgroundColor = Colors.blue,
       this.inactiveBackgroundColor = Colors.transparent,
@@ -258,7 +258,7 @@ class ListTab {
         assert(borderColor != null);
 
   /// Trailing widget for a tab, typically an [Icon].
-  final Widget icon;
+  final Widget? icon;
 
   /// Label to be shown in the tab, must be non-null.
   final Widget label;
@@ -283,7 +283,7 @@ class ListTab {
 class ScrollableListTab {
   /// A skeleton class to be used in order to build the scrollable list.
   /// [ScrollableListTab.tab] will be used on both tab bar and scrollable body.
-  ScrollableListTab({this.tab, this.body})
+  ScrollableListTab({required this.tab, required this.body})
       : assert(tab != null, body != null),
         assert(body.shrinkWrap && body.physics is NeverScrollableScrollPhysics);
 

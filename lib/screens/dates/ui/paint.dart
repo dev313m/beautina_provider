@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyPainter extends CustomPainter {
   int step;
-  MyPainter({@required this.step});
+  MyPainter({required this.step});
   @override
   void paint(Canvas canvas, Size size) {
     List<Paint> paintList = getPaintList(size.width, step);

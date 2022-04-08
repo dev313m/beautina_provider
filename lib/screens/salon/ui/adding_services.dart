@@ -8,7 +8,6 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
-import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -50,7 +49,7 @@ final strValidDuration = "يجب ادخال المدة المتوقعة لعمل
 class WdgtSalonAddService extends StatefulWidget {
   // final Map<String, dynamic> mapServices;
   WdgtSalonAddService({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -58,16 +57,16 @@ class WdgtSalonAddService extends StatefulWidget {
 }
 
 class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
-  String value;
+  String? value;
 
   ///This is a list of bool represents selected category in the toggleButtons
-  List<bool> toggleSelectBoolList;
+  late List<bool> toggleSelectBoolList;
 
   ///This map represents all services as a map
-  Map<String, dynamic> mapServices;
+  Map<String, dynamic>? mapServices;
 
   ///list of available services as a widget for the toggleButtons
-  List<Widget> categoryWidgetList;
+  List<Widget>? categoryWidgetList;
 
   double priceBefore = 0;
   double priceAfter = 0;
@@ -94,7 +93,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
   ///This is a list of DropdownMenuItem base on a selected category from the toggleButtons
   ///The default is [] so there is no items in the dropdownMenu
-  List<Map<String, String>> subCategoryList = [];
+  List<Map<String?, String>> subCategoryList = [];
   TextEditingController durationTextFieldController =
       TextEditingController(text: 'لم يتم التحديد');
 
@@ -104,7 +103,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-      mapServices = vMSalonData.providedServices['services'];
+      mapServices = vMSalonData.providedServices!['services'];
       return Directionality(
         textDirection: TextDirection.rtl,
         child: ClipRRect(
@@ -117,7 +116,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
               children: [
                 Align(
                     child: IconButton(
-                      icon: Icon(Icons.add_circle, color: Colors.white24),
+                      icon: Icon(Icons.add_circle, color: Colors.white24), onPressed: () {  },
                     ),
                     alignment: Alignment.topLeft),
                 Column(
@@ -132,7 +131,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                     SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: ToggleButtons(
-                            children: mapServices.entries
+                            children: mapServices!.entries
                                 .toList()
                                 .map((e) => e.value['ar'])
                                 .toList()
@@ -142,7 +141,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                             //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
 
                             isSelected: !isToggleButtonsSet
-                                ? toggleSelectBoolList = mapServices.entries
+                                ? toggleSelectBoolList = mapServices!.entries
                                     .toList()
                                     .map((e) => false)
                                     .toList()
@@ -214,7 +213,7 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
                           isBox: true,
                           prefixIcon: Icon(CommunityMaterialIcons.watch),
                           onTap: () {
-                            Picker picker;
+                            late Picker picker;
 
                             picker = Picker(
                                 // backgroundColor: Colors.pink.withOpacity(0.3),
@@ -344,12 +343,12 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   setSubCategoryDropdownMenu(int indexCategory) {
     subCategoryList = [];
     if (indexCategory == null) return;
-    String categoryKey = mapServices.keys.toList()[indexCategory];
-    Map<String, dynamic> allServices =
-        Get.find<VMSalonDataTest>().providedServices['services'];
-    mapServices[categoryKey]['items']?.forEach((k, v) {
+    String categoryKey = mapServices!.keys.toList()[indexCategory];
+    Map<String, dynamic>? allServices =
+        Get.find<VMSalonDataTest>().providedServices!['services'];
+    mapServices![categoryKey]['items']?.forEach((k, v) {
       subCategoryList
-          .add({allServices[categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
+          .add({allServices![categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
     });
   }
 
@@ -375,54 +374,55 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
   /// When user press on one category [toggleBottons] if not other it will show a list of services
   /// and when press it will save it to [chosenService] variable
+  /// [todo]
   void _showPicker() {
-    PickerController pickerController = PickerController(
-      count: 1,
-      // selectedItems: [5, 2, 1],
-    );
+  //   PickerController pickerController = PickerController(
+  //     count: 1,
+  //     // selectedItems: [5, 2, 1],
+  //   );
 
-    PickerViewPopup.showMode(
-        PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
-        controller: pickerController,
-        context: context,
-        title: GWdgtTextTitleDesc(
-          string: strSubcategory,
-        ),
-        cancel: GWdgtTextPickerCancel(
-          string: strCancel,
-        ),
-        onCancel: () {
-          // Scaffold.of(context).showSnackBar(SnackBar(content: Text('AlertDialogPicker.cancel')));
-        },
-        confirm: GWdgtTextPickerSubmit(
-          string: strDone,
-        ),
-        onConfirm: (controller) {
-          var chosen = controller.selectedRowAt(section: 0);
-          isShowPrice = true;
+  // //   PickerViewPopup.showMode(
+  // //       PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
+  // //       controller: pickerController,
+  // //       context: context,
+  // //       title: GWdgtTextTitleDesc(
+  // //         string: strSubcategory,
+  // //       ),
+  // //       cancel: GWdgtTextPickerCancel(
+  // //         string: strCancel,
+  // //       ),
+  // //       onCancel: () {
+  // //         // Scaffold.of(context).showSnackBar(SnackBar(content: Text('AlertDialogPicker.cancel')));
+  // //       },
+  // //       confirm: GWdgtTextPickerSubmit(
+  // //         string: strDone,
+  // //       ),
+  // //       onConfirm: (controller) {
+  // //         var chosen = controller.selectedRowAt(section: 0);
+  // //         isShowPrice = true;
 
-          // if (item == 'other') showOther = true;
-          chosenService = subCategoryList[chosen].entries.first.value;
-          setState(() {
-            value = subCategoryList[chosen].entries.first.value;
-          });
-        },
-        builder: (context, popup) {
-          return Container(
-            height: 150,
-            child: popup,
-          );
-        },
-        // itemExtent: 40,
-        numberofRowsAtSection: (section) {
-          return subCategoryList.length;
-        },
-        itemBuilder: (section, row) {
-          String value = subCategoryList[row].keys.first;
-          return GWdgtTextPickerChoices(
-            string: value,
-          );
-        });
+  // //         // if (item == 'other') showOther = true;
+  // //         chosenService = subCategoryList[chosen].entries.first.value;
+  // //         setState(() {
+  // //           value = subCategoryList[chosen].entries.first.value;
+  // //         });
+  // //       },
+  // //       builder: (context, popup) {
+  // //         return Container(
+  // //           height: 150,
+  // //           child: popup,
+  // //         );
+  // //       },
+  // //       // itemExtent: 40,
+  // //       numberofRowsAtSection: (section) {
+  // //         return subCategoryList.length;
+  // //       },
+  // //       itemBuilder: (section, row) {
+  // //         String value = subCategoryList[row].keys.first;
+  // //         return GWdgtTextPickerChoices(
+  // //           string: value,
+  // //         );
+  // //       });
   }
 
   ///Clear all textFields
@@ -460,9 +460,9 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 ///This widget represents the toggleButtons item
 
 class WdgtSalonServiceItem extends StatelessWidget {
-  final String serviceName;
+  final String? serviceName;
 
-  const WdgtSalonServiceItem({Key key, @required this.serviceName})
+  const WdgtSalonServiceItem({Key? key, required this.serviceName})
       : super(key: key);
 
   @override

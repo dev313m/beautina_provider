@@ -7,7 +7,7 @@ Future setPrefrenceLastNotifyDate(String b) async {
   await prefs.setString('notify_date', b); //True is for employee
 }
 
-Future<String> getPrefrenceLastNotifyDate() async {
+Future<String?> getPrefrenceLastNotifyDate() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString('notify_date'); //False is for employer
 }

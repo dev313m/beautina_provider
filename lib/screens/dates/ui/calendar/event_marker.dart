@@ -10,10 +10,10 @@ double edgeBadgeText = 5.h;
 
 class WdgtDateCalendarEventMarker extends StatelessWidget {
   final calendarController;
-  final DateTime date;
-  final List events;
-  final Color color;
-  const WdgtDateCalendarEventMarker({Key key, this.date, this.calendarController, this.events, this.color}) : super(key: key);
+  final DateTime? date;
+  final List? events;
+  final Color? color;
+  const WdgtDateCalendarEventMarker({Key? key, this.date, this.calendarController, this.events, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class WdgtDateCalendarEventMarker extends StatelessWidget {
           // height: ScreenUtil().setWidth(16),
           child: Center(
             child: GWdgtTextBadge(
-              string: '${events.length}',
+              string: '${events!.length}',
             ),
           ),
         ),

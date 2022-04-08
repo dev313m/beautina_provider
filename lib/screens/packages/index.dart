@@ -5,8 +5,7 @@ import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
 import 'package:beautina_provider/screens/packages/constants.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
-import 'package:credit_card/credit_card_model.dart';
-import 'package:credit_card/flutter_credit_card.dart';
+
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +14,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:spring_button/spring_button.dart';
 
 class PagePackage extends StatefulWidget {
-  const PagePackage({Key key}) : super(key: key);
+  const PagePackage({Key? key}) : super(key: key);
 
   @override
   _PagePackageState createState() => _PagePackageState();
@@ -39,7 +38,7 @@ class _PagePackageState extends State<PagePackage> {
                   SizedBox(
                     height: ScreenUtil().setHeight(200),
                   ),
-                  !checkPackage(vMSalonData.beautyProvider.package)
+                  !checkPackage(vMSalonData.beautyProvider.package!)
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(14),
                           child: Container(
@@ -54,7 +53,7 @@ class _PagePackageState extends State<PagePackage> {
                                 Icon(Icons.subtitles, size: ScreenUtil().setSp(200)),
                                 ExtendedText(
                                   string:
-                                      'ينتهي الاشتراك في: ${getDateString(DateTime.parse(vMSalonData.beautyProvider.package['01']['to']))}',
+                                      'ينتهي الاشتراك في: ${getDateString(DateTime.parse(vMSalonData.beautyProvider.package!['01']['to']))}',
                                 )
                               ],
                             ),
@@ -174,7 +173,7 @@ class _PagePackageState extends State<PagePackage> {
 
 class WidgetPay extends StatefulWidget {
   const WidgetPay({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -198,21 +197,21 @@ class _WidgetPayState extends State<WidgetPay> {
             padding: EdgeInsets.all(8),
             child: Column(children: <Widget>[
               Container(
-                child: CreditCardWidget(
-                  cardNumber: cardNumber,
-                  expiryDate: expiryDate,
-                  cardHolderName: cardHolderName,
-                  cvvCode: cvvCode,
-                  showBackView: showBackView, //true when you want to show cvv(back) view
-                ),
+                // child: CreditCardWidget(
+                //   cardNumber: cardNumber,
+                //   expiryDate: expiryDate,
+                //   cardHolderName: cardHolderName,
+                //   cvvCode: cvvCode,
+                //   showBackView: showBackView, //true when you want to show cvv(back) view
+                // ),
               ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      CreditCardForm(
-                        onCreditCardModelChange: onCreditCardModelChange,
-                      ),
+                      // CreditCardForm(
+                      //   onCreditCardModelChange: onCreditCardModelChange,
+                      // ),
                       RoundedLoadingButton(
                         animateOnTap: false,
                         child: ExtendedText(
@@ -230,13 +229,13 @@ class _WidgetPayState extends State<WidgetPay> {
             ])));
   }
 
-  void onCreditCardModelChange(CreditCardModel creditCardModel) {
-    setState(() {
-      cardNumber = creditCardModel.cardNumber;
-      expiryDate = creditCardModel.expiryDate;
-      cardHolderName = creditCardModel.cardHolderName;
-      cvvCode = creditCardModel.cvvCode;
-      showBackView = creditCardModel.isCvvFocused;
-    });
-  }
+  // void onCreditCardModelChange(CreditCardModel creditCardModel) {
+  //   setState(() {
+  //     cardNumber = creditCardModel.cardNumber;
+  //     expiryDate = creditCardModel.expiryDate;
+  //     cardHolderName = creditCardModel.cardHolderName;
+  //     cvvCode = creditCardModel.cvvCode;
+  //     showBackView = creditCardModel.isCvvFocused;
+  //   });
+  // }
 }

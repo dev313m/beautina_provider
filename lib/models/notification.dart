@@ -15,18 +15,18 @@ import 'package:http/http.dart' as http;
  */
 
 class MyNotification {
-  int _colId;
-  String _title;
-  String _describ;
-  String _createDate = '';
-  String _readDate = '';
-  int _status = 0;
-  String _type;
-  String _icon = '';
-  String _image = '';
-  String from_name;
-  String client_id;
-  Timestamp t;
+  int? _colId;
+  String? _title;
+  String? _describ;
+  String? _createDate = '';
+  String? _readDate = '';
+  int? _status = 0;
+  String? _type;
+  String? _icon = '';
+  String? _image = '';
+  String? from_name;
+  String? client_id;
+  Timestamp? t;
 
   MyNotification.empty();
   MyNotification.fromFirebase(Map<String, dynamic> map) {
@@ -58,57 +58,57 @@ class MyNotification {
    * Setters 
    */
 
-  int get colId => _colId;
+  int? get colId => _colId;
 
-  set colId(int colId) {
+  set colId(int? colId) {
     _colId = colId;
   }
 
-  String get title => _title;
+  String? get title => _title;
 
-  set title(String title) {
+  set title(String? title) {
     _title = title;
   }
 
-  String get describ => _describ;
+  String? get describ => _describ;
 
-  set describ(String describ) {
+  set describ(String? describ) {
     _describ = describ;
   }
 
-  String get createDate => _createDate;
+  String? get createDate => _createDate;
 
-  set createDate(String createDate) {
+  set createDate(String? createDate) {
     _createDate = createDate;
   }
 
-  String get image => _image;
+  String? get image => _image;
 
-  set image(String image) {
+  set image(String? image) {
     _image = image;
   }
 
-  String get icon => _icon;
+  String? get icon => _icon;
 
-  set icon(String icon) {
+  set icon(String? icon) {
     _icon = icon;
   }
 
-  String get type => _type;
+  String? get type => _type;
 
-  set type(String type) {
+  set type(String? type) {
     _type = type;
   }
 
-  int get status => _status;
+  int? get status => _status;
 
-  set status(int status) {
+  set status(int? status) {
     _status = status;
   }
 
-  String get readDate => _readDate;
+  String? get readDate => _readDate;
 
-  set readDate(String readDate) {
+  set readDate(String? readDate) {
     _readDate = readDate;
   }
 
@@ -147,7 +147,9 @@ class MyNotification {
 
 MyNotification parse(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  List<MyNotification> list = parsed.map<MyNotification>((json) => MyNotification.fromFirebase(json)).toList();
+  List<MyNotification> list = parsed
+      .map<MyNotification>((json) => MyNotification.fromFirebase(json))
+      .toList();
   return list[0];
 }
 
@@ -157,32 +159,44 @@ MyNotification parse(String responseBody) {
  * a notification comes from adding a notification 
  */
 Future<MyNotification> dbServerloadNotification(String id) async {
-  DocumentSnapshot querySnapshot = await Firestore.instance.collection('notifications').document(id).get();
-  return MyNotification.fromFirebase(querySnapshot.data);
+  DocumentSnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection('notifications')
+      .doc(id)
+      .get();
+  return MyNotification.fromFirebase(querySnapshot.data() as Map<String, dynamic>);
 }
 
-Future<String> getClientId() async {
-  ModelBeautyProvider user = await sharedUserProviderGetInfo();
+Future<String?> getClientId() async {
+  ModelBeautyProvider user = await (sharedUserProviderGetInfo() as FutureOr<ModelBeautyProvider>);
   return user.uid;
 }
 
 //Load all new notification based on last time as string
-Future<List<MyNotification>> dbServerloadAllNewNotification(String lastDate) async {
-  String client_id = await getClientId();
+Future<List<MyNotification>> dbServerloadAllNewNotification(
+    String lastDate) async {
+  String? client_id = await getClientId();
 
   Timestamp date = Timestamp.fromDate(DateTime.parse(lastDate));
-  QuerySnapshot querySnapshot =
-      await Firestore.instance.collection('notifications').where("client_id", isEqualTo: client_id).where('create_date', isGreaterThan: date).orderBy('create_date').getDocuments();
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection('notifications')
+      .where("client_id", isEqualTo: client_id)
+      .where('create_date', isGreaterThan: date)
+      .orderBy('create_date')
+      .get();
 
   return compute(computeMe, querySnapshot);
 }
 
 List<MyNotification> computeMe(QuerySnapshot querySnapshot) {
-  return querySnapshot.documents.map((item) => MyNotification.fromFirebase(item.data)).toList();
+  return querySnapshot.docs
+      .map((item) => MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
+      .toList();
 }
 
-List<MyNotification> parseNewList(QuerySnapshot querySnapshot) {
-  List<MyNotification> notificationMap = querySnapshot.documents.map((item) => MyNotification.fromFirebase(item.data)).toList();
+List<MyNotification> parseNewList(QuerySnapshot? querySnapshot) {
+  List<MyNotification> notificationMap = querySnapshot!.docs
+      .map((item) => MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
+      .toList();
 
   return notificationMap;
 }
@@ -191,12 +205,16 @@ List<MyNotification> parseNewList(QuerySnapshot querySnapshot) {
  * Get all notifications for the current user
  */
 Future<List<MyNotification>> dbServerloadAllNotification() async {
-  String client_id = await getClientId();
+  String? client_id = await getClientId();
 
-  QuerySnapshot snapshot;
+  QuerySnapshot? snapshot;
 
   try {
-    snapshot = await Firestore.instance.collection('notifications').where('client_id', isEqualTo: client_id).orderBy('create_date').getDocuments();
+    snapshot = await FirebaseFirestore.instance
+        .collection('notifications')
+        .where('client_id', isEqualTo: client_id)
+        .orderBy('create_date')
+        .get();
   } catch (e) {
     showToast(e.toString());
   }

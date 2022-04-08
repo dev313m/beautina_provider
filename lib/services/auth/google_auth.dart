@@ -9,23 +9,25 @@ final GoogleSignIn googleSignIn = GoogleSignIn(
 );
 
 //return
-Future<String> signInWithGoogle() async {
+Future<String?> signInWithGoogle() async {
   try {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    final GoogleSignInAuthentication? googleSignInAuthentication =
+        await googleSignInAccount?.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    if (googleSignInAuthentication == null) throw Exception('Login exception');
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
-    final AuthResult authResult =
+    final UserCredential authResult =
         (await _auth.signInWithCredential(credential));
-    FirebaseUser user = authResult.user;
+    User user = authResult.user!;
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
+    final User currentUser = _auth.currentUser!;
     if (user.uid == currentUser.uid) return user.uid;
     return null;
   } catch (e) {

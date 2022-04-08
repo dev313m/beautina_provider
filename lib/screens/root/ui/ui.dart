@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-final String GOOGLE_APP_URL = 'http://play.google.com/store/apps/details?id=com.beautina.service_provider';
+final String GOOGLE_APP_URL = 'http://play.google.com/store/apps/details?id=app.banafsaj.service';
 final String APPLE_APP_URL = 'https://apps.apple.com/us/app/beautina.service-provider/id1536944501';
 onAlertWithCustomImagePressed(context) {
   Alert(

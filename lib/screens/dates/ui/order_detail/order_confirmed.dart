@@ -14,9 +14,9 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///order is confirmed by customer [status = 3]
 class WidgetConfirmedByCustomerOrder extends StatefulWidget {
-  final Order order;
+  final Order? order;
 
-  const WidgetConfirmedByCustomerOrder({Key key, this.order}) : super(key: key);
+  const WidgetConfirmedByCustomerOrder({Key? key, this.order}) : super(key: key);
 
   @override
   _WidgetConfirmedByCustomerOrderState createState() =>
@@ -61,7 +61,7 @@ class _WidgetConfirmedByCustomerOrderState
                       child: Icon(
                     Icons.cancel_outlined,
                     color: AppColors.pinkOpcity,
-                    size: 100.ssp,
+                    size: 100.sp,
                   )),
                   controller: _buttonController,
 
@@ -70,7 +70,7 @@ class _WidgetConfirmedByCustomerOrderState
                     _buttonController.start();
 
                     // _buttonController.start();
-                    result = await getFunctionReject(widget.order, context);
+                    result = await getFunctionReject(widget.order!, context);
                     if (result)
                       _buttonController.success();
                     else

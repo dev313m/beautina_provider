@@ -5,14 +5,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 // [id, name, phone, city, country]
-Future<Null> sharedUserProviderSet({@required ModelBeautyProvider beautyProvider}) async {
+Future<Null> sharedUserProviderSet(
+    {required ModelBeautyProvider beautyProvider}) async {
   if (beautyProvider.tokenId == '' || beautyProvider.tokenId == null) {
     ModelBeautyProvider bp = await sharedUserProviderGetInfo();
     beautyProvider.tokenId = bp.tokenId;
   }
   Map<String, dynamic> fixedMap = beautyProvider.getMap();
-  fixedMap['busy_dates'] = beautyProvider.busyDates.map((e) {
-    Map<String, String> busyDate = {'from': e['from'].toString(), 'to': e['to'].toString()};
+  fixedMap['busy_dates'] = beautyProvider.busyDates!.map((e) {
+    Map<String, String> busyDate = {
+      'from': e['from'].toString(),
+      'to': e['to'].toString()
+    };
     return busyDate;
   }).toList();
 
@@ -39,11 +43,11 @@ Future<Null> sharedUserProviderSet({@required ModelBeautyProvider beautyProvider
 
 Future<ModelBeautyProvider> sharedUserProviderGetInfo() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String userInfo = prefs.getString('user_info');
+  String? userInfo = prefs.getString('user_info');
 
   if (userInfo != null) {
     // ModelUser user = ModelUser.fromMap(json.decode(userInfo));
     return ModelBeautyProvider.fromMap(json.decode(userInfo));
   }
-  return null;
+  return ModelBeautyProvider();
 }

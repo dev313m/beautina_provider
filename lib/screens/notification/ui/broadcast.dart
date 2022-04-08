@@ -9,9 +9,9 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 class WdgtNotificationBroadcast extends StatelessWidget {
-  final MyNotify.MyNotification notification;
+  final MyNotify.MyNotification? notification;
 
-  const WdgtNotificationBroadcast({Key key, this.notification})
+  const WdgtNotificationBroadcast({Key? key, this.notification})
       : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class WdgtNotificationBroadcast extends StatelessWidget {
         padding:
             EdgeInsets.only(top: ScreenUtil().setWidth(containerOuterPadding)),
         child: Material(
-          color: notification.status == 0
+          color: notification!.status == 0
               ? notiBackgroundRead
               : notiBackgroundNotRead,
           borderOnForeground: true,
@@ -50,18 +50,18 @@ class WdgtNotificationBroadcast extends StatelessWidget {
                   ),
                   Y(height: BoxHeight.heightBtwTitle,), 
                   GWdgtTextTitleDesc(
-                    string: "${notification.title} ",
+                    string: "${notification!.title} ",
                   ),
                   Y(
                     height: introSeperationHeight.sh,
                   ),
                   GWdgtTextDescDesc(
-                    string: notification.describ,
+                    string: notification!.describ,
                   ),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Builder(builder: (_) {
-                      DateTime test = DateTime.parse(notification.createDate);
+                      DateTime test = DateTime.parse(notification!.createDate!);
                       // test = test.toLocal();
                       return GWdgtTextSmall(
                         string: timeago.format(test, locale: 'ar'),

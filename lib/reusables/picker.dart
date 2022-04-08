@@ -5,7 +5,7 @@ import 'package:beautina_provider/constants/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
-cityPicker({@required Function onConfirm, @required BuildContext context}) {
+cityPicker({required Function onConfirm, required BuildContext context}) {
   FocusScope.of(context).requestFocus(new FocusNode());
 
   Picker picker = Picker(
@@ -19,7 +19,6 @@ cityPicker({@required Function onConfirm, @required BuildContext context}) {
       confirmText: 'تأكيد',
       containerColor: AppColors.pinkBright,
       backgroundColor: Colors.transparent,
-      headercolor: AppColors.pinkBright,
       // confirm: Padding(
       //   padding: const EdgeInsets.all(8.0),
       //   child: Icon(CommunityMaterialIcons.check_circle_outline,

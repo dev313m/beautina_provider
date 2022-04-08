@@ -20,7 +20,7 @@ class VMRootUiTest extends GetxController {
   }
 
   ///Sliding pages of the app
-  List<Widget> pages;
+  List<Widget>? pages;
 
   /// Hide appbar top and buttom flag
   bool _hideBars = false;

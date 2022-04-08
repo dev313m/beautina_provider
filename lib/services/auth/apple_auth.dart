@@ -1,25 +1,25 @@
-import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 final _firebaseAuth = FirebaseAuth.instance;
 
-Future<String> signInWithApple({List<Scope> scopes = const []}) async {
+Future<String?> signInWithApple({List<Scope> scopes = const []}) async {
   // 1. perform the sign-in request
   List<Scope> scopes = [Scope.email, Scope.fullName];
-  final result = await AppleSignIn.performRequests(
+  final AuthorizationResult result = await TheAppleSignIn.performRequests(
       [AppleIdRequest(requestedScopes: scopes)]);
   // 2. check the result
   switch (result.status) {
     case AuthorizationStatus.authorized:
-      final appleIdCredential = result.credential;
-      final oAuthProvider = OAuthProvider(providerId: 'apple.com');
-      final credential = oAuthProvider.getCredential(
-        idToken: String.fromCharCodes(appleIdCredential.identityToken),
-        accessToken: String.fromCharCodes(appleIdCredential.authorizationCode),
+      final appleIdCredential = result.credential!;
+      final oAuthProvider = OAuthProvider('apple.com');
+      final credential = oAuthProvider.credential(
+        idToken: String.fromCharCodes(appleIdCredential.identityToken!),
+        accessToken: String.fromCharCodes(appleIdCredential.authorizationCode!),
       );
       final authResult = await _firebaseAuth.signInWithCredential(credential);
-      final firebaseUser = authResult.user;
+      final firebaseUser = authResult.user!;
 
       return firebaseUser.uid;
     case AuthorizationStatus.error:

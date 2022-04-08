@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:beautina_provider/utils/size/edge_padding.dart';
-import 'package:google_fonts_arabic/fonts.dart';
 
 class GWdgtTextNavTitle extends StatelessWidget {
   final TextDirection textDirection;
@@ -9,10 +7,10 @@ class GWdgtTextNavTitle extends StatelessWidget {
 
   final String string;
   const GWdgtTextNavTitle(
-      {Key key,
+      {Key? key,
       this.textAlign = TextAlign.center,
       this.textDirection = TextDirection.rtl,
-      @required this.string})
+      required this.string})
       : super(key: key);
 
   @override
@@ -23,10 +21,9 @@ class GWdgtTextNavTitle extends StatelessWidget {
       textDirection: textDirection,
       style: TextStyle(
         fontSize: 55.sp,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.w600,
-        package: 'google_fonts_arabic',
-        color: Colors.white,
+         color: Colors.white,
       ),
     );
   }
@@ -35,52 +32,50 @@ class GWdgtTextNavTitle extends StatelessWidget {
 class GWdgtTextTitle extends StatelessWidget {
   final TextDirection textDirection;
   final TextAlign textAlign;
-  final Color color;
-  final String string;
+  final Color? color;
+  final String? string;
   const GWdgtTextTitle(
-      {Key key,
+      {Key? key,
       this.textAlign = TextAlign.center,
       this.color = Colors.white,
       this.textDirection = TextDirection.rtl,
-      @required this.string})
+      required this.string})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      string,
+      string!,
       textAlign: textAlign,
       textDirection: textDirection,
       style: TextStyle(
         fontSize: 45.sp,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.w600,
-        package: 'google_fonts_arabic',
-        color: color ?? Colors.white,
+         color: color ?? Colors.white,
       ),
     );
   }
 }
 
 class GWdgtTextTitleDesc extends StatelessWidget {
-  final String string;
-  final TextAlign textAlign;
-  final Color color;
+  final String? string;
+  final TextAlign? textAlign;
+  final Color? color;
   const GWdgtTextTitleDesc(
-      {Key key, @required this.string, this.textAlign, this.color})
+      {Key? key, required this.string, this.textAlign, this.color})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      string,
+      string!,
       textAlign: textAlign ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-        package: 'google_fonts_arabic',
-        fontSize: 38.sp,
+         fontSize: 38.sp,
         color: color ?? Colors.white60,
       ),
     );
@@ -88,25 +83,24 @@ class GWdgtTextTitleDesc extends StatelessWidget {
 }
 
 class GWdgtTextDescDesc extends StatelessWidget {
-  final String string;
-  final TextAlign textAlgin;
-  final Color color;
+  final String? string;
+  final TextAlign? textAlgin;
+  final Color? color;
   const GWdgtTextDescDesc(
-      {Key key, @required this.string, this.textAlgin, this.color})
+      {Key? key, required this.string, this.textAlgin, this.color})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      string,
+      string!,
       textAlign: textAlgin ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
         fontSize: 35.sp,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-        package: 'google_fonts_arabic',
-        color: color ?? Colors.white70,
+         color: color ?? Colors.white70,
       ),
     );
   }
@@ -114,8 +108,8 @@ class GWdgtTextDescDesc extends StatelessWidget {
 
 class GWdgtTextButton extends StatelessWidget {
   final String string;
-  final Color color;
-  const GWdgtTextButton({Key key, @required this.string, this.color})
+  final Color? color;
+  const GWdgtTextButton({Key? key, required this.string, this.color})
       : super(key: key);
 
   @override
@@ -125,30 +119,28 @@ class GWdgtTextButton extends StatelessWidget {
       style: TextStyle(
         fontSize: 34.sp,
         color: color ?? Colors.white70,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.w500,
-        package: 'google_fonts_arabic',
-      ),
+       ),
     );
   }
 }
 
 class GWdgtTextToggle extends StatelessWidget {
-  final String string;
-  const GWdgtTextToggle({Key key, @required this.string}) : super(key: key);
+  final String? string;
+  const GWdgtTextToggle({Key? key, required this.string}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        string,
+        string!,
         style: TextStyle(
           fontSize: 29.sp,
           color: Colors.white.withOpacity(0.7),
-          fontFamily: ArabicFonts.Tajawal,
+              fontFamily: 'Tajawal',
           fontWeight: FontWeight.normal,
-          package: 'google_fonts_arabic',
-        ),
+           ),
       ),
     );
   }
@@ -165,28 +157,27 @@ class GWdgtTextProfile extends StatelessWidget {
   static const darkColor = Color(0xff37474f);
   static final colorFull = Colors.pink;
   final Color fontColor;
-  final String string;
+  final String? string;
   const GWdgtTextProfile(
-      {Key key,
+      {Key? key,
       this.textAlign = TextAlign.center,
       this.textDirection = TextDirection.rtl,
       this.fontColor = brightColor,
       // this.fontSize,
-      @required this.string})
+      required this.string})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      string,
+      string!,
       textAlign: textAlign,
       textDirection: textDirection,
       style: TextStyle(
         fontSize: ScreenUtil().setSp(26),
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-        package: 'google_fonts_arabic',
-        color: fontColor.withOpacity(0.6),
+         color: fontColor.withOpacity(0.6),
       ),
     );
   }
@@ -194,7 +185,7 @@ class GWdgtTextProfile extends StatelessWidget {
 
 class GWdgtTextPickerSubmit extends StatelessWidget {
   final String string;
-  const GWdgtTextPickerSubmit({Key key, @required this.string})
+  const GWdgtTextPickerSubmit({Key? key, required this.string})
       : super(key: key);
 
   @override
@@ -204,17 +195,16 @@ class GWdgtTextPickerSubmit extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(30),
         color: Colors.blue,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-        package: 'google_fonts_arabic',
-      ),
+       ),
     );
   }
 }
 
 class GWdgtTextPickerCancel extends StatelessWidget {
   final String string;
-  const GWdgtTextPickerCancel({Key key, @required this.string})
+  const GWdgtTextPickerCancel({Key? key, required this.string})
       : super(key: key);
 
   @override
@@ -224,41 +214,39 @@ class GWdgtTextPickerCancel extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(30),
         color: Colors.red,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-        package: 'google_fonts_arabic',
-      ),
+       ),
     );
   }
 }
 
 class GWdgtTextChip extends StatelessWidget {
-  final String string;
-  const GWdgtTextChip({Key key, @required this.string}) : super(key: key);
+  final String? string;
+  const GWdgtTextChip({Key? key, required this.string}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      string,
+      string!,
       style: TextStyle(
         fontSize: ScreenUtil().setSp(26),
         color: Colors.white70,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-        package: 'google_fonts_arabic',
-      ),
+       ),
     );
   }
 }
 
 class GWdgtTextSmall extends StatelessWidget {
   final String string;
-  final Color color;
-  final TextAlign textAlign;
-  final TextDirection textDirection;
+  final Color? color;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
   const GWdgtTextSmall(
-      {Key key,
-      @required this.string,
+      {Key? key,
+      required this.string,
       this.color,
       this.textAlign,
       this.textDirection})
@@ -272,9 +260,8 @@ class GWdgtTextSmall extends StatelessWidget {
         fontSize: ScreenUtil().setSp(25),
         color: color ?? Colors.white70,
         fontWeight: FontWeight.normal,
-        fontFamily: ArabicFonts.Tajawal,
-        package: 'google_fonts_arabic',
-      ),
+            fontFamily: 'Tajawal',
+       ),
       textAlign: textAlign ?? TextAlign.center,
       textDirection: textDirection ?? TextDirection.rtl,
     );
@@ -283,12 +270,12 @@ class GWdgtTextSmall extends StatelessWidget {
 
 class GWdgtTextCalendarDay extends StatelessWidget {
   final String string;
-  final Color color;
-  final TextAlign textAlign;
-  final TextDirection textDirection;
+  final Color? color;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
   const GWdgtTextCalendarDay(
-      {Key key,
-      @required this.string,
+      {Key? key,
+      required this.string,
       this.color,
       this.textAlign,
       this.textDirection})
@@ -302,9 +289,8 @@ class GWdgtTextCalendarDay extends StatelessWidget {
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white38,
         fontWeight: FontWeight.normal,
-        fontFamily: ArabicFonts.Tajawal,
-        package: 'google_fonts_arabic',
-      ),
+            fontFamily: 'Tajawal',
+       ),
       textAlign: textAlign ?? TextAlign.left,
       textDirection: textDirection,
     );
@@ -313,12 +299,12 @@ class GWdgtTextCalendarDay extends StatelessWidget {
 
 class GWdgtTextBadge extends StatelessWidget {
   final String string;
-  final Color color;
-  final TextAlign textAlign;
-  final TextDirection textDirection;
+  final Color? color;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
   const GWdgtTextBadge(
-      {Key key,
-      @required this.string,
+      {Key? key,
+      required this.string,
       this.color,
       this.textAlign,
       this.textDirection})
@@ -331,10 +317,9 @@ class GWdgtTextBadge extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white,
-        fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-        package: 'google_fonts_arabic',
-      ),
+       ),
       textAlign: textAlign ?? TextAlign.left,
       textDirection: textDirection,
     );
@@ -343,8 +328,8 @@ class GWdgtTextBadge extends StatelessWidget {
 
 class GWdgtTextPickerChoices extends StatelessWidget {
   final String string;
-  final TextAlign textAlign;
-  const GWdgtTextPickerChoices({Key key, @required this.string, this.textAlign})
+  final TextAlign? textAlign;
+  const GWdgtTextPickerChoices({Key? key, required this.string, this.textAlign})
       : super(key: key);
 
   @override
@@ -356,9 +341,8 @@ class GWdgtTextPickerChoices extends StatelessWidget {
       style: TextStyle(
         fontSize: 34.sp,
         fontWeight: FontWeight.normal,
-        fontFamily: ArabicFonts.Tajawal,
-        package: 'google_fonts_arabic',
-        color: Colors.blue,
+            fontFamily: 'Tajawal',
+         color: Colors.blue,
       ),
     );
   }

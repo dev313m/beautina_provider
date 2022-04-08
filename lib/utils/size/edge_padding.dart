@@ -1,6 +1,4 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:beautina_provider/utils/size/edge_padding.dart';
-import 'package:beautina_provider/utils/ui/space.dart';
 
 final paddingScreen = 14.w;
 

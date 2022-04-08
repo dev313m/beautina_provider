@@ -22,25 +22,25 @@ final strLocation = 'الموقع';
 Color color = Colors.white54;
 
 class AllSingleServiceWidget extends StatelessWidget {
-  final Map<String, dynamic> services;
-  const AllSingleServiceWidget({Key key, this.services}) : super(key: key);
+  final Map<String, dynamic>? services;
+  const AllSingleServiceWidget({Key? key, this.services}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (_) {
-      List<String> list = [];
+      List<String?> list = [];
       int index = 0;
 
-      Map<String, dynamic> mapper =
+      Map<String, dynamic>? mapper =
           Get.find<VMSalonDataTest>().providedServices;
 
-      services.forEach((k, v) {
+      services!.forEach((k, v) {
         v.forEach((kk, vv) {
           if (k == 'other')
             list.add(kk.toString());
           else
             try {
-              list.add(mapper['services'][k]['items'][kk]['ar']);
+              list.add(mapper!['services'][k]['items'][kk]['ar']);
             } catch (e) {
               list.add(k);
             }
@@ -87,13 +87,13 @@ class AllSingleServiceWidget extends StatelessWidget {
 }
 
 class OrderDetails extends StatelessWidget {
-  final DateTime date;
-  final int price;
-  final Color backgroundColor;
-  final List<dynamic> location;
-  final String phoneNum;
+  final DateTime? date;
+  final int? price;
+  final Color? backgroundColor;
+  final List<dynamic>? location;
+  final String? phoneNum;
   OrderDetails(
-      {Key key,
+      {Key? key,
       this.date,
       this.location,
       this.phoneNum,
@@ -126,12 +126,12 @@ class OrderDetails extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: muteRowCell(
-                    getStrTime(date),
-                    date.day.toString() +
+                    getStrTime(date!),
+                    date!.day.toString() +
                         "-" +
-                        date.month.toString() +
+                        date!.month.toString() +
                         "-" +
-                        date.year.toString(),
+                        date!.year.toString(),
                     Icons.date_range,
                     getWhatsappFunction(phoneNum),
                     backgroundColor),
@@ -139,16 +139,16 @@ class OrderDetails extends StatelessWidget {
               SizedBox(
                 width: 10.w,
               ),
-              if (location != null && location.length != 0)
+              if (location != null && location!.length != 0)
                 Expanded(
                     flex: 1,
                     child: muteRowCell(
                         ' ',
                         strLocation,
                         CommunityMaterialIcons.map_marker_circle,
-                        getLaunchMapFunction(location),
+                        getLaunchMapFunction(location!),
                         backgroundColor)),
-              if (location != null && location.length != 0)
+              if (location != null && location!.length != 0)
                 SizedBox(
                   width: 10.w,
                 ),
@@ -165,8 +165,8 @@ class OrderDetails extends StatelessWidget {
   }
 }
 
-Widget muteRowCell(String desc, String type, IconData icon, Function function,
-    Color backgroundColor) {
+Widget muteRowCell(String? desc, String type, IconData icon, Function function,
+    Color? backgroundColor) {
   return SpringButton(
     SpringButtonType.OnlyScale,
     Container(
@@ -180,7 +180,7 @@ Widget muteRowCell(String desc, String type, IconData icon, Function function,
           IconButton(
             icon: Icon(
               icon,
-              size: 80.ssp,
+              size: 80.sp,
               color: color,
             ),
             onPressed: () async {},
@@ -250,13 +250,13 @@ Widget dateRow(
 }
 
 class WdgtDateCalendarWatch extends StatelessWidget {
-  final DateTime dateTime;
-  final String type;
-  final IconData icon;
-  final Color backgroundColor;
-  final Function function;
+  final DateTime? dateTime;
+  final String? type;
+  final IconData? icon;
+  final Color? backgroundColor;
+  final Function? function;
   const WdgtDateCalendarWatch(
-      {Key key,
+      {Key? key,
       this.dateTime,
       this.function,
       this.icon,
@@ -291,11 +291,11 @@ class WdgtDateCalendarWatch extends StatelessWidget {
             new RichText(
                 text: TextSpan(children: [
               TextSpan(
-                  text: dateTime.hour.toString(),
+                  text: dateTime!.hour.toString(),
                   style: TextStyle(fontSize: 50.sp, color: Colors.amber)),
               TextSpan(text: ":", style: TextStyle(fontSize: 30.sp)),
               TextSpan(
-                  text: dateTime.minute.toString(),
+                  text: dateTime!.minute.toString(),
                   style:
                       TextStyle(fontSize: 50.sp, color: Colors.lightBlueAccent))
             ]))
@@ -307,7 +307,7 @@ class WdgtDateCalendarWatch extends StatelessWidget {
         ),
       ),
       onTap: () async {
-        await function();
+        await function!();
       },
       scaleCoefficient: 0.87,
     );

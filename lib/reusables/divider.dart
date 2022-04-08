@@ -5,7 +5,7 @@ class CustomDivider extends StatelessWidget {
   final double width;
   final Color color;
   // final type;
-  const CustomDivider({Key key, this.color = Colors.white30, this.height = 29, this.width = 1}) : super(key: key);
+  const CustomDivider({Key? key, this.color = Colors.white30, this.height = 29, this.width = 1}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

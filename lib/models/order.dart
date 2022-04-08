@@ -1,46 +1,46 @@
 import 'package:flutter/material.dart';
 
 class Order {
-  String _doc_id;
-  String _beauty_provider;
+  String? _doc_id;
+  String? _beauty_provider;
 
   ///order duration is calculated here in minutes
   ///and represents the duration to finish a specific order
-  double order_duration;
-  DateTime evaluation_date;
-  double provider_response_time;
-  String provider_notes;
-  String _city;
-  DateTime creation_data;
-  String client_id;
-  DateTime _client_cancel_date;
-  List<dynamic> _client_location;
-  DateTime _client_order_date;
-  DateTime _client_submit_order_date;
-  String _country;
-  DateTime _finish_date;
-  DateTime _provider_agree_date;
-  List<dynamic> _provider_location;
-  DateTime _provider_refuse_date;
-  DateTime provider_cancel_date;
-  Map<String, dynamic> _services;
-  int _status;
-  int _total_price;
-  int rebook_status;
-  int _type;
+  double? order_duration;
+  DateTime? evaluation_date;
+  double? provider_response_time;
+  String? provider_notes;
+  String? _city;
+  DateTime? creation_data;
+  String? client_id;
+  DateTime? _client_cancel_date;
+  List<dynamic>? _client_location;
+  DateTime? _client_order_date;
+  DateTime? _client_submit_order_date;
+  String? _country;
+  DateTime? _finish_date;
+  DateTime? _provider_agree_date;
+  List<dynamic>? _provider_location;
+  DateTime? _provider_refuse_date;
+  DateTime? provider_cancel_date;
+  Map<String, dynamic>? _services;
+  int? _status;
+  int? _total_price;
+  int? rebook_status;
+  int? _type;
   // Map<String, dynamic> _prices;
-  String _client_phone;
+  String? _client_phone;
 
-  String _provider_phone;
-  List<dynamic> _tokens;
+  String? _provider_phone;
+  List<dynamic>? _tokens;
 
-  String _client_name;
+  String? _client_name;
 
-  String _provider_name;
+  String? _provider_name;
 
-  String _order_info = '';
+  String? _order_info = '';
 
-  int _who_come = 2;
+  int? _who_come = 2;
 
   Order.fromMap(Map<String, dynamic> data) {
     client_id = data['client_id'];
@@ -93,36 +93,36 @@ class Order {
   }
 
   Order(
-      {String doc_id,
-      DateTime evaluation_date,
-      @required String client_id,
-      @required String beauty_provider,
-      @required String city,
-      @required DateTime creation_date,
-      @required int rebook_status,
-      DateTime client_cancel_date,
-      @required List<double> client_location,
-      @required DateTime client_order_date,
-      DateTime client_submit_order_date,
-      @required String country,
-      @required DateTime finish_date,
-      DateTime provider_agree_date,
-      double order_duration,
-      @required List<dynamic> provider_location,
-      DateTime provider_refuse_date,
-      @required List<String> tokens,
-      @required String client_name,
-      @required String provider_name,
-      @required Map<String, dynamic> services,
-      @required int status,
-      @required int total_price,
-      @required int type,
-      String provider_notes,
+      {String? doc_id,
+      DateTime? evaluation_date,
+      String? client_id,
+      String? beauty_provider,
+      String? city,
+      DateTime? creation_date,
+      int? rebook_status,
+      DateTime? client_cancel_date,
+      List<double>? client_location,
+      DateTime? client_order_date,
+      DateTime? client_submit_order_date,
+      String? country,
+      DateTime? finish_date,
+      DateTime? provider_agree_date,
+      double? order_duration,
+      List<dynamic>? provider_location,
+      DateTime? provider_refuse_date,
+      List<String>? tokens,
+      String? client_name,
+      String? provider_name,
+      Map<String, dynamic>? services,
+      int? status,
+      int? total_price,
+      int? type,
+      String? provider_notes,
       // @required Map<String, dynamic> prices,
-      @required String client_phone,
-      @required String provider_phone,
-      @required String order_info,
-      @required int who_come})
+      String? client_phone,
+      String? provider_phone,
+      String? order_info,
+      int? who_come})
       : this._doc_id = doc_id,
         this.evaluation_date = evaluation_date,
         this._beauty_provider = beauty_provider,
@@ -190,141 +190,141 @@ class Order {
     return map;
   }
 
-  String get doc_id => _doc_id;
+  String? get doc_id => _doc_id;
 
-  set doc_id(String doc_id) {
+  set doc_id(String? doc_id) {
     _doc_id = doc_id;
   }
 
-  String get order_info => _order_info;
+  String? get order_info => _order_info;
 
-  set order_info(String order_info) {
+  set order_info(String? order_info) {
     _order_info = order_info;
   }
 
-  String get beauty_provider => _beauty_provider;
+  String? get beauty_provider => _beauty_provider;
 
-  set beauty_provider(String beauty_provider) {
+  set beauty_provider(String? beauty_provider) {
     _beauty_provider = beauty_provider;
   }
 
-  String get city => _city;
+  String? get city => _city;
 
-  set city(String city) {
+  set city(String? city) {
     _city = city;
   }
 
-  DateTime get client_cancel_date => _client_cancel_date;
+  DateTime? get client_cancel_date => _client_cancel_date;
 
-  set client_cancel_date(DateTime client_cancel_date) {
+  set client_cancel_date(DateTime? client_cancel_date) {
     _client_cancel_date = client_cancel_date;
   }
 
-  List<dynamic> get client_location => _client_location;
+  List<dynamic>? get client_location => _client_location;
 
-  set client_location(List<dynamic> client_location) {
+  set client_location(List<dynamic>? client_location) {
     _client_location = client_location;
   }
 
-  int get who_come => _who_come;
+  int? get who_come => _who_come;
 
-  set who_come(int who_come) {
+  set who_come(int? who_come) {
     _who_come = who_come;
   }
 
-  DateTime get client_order_date => _client_order_date;
+  DateTime? get client_order_date => _client_order_date;
 
-  set client_order_date(DateTime client_order_date) {
+  set client_order_date(DateTime? client_order_date) {
     _client_order_date = client_order_date;
   }
 
-  DateTime get client_submit_order_date => _client_submit_order_date;
+  DateTime? get client_submit_order_date => _client_submit_order_date;
 
-  set client_submit_order_date(DateTime client_submit_order_date) {
+  set client_submit_order_date(DateTime? client_submit_order_date) {
     _client_submit_order_date = client_submit_order_date;
   }
 
-  String get country => _country;
+  String? get country => _country;
 
-  set country(String country) {
+  set country(String? country) {
     _country = country;
   }
 
-  DateTime get finish_date => _finish_date;
+  DateTime? get finish_date => _finish_date;
 
-  set finish_date(DateTime finish_date) {
+  set finish_date(DateTime? finish_date) {
     _finish_date = finish_date;
   }
 
-  DateTime get provider_agree_date => _provider_agree_date;
+  DateTime? get provider_agree_date => _provider_agree_date;
 
-  set provider_agree_date(DateTime provider_agree_date) {
+  set provider_agree_date(DateTime? provider_agree_date) {
     _provider_agree_date = provider_agree_date;
   }
 
-  List<dynamic> get provider_location => _provider_location;
+  List<dynamic>? get provider_location => _provider_location;
 
-  set provider_location(List<dynamic> provider_location) {
+  set provider_location(List<dynamic>? provider_location) {
     _provider_location = provider_location;
   }
 
-  DateTime get provider_refuse_date => _provider_refuse_date;
+  DateTime? get provider_refuse_date => _provider_refuse_date;
 
-  set provider_refuse_date(DateTime provider_refuse_date) {
+  set provider_refuse_date(DateTime? provider_refuse_date) {
     _provider_refuse_date = provider_refuse_date;
   }
 
-  Map<String, dynamic> get services => _services;
+  Map<String, dynamic>? get services => _services;
 
-  set services(Map<String, dynamic> services) {
+  set services(Map<String, dynamic>? services) {
     _services = services;
   }
 
-  int get status => _status;
+  int? get status => _status;
 
-  set status(int status) {
+  set status(int? status) {
     _status = status;
   }
 
-  int get total_price => _total_price;
+  int? get total_price => _total_price;
 
-  set total_price(int total_price) {
+  set total_price(int? total_price) {
     _total_price = total_price;
   }
 
-  int get type => _type;
+  int? get type => _type;
 
-  set type(int type) {
+  set type(int? type) {
     _type = type;
   }
 
-  String get client_phone => _client_phone;
+  String? get client_phone => _client_phone;
 
-  set client_phone(String client_phone) {
+  set client_phone(String? client_phone) {
     _client_phone = client_phone;
   }
 
-  String get provider_phone => _provider_phone;
+  String? get provider_phone => _provider_phone;
 
-  set provider_phone(String provider_phone) {
+  set provider_phone(String? provider_phone) {
     _provider_phone = provider_phone;
   }
 
-  List<dynamic> get tokens => _tokens;
+  List<dynamic>? get tokens => _tokens;
 
-  set tokens(List<dynamic> tokens) {
+  set tokens(List<dynamic>? tokens) {
     _tokens = tokens;
   }
 
-  String get client_name => _client_name;
+  String? get client_name => _client_name;
 
-  set client_name(String client_name) {
+  set client_name(String? client_name) {
     _client_name = client_name;
   }
 
-  String get provider_name => _provider_name;
+  String? get provider_name => _provider_name;
 
-  set provider_name(String provider_name) {
+  set provider_name(String? provider_name) {
     _provider_name = provider_name;
   }
 }

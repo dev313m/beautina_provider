@@ -19,7 +19,7 @@ final strLocationAlert =
     'لم تقومي بتحديد موقعك في الخريطة، الرجاء الذهاب لصفحة الاعدادات والضغط على زر تحديد الخريطه';
 
 class WdgtSalonLocationNotSet extends StatelessWidget {
-  const WdgtSalonLocationNotSet({Key key}) : super(key: key);
+  const WdgtSalonLocationNotSet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

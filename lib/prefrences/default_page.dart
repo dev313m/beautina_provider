@@ -8,7 +8,7 @@ Future sharedRegistered(bool b) async {
   return;
 }
 
-Future<bool> sharedGetRegestered() async {
+Future<bool?> sharedGetRegestered() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getBool('page'); //False is for employer
 }

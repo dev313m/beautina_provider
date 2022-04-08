@@ -12,9 +12,9 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///When order is submitted by user but outdated [status = 3 ]
 class WidgetOutdatedOrder extends StatefulWidget {
-  final Order order;
+  final Order? order;
 
-  const WidgetOutdatedOrder({Key key, this.order}) : super(key: key);
+  const WidgetOutdatedOrder({Key? key, this.order}) : super(key: key);
 
   @override
   _WidgetOutdatedOrderState createState() => _WidgetOutdatedOrderState();
@@ -68,7 +68,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
 
                         // _buttonController.start();
                         result = await getFunctionFinishedComplete(
-                            widget.order, context);
+                            widget.order!, context);
                         if (result)
                           _submitButtonController.success();
                         else
@@ -95,7 +95,7 @@ class _WidgetOutdatedOrderState extends State<WidgetOutdatedOrder> {
 
                         // _buttonController.start();
                         result = await getFunctionFinishedIncomplete(
-                            widget.order, context);
+                            widget.order!, context);
                         if (result)
                           _cancelButtonController.success();
                         else

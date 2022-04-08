@@ -15,13 +15,12 @@ showToast(String msg) {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       
-      timeInSecForIos: 1,
       backgroundColor: Colors.white,
       textColor: Colors.black,
       fontSize: 16.0);
 }
 
-showAlert(context, {@required String msg, @required String dismiss}) {
+showAlert(context, {required String msg,  String? dismiss}) {
   // Reusable alert style
   var alertStyle = AlertStyle(
       animationType: AnimationType.fromTop,

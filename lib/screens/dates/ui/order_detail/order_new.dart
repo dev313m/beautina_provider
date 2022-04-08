@@ -18,9 +18,9 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 
 ///new order [status = 0]
 class WidgetNewOrder extends StatefulWidget {
-  final Order order;
+  final Order? order;
 
-  const WidgetNewOrder({Key key, this.order}) : super(key: key);
+  const WidgetNewOrder({Key? key, this.order}) : super(key: key);
 
   @override
   _WidgetNewOrderState createState() => _WidgetNewOrderState();
@@ -69,7 +69,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                   maxLength: 250,
 
                   onChanged: (str) {
-                    widget.order.provider_notes = str;
+                    widget.order!.provider_notes = str;
                   },
                   prefixIcon: Icon(
                     CommunityMaterialIcons.ticket,
@@ -94,7 +94,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
               isBox: true,
               prefixIcon: Icon(CommunityMaterialIcons.watch),
               onTap: () {
-                Picker picker;
+                late Picker picker;
 
                 picker = Picker(
                     // backgroundColor: Colors.pink.withOpacity(0.3),
@@ -140,7 +140,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                           " ${(orderDuration.inHours).toString()} س ${(orderDuration.inMinutes.remainder(60)).toString()} د ";
                       // showToast(orderDuration.inMinutes.toString());
 
-                      widget.order.order_duration =
+                      widget.order!.order_duration =
                           orderDuration.inMinutes.toDouble();
                       setState(() {});
                     },
@@ -216,7 +216,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                           rebookStatus = 0;
                         }
 
-                        widget.order.rebook_status = rebookStatus;
+                        widget.order!.rebook_status = rebookStatus;
                         setState(() {});
 
                         // updateUserDefaults(
@@ -276,7 +276,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                                 child: Icon(
                               Icons.cancel_outlined,
                               color: AppColors.pinkOpcity,
-                              size: 100.ssp,
+                              size: 100.sp,
                             )),
                             onPressed: () async {
                               bool result = false;
@@ -284,7 +284,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
 
                               // _buttonController.start();
                               result =
-                                  await getFunctionReject(widget.order, context);
+                                  await getFunctionReject(widget.order!, context);
                               if (result)
                                 _cancelButtonController.success();
                               else
@@ -313,7 +313,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
                                 child: Icon(
                               Icons.done_sharp,
                               color: Colors.greenAccent,
-                              size: 100.ssp,
+                              size: 100.sp,
                             )),
                             onPressed: () async {
                               bool result = false;
@@ -321,7 +321,7 @@ class _WidgetNewOrderState extends State<WidgetNewOrder> {
 
                               // _buttonController.start();
                               result =
-                                  await getFunctionAccept(widget.order, context);
+                                  await getFunctionAccept(widget.order!, context);
                               if (result)
                                 _submitButtonController.success();
                               else

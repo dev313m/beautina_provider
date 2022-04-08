@@ -18,8 +18,8 @@ final double radius = radiusDefault;
 final edgeContainer = 8.h;
 
 class WidgetCanceledOrder extends StatelessWidget {
-  final Order order;
-  const WidgetCanceledOrder({Key key, this.order}) : super(key: key);
+  final Order? order;
+  const WidgetCanceledOrder({Key? key, this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

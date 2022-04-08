@@ -3,16 +3,16 @@ import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
+import 'package:beautina_provider/utils/animated/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:loading/loading.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 
 
 class WdgtSettingsProfileImage extends StatefulWidget {
-  WdgtSettingsProfileImage({Key key}) : super(key: key);
+  WdgtSettingsProfileImage({Key? key}) : super(key: key);
 
   @override
   _WdgtSettingsProfileImageState createState() =>
@@ -34,7 +34,7 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
         Y(height: btwStrxImage),
         InkWell(
           onTap: () async {
-            imageCache.clear();
+            imageCache!.clear();
 
             updateProfileImage(
                 context,
@@ -59,14 +59,14 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
                         child: AnimatedSwitcher(
                             duration: Duration(seconds: 1),
                             child: imageLoad
-                                ? Loading()
+                                ? GetLoadingWidget()
                                 : vMSalonData.beautyProvider.image != ''
                                     ? ImageFirebase(
                                         height: sizeImageProfile,
                                         width: sizeImageProfile,
                                         url:
                                             'gs://beautina-firebase.appspot.com/image_profile/' +
-                                                vMSalonData.beautyProvider.uid,
+                                                vMSalonData.beautyProvider.uid!,
                                       )
                                     : Image.asset(
                                         strDefaultProfileImage,

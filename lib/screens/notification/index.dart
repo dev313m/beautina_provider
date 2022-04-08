@@ -17,12 +17,12 @@ class PageNotification extends StatefulWidget {
 
 class _PageNotification extends State<PageNotification>
     with AutomaticKeepAliveClientMixin<PageNotification> {
-  ScrollController _scrollController;
+  ScrollController? _scrollController;
   double currentScroll = 0;
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _scrollController!.dispose();
     super.dispose();
 
     // _animationController.dispose();
@@ -33,8 +33,8 @@ class _PageNotification extends State<PageNotification>
     super.initState();
     _scrollController = ScrollController();
 
-    _scrollController.addListener(() {
-      onScrollAction(_scrollController, context,
+    _scrollController!.addListener(() {
+      onScrollAction(_scrollController!, context,
           onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
   }

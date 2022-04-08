@@ -16,7 +16,7 @@ import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 
 class WdgtSetttingsPersonalInfo extends StatefulWidget {
-  WdgtSetttingsPersonalInfo({Key key}) : super(key: key);
+  WdgtSetttingsPersonalInfo({Key? key}) : super(key: key);
 
   @override
   _WdgtSetttingsPersonalInfoState createState() =>
@@ -38,7 +38,7 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             Get.find<VMSalonDataTest>().beautyProvider.phone;
         return Form(
           key: vmSettingsData.formKey,
-          autovalidate: vmSettingsData.autoValidate,
+          // autovalidate: vmSettingsData.autoValidate,
           child: Column(children: [
             Icon(CommunityMaterialIcons.account_edit,
                 color: overviewIconColor, size: overviewIconSize),
@@ -64,13 +64,13 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
                 inputType: TextInputType.phone,
                 maxLength: 9,
                 helperText: '966',
-                placeholder: vMSalonData.beautyProvider.phone
-                    .substring(4, vMSalonData.beautyProvider.phone.length),
+                placeholder: vMSalonData.beautyProvider.phone!
+                    .substring(4, vMSalonData.beautyProvider.phone!.length),
 
                 prefixIcon: Icon(Icons.phone),
                 onChanged: (val) {
                   vmSettingsData.mobile = Countries
-                          .phoneCodePlus[vMSalonData.beautyProvider.country] +
+                          .phoneCodePlus[vMSalonData.beautyProvider.country!]! +
                       convertArabicToEnglish(val);
                 },
                 // initialValue: beautyProvider.phone.substring(4, beautyProvider.phone.length),
@@ -145,9 +145,9 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
                 ],
               ),
               onPressed: () async {
-                if (Get.find<VMSettingsDataTest>().mobile.length < 13) {
+                if (Get.find<VMSettingsDataTest>().mobile!.length < 13) {
                   showToast('رقم الجوال غير صحيح');
-                  return false;
+                  return ;
                 }
                 await updateBtn(context, buttonController);
               },

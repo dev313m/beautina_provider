@@ -22,8 +22,8 @@ class VmDateDataTest extends GetxController {
   }
 
   bool _isLoading = true;
-  List<Order> comingConfirmedList = [];
-  String lastDoc = '';
+  List<Order>? comingConfirmedList = [];
+  String? lastDoc = '';
   List<Order> _listOfDay = [];
 
   // List<Order> _toConfirmList = [];
@@ -49,11 +49,11 @@ class VmDateDataTest extends GetxController {
 
   bool isError = false;
 
-  List<Order> _orderList = [];
+  List<Order>? _orderList = [];
 
-  List<Order> get orderList => _orderList;
+  List<Order>? get orderList => _orderList;
 
-  set orderList(List<Order> orderList) {
+  set orderList(List<Order>? orderList) {
     _orderList = orderList;
     update();
   }
@@ -88,7 +88,7 @@ class VmDateDataTest extends GetxController {
       orderList = await getOrders(day: DateTime.now().toLocal().day, month: month);
       comingConfirmedList = await getComingConfirmed();
 
-      if (orderList.length != 0) lastDoc = orderList.last.doc_id;
+      if (orderList!.length != 0) lastDoc = orderList!.last.doc_id;
       // sort();
       setInitialDayList();
 
@@ -102,11 +102,11 @@ class VmDateDataTest extends GetxController {
   }
 
   setInitialDayList() {
-    listOfDay = orderList
+    listOfDay = orderList!
         .where((item) =>
-            item.client_order_date.month == DateTime.now().toLocal().month &&
-            item.client_order_date.day == DateTime.now().toLocal().day &&
-            item.client_order_date.year == DateTime.now().toLocal().year)
+            item.client_order_date!.month == DateTime.now().toLocal().month &&
+            item.client_order_date!.day == DateTime.now().toLocal().day &&
+            item.client_order_date!.year == DateTime.now().toLocal().year)
         .where((item) => item.status == 3 || item.status == 0 || item.status == 1)
         .toList();
 
@@ -120,10 +120,10 @@ class VmDateDataTest extends GetxController {
 
   Future apiLoadMore() async {
     try {
-      List<Order> moreOrders = await getOrders(day: 0, month: month);
+      List<Order> moreOrders = await (getOrders(day: 0, month: month) as Future<List<Order>>);
       // if (moreOrders.length != 0) lastDoc = moreOrders.last.doc_id;
 
-      orderList.addAll(moreOrders);
+      orderList!.addAll(moreOrders);
       // sort();
       return;
     } catch (e) {

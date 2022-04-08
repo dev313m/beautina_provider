@@ -24,7 +24,7 @@ int getStep(int status) {
     return 2;
 }
 
-String getOrderStatus(int status) {
+String? getOrderStatus(int? status) {
   switch (status) {
     case 0:
       return 'طلب جديد';

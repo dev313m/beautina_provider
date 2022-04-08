@@ -2,32 +2,31 @@ import 'package:beautina_provider/screens/dates/ui/calendar/calendar.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts_arabic/fonts.dart';
 
 class BeautyTextfield extends StatefulWidget {
   final Color backgroundColor, accentColor, textColor;
-  final String placeholder;
-  final Icon prefixIcon, suffixIcon;
+  final String? placeholder;
+  final Icon? prefixIcon, suffixIcon;
   final bool isBox;
   final bool isSquare;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType inputType;
   final Duration duration;
   final bool readOnly;
-  final String suffixText;
-  final String prefixText;
+  final String? suffixText;
+  final String? prefixText;
   // final FontStyle fontStyle;
-  final TextStyle textStyle;
-  final String helperText;
+  final TextStyle? textStyle;
+  final String? helperText;
   final bool autofocus, autocorrect, enabled, obscureText, isShadow;
-  final int maxLength, minLines, maxLines;
-  final ValueChanged<String> onChanged, onSubmitted;
-  final GestureTapCallback onTap;
+  final int? maxLength, minLines, maxLines;
+  final ValueChanged<String>? onChanged, onSubmitted;
+  final GestureTapCallback? onTap;
 
   const BeautyTextfield(
       {this.prefixIcon,
       this.controller,
-      this.inputType,
+      required this.inputType,
       this.isSquare = false,
       this.textStyle,
       this.isBox = false,
@@ -63,8 +62,8 @@ class BeautyTextfield extends StatefulWidget {
 
 class _BeautyTextfieldState extends State<BeautyTextfield> {
   bool isFocus = false;
-  String text = '';
-  TextEditingController _controller;
+  String? text = '';
+  TextEditingController? _controller;
 
   @override
   void dispose() {
@@ -102,7 +101,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
                   BoxShadow(
                       color: Colors.transparent, blurRadius: 0, spreadRadius: 0)
                 ]
-              : BoxShadow(spreadRadius: 0, blurRadius: 0),
+              : BoxShadow(spreadRadius: 0, blurRadius: 0) as List<BoxShadow>?,
           borderRadius: BorderRadius.all(Radius.circular(radius)),
           color: !widget.readOnly
               ? isFocus
@@ -124,9 +123,8 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
               ? TextEditingController(text: widget.placeholder)
               : _controller,
           style: TextStyle(
-            fontFamily: ArabicFonts.Tajawal,
+            fontFamily: 'Tajawal',
             fontWeight: FontWeight.normal,
-            package: 'google_fonts_arabic',
             // fontSize: 34.sp,
             // color: Colors.white54,
           ),
@@ -145,14 +143,14 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
               isFocus = true;
             });
             if (widget.onTap != null) {
-              widget.onTap();
+              widget.onTap!();
             }
           },
           onSubmitted: (t) {
             setState(() {
               isFocus = false;
             });
-            widget.onSubmitted(t);
+            widget.onSubmitted!(t);
           },
 
           // textInputAction: TextInputAction.done,

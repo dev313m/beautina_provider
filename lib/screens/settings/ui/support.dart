@@ -8,7 +8,7 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 class WdgtSettingsSupport extends StatefulWidget {
-  WdgtSettingsSupport({Key key}) : super(key: key);
+  WdgtSettingsSupport({Key? key}) : super(key: key);
 
   @override
   _WdgtSettingsSupportState createState() => _WdgtSettingsSupportState();

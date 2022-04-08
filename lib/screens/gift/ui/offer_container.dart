@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class WdgtGiftOfferContainer extends StatelessWidget {
   const WdgtGiftOfferContainer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class WdgtGiftOfferContainer extends StatelessWidget {
                     GWdgtTextTitleDesc(
                       color: Colors.white,
                       string:
-                          ' ${Emoji.byName('two hearts').char} لكل 50 طلب تسويق ممول مجاني لزيادة شهرتك ${Emoji.byName('two hearts').char}',
+                          ' ${Emoji.byName('two hearts')!.char} لكل 50 طلب تسويق ممول مجاني لزيادة شهرتك ${Emoji.byName('two hearts')!.char}',
                     ),
                     Y(),
                     Y(),
@@ -40,24 +40,24 @@ class WdgtGiftOfferContainer extends StatelessWidget {
                       string: 'مجموع نقاطي',
                     ),
                     Y(),
-                    GWdgtTextTitleDesc(
-                      color: Colors.white,
-                      string: vMSalonData
-                              .beautyProvider
-                              .customers
-                              .toInt()
-                              .toString() +
-                          "/ 50",
-                    ),
-                    if (vMSalonData
-                            .beautyProvider
-                            .customers >=
-                        50)
-                      GWdgtTextTitleDesc(
-                        color: Colors.white,
-                        string:
-                            "مبروك، سيتم التواصل معك قريبا  ${Emoji.byName('two hearts').char}",
-                      ),
+                    // GWdgtTextTitleDesc(
+                    //   color: Colors.white,
+                    //   string: vMSalonData
+                    //           .beautyProvider
+                    //           .customers!
+                    //           .toInt()
+                    //           .toString() +
+                    //       "/ 50",
+                    // ),
+                    // if (vMSalonData
+                    //         .beautyProvider
+                    //         .customers! >=
+                    //     50)
+                    //   GWdgtTextTitleDesc(
+                    //     color: Colors.white,
+                    //     string:
+                    //         "مبروك، سيتم التواصل معك قريبا  ${Emoji.byName('two hearts')!.char}",
+                    //   ),
                     Y(),
                     Y(),
                     Y(),

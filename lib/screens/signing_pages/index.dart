@@ -27,7 +27,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   bool loading = false;
-  FlareController flareController;
+  FlareController? flareController;
   @override
   void initState() {
     super.initState();
@@ -46,9 +46,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-        ScreenUtil.init(context,
-        designSize: Size(1080, 2340), allowFontScaling: true);
-
+    
     return GetBuilder<VMLoginDataTest>(
       builder: (vmLoginData) {
         return Scaffold(
@@ -137,4 +135,4 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 }
 
 ///[height]
-final heightBtwLoginBtn = 100.h;
+final double heightBtwLoginBtn = 50;

@@ -21,8 +21,8 @@ double radius = radiusDefault;
 final Color colorBackground = AppColors.purpleColor;
 
 class OrderListFinishedPage extends StatefulWidget {
-  final String heroTag;
-  OrderListFinishedPage({Key key, this.heroTag}) : super(key: key);
+  final String? heroTag;
+  OrderListFinishedPage({Key? key, this.heroTag}) : super(key: key);
 
   @override
   _OrderListFinishedState createState() => _OrderListFinishedState();
@@ -62,7 +62,7 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                 ),
               ),
               ListView.builder(
-                itemCount: VmDateData.orderList
+                itemCount: VmDateData.orderList!
                     .where((item) =>
                         item.status != 0 &&
                         item.status != 1 &&
@@ -75,7 +75,7 @@ class _OrderListFinishedState extends State<OrderListFinishedPage> {
                   return Padding(
                     padding: EdgeInsets.only(top: edgeContainer),
                     child: WdgtDateOrderDetails(
-                      orderId: VmDateData.orderList
+                      orderId: VmDateData.orderList!
                           .where((item) =>
                               item.status != 0 &&
                               item.status != 1 &&

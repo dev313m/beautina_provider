@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
 
 class ModelUser {
-  String doc_id; //this is mongodb doc 
-  String _auth_id; //only for first login from firebase 
-  String tokenId = ''; //This is the jwt token 
-  String _phone;
-  String _name;
-  String _city;
-  String _country;
-  DateTime _reg_date;
-  DateTime update_date;
-  String email;
-  String image;
-  Map<String, dynamic> favorite_list;
+  String? doc_id; //this is mongodb doc 
+  String? _auth_id; //only for first login from firebase 
+  String? tokenId = ''; //This is the jwt token 
+  String? _phone;
+  String? _name;
+  String? _city;
+  String? _country;
+  DateTime? _reg_date;
+  DateTime? update_date;
+  String? email;
+  String? image;
+  Map<String, dynamic>? favorite_list;
 
-  String _token;
+  String? _token;
 
   ModelUser(
-      {@required String auth_id,
-      @required String phone,
-      String doc_id,
-      String email,
-      @required String name,
-      @required String city,
-      String tokenId,
-      @required String token,
-      @required String country,
-      @required Map<String, dynamic> favorite_list,
-      @required String image,
-      @required DateTime update_date,
-      @required DateTime reg_date})
+      {required String auth_id,
+      required String phone,
+      String? doc_id,
+      String? email,
+      required String name,
+      required String city,
+      String? tokenId,
+      required String token,
+      required String country,
+      required Map<String, dynamic> favorite_list,
+      required String image,
+      required DateTime update_date,
+      required DateTime reg_date})
       : this._city = city,
         this.doc_id = doc_id,
         this._country = country,
@@ -78,45 +78,45 @@ class ModelUser {
     tokenId = data['tokenId'];
   }
 
-  DateTime get reg_date => _reg_date;
+  DateTime? get reg_date => _reg_date;
 
-  set reg_date(DateTime reg_date) {
+  set reg_date(DateTime? reg_date) {
     _reg_date = reg_date;
   }
 
-  String get token => _token;
+  String? get token => _token;
 
-  set token(String token) {
+  set token(String? token) {
     _token = token;
   }
 
-  String get country => _country;
+  String? get country => _country;
 
-  set country(String country) {
+  set country(String? country) {
     _country = country;
   }
 
-  String get city => _city;
+  String? get city => _city;
 
-  set city(String city) {
+  set city(String? city) {
     _city = city;
   }
 
-  String get auth_id => _auth_id;
+  String? get auth_id => _auth_id;
 
-  set auth_id(String auth_id) {
+  set auth_id(String? auth_id) {
     _auth_id = auth_id;
   }
 
-  String get name => _name;
+  String? get name => _name;
 
-  set name(String name) {
+  set name(String? name) {
     _name = name;
   }
 
-  String get phone => _phone;
+  String? get phone => _phone;
 
-  set phone(String phone) {
+  set phone(String? phone) {
     _phone = phone;
   }
 }

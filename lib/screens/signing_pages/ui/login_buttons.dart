@@ -11,11 +11,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 double radius = radiusDefault;
 
 class WdgtLoginButtonIos extends StatelessWidget {
-  final Function onPress;
-  final Function onError;
-  final BuildContext contextT;
+  final Function? onPress;
+  final Function? onError;
+  final BuildContext? contextT;
 
-  const WdgtLoginButtonIos({Key key, this.onPress, this.onError, this.contextT}) : super(key: key);
+  const WdgtLoginButtonIos({Key? key, this.onPress, this.onError, this.contextT}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,13 @@ class WdgtLoginButtonIos extends StatelessWidget {
       children: [
         InkWell(
             onTap: () async {
-              onPress();
+              onPress!();
 
               try {
                 await loginWithApple(contextT);
               } catch (e) {
                 showToast(e.toString());
-                onError();
+                onError!();
               }
             },
             child: ClipRRect(
@@ -71,22 +71,22 @@ class WdgtLoginButtonIos extends StatelessWidget {
 }
 
 class WdgtLoginButtonGoogle extends StatelessWidget {
-  final Function onPress;
-  final Function onError;
-  final BuildContext contextT;
-  const WdgtLoginButtonGoogle({Key key, this.onPress, this.onError, this.contextT}) : super(key: key);
+  final Function? onPress;
+  final Function? onError;
+  final BuildContext? contextT;
+  const WdgtLoginButtonGoogle({Key? key, this.onPress, this.onError, this.contextT}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
         // await Future.delayed(Duration(seconds: 1));
-        onPress();
+        onPress!();
         try {
           await loginWithGoogle(contextT);
         } catch (e) {
           showToast(e.toString());
-          onError();
+          onError!();
           // var a = 34;
         }
         // var a = 4;

@@ -4,20 +4,20 @@ class VMLoginDataTest extends GetxController {
   String _phoneNum = '';
 
   int accountType = -1; // 1 for salon
-  String _name;
+  String? _name;
 
-  String get name => _name;
+  String? get name => _name;
 
-  set name(String name) {
+  set name(String? name) {
     _name = name;
     update();
   }
 
-  List<String> _city;
+  List<String?>? _city;
 
-  List<String> get city => _city;
+  List<String?>? get city => _city;
 
-  set city(List<String> city) {
+  set city(List<String?>? city) {
     _city = city;
     update();
   }
@@ -29,11 +29,11 @@ class VMLoginDataTest extends GetxController {
     update();
   }
 
-  String _code;
+  String? _code;
 
-  String get code => _code;
+  String? get code => _code;
 
-  set code(String code) {
+  set code(String? code) {
     _code = code;
     update();
   }

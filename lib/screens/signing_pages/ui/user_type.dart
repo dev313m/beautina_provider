@@ -15,7 +15,7 @@ double sizeContainer = heightTextField;
 double radius = radiusDefault;
 
 class WdgtLoginUserType extends StatefulWidget {
-  const WdgtLoginUserType({Key key}) : super(key: key);
+  const WdgtLoginUserType({Key? key}) : super(key: key);
 
   @override
   _WdgtLoginUserTypeState createState() => _WdgtLoginUserTypeState();

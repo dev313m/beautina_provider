@@ -1,182 +1,172 @@
 import 'dart:convert';
 
-/**
- * This class is a model for the type Prefrence
- */
-
-class ModelBeautyProvider {
-  static int TYPE_SALON = 1;
-  static int TYPE_INDIVIDUAL = 1;
-  String firebaseUid = '';
-  List<Map<String, DateTime>> busyDates =
+import 'package:hive/hive.dart';
+part 'beauty_provider.g.dart';
+  
+@HiveType(typeId: 1)
+class ModelBeautyProvider extends HiveObject {
+  @HiveField(0)
+  int TYPE_SALON = 1;
+  @HiveField(1)
+  int TYPE_INDIVIDUAL = 1;
+  @HiveField(2)
+  String? firebaseUid = '';
+  @HiveField(3)
+  List<Map<String, DateTime>>? busyDates =
       []; // Date that provider is not available for order
-  int type; //whether it was a salon or a simple woman 1 for salon
-  bool _available;
-  String _image;
-  double customers;
-  String _intro;
-  String email;
-  Map<String, dynamic> service_duration;
-  List<dynamic> _location;
-  String _name;
-  int _voter;
-  String username;
-  String _uid = '';
-  String tokenId; // this is the jwt token for authority
-  int _achieved;
-  String auth_login; // only one time firebase token for login
-  String _city;
-  int _points;
-  int favorite_count;
-  int visitors;
-  DateTime _register_date;
-  double _rating;
-  Map<String, dynamic> package;
-  Map<String, dynamic> servicespro;
-  bool default_accept;
-  int default_after_accept;
+  @HiveField(4)
+  int? type = 1; //whether it was a salon or a simple woman 1 for salon
+  @HiveField(5)
+  bool? available = true;
+  @HiveField(6)
+  String? image;
+  @HiveField(7)
+  double? customers;
+  @HiveField(8)
+  String? intro;
+  @HiveField(9)
+  String? email;
+  @HiveField(10)
+  Map<String, dynamic>? service_duration;
+  @HiveField(11)
+  List<double>? location;
+  @HiveField(12)
+  String? name;
+  @HiveField(13)
+  int? voter;
+  @HiveField(14)
+  String? username;
+  @HiveField(15)
+  String? uid = '';
+  @HiveField(16)
+  String? tokenId; // this is the jwt token for authority
+  @HiveField(17)
+  int? achieved;
+  @HiveField(18)
+  String? auth_login; // only one time firebase token for login
+  @HiveField(19)
+  String? city;
+  @HiveField(20)
+  int? points;
+  @HiveField(21)
+  int? favorite_count;
+  @HiveField(22)
+  int? visitors;
+  @HiveField(23)
+  DateTime? register_date;
+  @HiveField(24)
+  double? rating;
+  @HiveField(25)
+  Map<String, dynamic>? package;
+  @HiveField(26)
+  Map<String, dynamic>? servicespro;
+  @HiveField(27)
+  bool? default_accept;
+  @HiveField(28)
+  int? default_after_accept;
+  @HiveField(29)
+  String? phone;
+  @HiveField(30)
+  String? token; // notification token
 
-  String _phone;
-  String _token; // notification token
-
-  String _country;
-  int _likes;
-
-  String get token => _token;
-
-  set token(String token) {
-    _token = token;
-  }
-
-  String get uid => _uid;
-
-  set uid(String uid) {
-    _uid = uid;
-  }
-
-  int get achieved => _achieved;
-
-  set achieved(int achieved) {
-    _achieved = achieved;
-  }
-
-  int get voter => _voter;
-
-  set voter(int voter) {
-    _voter = voter;
-  }
-
-  String get city => _city;
-
-  set city(String city) {
-    _city = city;
-  }
-
-  int get likes => _likes;
-
-  set likes(int likes) {
-    _likes = likes;
-  }
-
-  String get country => _country;
-
-  set country(String country) {
-    _country = country;
-  }
+  @HiveField(31)
+  String? country;
+  @HiveField(32)
+  int? likes;
 
   ModelBeautyProvider.empty();
 
   ModelBeautyProvider(
-      {Map<String, dynamic> prices,
-      List<dynamic> location,
-      bool available,
-      String image,
-      int type,
-      bool default_accept,
-      String email,
-      String token,
-      Map<String, dynamic> package,
-      String intro,
-      String name,
-      double customers,
-      int points,
-      Map<String, int> service_duration,
-      int default_after_accept,
-      String tokenId,
-      List<Map<String, DateTime>> busyDates,
-      int favorite_count,
-      String auth_login,
-      double rating,
-      DateTime register_date,
-      int voter,
-      String country,
-      int likes,
-      int visitors,
-      String firebaseUid,
-      String city,
-      String uid,
-      String username,
-      int achieved,
-      Map<String, List<dynamic>> services,
-      String phone})
-      : this._location = location,
-        this._name = name,
+      {Map<String, dynamic>? prices,
+      List<double>? location,
+      bool? available,
+      String? image,
+      int? type,
+      bool? default_accept,
+      String? email,
+      String? token,
+      Map<String, dynamic>? package,
+      String? intro,
+      String? name,
+      double? customers,
+      int? points,
+      Map<String, int>? service_duration,
+      int? default_after_accept,
+      String? tokenId,
+      List<Map<String, DateTime>>? busyDates,
+      int? favorite_count,
+      String? auth_login,
+      double? rating,
+      DateTime? register_date,
+      int? voter,
+      String? country,
+      int? likes,
+      int? visitors,
+      String? firebaseUid,
+      String? city,
+      String? uid,
+      String? username,
+      int? achieved,
+      Map<String, List<dynamic>>? services,
+      String? phone})
+      : this.location = location,
+        this.name = name,
         this.email = email,
         this.visitors = visitors,
         this.username = username,
         this.package = package,
         this.favorite_count = favorite_count,
-        this._points = points,
+        this.points = points,
         this.type = type,
         this.default_accept = default_accept,
         this.busyDates = busyDates,
         this.tokenId = tokenId,
         this.customers = customers,
         this.firebaseUid = firebaseUid,
-        this._rating = rating,
+        this.rating = rating,
         this.service_duration = service_duration,
         this.default_after_accept = default_after_accept,
         this.auth_login = auth_login,
-        this._phone = phone,
-        this._available = available,
-        this._image = image,
-        this._register_date = register_date,
-        this._voter = voter,
-        this._country = country,
-        this._city = city,
-        this._likes = likes,
-        this._intro = intro,
-        this._achieved = achieved,
-        this._token = token,
-        this._uid = uid;
+        this.phone = phone,
+        this.available = available,
+        this.image = image,
+        this.register_date = register_date,
+        this.voter = voter,
+        this.country = country,
+        this.city = city,
+        this.likes = likes,
+        this.intro = intro,
+        this.achieved = achieved,
+        this.token = token,
+        this.uid = uid;
 
   Map<String, dynamic> getMap() {
     Map<String, dynamic> map = new Map<String, dynamic>();
     map['type'] = this.type;
     map['service_duration'] = this.service_duration;
     map['default_after_accept'] = this.default_after_accept?.toInt();
-    map['available'] = this._available ?? true;
+    map['available'] = this.available ?? true;
     map['auth_login'] = this.auth_login ?? '';
     map['tokenId'] = this.tokenId ?? '';
     map['default_accept'] = this.default_accept;
-    map['image'] = this._image ?? '';
+    map['image'] = this.image ?? '';
     map['package'] = this.package ?? {};
     map['busy_dates'] = this.busyDates ?? [];
     map['username'] = this.username;
     map['customers'] = this.customers ?? 0;
     map['acheived'] = this.achieved?.toInt() ?? 0;
-    map['intro'] = this._intro ?? '';
+    map['intro'] = this.intro ?? '';
     map['favorite_count'] = this.favorite_count ?? 0;
-    map['location'] = this._location ?? [];
-    map['name'] = this._name ?? '';
+    map['location'] = this.location ?? [];
+    map['name'] = this.name ?? '';
     map['visitors'] = this.visitors ?? 0;
-    map['points'] = this._points ?? 0;
-    map['firebase_uid'] = this.firebaseUid ?? ""; 
+    map['points'] = this.points ?? 0;
+    map['firebase_uid'] = this.firebaseUid ?? "";
     map['reg_date'] = this.register_date?.toString();
-    map['rating'] = this._rating ?? 0;
-    map['phone'] = this._phone;
-    map['city'] = this._city;
-    map['country'] = this._country;
+    map['rating'] = this.rating ?? 0;
+    map['phone'] = this.phone;
+    map['city'] = this.city;
+    map['country'] = this.country;
     map['voter'] = this.voter?.toInt() ?? 0;
     map['email'] = this.email ?? '';
     map['likes'] = this.likes?.toInt() ?? 0;
@@ -188,39 +178,42 @@ class ModelBeautyProvider {
   }
 
   ModelBeautyProvider.fromMap(Map<String, dynamic> data) {
-    _available = data['available'] ?? true;
-    _image = data['image'] ?? '';
+    available = data['available'] ?? true;
+    image = data['image'] ?? '';
     default_after_accept = data['default_after_accept'];
     default_accept = data['default_accept'];
     service_duration = data['service_duration'] ?? {};
-    _intro = data['intro'] ?? '';
+    intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
     username = data['username'];
     customers = data['customers'].toDouble() ?? 0;
     // package = data['package'] ?? {};
-    _location = data['location'] == [] ? [1, 2] : data['location'];
-    _name = data['name'] ?? '';
+    location = data['location'] == null
+        ? [1, 2]
+        : List.castFrom<dynamic, double>(data['location']['coordinates']);
+    name = data['name'] ?? '';
     favorite_count = data['favorite_count'] ?? 0;
     if (data['tokenId'] != null) tokenId = data['tokenId'];
     email = data['email'] ?? '';
-    _points = data['points'] ?? 0;
+    points = data['points'] ?? 0;
     package = data['package'] ?? {};
     visitors = data['visitors'] ?? 0;
-    firebaseUid = data['firebase_uid'] ?? ""; 
-    _register_date =
-        DateTime.parse(data['reg_date']) ?? DateTime.now().toLocal();
-    _rating = data['rating'].toDouble() ?? 0;
-    _phone = data['phone'] ?? '';
+    firebaseUid = data['firebase_uid'] ?? "";
+    register_date = data['reg_date'] != null
+        ? DateTime.parse(data['reg_date'])
+        : DateTime.now().toLocal();
+    rating = data['rating'].toDouble() ?? 0;
+    phone = data['phone'] ?? '';
     // _prices = Map<String, dynamic>.from(data['prices']);
-    _voter = data['voter'] ?? 0;
-    _city = data['city'] ?? '';
-    _country = data['country'] ?? "";
-    _likes = data['likes'] ?? 0;
-    _achieved = data['_achieved'] ?? 0;
-    _uid = data['_id'] ?? '';
+    voter = data['voter'] ?? 0;
+    city = data['city'] ?? '';
+    country = data['country'] ?? "";
+    likes = data['likes'] ?? 0;
+    achieved = data['_achieved'] ?? 0;
+    uid = data['_id'] ?? '';
     busyDates = getBustyDates(data['busy_dates']);
 
-    _token = data['token'] ?? '';
+    token = data['token'] ?? '';
     servicespro = data['services'] == null
         ? {}
         : Map<String, dynamic>.from(data['services']);
@@ -264,57 +257,4 @@ class ModelBeautyProvider {
   //   return map;
   // }
 
-  bool get available => _available;
-
-  set available(bool available) {
-    _available = available;
-  }
-
-  String get image => _image;
-
-  set image(String image) {
-    _image = image;
-  }
-
-  String get intro => _intro;
-
-  set intro(String intro) {
-    _intro = intro;
-  }
-
-  List<dynamic> get location => _location;
-
-  set location(List<dynamic> location) {
-    _location = location;
-  }
-
-  String get name => _name;
-
-  set name(String name) {
-    _name = name;
-  }
-
-  int get points => _points;
-
-  set points(int points) {
-    _points = points;
-  }
-
-  double get rating => _rating;
-
-  set rating(double rating) {
-    _rating = rating;
-  }
-
-  DateTime get register_date => _register_date;
-
-  set register_date(DateTime register_date) {
-    _register_date = register_date;
-  }
-
-  String get phone => _phone;
-
-  set phone(String phone) {
-    _phone = phone;
-  }
 }

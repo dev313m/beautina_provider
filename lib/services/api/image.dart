@@ -9,25 +9,30 @@ final url = 'https://resorthome.000webhostapp.com/image.php';
 // File file;
 
 ///Picking an image from device and returning the file as [file]
-Future<File> imageChoose() async {
-  return await ImagePicker.pickImage(source: ImageSource.gallery);
+Future<XFile?> imageChoose() async {
+  return await ImagePicker().pickImage(source: ImageSource.gallery);
+
 // file = await ImagePicker.pickImage(source: ImageSource.gallery);
 }
 
 ///Take Image file and Image name then upload it, true if success, false else
-Future<bool> imageUpload(File file, String name,
-    {Function onSuccess, Function onError}) async {
+Future<bool> imageUpload(XFile file, String? name,
+    {Function? onSuccess, Function? onError}) async {
   if (file == null) return false;
-  String base64Image = base64Encode(file.readAsBytesSync());
-  String ext = file.path.split(".").last;
+  // String base64Image = base64Encode(file.readAsBytesSync());
+  // String ext = file.path.split(".").last;
 
-  StorageUploadTask task =  FirebaseStorage.instance.ref().child('image_profile/$name').putFile(file); 
-  try{
-    await task.onComplete; 
-    return true; 
-  }catch(e){
+  try {
+    var task = await FirebaseStorage.instance
+        .ref()
+        .child('image_profile/$name')
+        .putFile(File(file.path))
+        .snapshot;
+    if (task.state == TaskState.success) return true;
 
-    return false; 
+    throw Exception('not completed');
+  } catch (e) {
+    return false;
   }
   // http.Response response = await http.post(url, body: {
   //   "image": base64Image,

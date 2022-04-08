@@ -34,17 +34,17 @@ class _DatePageState extends State<PageDate>
   ///1 for active
   ///0 for not active
   int filterType = 0;
-  List<bool> filterBool;
-  Order order;
-  Widget upperW;
-  VmDateData vmDateData;
+  List<bool>? filterBool;
+  Order? order;
+  Widget? upperW;
+  VmDateData? vmDateData;
   bool dataLoading = false;
 
-  List<Order> displayedList;
+  List<Order>? displayedList;
 
   // AnimationController _animationController;
   // Animation _animation;
-  ScrollController scrollController;
+  ScrollController? scrollController;
 
   @override
   // TODO: implement wantKeepAlive
@@ -52,7 +52,7 @@ class _DatePageState extends State<PageDate>
 
   @override
   void dispose() {
-    scrollController.dispose();
+    scrollController!.dispose();
     super.dispose();
   }
 
@@ -62,8 +62,8 @@ class _DatePageState extends State<PageDate>
 
     filterBool = [false, false, false, false, false, true];
     scrollController = ScrollController();
-    scrollController.addListener(() {
-      onScrollAction(scrollController, context,
+    scrollController!.addListener(() {
+      onScrollAction(scrollController!, context,
           onScrollUp: onScrollUp, onScrolldown: onScrollDown);
     });
   }
@@ -128,7 +128,7 @@ class _DatePageState extends State<PageDate>
                             : vmDateData.isLoading
                                 ? Shimmer.fromColors(
                                     baseColor: AppColors.pinkBright,
-                                    highlightColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[300]!,
                                     child: AbsorbPointer(
                                       absorbing: true,
                                       child: WdgtTabOrders(),
@@ -149,7 +149,7 @@ class _DatePageState extends State<PageDate>
 }
 
 class WdgtTabOrders extends StatelessWidget {
-  const WdgtTabOrders({Key key}) : super(key: key);
+  const WdgtTabOrders({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,19 +2,19 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/services/api/post.dart';
 import 'package:beautina_provider/services/api_config.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 final ERROR = "حدث خطأ ما، الرجاء المحاولة مجددا";
 String URL_UPDATE_USERNAME =
     '${URL_DATABASE_LIVE}beauty_providers/update_username';
-String URL_ADD_NEW_USER =
-    '${URL_DATABASE_LIVE}beauty_providers/login';
-String URL_UPDATE_USER =
-    '${URL_DATABASE_LIVE}beauty_providers/update';
+String URL_ADD_NEW_USER = '${URL_DATABASE_LIVE}beauty_providers/login';
+String URL_UPDATE_USER = '${URL_DATABASE_LIVE}beauty_providers/update';
 // String URL_ADD_FAVORITE = 'https://beautyorders.herokuapp.com/favorite';
 
 // Future<Null> apiUserAddNew(ModelUser user) async {
@@ -36,6 +36,7 @@ Future<ModelBeautyProvider> apiUserProviderAddNew(
     if (response.statusCode != 200)
       throw HttpException(jsonDecode(response.body)['message']);
     final parsed = json.decode(response.body);
+
     return ModelBeautyProvider.fromMap(parsed);
   } catch (e) {
     throw HttpException(ERROR);
@@ -46,9 +47,8 @@ Future<ModelBeautyProvider> apiLoadOneBeautyProvider() async {
   ModelBeautyProvider beautyProvider = await sharedUserProviderGetInfo();
   http.Response response;
   try {
-    response = await http.Client().get(
-        '${URL_DATABASE_LIVE}beauty_providers/' +
-            beautyProvider.uid);
+    response = await http.Client().get(Uri.parse(
+        '${URL_DATABASE_LIVE}beauty_providers/' + beautyProvider.uid!));
 
     if (response.statusCode != 200)
       throw HttpException(jsonDecode(response.body)['message']);
@@ -100,7 +100,7 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
 
   //because busy dates contains datetime so please convert them to string to be encodable
 
-  List<Map<String, String>> busyDates = beautyProvider.busyDates.map((e) {
+  List<Map<String, String>> busyDates = beautyProvider.busyDates!.map((e) {
     Map<String, String> busyDate = {
       'from': e['from'].toString(),
       'to': e['to'].toString()
@@ -109,7 +109,7 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
   }).toList();
 
   Map<String, dynamic> body = {
-    'default_accept': beautyProvider.default_accept, 
+    'default_accept': beautyProvider.default_accept,
     'default_after_accept': beautyProvider.default_after_accept,
     'phone': beautyProvider.phone,
     'intro': beautyProvider.intro,

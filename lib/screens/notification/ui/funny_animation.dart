@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WdgtNotificationAnimation extends StatefulWidget {
-  WdgtNotificationAnimation({Key key}) : super(key: key);
+  WdgtNotificationAnimation({Key? key}) : super(key: key);
 
   @override
   _WdgtNotificationAnimationState createState() => _WdgtNotificationAnimationState();

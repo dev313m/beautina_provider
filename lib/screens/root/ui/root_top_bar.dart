@@ -7,7 +7,7 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WdgtRootTopBar extends StatefulWidget {
-  WdgtRootTopBar({Key key}) : super(key: key);
+  WdgtRootTopBar({Key? key}) : super(key: key);
 
   @override
   _WdgtRootTopBarState createState() => _WdgtRootTopBarState();
