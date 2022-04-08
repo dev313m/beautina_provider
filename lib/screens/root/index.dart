@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/screens/dates/index.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/screens/salon/index.dart';
@@ -28,7 +29,7 @@ class _PageRoot extends State<PageRoot>
         SingleTickerProviderStateMixin,
         WidgetsBindingObserver,
         AutomaticKeepAliveClientMixin<PageRoot> {
-  List<Widget> _pages;
+  late List<Widget> _pages;
 
   @override
   bool get wantKeepAlive => true;
@@ -37,7 +38,7 @@ class _PageRoot extends State<PageRoot>
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     contextReadyAwaiter();
     initTimeString();
     setPushNotification();
@@ -78,10 +79,6 @@ class _PageRoot extends State<PageRoot>
   Widget build(BuildContext context) {
     super.build(context);
 
-    ///This must be set to initialize sizes of screenutil
-    ScreenUtil.init(context,
-        designSize: Size(1080, 2340), allowFontScaling: true);
-
     /// This widget is when pressing on the screen the keyboard is removed
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -104,23 +101,23 @@ class _PageRoot extends State<PageRoot>
               },
               child: Stack(
                 children: <Widget>[
-                      PreloadPageView(
-                        children: _pages,
-                        controller: Get.find<VMRootUiTest>().pageController,
-                        preloadPagesCount: 2,
-                        physics: AlwaysScrollableScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        onPageChanged: (index) {
-                          if (Get.find<VMRootUiTest>().hideBars == true)
-                            Get.find<VMRootUiTest>().hideBars = false;
+                  PreloadPageView(
+                    children: _pages,
+                    controller: Get.find<VMRootUiTest>().pageController,
+                    preloadPagesCount: 2,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index) {
+                      if (Get.find<VMRootUiTest>().hideBars == true)
+                        Get.find<VMRootUiTest>().hideBars = false;
 
-                          // setState(() {
-                          //   vmRootUi.pageIndex = index;
-                          // });
-                          Get.find<VMRootUiTest>().pageIndex = index;
-                        },
-                        pageSnapping: true,
-                      ),
+                      // setState(() {
+                      //   vmRootUi.pageIndex = index;
+                      // });
+                      Get.find<VMRootUiTest>().pageIndex = index;
+                    },
+                    pageSnapping: true,
+                  ),
                   WdgtRootBottomBar(),
                   GetBuilder<VMRootUiTest>(builder: (vMRootUiTest) {
                     return vMRootUiTest.isNoInternet
@@ -129,11 +126,11 @@ class _PageRoot extends State<PageRoot>
                   }),
                   GetBuilder<VMRootUiTest>(builder: (vMRootUiTest) {
                     return AnimatedSwitcher(
-                    child: vMRootUiTest.hideBars ? SizedBox() : WdgtRootTopBar(),
-                    duration: Duration(milliseconds: 303),
-                  );
+                      child:
+                          vMRootUiTest.hideBars ? SizedBox() : WdgtRootTopBar(),
+                      duration: Duration(milliseconds: 303),
+                    );
                   }),
- 
                 ],
               ),
             )),
@@ -147,38 +144,54 @@ class _PageRoot extends State<PageRoot>
   /// Get notifications settings for android and IOS
 
   setPushNotification() async {
-    FirebaseMessaging _fcmFore = FirebaseMessaging();
-    _fcmFore.getToken().then((token) {
-      print('token is: ' + token);
-    });
+    setPushNotification() async {
+      await Future.delayed(Duration(seconds: 3));
+      FirebaseMessaging _fcmFore = FirebaseMessaging.instance;
+      // _fcmFore.getToken().then((token) {
+      //   // print('token is: ' + token);
+      // });
 
-    await Future.delayed(Duration(seconds: 3));
-    _fcmFore.requestNotificationPermissions(IosNotificationSettings(
-        sound: true, badge: true, alert: true, provisional: false));
-    _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
+      await Future.delayed(Duration(seconds: 3));
+      _fcmFore.requestPermission(
+          sound: true, badge: true, alert: true, provisional: false);
+      // _fcmFore.requestPermission(IosNotificationSettings(
+      //     sound: true, badge: true, alert: true, provisional: false));
+      // _fcmFore.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
+      //   print("Settings registered: $settings");
+      // });
 
-    _fcmFore.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        // await onNotificationMessage(message['data']['doc_id']);
-        print(message);
+      FirebaseMessaging.onMessage.listen((message) {
+        // print(message.);
         refreshResume(context);
-        // pagesRefresh(context);
-      },
-      onResume: (Map<String, dynamic> message) async {
+      });
+      FirebaseMessaging.onMessageOpenedApp.listen((event) {
         refreshResume(context);
-        // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
-      },
-      // onBackgroundMessage: (Map<String, dynamic> message) async {
-      //   refreshResume(context);
-      //   // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
-      // },
-      onLaunch: (Map<String, dynamic> message) async {
+      });
+      FirebaseMessaging.onBackgroundMessage((message) async {
         await Future.delayed(Duration(seconds: onNotificationClickDuration));
         Get.find<VMRootUiTest>().pageController.jumpTo(1);
-      },
-    );
+      });
+      // FirebaseMessaging.onMessageOpenedApp(
+      //   onMessage: (Map<String, dynamic> message) async {
+      //     // await onNotificationMessage(message['data']['doc_id']);
+      //     print(message);
+      //     refreshResume(context);
+      //     // pagesRefresh(context);
+      //   },
+      //   onResume: (Map<String, dynamic> message) async {
+      //     refreshResume(context);
+      //     // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
+      //   },
+      //   // onBackgroundMessage: (Map<String, dynamic> message) async {
+      //   //   refreshResume(context);
+      //   //   // await Provider.of<VMRootData>(context).navigateBtwPages(context, 0);
+      //   // },
+      //   onLaunch: (Map<String, dynamic> message) async {
+      //     await Future.delayed(Duration(seconds: onNotificationClickDuration));
+      //     Get.find<VMRootUiTest>().pageController.jumpTo(1);
+      //   },
+      // );
+    }
   }
 }
 
