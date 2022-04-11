@@ -151,7 +151,7 @@ Future<Null> saveUserData(BuildContext? context) async {
 
       BeautyProviderController()
           .updateBeautyProviderProfile(modelBeautyProvider);
-
+      refreshApp();
       routeToRoot(context!);
       await Future.delayed(Duration(seconds: 3));
       showToast('مرحبا بك في عالم الجمال');
@@ -182,7 +182,8 @@ ModelBeautyProvider getUserData(
 }
 
 Future<Null> saveData(ModelBeautyProvider modelBeautyProvider) async {
-  await sharedUserProviderSet(beautyProvider: modelBeautyProvider);
+ await BeautyProviderController().storeToLocalDB(modelBeautyProvider);
+  // await sharedUserProviderSet(beautyProvider: modelBeautyProvider);
   await saveAllServicesMapper();
 }
 
@@ -191,7 +192,7 @@ saveAllServicesMapper() async {
 }
 
 routeToRoot(BuildContext context) {
-  refreshApp(context);
+  refreshApp();
   Navigator.pushReplacement(context,
       PageTransition(type: PageTransitionType.fade, child: PageRoot()));
 }

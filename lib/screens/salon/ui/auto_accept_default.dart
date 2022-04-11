@@ -1,4 +1,5 @@
 import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
@@ -62,7 +63,7 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
   late ModelBeautyProvider beautyProvider;
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+    return GetBuilder<GlobalValBeautyProviderListenable>(builder: (vMSalonData) {
       beautyProvider = vMSalonData.beautyProvider;
       return Directionality(
         textDirection: TextDirection.rtl,

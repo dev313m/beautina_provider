@@ -7,7 +7,6 @@ class SmsAuth {
   BuildContext? context;
    late String verificationId;
 
-  AnimationController? animationController;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> verifyPhone(Function error, Function success) async {

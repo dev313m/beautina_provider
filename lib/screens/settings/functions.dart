@@ -1,4 +1,5 @@
 import 'package:beautina_provider/constants/countries.dart';
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/picker.dart';
@@ -102,7 +103,7 @@ bool _validateInputs(BuildContext context) {
 
 Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
   VMSettingsDataTest vmSettingsData = Get.find<VMSettingsDataTest>();
-  ModelBeautyProvider bp = await sharedUserProviderGetInfo() ;
+  ModelBeautyProvider bp = BeautyProviderController.getBeautyProviderProfile();
 
   bp.name = vmSettingsData.name ?? bp.name;
   bp.phone = vmSettingsData.mobile ?? bp.phone;

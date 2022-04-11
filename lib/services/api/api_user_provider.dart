@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -43,8 +44,8 @@ Future<ModelBeautyProvider> apiUserProviderAddNew(
   }
 }
 
-Future<ModelBeautyProvider> apiLoadOneBeautyProvider() async {
-  ModelBeautyProvider beautyProvider = await sharedUserProviderGetInfo();
+Future<ModelBeautyProvider?> apiLoadOneBeautyProvider() async {
+  ModelBeautyProvider beautyProvider = BeautyProviderController.getBeautyProviderProfile();
   http.Response response;
   try {
     response = await http.Client().get(Uri.parse(
@@ -84,7 +85,8 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdateUsername(
       throw HttpException(jsonDecode(response.body)['message']);
     // ModelBeautyProvider model = parseOne(response.body);
     // await sharedUserProviderSet(beautyProvider: model);
-    await sharedUserProviderSet(beautyProvider: beautyProvider);
+    await BeautyProviderController().storeToLocalDB(beautyProvider);
+    // await sharedUserProviderSet(beautyProvider: beautyProvider);
 
     return beautyProvider;
   } catch (e) {
@@ -133,7 +135,8 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
       throw HttpException(jsonDecode(response.body)['message']);
     // ModelBeautyProvider model = parseOne(response.body);
     // await sharedUserProviderSet(beautyProvider: model);
-    await sharedUserProviderSet(beautyProvider: beautyProvider);
+    // await sharedUserProviderSet(beautyProvider: beautyProvider);
+    await BeautyProviderController().storeToLocalDB(beautyProvider);
 
     return beautyProvider;
   } catch (e) {

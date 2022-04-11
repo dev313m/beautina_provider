@@ -1,4 +1,5 @@
 import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/reusables/toast.dart';

@@ -8,8 +8,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 class VMSalonDataTest extends GetxController {
   bool build = true;
-  ModelBeautyProvider _beautyProvider =
-      BeautyProviderController.getBeautyProviderProfile();
+  late ModelBeautyProvider _beautyProvider;
   Map<String, dynamic>? _providedServices = {};
 
   Map<String, dynamic>? get providedServices => _providedServices;
@@ -31,7 +30,11 @@ class VMSalonDataTest extends GetxController {
   }
 
   init() async {
-    beautyProvider = BeautyProviderController.getBeautyProviderProfile();
+    try {
+      beautyProvider = BeautyProviderController.getBeautyProviderProfile();
+    } catch (e) {
+      var s;
+    }
     providedServices = await memoryGetServices();
     try {
       ModelBeautyProvider? beautyProviderTest = await updateDataFromServer();

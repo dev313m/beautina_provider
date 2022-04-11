@@ -1,5 +1,9 @@
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/db/local/hive_adapters.dart';
+import 'package:beautina_provider/core/global_values/not_responsive/hive_box.dart';
+import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/global_values/responsive/salon_services_cart.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -29,10 +33,13 @@ Future<bool?> mainInit() async {
       statusBarColor: Colors.transparent,
       systemNavigationBarColor: Colors.transparent));
   // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-  getIt.registerSingleton<ModelBeautyProvider>(
-      await sharedUserProviderGetInfo());
-
-  initGlobalVariablesRegistered();
+  // getIt.registerSingleton<ModelBeautyProvider>(
+  //     await sharedUserProviderGetInfo());
+  // refreshApp();
+  if (registered ?? false)
+    await initGlobalVariablesRegistered();
+  else
+    await initGlobalVariablesNotRegistered();
   return registered;
 }
 
@@ -44,6 +51,8 @@ class InitialBinding extends Bindings {
     Get.put(VmDateDataTest(build: false));
     Get.put(VMSettingsDataTest(), permanent: true);
     Get.put(VMLoginDataTest(), permanent: true);
+    Get.put(GlobalValBeautyProviderListenable(), permanent: true);
+    Get.put(GlobalValAllServices(), permanent: true);
 
     Get.put(VMSalonDataTest(build: false), permanent: true);
   }
@@ -56,6 +65,9 @@ class InitialBindingRegistered extends Bindings {
       VMSalonDataTest(build: true),
       permanent: true,
     );
+    Get.put(GlobalValAllServices(), permanent: true);
+    Get.lazyPut(() => GlobalValSalonServicesCart());
+    Get.put(GlobalValBeautyProviderListenable(), permanent: true);
 
     Get.put(VMRootUiTest(), permanent: true);
     Get.put(VMRootDataTest(build: true), permanent: true);
@@ -65,15 +77,18 @@ class InitialBindingRegistered extends Bindings {
 }
 
 initGlobalVariablesRegistered() async {
-  BeautyProviderController().registerObjFromLocalStorage();
+  await GlobalValHiveBox().init();
+  await BeautyProviderController().registerObjFromLocalStorage();
 }
 
-initGlobalVariablesNotRegistered() async {}
+initGlobalVariablesNotRegistered() async {
+  await GlobalValHiveBox().init();
+}
 
-
-
-refreshApp(BuildContext context) {
+refreshApp() async {
   Get.find<VMRootDataTest>().shareRoot();
+  await BeautyProviderController().registerObjFromLocalStorage();
+
   Get.find<VMSalonDataTest>().init();
   Get.find<VmDateDataTest>().iniState();
 }

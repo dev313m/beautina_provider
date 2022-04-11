@@ -29,4 +29,6 @@ class ApiUrls {
   static final GET_ALL_ORDERS = 'orders/getall';
   static final GET_SALON_SERVICES = 'salon_services'; 
   static final GET_SALON_ALL_SERVICES = 'all_salon_services';
+  static final POST_MY_SERVICES = 'salon_products/add_update';
 }
+

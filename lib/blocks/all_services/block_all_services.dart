@@ -416,7 +416,8 @@ class _SingleWidget extends State<SingleWidget>
 
   @override
   Widget build(BuildContext context) {
-    // return GWdgtTextDescDesc(string: widget.itemCode);
+    // return Text('solo');
+    // return GWdgtTextDescDesc(string: widget.modelService.arName);
     return AnimatedBuilder(
       animation: _controller,
       builder: (_, child) {

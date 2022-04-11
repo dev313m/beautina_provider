@@ -1,3 +1,4 @@
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 Map<DateTime, List<dynamic>?> getBusyDatesEvents(BuildContext context) {
   Map<DateTime, List<dynamic>?> events = {};
 
-  Get.find<VMSalonDataTest>().beautyProvider.busyDates!.forEach((f) {
+  Get.find<GlobalValBeautyProviderListenable>().beautyProvider.busyDates!.forEach((f) {
     DateTime fromDate = DateTime.utc(f['from']!.year, f['from']!.month, f['from']!.day);
     DateTime? toDate = f['to'];
     if (events[fromDate] == null) events[fromDate] = [];

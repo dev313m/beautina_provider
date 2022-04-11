@@ -1,4 +1,6 @@
+import 'package:beautina_provider/blocks/all_services/block_all_services.dart';
 import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/auto_accept_default.dart';
 import 'package:beautina_provider/screens/salon/ui/close_open_salon.dart';
@@ -58,12 +60,14 @@ class _PageSalonState extends State<PageSalon> {
                 key: ValueKey('tdest'),
               ),
               Y(),
+                            BlockAllServices(),
+
               WdgtSalonShare(),
               Y(),
 
-              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
-                if(vMSalonDataTest.beautyProvider == null)
-                 return SizedBox();
+              GetBuilder<GlobalValBeautyProviderListenable>(
+                  builder: (vMSalonDataTest) {
+                if (vMSalonDataTest.beautyProvider == null) return SizedBox();
                 if (vMSalonDataTest.beautyProvider.location!.length != 2)
                   return WdgtSalonLocationNotSet();
                 return SizedBox();

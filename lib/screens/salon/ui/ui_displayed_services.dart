@@ -1,4 +1,5 @@
 import 'package:beautina_provider/constants/duration.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/reusables/divider.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
@@ -28,7 +29,7 @@ class _WdgtSalonMyServicesState extends State<WdgtSalonMyServices> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+    return GetBuilder<GlobalValBeautyProviderListenable>(builder: (vMSalonData) {
       mapServices = vMSalonData.beautyProvider.servicespro;
 
       return ClipRRect(

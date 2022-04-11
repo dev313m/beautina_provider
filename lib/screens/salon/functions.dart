@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
@@ -14,11 +16,13 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 Future<ModelBeautyProvider?> updateDataFromServer() async {
   try {
-    ModelBeautyProvider beautyProvider = await apiLoadOneBeautyProvider();
-    sharedUserProviderSet(beautyProvider: beautyProvider);
+    ModelBeautyProvider? beautyProvider = await apiLoadOneBeautyProvider();
+    if(beautyProvider!= null)
+    await BeautyProviderController().storeToLocalDB(beautyProvider);
+    // sharedUserProviderSet(beautyProvider: beautyProvider);
     return beautyProvider;
   } catch (e) {
-    return await sharedUserProviderGetInfo();
+    return BeautyProviderController.getBeautyProviderProfile();
     // showToast('')
   }
 }
@@ -27,7 +31,7 @@ Future<ModelBeautyProvider?> updateDataFromServer() async {
 Map<String, dynamic> getNewServicesMap(BuildContext context, showOther,
     chosenService, priceBefore, priceAfter, otherServiceName) {
   ModelBeautyProvider beautyProvider =
-      Get.find<VMSalonDataTest>().beautyProvider;
+      Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
   Map<String, dynamic> map =
       new Map<String, dynamic>.of(beautyProvider.servicespro!);
   Map<String, dynamic> newMap = copyDeepMap(map);
@@ -71,7 +75,8 @@ updateProviderServices(
     RoundedLoadingButtonController _btnController) async {
   _btnController.start();
 
-  ModelBeautyProvider bp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
+  ModelBeautyProvider bp =
+     BeautyProviderController.getBeautyProviderProfile();
   try {
     if (showOther)
       bp.service_duration![otherServiceName] = serviceDuration;
@@ -82,7 +87,7 @@ updateProviderServices(
       ..servicespro = getNewServicesMap(context, showOther, chosenService,
           priceBefore, priceAfter, otherServiceName));
 
-    Get.find<VMSalonDataTest>().beautyProvider = newBp;
+    Get.find<GlobalValBeautyProviderListenable>().beautyProvider = newBp;
 
     // setState(() {});
     showToast('تمت الاضافة بنجاح');
@@ -101,7 +106,8 @@ Map<String, dynamic> copyDeepMap(Map<String, dynamic> map) {
   Map<String, dynamic> newMap = {};
 
   map.forEach((key, value) {
-    newMap[key] = (value is Map) ? copyDeepMap(value as Map<String, dynamic>) : value;
+    newMap[key] =
+        (value is Map) ? copyDeepMap(value as Map<String, dynamic>) : value;
   });
 
   return newMap;
@@ -124,7 +130,8 @@ removeServiceByCodeAndUpdate(
   onDeleteServiceLoad();
 
   /// 1- Get current userData
-  ModelBeautyProvider bp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
+  ModelBeautyProvider bp =
+     BeautyProviderController.getBeautyProviderProfile();
 
   /// 2- Remove
   Map<String, dynamic> newMap = bp.servicespro!;
@@ -132,7 +139,7 @@ removeServiceByCodeAndUpdate(
 
   /// 3- update
   try {
-    Get.find<VMSalonDataTest>().beautyProvider =
+    Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
         await apiBeautyProviderUpdate(bp..servicespro = newMap);
     onDeleteServiceSuccess();
   } catch (e) {
@@ -157,7 +164,8 @@ updateUserDefaults(
     required int? defaultAfterAccept}) async {
   onDefaultsChangeLoad();
   try {
-    ModelBeautyProvider mbp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
+    ModelBeautyProvider mbp =
+      BeautyProviderController.getBeautyProviderProfile();
 
     await apiBeautyProviderUpdate(mbp
       ..default_accept = defaultAccept
@@ -165,8 +173,8 @@ updateUserDefaults(
 
     // Get.find<VMSalonDataTest>().beautyProvider = mbp;
     // setState(() {});
-    Get.find<VMSalonDataTest>().beautyProvider =
-        await sharedUserProviderGetInfo();
+    Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+        BeautyProviderController.getBeautyProviderProfile();
     onDefaultsChangeSuccess();
     // var don;
   } catch (e) {
@@ -191,14 +199,15 @@ updateUserAvailability(
 ) async {
   onAvailableChangeLoad();
   try {
-    ModelBeautyProvider mbp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
+    ModelBeautyProvider mbp =
+       BeautyProviderController.getBeautyProviderProfile();
 
     await apiBeautyProviderUpdate(mbp..available = !mbp.available!);
 
     // Get.find<VMSalonDataTest>().beautyProvider = mbp;
     // setState(() {});
-    Get.find<VMSalonDataTest>().beautyProvider =
-        await sharedUserProviderGetInfo();
+    Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+       BeautyProviderController.getBeautyProviderProfile();
     onAvailableChangeSuccess();
     // var don;
   } catch (e) {
@@ -218,7 +227,7 @@ updateProfileImage(
   if (await File(file.path).exists() == false) return;
   DefaultCacheManager manager = new DefaultCacheManager();
   ModelBeautyProvider beautyProvider =
-      Get.find<VMSalonDataTest>().beautyProvider;
+      Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
   manager.emptyCache();
   onProfileImageChangeLoad();
   bool response = await imageUpload(file, beautyProvider.uid);
@@ -232,14 +241,15 @@ updateProfileImage(
       // super.setState(() {});
       // setState(() {});
 
-      ModelBeautyProvider mbp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
+      ModelBeautyProvider mbp =
+          BeautyProviderController.getBeautyProviderProfile();
 
       await apiBeautyProviderUpdate(mbp..available = mbp.available);
 
       // Get.find<VMSalonDataTest>().beautyProvider = mbp;
       // setState(() {});
-      Get.find<VMSalonDataTest>().beautyProvider =
-          await sharedUserProviderGetInfo();
+      Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+         BeautyProviderController.getBeautyProviderProfile();
     } catch (e) {
       onProfileImageChangeError();
     }

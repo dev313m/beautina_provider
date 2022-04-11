@@ -1,24 +1,23 @@
-import 'package:beautina_provider/core/db/local/local_db_constants.dart';
-import 'package:beautina_provider/core/global_values/not_responsive/hive_box.dart';
+import 'package:beautina_provider/core/global_values/not_responsive/beauty_provider_data.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:hive/hive.dart';
+import 'package:beautina_provider/services/api/api_user_provider.dart';
+import 'package:get/get.dart';
 
 class BeautyProviderController {
-  registerObjFromLocalStorage() {
-    getIt.registerSingleton<ModelBeautyProvider>(
-        GlobalValHiveBox.getHiveBox().get('beauty_provider'));
+  registerObjFromLocalStorage() async {
+    var s = await GlobalVarLocalBeautyProvider().getFromLocalDB();
+    getIt.registerSingleton<ModelBeautyProvider>(s!);
   }
 
   Future storeToLocalDB(ModelBeautyProvider modelBeautyProvider) async {
-    await GlobalValHiveBox.getHiveBox()
-        .put(LocalDBConstants(), modelBeautyProvider);
+    await GlobalVarLocalBeautyProvider().storeToLocalDB(modelBeautyProvider);
+    updateListenableVal(modelBeautyProvider);
   }
 
   Future<ModelBeautyProvider?> getFromLocalDB() async {
-    var box =
-        await Hive.openBox<ModelBeautyProvider>('beauty_provider_profile');
-    return box.get('profile');
+    return await GlobalVarLocalBeautyProvider().getFromLocalDB();
   }
 
   static ModelBeautyProvider getBeautyProviderProfile() {
@@ -32,5 +31,26 @@ class BeautyProviderController {
   updateBeautyProviderProfile(ModelBeautyProvider modelBeautyProvider) async {
     await getIt.unregister<ModelBeautyProvider>();
     registerObj(modelBeautyProvider);
+    updateListenableVal(modelBeautyProvider);
+  }
+
+  Future updateFromRemote() async {
+    try {
+      ModelBeautyProvider? beautyProviderUpdated =
+          await apiLoadOneBeautyProvider();
+      if (beautyProviderUpdated != null)
+        updateListenableVal(beautyProviderUpdated);
+    } catch (e) {
+      // showToast(e.toString());
+    }
+  }
+
+  updateListenableVal(ModelBeautyProvider modelBeautyProvider) {
+    Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+        modelBeautyProvider;
+  }
+
+  Future initListenableData() async {
+    updateListenableVal(getBeautyProviderProfile());
   }
 }

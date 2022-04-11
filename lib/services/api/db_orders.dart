@@ -1,3 +1,4 @@
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/models/order.dart';
@@ -34,7 +35,7 @@ final POST_FINISHED_COMPLETE =
 final ERROR = 'حدث خطأ ما، الرجاء المحاولة مجددا';
 Future<http.Response> apiOrderReject(Order order) async {
   http.Response response;
-  ModelBeautyProvider? user = await sharedUserProviderGetInfo();
+  // ModelBeautyProvider? user = BeautyProviderController.getBeautyProviderProfile();
   // Map<String, dynamic> obj = {
   //   "status": CANCEL_DATE_STATUS,
   //   'client_cancel_date': DateTime.now().toString(),
@@ -55,7 +56,7 @@ Future<http.Response> apiOrderReject(Order order) async {
 
 Future<http.Response> apiOrderAccept(Order order) async {
   http.Response response;
-  ModelBeautyProvider? user = await sharedUserProviderGetInfo();
+  // ModelBeautyProvider? user = BeautyProviderController.getBeautyProviderProfile();
   // Map<String, dynamic> obj = {
   //   'client_cancel_date': DateTime.now().toString(),
   //   'client_id': user.uid
@@ -76,7 +77,7 @@ Future<http.Response> apiOrderAccept(Order order) async {
 
 Future<http.Response> apiFinishedIncomplete(Order order) async {
   http.Response response;
-  ModelBeautyProvider? user = await sharedUserProviderGetInfo();
+  // ModelBeautyProvider? user = await sharedUserProviderGetInfo();
 
   order.finish_date = DateTime.now().toUtc();
   PostHelper ph = PostHelper(
@@ -93,7 +94,7 @@ Future<http.Response> apiFinishedIncomplete(Order order) async {
 
 Future<http.Response> apiFinishedComplete(Order order) async {
   http.Response response;
-  ModelBeautyProvider? user = await sharedUserProviderGetInfo();
+  // ModelBeautyProvider? user = await sharedUserProviderGetInfo();
   order.finish_date = DateTime.now().toUtc();
   // Map<String, dynamic> obj = {
   //   'finish_date': DateTime.now().toUtc().toString(),
@@ -118,7 +119,8 @@ List<Order>? parse(String responseBody) {
 
 Future<List<Order>?> getOrders(
     {@required int day = 0, required int month}) async {
-  ModelBeautyProvider user = await (sharedUserProviderGetInfo() as FutureOr<ModelBeautyProvider>);
+  ModelBeautyProvider user =
+      BeautyProviderController.getBeautyProviderProfile();
   PostHelper ph = PostHelper(auth: true, url: POST_GET_URL);
   DateTime now = DateTime.now();
   now = DateTime(now.year, now.month, now.day);
@@ -145,7 +147,8 @@ Future<List<Order>?> getOrders(
 }
 
 Future<List<Order>?> getComingConfirmed() async {
-  ModelBeautyProvider user = await (sharedUserProviderGetInfo() as FutureOr<ModelBeautyProvider>);
+  ModelBeautyProvider user =
+      BeautyProviderController.getBeautyProviderProfile();
   PostHelper ph = PostHelper(auth: true, url: POST_GET_URL_CONFIRMED);
   DateTime now = DateTime.now();
   now = DateTime(now.year, now.month, now.day);

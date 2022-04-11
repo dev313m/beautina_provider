@@ -1,3 +1,5 @@
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
@@ -79,17 +81,22 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
                          * 2- update and save in shared
                          * 3- get shared and notifylisteners
                          */
-                      ModelBeautyProvider mbp = await (sharedUserProviderGetInfo() as Future<ModelBeautyProvider>);
+                      ModelBeautyProvider mbp =
+                          BeautyProviderController.getBeautyProviderProfile();
 
                       //Clear old dates
-                      List<Map<String, DateTime>>? newBusyDates = clearOldBusyDates(mbp.busyDates!);
+                      List<Map<String, DateTime>>? newBusyDates =
+                          clearOldBusyDates(mbp.busyDates!);
                       //update busy dates
-                      newBusyDates = changeAvaDates(widget.changableAvailableDate!, mbp);
+                      newBusyDates =
+                          changeAvaDates(widget.changableAvailableDate!, mbp);
 
-                      await apiBeautyProviderUpdate(mbp..busyDates = newBusyDates);
+                      await apiBeautyProviderUpdate(
+                          mbp..busyDates = newBusyDates);
 
-                      Get.find<VMSalonDataTest>().beautyProvider = mbp;
-                      Get.find<VMSalonDataTest>().beautyProvider = await sharedUserProviderGetInfo();
+                      Get.find<GlobalValBeautyProviderListenable>().beautyProvider = mbp;
+                      Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+                          BeautyProviderController.getBeautyProviderProfile();
 
                       isAvailabilityChecked = false;
                       checkAvalability(widget.changableAvailableDate);
@@ -130,15 +137,18 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     );
   }
 
-  List<Map<String, DateTime>>? changeAvaDates(DateTime requiredDate, ModelBeautyProvider modelBeautyProvider) {
+  List<Map<String, DateTime>>? changeAvaDates(
+      DateTime requiredDate, ModelBeautyProvider modelBeautyProvider) {
     List<Map<String, DateTime>>? newBusyDates;
-    DateTime fixedDate = DateTime(requiredDate.year, requiredDate.month, requiredDate.day);
+    DateTime fixedDate =
+        DateTime(requiredDate.year, requiredDate.month, requiredDate.day);
 
     ///
     ///This is to remove any old date
     ///
     if (available)
-      newBusyDates = modelBeautyProvider.busyDates?..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
+      newBusyDates = modelBeautyProvider.busyDates
+        ?..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
     else
       newBusyDates = modelBeautyProvider.busyDates
         ?..removeWhere((element) {
@@ -151,7 +161,8 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     return newBusyDates;
   }
 
-  List<Map<String, DateTime>> clearOldBusyDates(List<Map<String, DateTime>> listDates) {
+  List<Map<String, DateTime>> clearOldBusyDates(
+      List<Map<String, DateTime>> listDates) {
     DateTime dayTimeNow = DateTime.now();
     for (int i = 0; i < listDates.length; i++) {
       if (listDates[i]['from']!.isBefore(dayTimeNow)) listDates.removeAt(i);
@@ -167,11 +178,13 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     if (isAvailabilityChecked) return available;
     bool availableDate = true;
     await Future.delayed(Duration(milliseconds: 300));
-    ModelBeautyProvider beautyProvider = Get.find<VMSalonDataTest>().beautyProvider;
+    ModelBeautyProvider beautyProvider =
+        Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
     List<Map<String, DateTime>> busyDates = beautyProvider.busyDates!;
     busyDates.forEach((element) {
-      if (requiredDate!.isAfter(element['from']!.subtract(Duration(minutes: 1))) && requiredDate.isBefore(element['to']!))
-        availableDate = false;
+      if (requiredDate!
+              .isAfter(element['from']!.subtract(Duration(minutes: 1))) &&
+          requiredDate.isBefore(element['to']!)) availableDate = false;
     });
     isAvailabilityChecked = true;
     setState(() {

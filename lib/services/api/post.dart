@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
@@ -16,7 +17,8 @@ class PostHelper {
   bool? auth = true;
 
   Future<Map<String, String>> getAuthHeader() async {
-    ModelBeautyProvider userProvider = await (sharedUserProviderGetInfo() as FutureOr<ModelBeautyProvider>);
+    ModelBeautyProvider userProvider =
+         BeautyProviderController.getBeautyProviderProfile();
     return {
       "Content-type": "application/json ",
       HttpHeaders.authorizationHeader: 'Bearer ${userProvider.tokenId}'
@@ -70,7 +72,8 @@ class PostHelper {
   }
 
   Future<String> makeGetRequest(String param) async {
-    http.Response response = await http.post(Uri.parse(url! + "/$param"), headers: header);
+    http.Response response =
+        await http.post(Uri.parse(url! + "/$param"), headers: header);
     return response.body;
   }
 }

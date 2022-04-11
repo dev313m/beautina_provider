@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -167,7 +168,7 @@ Future<MyNotification> dbServerloadNotification(String id) async {
 }
 
 Future<String?> getClientId() async {
-  ModelBeautyProvider user = await (sharedUserProviderGetInfo() as FutureOr<ModelBeautyProvider>);
+  ModelBeautyProvider user =BeautyProviderController.getBeautyProviderProfile();
   return user.uid;
 }
 
