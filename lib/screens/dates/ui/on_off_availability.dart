@@ -85,14 +85,13 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
                           BeautyProviderController.getBeautyProviderProfile();
 
                       //Clear old dates
-                      List<Map<String, DateTime>>? newBusyDates =
-                          clearOldBusyDates(mbp.busyDates!);
+                      List<Map<String, DateTime>>? newBusyDates ;
                       //update busy dates
                       newBusyDates =
                           changeAvaDates(widget.changableAvailableDate!, mbp);
 
-                      await apiBeautyProviderUpdate(
-                          mbp..busyDates = newBusyDates);
+                      // await apiBeautyProviderUpdate(
+                      //     mbp..busyDates = newBusyDates);
 
                       Get.find<GlobalValBeautyProviderListenable>().beautyProvider = mbp;
                       Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
@@ -146,17 +145,17 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     ///
     ///This is to remove any old date
     ///
-    if (available)
-      newBusyDates = modelBeautyProvider.busyDates
-        ?..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
-    else
-      newBusyDates = modelBeautyProvider.busyDates
-        ?..removeWhere((element) {
-          if (element['from']!.year == requiredDate.year &&
-              element['from']!.month == requiredDate.month &&
-              element['from']!.day == requiredDate.day) return true;
-          return false;
-        });
+    // if (available)
+    //   newBusyDates = modelBeautyProvider.busyDates
+    //     ?..add({'from': fixedDate, 'to': fixedDate.add(Duration(days: 1))});
+    // else
+    //   newBusyDates = modelBeautyProvider.busyDates
+    //     ?..removeWhere((element) {
+    //       if (element['from']!.year == requiredDate.year &&
+    //           element['from']!.month == requiredDate.month &&
+    //           element['from']!.day == requiredDate.day) return true;
+    //       return false;
+    //     });
 
     return newBusyDates;
   }
@@ -180,12 +179,12 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
     await Future.delayed(Duration(milliseconds: 300));
     ModelBeautyProvider beautyProvider =
         Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
-    List<Map<String, DateTime>> busyDates = beautyProvider.busyDates!;
-    busyDates.forEach((element) {
-      if (requiredDate!
-              .isAfter(element['from']!.subtract(Duration(minutes: 1))) &&
-          requiredDate.isBefore(element['to']!)) availableDate = false;
-    });
+    // List<Map<String, DateTime>> busyDates = beautyProvider.busyDates!;
+    // busyDates.forEach((element) {
+    //   if (requiredDate!
+    //           .isAfter(element['from']!.subtract(Duration(minutes: 1))) &&
+    //       requiredDate.isBefore(element['to']!)) availableDate = false;
+    // });
     isAvailabilityChecked = true;
     setState(() {
       available = availableDate;

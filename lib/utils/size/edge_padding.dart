@@ -9,7 +9,7 @@ final double heightBottomContainer = 60.h;
 final heightBtnSquare = 200.h;
 
 ///[radius]
-final double radiusDefault = 25;
+const double radiusDefault = 25;
 
 // double edgePage = 15.w;
 double edgeContainer = 10.w;

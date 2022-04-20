@@ -1,5 +1,7 @@
 import 'package:beautina_provider/blocks/all_services/block_all_services.dart';
+import 'package:beautina_provider/blocks/my_services/block_all_services.dart';
 import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/auto_accept_default.dart';
@@ -19,6 +21,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
+import 'package:get/instance_manager.dart';
 
 class PageSalon extends StatefulWidget {
   const PageSalon({Key? key}) : super(key: key);
@@ -60,14 +63,17 @@ class _PageSalonState extends State<PageSalon> {
                 key: ValueKey('tdest'),
               ),
               Y(),
-                            BlockAllServices(),
+              const BlockAllServices(),
+              // Y(),
+
+              const BlockMyServices(),
+              Y(),
 
               WdgtSalonShare(),
               Y(),
 
               GetBuilder<GlobalValBeautyProviderListenable>(
                   builder: (vMSalonDataTest) {
-                if (vMSalonDataTest.beautyProvider == null) return SizedBox();
                 if (vMSalonDataTest.beautyProvider.location!.length != 2)
                   return WdgtSalonLocationNotSet();
                 return SizedBox();
@@ -75,25 +81,21 @@ class _PageSalonState extends State<PageSalon> {
               Y(),
               WdgtSalonCloseOpenSalon(),
 
-              // GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
-              //   if (vMSalonDataTest.providedServices != null)
-              //     return WdgtSalonMyServices();
-              //   return SizedBox();
-              // }),
+            
 
-              // Y(),
-              // GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
-              //   if (vMSalonDataTest.providedServices!
-              //       .containsKey('services')) if (vMSalonDataTest
-              //           .providedServices!['services'].keys.length !=
-              //       0) return WdgtSalonAddService();
-              //   return SizedBox();
-              // }),
+              Y(),
+              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
+                if (vMSalonDataTest.providedServices!
+                    .containsKey('services')) if (vMSalonDataTest
+                        .providedServices!['services'].keys.length !=
+                    0) return WdgtSalonAddService();
+                return SizedBox();
+              }),
               Y(),
 
               WdgtSalonDefaultAccept(),
 
-              // Y(),
+              Y(),
               // WdgtSalonHowLookProfile(),
 
               SizedBox(

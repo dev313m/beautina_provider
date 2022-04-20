@@ -30,32 +30,33 @@ Future<ModelBeautyProvider?> updateDataFromServer() async {
 ///When user adds some new services, this function generate the new services map from new one ;
 Map<String, dynamic> getNewServicesMap(BuildContext context, showOther,
     chosenService, priceBefore, priceAfter, otherServiceName) {
-  ModelBeautyProvider beautyProvider =
-      Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
-  Map<String, dynamic> map =
-      new Map<String, dynamic>.of(beautyProvider.servicespro!);
-  Map<String, dynamic> newMap = copyDeepMap(map);
+  // ModelBeautyProvider beautyProvider =
+  //     Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
+  // Map<String, dynamic> map =
+  //     new Map<String, dynamic>.of(beautyProvider.servicespro!);
+  // Map<String, dynamic> newMap = copyDeepMap(map);
 
-  if (!showOther) {
-    List<String> services = chosenService.split('-');
-    List<double> numbers =
-        priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+  // if (!showOther) {
+  //   List<String> services = chosenService.split('-');
+  //   List<double> numbers =
+  //       priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
 
-    if (newMap[services[0]] == null)
-      newMap[services[0]] = {services[1]: numbers};
-    else
-      newMap[services[0]][services[1]] = numbers;
-  } else {
-    if (newMap['other'] == null)
-      newMap['other'] = {
-        otherServiceName:
-            priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
-      };
-    else
-      newMap['other'][otherServiceName] =
-          priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
-  }
-  return newMap;
+  //   if (newMap[services[0]] == null)
+  //     newMap[services[0]] = {services[1]: numbers};
+  //   else
+  //     newMap[services[0]][services[1]] = numbers;
+  // } else {
+  //   if (newMap['other'] == null)
+  //     newMap['other'] = {
+  //       otherServiceName:
+  //           priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore]
+  //     };
+  //   else
+  //     newMap['other'][otherServiceName] =
+  //         priceBefore == 0 ? [priceAfter] : [priceAfter, priceBefore];
+  // }
+  // return newMap;
+  return {};
 }
 
 ///
@@ -78,16 +79,16 @@ updateProviderServices(
   ModelBeautyProvider bp =
      BeautyProviderController.getBeautyProviderProfile();
   try {
-    if (showOther)
-      bp.service_duration![otherServiceName] = serviceDuration;
-    else
-      bp.service_duration![chosenService.split('-')[1]] = serviceDuration;
+    // if (showOther)
+    //   bp.service_duration![otherServiceName] = serviceDuration;
+    // else
+    //   bp.service_duration![chosenService.split('-')[1]] = serviceDuration;
 
-    ModelBeautyProvider newBp = await apiBeautyProviderUpdate(bp
-      ..servicespro = getNewServicesMap(context, showOther, chosenService,
-          priceBefore, priceAfter, otherServiceName));
+    // ModelBeautyProvider newBp = await apiBeautyProviderUpdate(bp
+    //   ..servicespro = getNewServicesMap(context, showOther, chosenService,
+    //       priceBefore, priceAfter, otherServiceName));
 
-    Get.find<GlobalValBeautyProviderListenable>().beautyProvider = newBp;
+    // Get.find<GlobalValBeautyProviderListenable>().beautyProvider = newBp;
 
     // setState(() {});
     showToast('تمت الاضافة بنجاح');
@@ -127,25 +128,25 @@ removeServiceByCodeAndUpdate(
     Function onDeleteServiceError,
     Function onDeleteServiceLoad,
     Function onDeleteServiceComplete) async {
-  onDeleteServiceLoad();
+  // onDeleteServiceLoad();
 
-  /// 1- Get current userData
-  ModelBeautyProvider bp =
-     BeautyProviderController.getBeautyProviderProfile();
+  // /// 1- Get current userData
+  // ModelBeautyProvider bp =
+  //    BeautyProviderController.getBeautyProviderProfile();
 
-  /// 2- Remove
-  Map<String, dynamic> newMap = bp.servicespro!;
-  newMap[serviceRoot!].remove(serviceCode);
+  // /// 2- Remove
+  // Map<String, dynamic> newMap = bp.servicespro!;
+  // newMap[serviceRoot!].remove(serviceCode);
 
-  /// 3- update
-  try {
-    Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
-        await apiBeautyProviderUpdate(bp..servicespro = newMap);
-    onDeleteServiceSuccess();
-  } catch (e) {
-    onDeleteServiceError();
-  }
-  onDeleteServiceComplete();
+  // /// 3- update
+  // try {
+  //   Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+  //       await apiBeautyProviderUpdate(bp..servicespro = newMap);
+  //   onDeleteServiceSuccess();
+  // } catch (e) {
+  //   onDeleteServiceError();
+  // }
+  // onDeleteServiceComplete();
 }
 
 /**

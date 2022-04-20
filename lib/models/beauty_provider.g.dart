@@ -29,12 +29,8 @@ class ModelBeautyProviderAdapter extends TypeAdapter<ModelBeautyProvider> {
       name: fields[12] as String?,
       customers: fields[7] as double?,
       points: fields[20] as int?,
-      service_duration: (fields[10] as Map?)?.cast<String, int>(),
       default_after_accept: fields[28] as int?,
       tokenId: fields[16] as String?,
-      busyDates: (fields[3] as List?)
-          ?.map((dynamic e) => (e as Map).cast<String, DateTime>())
-          .toList(),
       favorite_count: fields[21] as int?,
       auth_login: fields[18] as String?,
       rating: fields[24] as double?,
@@ -51,22 +47,19 @@ class ModelBeautyProviderAdapter extends TypeAdapter<ModelBeautyProvider> {
       phone: fields[29] as String?,
     )
       ..TYPE_SALON = fields[0] as int
-      ..TYPE_INDIVIDUAL = fields[1] as int
-      ..servicespro = (fields[26] as Map?)?.cast<String, dynamic>();
+      ..TYPE_INDIVIDUAL = fields[1] as int;
   }
 
   @override
   void write(BinaryWriter writer, ModelBeautyProvider obj) {
     writer
-      ..writeByte(33)
+      ..writeByte(30)
       ..writeByte(0)
       ..write(obj.TYPE_SALON)
       ..writeByte(1)
       ..write(obj.TYPE_INDIVIDUAL)
       ..writeByte(2)
       ..write(obj.firebaseUid)
-      ..writeByte(3)
-      ..write(obj.busyDates)
       ..writeByte(4)
       ..write(obj.type)
       ..writeByte(5)
@@ -79,8 +72,6 @@ class ModelBeautyProviderAdapter extends TypeAdapter<ModelBeautyProvider> {
       ..write(obj.intro)
       ..writeByte(9)
       ..write(obj.email)
-      ..writeByte(10)
-      ..write(obj.service_duration)
       ..writeByte(11)
       ..write(obj.location)
       ..writeByte(12)
@@ -111,8 +102,6 @@ class ModelBeautyProviderAdapter extends TypeAdapter<ModelBeautyProvider> {
       ..write(obj.rating)
       ..writeByte(25)
       ..write(obj.package)
-      ..writeByte(26)
-      ..write(obj.servicespro)
       ..writeByte(27)
       ..write(obj.default_accept)
       ..writeByte(28)

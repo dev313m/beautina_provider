@@ -3,7 +3,7 @@ import 'package:beautina_provider/core/db/local/hive_adapters.dart';
 import 'package:beautina_provider/core/global_values/not_responsive/hive_box.dart';
 import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
-import 'package:beautina_provider/core/global_values/responsive/salon_services_cart.dart';
+import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -48,7 +48,7 @@ class InitialBinding extends Bindings {
   void dependencies() {
     Get.put(VMRootUiTest(), permanent: true);
     Get.put(VMRootDataTest(build: false), permanent: true);
-    Get.put(VmDateDataTest(build: false));
+    // Get.put(VmDateDataTest(build: false));
     Get.put(VMSettingsDataTest(), permanent: true);
     Get.put(VMLoginDataTest(), permanent: true);
     Get.put(GlobalValBeautyProviderListenable(), permanent: true);
@@ -66,9 +66,9 @@ class InitialBindingRegistered extends Bindings {
       permanent: true,
     );
     Get.put(GlobalValAllServices(), permanent: true);
-    Get.lazyPut(() => GlobalValSalonServicesCart());
+    Get.lazyPut(() => GlobalValMyServices());
     Get.put(GlobalValBeautyProviderListenable(), permanent: true);
-
+    Get.lazyPut(() => GlobalValMyServices());
     Get.put(VMRootUiTest(), permanent: true);
     Get.put(VMRootDataTest(build: true), permanent: true);
     Get.put(VmDateDataTest(build: true));

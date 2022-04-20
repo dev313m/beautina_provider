@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelMyService {
+  String? id;
+
   String providerName = '';
   String providerId = '';
-  String img = '';
+  String prvd_img = '';
   String providerDesc = '';
   String city = '';
   String country = '';
@@ -22,15 +24,16 @@ class ModelMyService {
   ModelMyService({
     required this.providerName,
     required this.providerId,
-    required this.img,
+    required this.prvd_img,
     required this.providerDesc,
     required this.city,
     required this.country,
     required this.isActive,
     this.duration,
     this.cost,
-    required this.viewCount,
-    required this.orderCount,
+     this.viewCount  = 0,
+     this.orderCount = 0,
+    this.id,
     required this.serviceCode,
     this.createDate,
     this.geo,
@@ -41,7 +44,7 @@ class ModelMyService {
   ModelMyService copyWith({
     String? providerName,
     String? providerId,
-    String? img,
+    String? prvd_img,
     String? providerDesc,
     String? city,
     String? country,
@@ -59,7 +62,7 @@ class ModelMyService {
     return ModelMyService(
       providerName: providerName ?? this.providerName,
       providerId: providerId ?? this.providerId,
-      img: img ?? this.img,
+      prvd_img: prvd_img ?? this.prvd_img,
       providerDesc: providerDesc ?? this.providerDesc,
       city: city ?? this.city,
       country: country ?? this.country,
@@ -78,50 +81,51 @@ class ModelMyService {
 
   Map<String, dynamic> toMap() {
     return {
-      'providerName': providerName,
-      'providerId': providerId,
-      'img': img,
-      'providerDesc': providerDesc,
+      'prvd_nm': providerName,
+      'prvd_id': providerId,
+      'prvd_img': prvd_img,
+      'prvd_desc': providerDesc,
       'city': city,
-      'country': country,
-      'isActive': isActive,
+      'cntry': country,
+      'active': isActive,
       'duration': duration,
       'cost': cost,
-      'viewCount': viewCount,
-      'orderCount': orderCount,
-      'serviceCode': serviceCode,
-      'createDate': createDate?.millisecondsSinceEpoch,
-      'geo': geo,
-      'startDate': startDate?.millisecondsSinceEpoch,
-      'finishDate': finishDate?.millisecondsSinceEpoch,
+      'view_cnt': viewCount,
+      'order_cnt': orderCount,
+      'service_code': serviceCode,
+      // 'crt_dt': createDate.toString(),
+      'lng': geo?.longitude,
+      'lat': geo?.latitude,
+      // 'strt_dt': startDate?.toString(),
+      // 'finishDate': finishDate?.millisecondsSinceEpoch,
     };
   }
 
   factory ModelMyService.fromMap(Map<String, dynamic> map) {
     return ModelMyService(
-      providerName: map['providerName'] ?? '',
-      providerId: map['providerId'] ?? '',
-      img: map['img'] ?? '',
-      providerDesc: map['providerDesc'] ?? '',
+      providerName: map['prvd_nm'] ?? '',
+      providerId: map['prvd_id'] ?? '',
+      prvd_img: map['prvd_img'] ?? '',
+      providerDesc: map['prvd_desc'] ?? '',
       city: map['city'] ?? '',
-      country: map['country'] ?? '',
-      isActive: map['isActive'] ?? false,
+      country: map['cntry'] ?? '',
+      isActive: map['active'] ?? false,
       duration: map['duration']?.toDouble(),
       cost: map['cost']?.toDouble(),
-      viewCount: map['viewCount']?.toInt() ?? 0,
-      orderCount: map['orderCount']?.toInt() ?? 0,
-      serviceCode: map['serviceCode'] ?? '',
-      createDate: map['createDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createDate'])
+      viewCount: map['view_cnt']?.toInt() ?? 0,
+      orderCount: map['order_cnt']?.toInt() ?? 0,
+      serviceCode: map['service_code'] ?? '',
+      createDate: map['crt_dt'] != null
+          ? DateTime.parse(map['crt_dt'])
           : null,
       geo: map['geo'] != null
-          ? GeoPoint(map['geo']['coordinates'][1], map['geo']['coordinates'][0])
+          ? GeoPoint(map['geo']['coordinates'][1].toDouble(), map['geo']['coordinates'][0].toDouble())
           : null,
-      startDate: map['startDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['startDate'])
+      startDate: map['strt_dt'] != null
+          ? DateTime.parse(map['strt_dt'])
           : null,
-      finishDate: map['finishDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['finishDate'])
+      finishDate: map['fnsh_dt'] != null
+          ? DateTime.parse(map['fnsh_dt'])
           : null,
     );
   }
@@ -133,6 +137,6 @@ class ModelMyService {
 
   @override
   String toString() {
-    return 'ModelMyService(providerName: $providerName, providerId: $providerId, img: $img, providerDesc: $providerDesc, city: $city, country: $country, isActive: $isActive, duration: $duration, cost: $cost, viewCount: $viewCount, orderCount: $orderCount, serviceCode: $serviceCode, createDate: $createDate, geo: $geo, startDate: $startDate, finishDate: $finishDate)';
+    return 'ModelMyService(providerName: $providerName, providerId: $providerId, prvd_img: $prvd_img, providerDesc: $providerDesc, city: $city, country: $country, isActive: $isActive, duration: $duration, cost: $cost, viewCount: $viewCount, orderCount: $orderCount, serviceCode: $serviceCode, createDate: $createDate, geo: $geo, startDate: $startDate, finishDate: $finishDate)';
   }
 }

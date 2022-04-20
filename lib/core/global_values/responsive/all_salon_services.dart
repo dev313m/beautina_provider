@@ -6,6 +6,6 @@ import 'package:get/state_manager.dart';
 
 class GlobalValAllServices extends AsyncApiGetx<List<ModelService>> {
   GlobalValAllServices()
-      : super(api: AllSalonServices.getServices(), value: Rx([])) {}
+      : super(api: AllSalonServicesController.getServices(), value: Rx([])) {}
 
 }

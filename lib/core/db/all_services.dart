@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class DBAllServices {
-  Future<List<dynamic>> apiAllServices() async {
+  Future<String> apiAllServices() async {
     http.Response response;
 
     try {
@@ -16,8 +16,7 @@ class DBAllServices {
       if (response.statusCode != 200) {
         throw HttpException('An error occured.');
       }
-      var decoded = await compute(json.decode, response.body);
-      return decoded['services'];
+      return await response.body;
     } catch (e) {
       throw HttpException(e.toString());
       // return {};

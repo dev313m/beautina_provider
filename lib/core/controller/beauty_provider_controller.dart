@@ -6,6 +6,14 @@ import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:get/get.dart';
 
 class BeautyProviderController {
+  storeToken(String token) async {
+    await GlobalVarLocalBeautyProvider().storeTokenToLocalDB(token);
+  }
+
+  String? getToken() {
+    return GlobalVarLocalBeautyProvider().getTokenFromLocalDB();
+  }
+
   registerObjFromLocalStorage() async {
     var s = await GlobalVarLocalBeautyProvider().getFromLocalDB();
     getIt.registerSingleton<ModelBeautyProvider>(s!);

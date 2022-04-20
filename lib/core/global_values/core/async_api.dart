@@ -6,6 +6,8 @@ abstract class AsyncApiGetx<T> extends GetxController {
   Rx<T> value;
   RxBool isLoading = RxBool(false);
   RxBool isError = RxBool(false);
+  RxBool isReady = RxBool(false);
+  RxBool isFinishSuccess = RxBool(false);
   AsyncApiGetx({required this.api, required this.value});
 
   @override
@@ -19,6 +21,7 @@ abstract class AsyncApiGetx<T> extends GetxController {
     isError.value = false;
     try {
       value.value = await api;
+      isFinishSuccess.value = true;
       // value = res.obs;
     } catch (e) {
       isError.value = true;

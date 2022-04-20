@@ -1,16 +1,13 @@
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 
@@ -60,12 +57,6 @@ class WdgtSalonAddService extends StatefulWidget {
 class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   String? value;
 
-  ///This is a list of bool represents selected category in the toggleButtons
-  late List<bool> toggleSelectBoolList;
-
-  ///This map represents all services as a map
-  Map<String, dynamic>? mapServices;
-
   ///list of available services as a widget for the toggleButtons
   List<Widget>? categoryWidgetList;
 
@@ -79,10 +70,10 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
   String chosenService = '';
 
   ///Show price field flag
-  bool isShowPrice = false;
+  bool isShowPrice = true;
 
   ///Check if toggle buttons list flag;
-  bool isToggleButtonsSet = false;
+  bool isToggleButtonsSet = true;
   // bool isMainServiceChosen = false;
   final RoundedLoadingButtonController _btnController =
       new RoundedLoadingButtonController();
@@ -103,327 +94,258 @@ class _WdgtSalonAddServiceState extends State<WdgtSalonAddService> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-      mapServices = vMSalonData.providedServices!['services'];
-      return Directionality(
-        textDirection: TextDirection.rtl,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(radiusContainer),
-          child: Container(
-            padding: EdgeInsets.all(edgeMainContainer),
-            color: colorContainerBg,
-            // height: ScreenUtil().setHeight(400),
-            child: Stack(
-              children: [
-                Align(
-                    child: IconButton(
-                      icon: Icon(Icons.add_circle, color: Colors.white24), onPressed: () {  },
-                    ),
-                    alignment: Alignment.topLeft),
-                Column(
-                  children: <Widget>[
-                    Y(height: BoxHeight.heightBtwTitle),
-                    GWdgtTextTitle(
-                      string: strAddingNewService,
-                    ),
-                    Y(height: BoxHeight.heightBtwContainers),
-                    GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
-                    Y(height: BoxHeight.heightBtwTitle),
-                    SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: ToggleButtons(
-                            children: mapServices!.entries
-                                .toList()
-                                .map((e) => e.value['ar'])
-                                .toList()
-                                .map(
-                                    (e) => WdgtSalonServiceItem(serviceName: e))
-                                .toList(),
-                            //Check here togglebutton flag, isselect can't be null, and setting here selectCategory so it is initialized here
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radiusContainer),
+        child: Container(
+          padding: EdgeInsets.all(edgeMainContainer),
+          color: colorContainerBg,
+          // height: ScreenUtil().setHeight(400),
+          child: Stack(
+            children: [
+              Align(
+                  child: IconButton(
+                    icon: Icon(Icons.add_circle, color: Colors.white24),
+                    onPressed: () {},
+                  ),
+                  alignment: Alignment.topLeft),
+              Column(
+                children: <Widget>[
+                  Y(height: BoxHeight.heightBtwTitle),
+                  GWdgtTextTitle(
+                    string: strAddingNewService,
+                  ),
+                  Y(height: BoxHeight.heightBtwContainers),
+                  GWdgtTextTitleDesc(string: strAddingNewServiceDetails),
 
-                            isSelected: !isToggleButtonsSet
-                                ? toggleSelectBoolList = mapServices!.entries
-                                    .toList()
-                                    .map((e) => false)
-                                    .toList()
-                                : toggleSelectBoolList,
-                            borderRadius:
-                                BorderRadius.circular(radiusContainer),
-                            fillColor: Colors.pink,
-                            selectedColor: Colors.pink,
-                            renderBorder: false,
-                            onPressed: (index) {
-                              toggleButtonUiUpdater(index);
-                              setSubCategoryDropdownMenu(index);
-                              otherOptionChosenListener(index);
-                              clearFields();
-
-                              if (index != toggleSelectBoolList.length - 1)
-                                _showPicker();
-
-                              isShowPrice = false;
-
-                              setState(() {});
-                            })),
-                    Y(height: BoxHeight.heightBtwContainers),
-                    if (showOther)
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: BeautyTextfield(
-                          onChanged: (str) {
-                            otherServiceName = str;
-                            isShowPrice = true;
-                            setState(() {});
-                          },
-                          prefixIcon: Icon(
-                            CommunityMaterialIcons.ticket,
-                            color: AppColors.pinkBright,
-                          ),
-                          // placeholder: strServiceName,
-                          helperText: strServiceName,
-                          textStyle: TextStyle(color: AppColors.pinkBright),
-                          inputType: TextInputType.text,
-                        ),
-                      ),
-                    Y(),
-                    if (isShowPrice)
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: BeautyTextfield(
-                          // height: ScreenUtil().setHeight(90),
-                          onChanged: (String s) {
-                            priceAfter = double.parse(s);
-                          },
-                          // textStyle: TextStyle(color: AppColors.pinkBright),
-                          suffixIcon: Icon(
-                            Icons.attach_money,
-                          ),
-                          helperText: strServicePrice,
-                          inputType: TextInputType.number,
-                        ),
-                      ),
-                    Y(),
-                    if (isShowPrice)
-                      Container(
-                        // width: 200.w,
-                        child: BeautyTextfield(
-                          // prefixText: durationTextFieldController.text,
-                          placeholder: durationTextFieldController.text,
-                          helperText: 'المدة المتوقعة:  ',
-                          readOnly: true,
-                          isBox: true,
-                          prefixIcon: Icon(CommunityMaterialIcons.watch),
-                          onTap: () {
-                            late Picker picker;
-
-                            picker = Picker(
-                                // backgroundColor: Colors.pink.withOpacity(0.3),
-                                adapter: NumberPickerAdapter(
-                                    data: <NumberPickerColumn>[
-                                      const NumberPickerColumn(
-                                          begin: 0,
-                                          end: 60,
-                                          postfix: GWdgtTextDescDesc(
-                                              string: ' دقيقة ',
-                                              color: Colors.black),
-                                          jump: 15),
-                                      const NumberPickerColumn(
-                                          begin: 0,
-                                          end: 12,
-                                          postfix: GWdgtTextDescDesc(
-                                              color: Colors.black,
-                                              string: ' ساعة '),
-                                          columnFlex: 1),
-                                    ]),
-                                delimiter: <PickerDelimiter>[
-                                  PickerDelimiter(
-                                    child: Container(
-                                      width: 30.0.h,
-                                      alignment: Alignment.center,
-                                      child: Icon(Icons.more_vert),
-                                    ),
-                                  )
-                                ],
-                                hideHeader: false,
-                                confirmTextStyle: TextStyle(
-                                    inherit: false,
-                                    color: Colors.red,
-                                    fontSize: 22),
-                                // title: Text(
-                                //   'الوقت المتوقع لإنهاء الخدمة',
-                                //   textAlign: TextAlign.right,
-                                // ),
-                                containerColor: Colors.pink,
-                                selectedTextStyle:
-                                    TextStyle(color: Colors.blue),
-                                onConfirm: (Picker picker, List<int> value) {
-                                  // You get your duration here
-                                  serviceDuration = Duration(
-                                      hours: picker.getSelectedValues()[1],
-                                      minutes: picker.getSelectedValues()[0]);
-                                  // picker.doCancel(context);
-                                  durationTextFieldController.text =
-                                      " ${(serviceDuration.inHours).toString()} س ${(serviceDuration.inMinutes.remainder(60) % 60).toString()} د ";
-                                  // showToast(orderDuration.inMinutes.toString());
-
-                                  serviceDurationInt =
-                                      serviceDuration.inMinutes;
-                                  setState(() {});
-                                },
-                                cancel: IconButton(
-                                  icon: Icon(
-                                    Icons.cancel,
-                                    color: Colors.red,
-                                  ),
-                                  onPressed: () {
-                                    picker.doCancel(context);
-                                  },
-                                ),
-                                confirm: IconButton(
-                                  icon: Icon(
-                                    Icons.done,
-                                    color: Colors.blue,
-                                  ),
-                                  onPressed: () {
-                                    picker.doConfirm(context);
-                                  },
-                                ),
-                                cancelTextStyle: TextStyle(color: Colors.red),
-                                textStyle: TextStyle(color: Colors.blue));
-                            picker.showModal(context);
-                          },
-                          inputType: TextInputType.text,
-                        ),
-                      ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(radiusButton),
-                      child: RoundedLoadingButton(
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(radiusButton),
-                            ),
-                            height: 100,
-                            width: double.infinity,
-                            child:
-                                Center(child: GWdgtTextButton(string: strAdd))),
-                        onPressed: () async {
-                          if (checkFields()) {
-                            await updateProviderServices(
-                                context,
-                                showOther,
-                                chosenService,
-                                priceBefore,
-                                priceAfter,
-                                otherServiceName,
-                                serviceDuration.inMinutes,
-                                _btnController);
-                            clearFields();
-                          }
-
-                          _btnController.reset();
+                  Y(height: BoxHeight.heightBtwContainers),
+                  if (showOther)
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: BeautyTextfield(
+                        onChanged: (str) {
+                          otherServiceName = str;
+                          isShowPrice = true;
+                          setState(() {});
                         },
-                        controller: _btnController,
+                        prefixIcon: Icon(
+                          CommunityMaterialIcons.ticket,
+                          color: AppColors.pinkBright,
+                        ),
+                        // placeholder: strServiceName,
+                        helperText: strServiceName,
+                        textStyle: TextStyle(color: AppColors.pinkBright),
+                        inputType: TextInputType.text,
                       ),
                     ),
-                    Y(
-                      height: heightBottomContainer,
-                    )
+                  Y(),
+                  if (isShowPrice)
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: BeautyTextfield(
+                        // height: ScreenUtil().setHeight(90),
+                        onChanged: (String s) {
+                          priceAfter = double.parse(s);
+                        },
+                        // textStyle: TextStyle(color: AppColors.pinkBright),
+                        suffixIcon: Icon(
+                          Icons.attach_money,
+                        ),
+                        helperText: strServicePrice,
+                        inputType: TextInputType.number,
+                      ),
+                    ),
+                  Y(),
+                  if (isShowPrice)
+                    Container(
+                      // width: 200.w,
+                      child: BeautyTextfield(
+                        // prefixText: durationTextFieldController.text,
+                        placeholder: durationTextFieldController.text,
+                        helperText: 'المدة المتوقعة:  ',
+                        readOnly: true,
+                        isBox: true,
+                        prefixIcon: Icon(CommunityMaterialIcons.watch),
+                        onTap: () {
+                          late Picker picker;
 
-                    // SizedBox(height: ScreenUtil().setHeight(100))
-                  ],
-                ),
-              ],
-            ),
+                          picker = Picker(
+                              // backgroundColor: Colors.pink.withOpacity(0.3),
+                              adapter: NumberPickerAdapter(
+                                  data: <NumberPickerColumn>[
+                                    const NumberPickerColumn(
+                                        begin: 0,
+                                        end: 60,
+                                        postfix: GWdgtTextDescDesc(
+                                            string: ' دقيقة ',
+                                            color: Colors.black),
+                                        jump: 15),
+                                    const NumberPickerColumn(
+                                        begin: 0,
+                                        end: 12,
+                                        postfix: GWdgtTextDescDesc(
+                                            color: Colors.black,
+                                            string: ' ساعة '),
+                                        columnFlex: 1),
+                                  ]),
+                              delimiter: <PickerDelimiter>[
+                                PickerDelimiter(
+                                  child: Container(
+                                    width: 30.0.h,
+                                    alignment: Alignment.center,
+                                    child: Icon(Icons.more_vert),
+                                  ),
+                                )
+                              ],
+                              hideHeader: false,
+                              confirmTextStyle: TextStyle(
+                                  inherit: false,
+                                  color: Colors.red,
+                                  fontSize: 22),
+                              // title: Text(
+                              //   'الوقت المتوقع لإنهاء الخدمة',
+                              //   textAlign: TextAlign.right,
+                              // ),
+                              containerColor: Colors.pink,
+                              selectedTextStyle: TextStyle(color: Colors.blue),
+                              onConfirm: (Picker picker, List<int> value) {
+                                // You get your duration here
+                                serviceDuration = Duration(
+                                    hours: picker.getSelectedValues()[1],
+                                    minutes: picker.getSelectedValues()[0]);
+                                // picker.doCancel(context);
+                                durationTextFieldController.text =
+                                    " ${(serviceDuration.inHours).toString()} س ${(serviceDuration.inMinutes.remainder(60) % 60).toString()} د ";
+                                // showToast(orderDuration.inMinutes.toString());
+
+                                serviceDurationInt = serviceDuration.inMinutes;
+                                setState(() {});
+                              },
+                              cancel: IconButton(
+                                icon: Icon(
+                                  Icons.cancel,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  picker.doCancel(context);
+                                },
+                              ),
+                              confirm: IconButton(
+                                icon: Icon(
+                                  Icons.done,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: () {
+                                  picker.doConfirm(context);
+                                },
+                              ),
+                              cancelTextStyle: TextStyle(color: Colors.red),
+                              textStyle: TextStyle(color: Colors.blue));
+                          picker.showModal(context);
+                        },
+                        inputType: TextInputType.text,
+                      ),
+                    ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(radiusButton),
+                    child: RoundedLoadingButton(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(radiusButton),
+                          ),
+                          height: 100,
+                          width: double.infinity,
+                          child:
+                              Center(child: GWdgtTextButton(string: strAdd))),
+                      onPressed: () async {
+                        if (checkFields()) {
+                          await updateProviderServices(
+                              context,
+                              showOther,
+                              chosenService,
+                              priceBefore,
+                              priceAfter,
+                              otherServiceName,
+                              serviceDuration.inMinutes,
+                              _btnController);
+                          clearFields();
+                        }
+
+                        _btnController.reset();
+                      },
+                      controller: _btnController,
+                    ),
+                  ),
+                  Y(
+                    height: heightBottomContainer,
+                  )
+
+                  // SizedBox(height: ScreenUtil().setHeight(100))
+                ],
+              ),
+            ],
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 
-  setSubCategoryDropdownMenu(int indexCategory) {
-    subCategoryList = [];
-    if (indexCategory == null) return;
-    String categoryKey = mapServices!.keys.toList()[indexCategory];
-    Map<String, dynamic>? allServices =
-        Get.find<VMSalonDataTest>().providedServices!['services'];
-    mapServices![categoryKey]['items']?.forEach((k, v) {
-      subCategoryList
-          .add({allServices![categoryKey]['items'][k]['ar']: '$categoryKey-$k'});
-    });
-  }
+ 
 
-  ///Listen to togglebuttons chosen index and update showing of
-  ///other
-  otherOptionChosenListener(int indexOfToggleBotton) {
-    showOther = false;
-
-    if (indexOfToggleBotton == toggleSelectBoolList.length - 1) {
-      showOther = true;
-      String msg = strAddingOtherAlert;
-      showAlert(context, msg: msg, dismiss: strDone);
-    }
-  }
-
-  ///Update the toggleButtons bar to show the selected category
-
-  toggleButtonUiUpdater(int indexToggleButton) {
-    toggleSelectBoolList = toggleSelectBoolList.map((f) => false).toList();
-    isToggleButtonsSet = true;
-    toggleSelectBoolList[indexToggleButton] = true;
-  }
 
   /// When user press on one category [toggleBottons] if not other it will show a list of services
   /// and when press it will save it to [chosenService] variable
   /// [todo]
   void _showPicker() {
-  //   PickerController pickerController = PickerController(
-  //     count: 1,
-  //     // selectedItems: [5, 2, 1],
-  //   );
+    //   PickerController pickerController = PickerController(
+    //     count: 1,
+    //     // selectedItems: [5, 2, 1],
+    //   );
 
-  // //   PickerViewPopup.showMode(
-  // //       PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
-  // //       controller: pickerController,
-  // //       context: context,
-  // //       title: GWdgtTextTitleDesc(
-  // //         string: strSubcategory,
-  // //       ),
-  // //       cancel: GWdgtTextPickerCancel(
-  // //         string: strCancel,
-  // //       ),
-  // //       onCancel: () {
-  // //         // Scaffold.of(context).showSnackBar(SnackBar(content: Text('AlertDialogPicker.cancel')));
-  // //       },
-  // //       confirm: GWdgtTextPickerSubmit(
-  // //         string: strDone,
-  // //       ),
-  // //       onConfirm: (controller) {
-  // //         var chosen = controller.selectedRowAt(section: 0);
-  // //         isShowPrice = true;
+    // //   PickerViewPopup.showMode(
+    // //       PickerShowMode.BottomSheet, // AlertDialog or BottomSheet
+    // //       controller: pickerController,
+    // //       context: context,
+    // //       title: GWdgtTextTitleDesc(
+    // //         string: strSubcategory,
+    // //       ),
+    // //       cancel: GWdgtTextPickerCancel(
+    // //         string: strCancel,
+    // //       ),
+    // //       onCancel: () {
+    // //         // Scaffold.of(context).showSnackBar(SnackBar(content: Text('AlertDialogPicker.cancel')));
+    // //       },
+    // //       confirm: GWdgtTextPickerSubmit(
+    // //         string: strDone,
+    // //       ),
+    // //       onConfirm: (controller) {
+    // //         var chosen = controller.selectedRowAt(section: 0);
+    // //         isShowPrice = true;
 
-  // //         // if (item == 'other') showOther = true;
-  // //         chosenService = subCategoryList[chosen].entries.first.value;
-  // //         setState(() {
-  // //           value = subCategoryList[chosen].entries.first.value;
-  // //         });
-  // //       },
-  // //       builder: (context, popup) {
-  // //         return Container(
-  // //           height: 150,
-  // //           child: popup,
-  // //         );
-  // //       },
-  // //       // itemExtent: 40,
-  // //       numberofRowsAtSection: (section) {
-  // //         return subCategoryList.length;
-  // //       },
-  // //       itemBuilder: (section, row) {
-  // //         String value = subCategoryList[row].keys.first;
-  // //         return GWdgtTextPickerChoices(
-  // //           string: value,
-  // //         );
-  // //       });
+    // //         // if (item == 'other') showOther = true;
+    // //         chosenService = subCategoryList[chosen].entries.first.value;
+    // //         setState(() {
+    // //           value = subCategoryList[chosen].entries.first.value;
+    // //         });
+    // //       },
+    // //       builder: (context, popup) {
+    // //         return Container(
+    // //           height: 150,
+    // //           child: popup,
+    // //         );
+    // //       },
+    // //       // itemExtent: 40,
+    // //       numberofRowsAtSection: (section) {
+    // //         return subCategoryList.length;
+    // //       },
+    // //       itemBuilder: (section, row) {
+    // //         String value = subCategoryList[row].keys.first;
+    // //         return GWdgtTextPickerChoices(
+    // //           string: value,
+    // //         );
+    // //       });
   }
 
   ///Clear all textFields

@@ -8,26 +8,26 @@ import 'package:get/get.dart';
 Map<DateTime, List<dynamic>?> getBusyDatesEvents(BuildContext context) {
   Map<DateTime, List<dynamic>?> events = {};
 
-  Get.find<GlobalValBeautyProviderListenable>().beautyProvider.busyDates!.forEach((f) {
-    DateTime fromDate = DateTime.utc(f['from']!.year, f['from']!.month, f['from']!.day);
-    DateTime? toDate = f['to'];
-    if (events[fromDate] == null) events[fromDate] = [];
+  // Get.find<GlobalValBeautyProviderListenable>().beautyProvider.busyDates!.forEach((f) {
+  //   DateTime fromDate = DateTime.utc(f['from']!.year, f['from']!.month, f['from']!.day);
+  //   DateTime? toDate = f['to'];
+  //   if (events[fromDate] == null) events[fromDate] = [];
 
-    //if there is only one day add it
-    if (fromDate == toDate)
-      events[fromDate] = events[fromDate]?..add(Order(status: -1));
-    else {
-      //add first day in the range
-      events[fromDate] = events[fromDate]?..add(Order(status: -1));
-      int i = 1;
-      // add all the days in the range
-      while (fromDate.add(Duration(days: i)).isBefore(toDate!)) {
-        if (events[fromDate.add(Duration(days: i))] == null) events[fromDate.add(Duration(days: i))] = [];
-        events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]?..add(Order(status: -1));
-        i++;
-      }
-    }
-  });
+  //   //if there is only one day add it
+  //   if (fromDate == toDate)
+  //     events[fromDate] = events[fromDate]?..add(Order(status: -1));
+  //   else {
+  //     //add first day in the range
+  //     events[fromDate] = events[fromDate]?..add(Order(status: -1));
+  //     int i = 1;
+  //     // add all the days in the range
+  //     while (fromDate.add(Duration(days: i)).isBefore(toDate!)) {
+  //       if (events[fromDate.add(Duration(days: i))] == null) events[fromDate.add(Duration(days: i))] = [];
+  //       events[fromDate.add(Duration(days: i))] = events[fromDate.add(Duration(days: i))]?..add(Order(status: -1));
+  //       i++;
+  //     }
+  //   }
+  // });
   return events;
 }
 

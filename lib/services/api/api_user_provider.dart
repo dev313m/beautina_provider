@@ -40,7 +40,7 @@ Future<ModelBeautyProvider> apiUserProviderAddNew(
 
     return ModelBeautyProvider.fromMap(parsed);
   } catch (e) {
-    throw HttpException(ERROR);
+    throw HttpException(e.toString());
   }
 }
 
@@ -102,13 +102,7 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
 
   //because busy dates contains datetime so please convert them to string to be encodable
 
-  List<Map<String, String>> busyDates = beautyProvider.busyDates!.map((e) {
-    Map<String, String> busyDate = {
-      'from': e['from'].toString(),
-      'to': e['to'].toString()
-    };
-    return busyDate;
-  }).toList();
+
 
   Map<String, dynamic> body = {
     'default_accept': beautyProvider.default_accept,
@@ -116,12 +110,12 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
     'phone': beautyProvider.phone,
     'intro': beautyProvider.intro,
     'name': beautyProvider.name,
-    'services': beautyProvider.servicespro,
+    // 'services': beautyProvider.servicespro,
     'client_id': beautyProvider.uid,
     'username': beautyProvider.username,
-    'service_duration': beautyProvider.service_duration,
+    // 'service_duration': beautyProvider.service_duration,
     'available': beautyProvider.available,
-    'busy_dates': busyDates,
+    // 'busy_dates': busyDates,
     'location': beautyProvider.location,
     'city': beautyProvider.city,
     'country': beautyProvider.country,

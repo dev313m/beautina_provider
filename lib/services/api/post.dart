@@ -14,31 +14,30 @@ class PostHelper {
     "Content-type": "application/json ",
   };
 
-  bool? auth = true;
+  bool auth = true;
 
-  Future<Map<String, String>> getAuthHeader() async {
-    ModelBeautyProvider userProvider =
-         BeautyProviderController.getBeautyProviderProfile();
+  Map<String, String> getAuthHeader() {
+    String token =
+        BeautyProviderController().getToken()!;
     return {
       "Content-type": "application/json ",
-      HttpHeaders.authorizationHeader: 'Bearer ${userProvider.tokenId}'
+      HttpHeaders.authorizationHeader: 'Bearer ${token}'
     };
   }
 
   Map<String, String> header = JSON_TYPE_HEADER;
-  PostHelper({this.auth, this.url});
+  PostHelper({this.auth = true, this.url});
 
   Future<http.Response> makePatchRequest(Map<String, dynamic> map) async {
-    print(json.encode(map));
     String body = json.encode(map);
     // showToast(body);
     // make POST request
     Map<String, String> header = await getAuthHeader();
 
+    print('POST HELPER: \n body: $body \n header: $header');
     Future<http.Response> response;
     try {
       response = http.patch(Uri.parse(url!), headers: header, body: body);
-      print(header);
       return response;
     } catch (e) {
       throw HttpException("حدث خطأ ما");
@@ -47,11 +46,15 @@ class PostHelper {
 
   Future<http.Response> makePostRequest(Map<String, dynamic> map) async {
     // set up POST request arguments
-    print(json.encode(map));
-    String body = json.encode(map);
+    String uid =
+        auth ? BeautyProviderController.getBeautyProviderProfile().uid! : '';
+    String body = json.encode(auth ? (map..['client_id'] = uid) : map);
+
     // showToast(body);
     // make POST request
-    if (auth!) header = await getAuthHeader();
+    if (auth) header = await getAuthHeader();
+    print('POST HELPER: \n body: $body \n header: $header');
+
     http.Response response = await http.post(
       Uri.parse(url!),
       headers: header,
@@ -71,9 +74,9 @@ class PostHelper {
     // }
   }
 
-  Future<String> makeGetRequest(String param) async {
+  Future<http.Response> makeGetRequest(String param) async {
     http.Response response =
-        await http.post(Uri.parse(url! + "/$param"), headers: header);
-    return response.body;
+        await http.get(Uri.parse(url! + "/$param"), headers: header);
+    return response;
   }
 }

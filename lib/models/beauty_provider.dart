@@ -11,9 +11,7 @@ class ModelBeautyProvider extends HiveObject {
   int TYPE_INDIVIDUAL = 1;
   @HiveField(2)
   String? firebaseUid = '';
-  @HiveField(3)
-  List<Map<String, DateTime>>? busyDates =
-      []; // Date that provider is not available for order
+
   @HiveField(4)
   int? type = 1; //whether it was a salon or a simple woman 1 for salon
   @HiveField(5)
@@ -26,8 +24,7 @@ class ModelBeautyProvider extends HiveObject {
   String? intro;
   @HiveField(9)
   String? email;
-  @HiveField(10)
-  Map<String, dynamic>? service_duration;
+
   @HiveField(11)
   List<double>? location;
   @HiveField(12)
@@ -58,8 +55,7 @@ class ModelBeautyProvider extends HiveObject {
   double? rating;
   @HiveField(25)
   Map<String, dynamic>? package;
-  @HiveField(26)
-  Map<String, dynamic>? servicespro;
+
   @HiveField(27)
   bool? default_accept;
   @HiveField(28)
@@ -90,7 +86,6 @@ class ModelBeautyProvider extends HiveObject {
       String? name,
       double? customers,
       int? points,
-      Map<String, int>? service_duration,
       int? default_after_accept,
       String? tokenId,
       List<Map<String, DateTime>>? busyDates,
@@ -107,7 +102,6 @@ class ModelBeautyProvider extends HiveObject {
       String? uid,
       String? username,
       int? achieved,
-      Map<String, List<dynamic>>? services,
       String? phone})
       : this.location = location,
         this.name = name,
@@ -119,12 +113,10 @@ class ModelBeautyProvider extends HiveObject {
         this.points = points,
         this.type = type,
         this.default_accept = default_accept,
-        this.busyDates = busyDates,
         this.tokenId = tokenId,
         this.customers = customers,
         this.firebaseUid = firebaseUid,
         this.rating = rating,
-        this.service_duration = service_duration,
         this.default_after_accept = default_after_accept,
         this.auth_login = auth_login,
         this.phone = phone,
@@ -143,7 +135,6 @@ class ModelBeautyProvider extends HiveObject {
   Map<String, dynamic> getMap() {
     Map<String, dynamic> map = new Map<String, dynamic>();
     map['type'] = this.type;
-    map['service_duration'] = this.service_duration;
     map['default_after_accept'] = this.default_after_accept?.toInt();
     map['available'] = this.available ?? true;
     map['auth_login'] = this.auth_login ?? '';
@@ -151,7 +142,6 @@ class ModelBeautyProvider extends HiveObject {
     map['default_accept'] = this.default_accept;
     map['image'] = this.image ?? '';
     map['package'] = this.package ?? {};
-    map['busy_dates'] = this.busyDates ?? [];
     map['username'] = this.username;
     map['customers'] = this.customers ?? 0;
     map['acheived'] = this.achieved?.toInt() ?? 0;
@@ -171,7 +161,6 @@ class ModelBeautyProvider extends HiveObject {
     map['email'] = this.email ?? '';
     map['likes'] = this.likes?.toInt() ?? 0;
     map['achieved'] = this.achieved ?? 0;
-    map['services'] = this.servicespro ?? {};
     map['token'] = this.token;
     map['_id'] = this.uid ?? '';
     return map;
@@ -182,15 +171,17 @@ class ModelBeautyProvider extends HiveObject {
     image = data['image'] ?? '';
     default_after_accept = data['default_after_accept'];
     default_accept = data['default_accept'];
-    service_duration = data['service_duration'] ?? {};
     intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
     username = data['username'];
     customers = data['customers'].toDouble() ?? 0;
+    tokenId = data['tokenId']; 
     // package = data['package'] ?? {};
-    location = data['location'] == null
-        ? [1, 2]
-        : List.castFrom<dynamic, double>(data['location']['coordinates']);
+    ///[todo ] add the location & check  
+    location = [0,2];
+    // location = data['location'] == null
+    //     ? [1, 2]
+    //     : List.castFrom<dynamic, double>(data['location']['coordinates']);
     name = data['name'] ?? '';
     favorite_count = data['favorite_count'] ?? 0;
     if (data['tokenId'] != null) tokenId = data['tokenId'];
@@ -211,26 +202,13 @@ class ModelBeautyProvider extends HiveObject {
     likes = data['likes'] ?? 0;
     achieved = data['_achieved'] ?? 0;
     uid = data['_id'] ?? '';
-    busyDates = getBustyDates(data['busy_dates']);
 
     token = data['token'] ?? '';
-    servicespro = data['services'] == null
-        ? {}
-        : Map<String, dynamic>.from(data['services']);
+ 
     // getAllServices(servicespro);
   }
 
-  List<Map<String, DateTime>> getBustyDates(List<dynamic> myList) {
-    return myList.length == 0
-        ? []
-        : myList
-            .map((dateObject) => {
-                  'from': DateTime.parse(dateObject['from']),
-                  'to': DateTime.parse(dateObject['to'])
-                })
-            .toList();
-    // .cast<List<Map<String, DateTime>>>();
-  }
+
 
   // getAllServices(Map<String, dynamic> servicess) {
   //   Map<String, dynamic> finalResult = Map<String, dynamic>();

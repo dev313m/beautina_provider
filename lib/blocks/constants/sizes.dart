@@ -1,0 +1,1 @@
+const CONST_ICON_SIZE = 35; 

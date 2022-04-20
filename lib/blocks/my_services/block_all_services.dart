@@ -1,4 +1,4 @@
-import 'package:beautina_provider/blocks/all_services/block_all_services_repo.dart';
+import 'package:beautina_provider/blocks/my_services/block_all_services_repo.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
@@ -15,18 +15,18 @@ final categoryListColors = [Colors.lightBlue, Colors.teal];
 const maximumListColorIndex = 1;
 int colorListIndex = 0;
 
-class BlockAllServices extends StatefulWidget {
-  const BlockAllServices({Key? key}) : super(key: key);
+class BlockMyServices extends StatefulWidget {
+  const BlockMyServices({Key? key}) : super(key: key);
 
   @override
-  State<BlockAllServices> createState() => _BlockAllServicesState();
+  State<BlockMyServices> createState() => _BlockMyServicesState();
 }
 
-class _BlockAllServicesState extends State<BlockAllServices> {
-  late BlockAllServicesRepo _blockAllServicesRepo;
+class _BlockMyServicesState extends State<BlockMyServices> {
+  late BlockMyServicesRepo _BlockMyServicesRepo;
   @override
   void initState() {
-    _blockAllServicesRepo = BlockAllServicesRepo();
+    _BlockMyServicesRepo = BlockMyServicesRepo();
     super.initState();
   }
 
@@ -51,12 +51,11 @@ class _BlockAllServicesState extends State<BlockAllServices> {
                 ),
                 Center(
                     child: GWdgtTextTitle(
-                  string: 'خدمات الصالون',
+                  string: 'خدماتي المسجلة',
                 )),
                 Y(),
                 GWdgtTextTitleDesc(
-                  string:
-                      'يمكنك تصفح جميع الخدمات المتوفرة وإضافة اي خدمة من هنا',
+                  string: 'من هنا يمكنك تعديل خدماتك، او تعطيلها في اي وقت',
                 ),
                 Y(
                   height: heightBottomContainer,
@@ -71,7 +70,7 @@ class _BlockAllServicesState extends State<BlockAllServices> {
               // var globalValAllServices = Get.find<GlobalValAllServices>();
               return AnimatedSwitcher(
                 duration: const Duration(seconds: 1),
-                child: _blockAllServicesRepo.isLoadError()
+                child: _BlockMyServicesRepo.isLoadError()
                     ? Center(
                         child: IconButton(
                             icon: Icon(
@@ -80,9 +79,9 @@ class _BlockAllServicesState extends State<BlockAllServices> {
                               color: AppColors.blue,
                             ),
                             onPressed: () =>
-                                _blockAllServicesRepo.reLoadServices),
+                                _BlockMyServicesRepo.reLoadServices),
                       )
-                    : _blockAllServicesRepo.isLoading()
+                    : _BlockMyServicesRepo.isLoading()
                         ? const CircularProgressIndicator()
                         : Column(
                             children: [
@@ -110,8 +109,8 @@ class _BlockAllServicesState extends State<BlockAllServices> {
                                           SizedBox(
                                             height: 270,
                                             child: ListView.builder(
-                                              itemCount: _blockAllServicesRepo
-                                                  .getRootNodes()
+                                              itemCount: _BlockMyServicesRepo
+                                                      .getRootNodes()
                                                   .length,
 
                                               // shrinkWrap: true,
@@ -123,7 +122,7 @@ class _BlockAllServicesState extends State<BlockAllServices> {
                                               // physics: NeverScrollableScrollPhysics(),
                                               itemBuilder: (_, index) {
                                                 List<ModelService> rootNodes =
-                                                    _blockAllServicesRepo
+                                                    _BlockMyServicesRepo
                                                         .getRootNodes();
                                                 var rootDirectChild =
                                                     rootNodes[index]
@@ -143,7 +142,7 @@ class _BlockAllServicesState extends State<BlockAllServices> {
                                                       child: Row(
                                                         children: [
                                                           Image.asset(
-                                                            _blockAllServicesRepo
+                                                            _BlockMyServicesRepo
                                                                     .servicesIcons +
                                                                 rootNodes[index]
                                                                     .code +
@@ -384,12 +383,9 @@ class _SingleWidget extends State<SingleWidget>
   @override
   void initState() {
     super.initState();
-    // if (!Get.find<GlobalValMyServices>().isFinishSuccess.value)
-    //   updateState();
-    // else
-    //   Get.find<GlobalValMyServices>().value.listenAndPump((p0) {
-    //     updateState();
-    //   });
+
+ 
+
     _controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
 
@@ -398,16 +394,20 @@ class _SingleWidget extends State<SingleWidget>
     alpha = (_animation.value * 255).toInt();
   }
 
-  bool updateState() {
-    return Get.find<GlobalValMyServices>().value.value.indexWhere(
-            (element) => element.serviceCode == widget.modelService.code) !=
-        -1;
-  }
+  // updateState() async {
+  //   var isRegistered = Get.find<GlobalValMyServices>().value.value.indexWhere(
+  //           (element) => element.serviceCode == widget.modelService.code) !=
+  //       -1;
+  //   if (isRegistered) {
+  //     _controller.forward();
+  //     setState(() {
+  //       isAdded = true;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final bool isRegistered = updateState();
-
     // return Text('solo');
     // return GWdgtTextDescDesc(string: widget.modelService.arName);
     return AnimatedBuilder(
@@ -415,7 +415,7 @@ class _SingleWidget extends State<SingleWidget>
       builder: (_, child) {
         return GestureDetector(
             onTap: () {
-              BlockAllServicesRepo().showAddService(context,
+              BlockMyServicesRepo().showAddService(context,
                   modelService: widget.modelService, isUpdate: isAdded);
             },
             child: Container(
@@ -424,18 +424,21 @@ class _SingleWidget extends State<SingleWidget>
                 height: 170.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    borderRadius: widget.borderRadius,
-                    color: isRegistered
-                        ? widget.color
-                        : widget.color.withOpacity(0.2)),
+                  borderRadius: widget.borderRadius,
+                  color: widget.color.withOpacity(0.2).withAlpha(
+                      (_controller.value * 255 == 0
+                              ? 255 * 0.22
+                              : _controller.value * 255)
+                          .toInt()),
+                ),
                 child: Row(
                   children: [
                     GWdgtTextDescDesc(string: widget.modelService.arName),
-                    if (!isRegistered)
+                    if (!isAdded)
                       SizedBox(
                         width: 10,
                       ),
-                    if (!isRegistered)
+                    if (!isAdded)
                       Icon(
                         Icons.add_circle_outline,
                         color: Colors.white60,

@@ -18,7 +18,7 @@ class BoxHeight {
 
 /// This widget puts verticval box for spacing purpuses
 class Y extends StatelessWidget {
-  final height;
+  final double?  height;
   const Y({Key? key, this.height}) : super(key: key);
 
   @override

@@ -5,7 +5,6 @@ import 'package:beautina_provider/screens/dates/index.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/screens/salon/index.dart';
 import 'package:beautina_provider/screens/notification/index.dart';
-import 'package:beautina_provider/screens/refresh.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/root/ui/no_internet.dart';
 import 'package:beautina_provider/screens/root/ui/root_bottom_bar.dart';
@@ -16,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:preload_page_view/preload_page_view.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/screens/gift/index.dart';
 
 class PageRoot extends StatefulWidget {
@@ -49,9 +47,11 @@ class _PageRoot extends State<PageRoot>
       PageGift(),
 
       PageDate(),
+      // SizedBox(),
       // PagePackage(),
+      SizedBox(),
 
-      PageSalon(),
+      // PageSalon(),
     ];
   }
 

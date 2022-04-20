@@ -1,38 +1,39 @@
-import 'package:beautina_provider/core/db/all_services.dart';
-import 'package:beautina_provider/core/models/response/model_service.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 
-class AllSalonServices {
+import 'package:beautina_provider/core/controller/common_controller.dart';
+import 'package:beautina_provider/core/db/all_services.dart';
+import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
+import 'package:beautina_provider/core/models/response/model_service.dart';
+import 'package:beautina_provider/reusables/toast.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/state_manager.dart';
+
+class AllSalonServicesController {
   static Future<List<ModelService>> getServices() async {
     DBAllServices _allServices = DBAllServices();
 
     var apiList = await _allServices.apiAllServices();
+    try {
+      var list = await compute(jsonToModel, apiList);
+      return list;
+    } catch (e) {
+      throw Exception('error');
+    }
+  }
 
-    var modelList = await compute(convertToModel, apiList);
-    var tree = await compute(buildTree, modelList);
+  List<ModelService> getList() {
+    return Get.find<GlobalValAllServices>().value.value;
+  }
 
-    return tree;
+  RxBool listenSuccessfulDownload() {
+    return Get.find<GlobalValAllServices>().isFinishSuccess;
   }
 }
 
-List<ModelService> convertToModel(List<dynamic> list) {
-  return list.map((service) => ModelService.fromMap(service ?? {})).toList();
-}
-
-/// 1- take the parent node of each item
-/// 2- add the node to its parent
-List<ModelService> buildTree(List<ModelService> nodes) {
-  var copyNode = nodes.map((e) => e.copy(e)).toList();
-  var updatedNode = nodes.map((e) => e.copy(e)).toList().cast<ModelService>();
-
-  copyNode.forEach((node) {
-    if (node.isRoot == false) {
-      var parentNodeIndex = updatedNode
-          .indexWhere((parentNode) => parentNode.code == node.parentCode);
-      updatedNode[parentNodeIndex] = updatedNode[parentNodeIndex]
-        ..children.add(node);
-    }
-  });
-
-  return updatedNode;
+List<ModelService> jsonToModel(String json) {
+  var list = jsonDecode(json)['services'];
+  var newList =
+      list.map((service) => ModelService.fromMap(service ?? {})).toList();
+  return CommonController.buildTree(newList);
 }

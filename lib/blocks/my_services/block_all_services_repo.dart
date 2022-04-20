@@ -1,5 +1,4 @@
 import 'package:beautina_provider/blocks/add_service/block_add_service.dart';
-import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
@@ -7,31 +6,28 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-class BlockAllServicesRepo {
+class BlockMyServicesRepo {
   final servicesIcons = 'assets/services_icons/';
-  late GlobalValAllServices globalValAllServices;
   late GlobalValMyServices globalValMyServices;
 
-  BlockAllServicesRepo() {
-    globalValAllServices = Get.find<GlobalValAllServices>();
+  BlockMyServicesRepo() {
     globalValMyServices = Get.find<GlobalValMyServices>();
   }
 
   bool isLoadError() {
-    return globalValAllServices.isError.value;
+    return globalValMyServices.isServicesListAsRootLeafError.value;
   }
 
   bool isLoading() {
-    return globalValAllServices.isLoading.value &&
-        globalValMyServices.isFinishSuccess.value;
+    return !globalValMyServices.isServicesListAsRootLeafReady.value;
   }
 
   reLoadServices() {
-    globalValAllServices.loadApi();
+    globalValMyServices.loadApi();
   }
 
   List<ModelService> getRootNodes() {
-    return globalValAllServices.value.value
+    return globalValMyServices.servicesListAsRootLeaf.value
         .where((service) => service.isRoot)
         .toList();
   }
@@ -40,8 +36,7 @@ class BlockAllServicesRepo {
     return await compute(computeLeafs, modelService);
   }
 
-  showAddService(BuildContext context,
-      {required ModelService modelService, required bool isUpdate}) {
+  showAddService(BuildContext context, {required ModelService modelService, required bool isUpdate}) {
     blockAddService(context, modelService: modelService, isUpdate: isUpdate);
   }
 }

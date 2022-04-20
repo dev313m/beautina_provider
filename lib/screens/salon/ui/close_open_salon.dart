@@ -36,7 +36,8 @@ class WdgtSalonCloseOpenSalon extends StatefulWidget {
   WdgtSalonCloseOpenSalon({Key? key}) : super(key: key);
 
   @override
-  _WdgtSalonCloseOpenSalonState createState() => _WdgtSalonCloseOpenSalonState();
+  _WdgtSalonCloseOpenSalonState createState() =>
+      _WdgtSalonCloseOpenSalonState();
 }
 
 class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
@@ -46,81 +47,91 @@ class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
   late ModelBeautyProvider beautyProvider;
   @override
   Widget build(BuildContext context) {
-
-    return GetBuilder<GlobalValBeautyProviderListenable>(builder: (vMSalonData) {
-          beautyProvider = vMSalonData.beautyProvider;
-        return Column(
-          children: [
-            Container(
-              // height: ScreenUtil().setHeight(ConstRootSizes.topContainer),
-              decoration: BoxDecoration(color: colorContainerBg, borderRadius: BorderRadius.circular(radiusContainer)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                                Y(height: heightBottomContainer,), 
-
-                  Center(
-                      child: GWdgtTextTitle(
-                    string: strOpenOrCloseSalon,
-                  )),
-                  Y(),
-                  GWdgtTextTitleDesc(
-                    string: strOpenOrCloseSalonDesc,
-                  ),               Y(height: heightBottomContainer,)
-
-                ],
-                
-              ),
+    return GetBuilder<GlobalValBeautyProviderListenable>(
+        builder: (vMSalonData) {
+      beautyProvider = vMSalonData.beautyProvider;
+      return Column(
+        children: [
+          Container(
+            // height: ScreenUtil().setHeight(ConstRootSizes.topContainer),
+            decoration: BoxDecoration(
+                color: colorContainerBg,
+                borderRadius: BorderRadius.circular(radiusContainer)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Y(
+                  height: heightBottomContainer,
+                ),
+                Center(
+                    child: GWdgtTextTitle(
+                  string: strOpenOrCloseSalon,
+                )),
+                Y(),
+                GWdgtTextTitleDesc(
+                  string: strOpenOrCloseSalonDesc,
+                ),
+                Y(
+                  height: heightBottomContainer,
+                )
+              ],
             ),
-            Container(
-              height: flareHeightSize,
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  // width: 400,
+          ),
+          Container(
+            height: flareHeightSize,
+            child: Material(
+              color: Colors.transparent,
+              child: Ink(
+                // width: 400,
 
-                  height: flareHeightSize,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(radiusContainer),
-                    onTap: () async {
-                      updateUserAvailability(
-                          context, onAvailableChangeSuccess(), onAvailableChangeLoad(), onAvailableChangeError(), onAvailableChangeComplete());
-                    },
-                    child: Stack(
-                      children: <Widget>[
-                        FlareActor(
-                          strFlare,
-                          animation: beautyProvider.available! ? strFlareAnimationStart : strFlareAnimationFinish,
-                          shouldClip: false,
-                          snapToEnd: false,
-                          // controller: ,
+                height: flareHeightSize,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(radiusContainer),
+                  onTap: () async {
+                    updateUserAvailability(
+                        context,
+                        onAvailableChangeSuccess(),
+                        onAvailableChangeLoad(),
+                        onAvailableChangeError(),
+                        onAvailableChangeComplete());
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      FlareActor(
+                        strFlare,
+                        animation: beautyProvider.available!
+                            ? strFlareAnimationStart
+                            : strFlareAnimationFinish,
+                        shouldClip: false,
+                        snapToEnd: false,
+                        // controller: ,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: AnimatedSwitcher(
+                          duration: Duration(seconds: 1),
+                          child:
+                              availableLoad ? GetLoadingWidget() : SizedBox(),
                         ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: AnimatedSwitcher(
-                            duration: Duration(seconds: 1),
-                            child: availableLoad ? GetLoadingWidget() : SizedBox(),
-                          ),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
               ),
-            ),               Y(height: heightBottomContainer,)
-
-          ],
-        );
-      }
-    );
+            ),
+          ),
+          Y(
+            height: heightBottomContainer,
+          )
+        ],
+      );
+    });
   }
 
   Function onAvailableChangeComplete() {
-    return ()  {
-      availableLoad = false; 
-      setState(() {
-        
-      });
+    return () {
+      availableLoad = false;
+      setState(() {});
     };
   }
 
@@ -143,5 +154,3 @@ class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
     };
   }
 }
-
-

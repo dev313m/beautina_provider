@@ -19,4 +19,18 @@ class GlobalVarLocalBeautyProvider {
       var g;
     }
   }
+
+  Future storeTokenToLocalDB(String token) async {
+    await GlobalValHiveBox.getHiveBox().put(LocalDBConstants().TOKEN, token);
+  }
+
+  String? getTokenFromLocalDB()  {
+    try {
+      String s =  GlobalValHiveBox.getHiveBox().get(LocalDBConstants().TOKEN);
+
+      return s;
+    } catch (e) {
+      var g;
+    }
+  }
 }

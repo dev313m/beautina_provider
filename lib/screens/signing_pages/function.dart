@@ -145,7 +145,8 @@ Future<Null> saveUserData(BuildContext? context) async {
     if (modelBeautyProvider == null)
       throw Exception('هناك خطأ');
     else {
-      BeautyProviderController().storeToLocalDB(modelBeautyProvider);
+      await BeautyProviderController().storeToLocalDB(modelBeautyProvider);
+      await BeautyProviderController().storeToken(modelBeautyProvider.tokenId!);
       // await saveData(modelBeautyProvider);
       await sharedRegistered(true);
 
@@ -182,7 +183,7 @@ ModelBeautyProvider getUserData(
 }
 
 Future<Null> saveData(ModelBeautyProvider modelBeautyProvider) async {
- await BeautyProviderController().storeToLocalDB(modelBeautyProvider);
+  await BeautyProviderController().storeToLocalDB(modelBeautyProvider);
   // await sharedUserProviderSet(beautyProvider: modelBeautyProvider);
   await saveAllServicesMapper();
 }
