@@ -1,3 +1,4 @@
+
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/main_init.dart';
@@ -20,6 +21,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get_it/get_it.dart';
+import 'package:keyboard_actions/external/platform_check/platform_check.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
@@ -89,7 +91,9 @@ loginWithGoogle(BuildContext? context) async {
   // await smsAuth.verifyPhone(error, success);
   String? result;
   try {
-    result = await signInWithGoogle();
+    result = PlatformCheck.isWeb
+        ? await signInWithGoogleWeb()
+        : await signInWithGoogle();
     // showToast(result);
   } catch (e) {
     throw Exception(e.toString());
@@ -137,7 +141,7 @@ Future<Null> saveUserData(BuildContext? context) async {
   try {
     final User currentUser = FirebaseAuth.instance.currentUser!;
 
-    String? token = await apiTokenGet();
+    String? token = PlatformCheck.isWeb ? '' : await apiTokenGet();
 
     ModelBeautyProvider modelBeautyProvider =
         getUserData(currentUser.uid, token, context);

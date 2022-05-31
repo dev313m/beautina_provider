@@ -3,7 +3,6 @@ import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/ui/calendar/calendar.dart';
 import 'package:beautina_provider/screens/dates/ui/tutorial.dart';
 import 'package:beautina_provider/screens/dates/ui/order_list.dart';
-import 'package:beautina_provider/screens/dates/ui/top_buttons.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
@@ -12,9 +11,7 @@ import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/error_flare.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 
-import 'package:beautina_provider/screens/dates/vm/vm_data.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -37,7 +34,6 @@ class _DatePageState extends State<PageDate>
   List<bool>? filterBool;
   Order? order;
   Widget? upperW;
-  VmDateData? vmDateData;
   bool dataLoading = false;
 
   List<Order>? displayedList;

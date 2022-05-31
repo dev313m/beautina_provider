@@ -54,6 +54,7 @@ class _PageSalonState extends State<PageSalon> {
         Container(
           color: AppColors.purpleColor,
           child: ListView(
+            shrinkWrap: true,
             padding: EdgeInsets.all(0),
             controller: _scrollController,
             physics: AlwaysScrollableScrollPhysics(),
@@ -80,8 +81,6 @@ class _PageSalonState extends State<PageSalon> {
               }),
               Y(),
               WdgtSalonCloseOpenSalon(),
-
-            
 
               Y(),
               GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {

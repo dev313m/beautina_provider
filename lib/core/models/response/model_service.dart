@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class ModelService {
   String code = '';
+  String docId = '';
   String parentCode = '';
   bool isCategory = false;
   bool isRoot = false;
@@ -14,6 +15,7 @@ class ModelService {
     required this.parentCode,
     required this.isCategory,
     required this.isRoot,
+    this.docId = '',
     required this.arName,
     required this.enName,
     required this.rootCode,
@@ -58,6 +60,7 @@ class ModelService {
   factory ModelService.fromMap(Map<String, dynamic> map) {
     return ModelService(
       code: map['code'] ?? '',
+      docId: map['_id'] ?? '',
       parentCode: map['parent_code'] ?? '',
       isCategory: map['is_category'] ?? false,
       isRoot: map['is_root'] ?? false,

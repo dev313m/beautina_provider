@@ -1,5 +1,4 @@
 import 'package:beautina_provider/blocks/add_service/block_add_service.dart';
-import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';

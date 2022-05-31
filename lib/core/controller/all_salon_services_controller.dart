@@ -15,7 +15,8 @@ class AllSalonServicesController {
 
     var apiList = await _allServices.apiAllServices();
     try {
-      var list = await compute(jsonToModel, apiList);
+      var list = jsonToModel(apiList);
+      // var list = await compute(jsonToModel, apiList);
       return list;
     } catch (e) {
       throw Exception('error');
@@ -33,7 +34,8 @@ class AllSalonServicesController {
 
 List<ModelService> jsonToModel(String json) {
   var list = jsonDecode(json)['services'];
-  var newList =
-      list.map((service) => ModelService.fromMap(service ?? {})).toList();
+  var newList = list.map((service) {
+    return ModelService.fromMap(service ?? {});
+  }).toList();
   return CommonController.buildTree(newList);
 }

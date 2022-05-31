@@ -24,14 +24,29 @@ class DBMyService {
     }
   }
 
+  Future disableService(String serviceDocId) async {
+    http.Response response;
+
+    try {
+      PostHelper _postHelper = PostHelper(
+          auth: true, url: URL_DATABASE_LIVE + ApiUrls.POST_DISABLE_SERVICE);
+      response = await _postHelper.makePostRequest({"_id": serviceDocId});
+      if (response.statusCode != 200) {
+        throw HttpException('An error occured.');
+      }
+    } catch (e) {
+      throw HttpException(e.toString());
+      // return {};
+    }
+  }
+
   Future<String> getMyServices(String param) async {
     http.Response response;
 
     try {
       PostHelper _postHelper = PostHelper(
           auth: true, url: URL_DATABASE_LIVE + ApiUrls.GET_MY_SERVICES);
-      response = await _postHelper.makeGetRequest(
-         param);
+      response = await _postHelper.makeGetRequest(param);
       if (response.statusCode != 200) {
         throw HttpException('An error occured.');
       }

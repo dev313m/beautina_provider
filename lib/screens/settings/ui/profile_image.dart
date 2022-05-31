@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 
-
 class WdgtSettingsProfileImage extends StatefulWidget {
   WdgtSettingsProfileImage({Key? key}) : super(key: key);
 
@@ -20,7 +19,6 @@ class WdgtSettingsProfileImage extends StatefulWidget {
 }
 
 class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
-
   /// * Loading status shown when image is updating
   bool imageLoad = false;
 
@@ -34,7 +32,7 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
         Y(height: btwStrxImage),
         InkWell(
           onTap: () async {
-            imageCache!.clear();
+            imageCache.clear();
 
             updateProfileImage(
                 context,
@@ -48,34 +46,31 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
             width: sizeImageProfile,
             child: Stack(
               children: [
-                            GetBuilder<VMSalonDataTest>(
-              builder: (vMSalonData) {
-                
-                    return ClipOval(
-                        key: ValueKey('image'),
+                GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+                  return ClipOval(
+                      key: ValueKey('image'),
 
-                        // clipper: ,
-                        // height: ScreenUtil().setHeight(300),
-                        child: AnimatedSwitcher(
-                            duration: Duration(seconds: 1),
-                            child: imageLoad
-                                ? GetLoadingWidget()
-                                : vMSalonData.beautyProvider.image != ''
-                                    ? ImageFirebase(
-                                        height: sizeImageProfile,
-                                        width: sizeImageProfile,
-                                        url:
-                                            'gs://beautina-firebase.appspot.com/image_profile/' +
-                                                vMSalonData.beautyProvider.uid!,
-                                      )
-                                    : Image.asset(
-                                        strDefaultProfileImage,
-                                        height: sizeImageProfile,
-                                        width: sizeImageProfile,
-                                        fit: BoxFit.cover,
-                                      )));
-                  }
-                ),
+                      // clipper: ,
+                      // height: ScreenUtil().setHeight(300),
+                      child: AnimatedSwitcher(
+                          duration: Duration(seconds: 1),
+                          child: imageLoad
+                              ? GetLoadingWidget()
+                              : vMSalonData.beautyProvider.image != ''
+                                  ? ImageFirebase(
+                                      height: sizeImageProfile,
+                                      width: sizeImageProfile,
+                                      url:
+                                          'gs://beautina-firebase.appspot.com/image_profile/' +
+                                              vMSalonData.beautyProvider.uid!,
+                                    )
+                                  : Image.asset(
+                                      strDefaultProfileImage,
+                                      height: sizeImageProfile,
+                                      width: sizeImageProfile,
+                                      fit: BoxFit.cover,
+                                    )));
+                }),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Icon(

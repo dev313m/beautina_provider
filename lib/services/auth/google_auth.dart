@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,6 +36,27 @@ Future<String?> signInWithGoogle() async {
     throw Exception(
         "حدثت مشكلة في المصادقة، الرجاء اعادة المحاولة ${e.toString()}");
   }
+}
+
+Future<String?> signInWithGoogleWeb() async {
+  // Initialize Firebase
+  await Firebase.initializeApp();
+  User? user;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // The `GoogleAuthProvider` can only be used while running on the web
+  GoogleAuthProvider authProvider = GoogleAuthProvider();
+
+  try {
+    final UserCredential userCredential =
+        await _auth.signInWithPopup(authProvider);
+
+    user = userCredential.user;
+  } catch (e) {
+    print(e);
+  }
+
+  return user?.uid;
 }
 
 void signOutGoogle() async {

@@ -6,7 +6,6 @@ import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
-import 'package:get/instance_manager.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/reusables/toast.dart';
@@ -115,6 +114,9 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
   bool isToggleButtonsSet = true;
   // bool isMainServiceChosen = false;
   final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
+
+  final RoundedLoadingButtonController _btndisableController =
       new RoundedLoadingButtonController();
 
   /// * 1- show adding other service
@@ -298,6 +300,39 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
                     ),
                   ),
                   Expanded(child: SizedBox()),
+
+                  if (widget.isUpdate)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(radiusButton),
+                      child: RoundedLoadingButton(
+                        child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(radiusButton),
+                            ),
+                            height: 100,
+                            width: double.infinity,
+                            child: Center(
+                                child: GWdgtTextButton(string: 'تعطيل مؤقتا'))),
+                        onPressed: () async {
+                          try {
+                            _btndisableController.start();
+                            await BlockAddServiceRepo()
+                                .disableService(widget.modelService);
+                            _btndisableController.success();
+                            await Future.delayed(Duration(seconds: 1));
+                            Get.back();
+                          } catch (e) {
+                            _btndisableController.error();
+                          }
+                          _btndisableController.reset();
+                          clearFields();
+
+                          _btndisableController.reset();
+                        },
+                        controller: _btndisableController,
+                      ),
+                    ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(radiusButton),
                     child: RoundedLoadingButton(

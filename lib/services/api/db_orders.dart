@@ -112,12 +112,12 @@ Future<http.Response> apiFinishedComplete(Order order) async {
   return response;
 }
 
-List<Order>? parse(String responseBody) {
+List<Order> parse(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<Order>((json) => Order.fromMap(json)).toList();
 }
 
-Future<List<Order>?> getOrders(
+Future<List<Order>> getOrders(
     {@required int day = 0, required int month}) async {
   ModelBeautyProvider user =
       BeautyProviderController.getBeautyProviderProfile();

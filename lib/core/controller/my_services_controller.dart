@@ -16,6 +16,11 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 class MyServicesController {
+  static Future disableService(ModelService service) async {
+    DBMyService _myServices = DBMyService();
+    await _myServices.disableService(service.docId);
+  }
+
   static Future addService(
       ModelService modelService, double duration, double price) async {
     DBMyService _myServices = DBMyService();

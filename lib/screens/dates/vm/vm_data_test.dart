@@ -1,7 +1,6 @@
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/services/api/db_orders.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class VmDateDataTest extends GetxController {
@@ -11,7 +10,7 @@ class VmDateDataTest extends GetxController {
 
   //Animating availablity switch
   bool isShowAvailableWidget = true;
-
+ 
   DateTime _calanderChosenDay = DateTime.now();
 
   DateTime get calanderChosenDay => _calanderChosenDay;

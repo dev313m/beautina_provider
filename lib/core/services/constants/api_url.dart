@@ -1,4 +1,3 @@
-
 class ApiUrls {
   /// [get] provider dates
   static String PROVIDER_DATES = 'dates/';
@@ -27,9 +26,10 @@ class ApiUrls {
   static final POST_ONE_DAY_ORDERS = 'orders/getDayOrders';
 
   static final GET_ALL_ORDERS = 'orders/getall';
-  static final GET_SALON_SERVICES = 'salon_services'; 
+  static final GET_SALON_SERVICES = 'salon_services';
   static final GET_SALON_ALL_SERVICES = 'all_salon_services';
   static final POST_MY_SERVICES = 'salon_products/add_update';
+  static final POST_DISABLE_SERVICE = 'salon_products/disable';
+
   static final GET_MY_SERVICES = 'salon_products/get_provider_services';
 }
-

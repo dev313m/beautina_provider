@@ -36,7 +36,7 @@ class _PageRoot extends State<PageRoot>
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     contextReadyAwaiter();
     initTimeString();
     setPushNotification();
@@ -46,12 +46,12 @@ class _PageRoot extends State<PageRoot>
       PageNotification(),
       PageGift(),
 
-      PageDate(),
-      // SizedBox(),
-      // PagePackage(),
+      // PageDate(),
       SizedBox(),
+      // PagePackage(),
+      // SizedBox(),
 
-      // PageSalon(),
+      PageSalon(),
     ];
   }
 

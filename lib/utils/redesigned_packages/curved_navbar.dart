@@ -91,7 +91,7 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
       color: widget.backgroundColor,
       height: widget.height,
       child: Stack(
-        overflow: Overflow.visible,
+        // overflow: Overflow.visible,
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Positioned(

@@ -45,7 +45,8 @@ Future<ModelBeautyProvider> apiUserProviderAddNew(
 }
 
 Future<ModelBeautyProvider?> apiLoadOneBeautyProvider() async {
-  ModelBeautyProvider beautyProvider = BeautyProviderController.getBeautyProviderProfile();
+  ModelBeautyProvider beautyProvider =
+      BeautyProviderController.getBeautyProviderProfile();
   http.Response response;
   try {
     response = await http.Client().get(Uri.parse(
@@ -102,8 +103,6 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
 
   //because busy dates contains datetime so please convert them to string to be encodable
 
-
-
   Map<String, dynamic> body = {
     'default_accept': beautyProvider.default_accept,
     'default_after_accept': beautyProvider.default_after_accept,
@@ -134,6 +133,8 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
 
     return beautyProvider;
   } catch (e) {
-    throw HttpException(ERROR);
+    print('http error \n url: ${URL_UPDATE_USER} \n error: ${e.toString()}');
+
+    throw HttpException(e.toString());
   }
 }

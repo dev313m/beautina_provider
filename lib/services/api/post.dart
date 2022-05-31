@@ -40,6 +40,7 @@ class PostHelper {
       response = http.patch(Uri.parse(url!), headers: header, body: body);
       return response;
     } catch (e) {
+
       throw HttpException("حدث خطأ ما");
     }
   }
