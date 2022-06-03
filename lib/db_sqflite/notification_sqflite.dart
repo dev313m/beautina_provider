@@ -63,7 +63,7 @@ class NotificationHelper {
  * getPrefrencesList() is to get all table list
  */
   Future<List<MyNotification>> getNotificationList() async {
-    Database? db = await (this.database as FutureOr<Database>);
+    Database? db = await (this.database as Future<Database>);
     List<Map<String, dynamic>> list =
         await db.query(_tableName, orderBy: '$colId DESC', limit: 15); //DESC
     return list.map((f) => MyNotification.fromMapObject(f)).toList();
@@ -73,7 +73,7 @@ class NotificationHelper {
  * insertPrefrences() method is to insert a prefrence 
  */
   Future<int> insertNotification(MyNotification notification) async {
-    Database db = await (this.database as FutureOr<Database>);
+    Database db = await (this.database as Future<Database>);
     int result = await db.insert(_tableName, notification.toMap());
     await updateLastNotificationDate(notification.createDate!);
     return result;

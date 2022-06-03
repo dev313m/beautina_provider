@@ -45,7 +45,14 @@ class MyServicesController {
     // return tree;
   }
 
-  setMyServicesAsNodes() async {
+  Future refresh() async {
+    await Get.find<GlobalValMyServices>().refresh();
+    Get.find<GlobalValMyServices>().isServicesListAsRootLeafReady.value = false;
+
+    await setMyServicesAsNodes();
+  }
+
+  Future setMyServicesAsNodes() async {
     AllSalonServicesController _cntrl = AllSalonServicesController();
     try {
       _cntrl.listenSuccessfulDownload().listenAndPump((isDownloaded) async {
@@ -111,7 +118,10 @@ class MyServicesController {
   }
 
   setServicesNodesList(List<ModelService> list) {
-    Get.find<GlobalValMyServices>().servicesListAsRootLeaf.value = list;
+    Get.find<GlobalValMyServices>().servicesListAsRootLeaf.assignAll(list);
+    Get.find<GlobalValMyServices>().servicesListAsRootLeaf.refresh();
+
+    // Get.find<GlobalValMyServices>().update();
   }
 
   List<ModelMyService> getGlobalValMyServicesList() {

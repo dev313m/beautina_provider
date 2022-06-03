@@ -1,3 +1,4 @@
+import 'package:beautina_provider/core/controller/refresh_controller.dart';
 import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
@@ -31,7 +32,8 @@ versionCheck(BuildContext context) async {
   try {
     // Using default duration to force fetching from remote server.
 
-    RemoteConfigService remote = await (RemoteConfigService.getInstance() as FutureOr<RemoteConfigService>);
+    RemoteConfigService remote = await (RemoteConfigService.getInstance()
+        as FutureOr<RemoteConfigService>);
     await remote.initialize();
     final String nowVersion = remote.getStringValue;
 

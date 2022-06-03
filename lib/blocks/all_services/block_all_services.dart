@@ -2,6 +2,7 @@ import 'package:beautina_provider/blocks/all_services/block_all_services_repo.da
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
+import 'package:beautina_provider/core/models/response/my_service.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -415,8 +416,22 @@ class _SingleWidget extends State<SingleWidget>
       builder: (_, child) {
         return GestureDetector(
             onTap: () {
-              BlockAllServicesRepo().showAddService(context,
-                  modelService: widget.modelService, isUpdate: isAdded);
+              ModelMyService? modelMyService;
+
+              try {
+                modelMyService =
+                    Get.find<GlobalValMyServices>().value.value.firstWhere(
+                          (element) =>
+                              element.serviceCode == widget.modelService.code,
+                        );
+              } catch (e) {
+                modelMyService = null;
+              }
+              BlockAllServicesRepo().onServicePress(
+                context,
+                modelMyService: modelMyService,
+                orginalService: widget.modelService,
+              );
             },
             child: Container(
                 padding: EdgeInsets.only(left: 170.h / 3, right: 170.h / 2),

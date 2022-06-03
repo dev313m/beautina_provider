@@ -4,7 +4,6 @@ import 'package:beautina_provider/screens/signing_pages/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 // import 'package:home_indicator/home_indicator.dart';
 

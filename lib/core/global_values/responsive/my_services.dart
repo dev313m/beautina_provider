@@ -8,9 +8,13 @@ class GlobalValMyServices extends AsyncApiGetx<List<ModelMyService>> {
   Rx<bool> isServicesListAsRootLeafReady = Rx(false);
   Rx<bool> isServicesListAsRootLeafError = Rx(false);
 
-  Rx<List<ModelService>> servicesListAsRootLeaf = Rx<List<ModelService>>([]);
+  RxList<ModelService> servicesListAsRootLeaf = RxList<ModelService>([]);
   GlobalValMyServices()
       : super(api: MyServicesController().getMyServicesList(), value: Rx([])) {
-        MyServicesController().setMyServicesAsNodes();
-      }
+    MyServicesController().setMyServicesAsNodes();
+  }
+  Future refresh() async {
+    super.api = MyServicesController().getMyServicesList();
+    MyServicesController().setMyServicesAsNodes();
+  }
 }

@@ -14,6 +14,10 @@ class BeautyProviderController {
     return GlobalVarLocalBeautyProvider().getTokenFromLocalDB();
   }
 
+  /**
+  * Get the stored beautyprovider from local DB and put it in the 
+  * the global instance
+  */
   registerObjFromLocalStorage() async {
     var s = await GlobalVarLocalBeautyProvider().getFromLocalDB();
     getIt.registerSingleton<ModelBeautyProvider>(s!);

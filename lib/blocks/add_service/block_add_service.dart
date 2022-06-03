@@ -1,5 +1,6 @@
 import 'package:beautina_provider/blocks/add_service/block_add_service_repo.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
+import 'package:beautina_provider/core/models/response/my_service.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -33,7 +34,8 @@ class FloatingModal extends StatelessWidget {
 }
 
 blockAddService(BuildContext context,
-    {required ModelService modelService, required bool isUpdate}) {
+    {required ModelService modelService,
+    required ModelMyService? modelMyService}) {
   showBarModalBottomSheet(
     // containerWidget: (_, __, ___) => FloatingModal(
     //   child: BlockWdgtAddService(),
@@ -41,8 +43,8 @@ blockAddService(BuildContext context,
     context: context,
     expand: false,
     builder: (context) => FloatingModal(
-      child:
-          BlockWdgtAddService(modelService: modelService, isUpdate: isUpdate),
+      child: BlockWdgtAddService(
+          modelService: modelService, modelMyService: modelMyService),
     ),
     bounce: true,
   );
@@ -83,9 +85,9 @@ final strValidDuration = "يجب ادخال المدة المتوقعة لعمل
 class BlockWdgtAddService extends StatefulWidget {
   // final Map<String, dynamic> mapServices;
   final ModelService modelService;
-  final bool isUpdate;
+  final ModelMyService? modelMyService;
   BlockWdgtAddService(
-      {Key? key, required this.modelService, required this.isUpdate})
+      {Key? key, required this.modelService, this.modelMyService})
       : super(key: key);
 
   @override
@@ -301,38 +303,43 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
                   ),
                   Expanded(child: SizedBox()),
 
-                  if (widget.isUpdate)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(radiusButton),
-                      child: RoundedLoadingButton(
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(radiusButton),
-                            ),
-                            height: 100,
-                            width: double.infinity,
-                            child: Center(
-                                child: GWdgtTextButton(string: 'تعطيل مؤقتا'))),
-                        onPressed: () async {
-                          try {
-                            _btndisableController.start();
-                            await BlockAddServiceRepo()
-                                .disableService(widget.modelService);
-                            _btndisableController.success();
-                            await Future.delayed(Duration(seconds: 1));
-                            Get.back();
-                          } catch (e) {
-                            _btndisableController.error();
-                          }
-                          _btndisableController.reset();
-                          clearFields();
+                  if (widget.modelMyService != null)
+                    if (widget.modelMyService!.isActive)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(radiusButton),
+                        child: RoundedLoadingButton(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.pinkOpcity,
+                                borderRadius:
+                                    BorderRadius.circular(radiusButton),
+                              ),
+                              height: 100,
+                              width: double.infinity,
+                              child: Center(
+                                  child:
+                                      GWdgtTextButton(string: 'تعطيل مؤقتا'))),
+                          onPressed: () async {
+                            try {
+                              _btndisableController.start();
+                              await BlockAddServiceRepo()
+                                  .disableService(widget.modelService);
+                              _btndisableController.success();
+                              await Future.delayed(Duration(seconds: 1));
+                              Get.back();
+                            } catch (e) {
+                              _btndisableController.error();
+                            }
+                            _btndisableController.reset();
+                            clearFields();
 
-                          _btndisableController.reset();
-                        },
-                        controller: _btndisableController,
+                            _btndisableController.reset();
+                          },
+                          controller: _btndisableController,
+                        ),
                       ),
-                    ),
+
+                  Y(),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(radiusButton),
                     child: RoundedLoadingButton(
@@ -345,7 +352,11 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
                           width: double.infinity,
                           child: Center(
                               child: GWdgtTextButton(
-                                  string: widget.isUpdate ? 'تحديث' : strAdd))),
+                                  string: widget.modelMyService != null
+                                      ? widget.modelMyService!.isActive
+                                          ? 'تحديث'
+                                          : 'تفعيل وتحديث'
+                                      : strAdd))),
                       onPressed: () async {
                         if (checkFields()) {
                           try {

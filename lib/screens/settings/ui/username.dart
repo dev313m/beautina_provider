@@ -62,27 +62,27 @@ class _WdgtSettingsUsernameState extends State<WdgtSettingsUsername> {
             Y(
               height: 60.h,
             ),
-            GetBuilder<VMSalonDataTest>(
-              builder: (vMSalonData) {
-                return Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: BeautyTextfield(
-                    // height: ScreenUtil().setHeight(90),
-                    onChanged: (String s) {
-                      Get.find<VMSettingsDataTest>().username = s;
-                    },
-                    // textStyle: TextStyle(color: AppColors.pinkBright),
-                    suffixIcon: Icon(
-                      Icons.supervised_user_circle_outlined,
-                    ),
-                    helperText:vMSalonData. beautyProvider.username!.contains('+')
-                        ? 'مثال: beauty_salon'
-                        : vMSalonData.beautyProvider.username,
-                    inputType: TextInputType.text,
+            GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: BeautyTextfield(
+                  // height: ScreenUtil().setHeight(90),
+                  onChanged: (String s) {
+                    Get.find<VMSettingsDataTest>().username = s;
+                  },
+                  // textStyle: TextStyle(color: AppColors.pinkBright),
+                  suffixIcon: Icon(
+                    Icons.supervised_user_circle_outlined,
                   ),
-                );
-              }
-            ),
+                  helperText: vMSalonData.beautyProvider.username == null
+                      ? ''
+                      : vMSalonData.beautyProvider.username!.contains('+')
+                          ? 'مثال: beauty_salon'
+                          : vMSalonData.beautyProvider.username ?? '',
+                  inputType: TextInputType.text,
+                ),
+              );
+            }),
             Y(),
             ClipRRect(
               borderRadius: BorderRadius.circular(radiusDefault),

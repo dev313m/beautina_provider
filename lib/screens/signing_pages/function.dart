@@ -1,6 +1,6 @@
-
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/controller/refresh_controller.dart';
 import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/refresh.dart';
@@ -156,7 +156,7 @@ Future<Null> saveUserData(BuildContext? context) async {
 
       BeautyProviderController()
           .updateBeautyProviderProfile(modelBeautyProvider);
-      refreshApp();
+      await RefreshController.afterLogin();
       routeToRoot(context!);
       await Future.delayed(Duration(seconds: 3));
       showToast('مرحبا بك في عالم الجمال');
@@ -182,7 +182,7 @@ ModelBeautyProvider getUserData(
     name: signInData.name,
     register_date: DateTime.now().toLocal(),
     token: token,
-    auth_login: uid,
+    firebase_uid: uid,
   );
 }
 
@@ -197,7 +197,7 @@ saveAllServicesMapper() async {
 }
 
 routeToRoot(BuildContext context) {
-  refreshApp();
+  // refreshApp();
   Navigator.pushReplacement(context,
       PageTransition(type: PageTransitionType.fade, child: PageRoot()));
 }

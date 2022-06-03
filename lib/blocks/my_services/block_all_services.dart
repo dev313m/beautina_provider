@@ -1,7 +1,9 @@
 import 'package:beautina_provider/blocks/my_services/block_all_services_repo.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
+import 'package:beautina_provider/core/models/response/my_service.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -85,6 +87,13 @@ class _BlockMyServicesState extends State<BlockMyServices> {
                         ? const CircularProgressIndicator()
                         : Column(
                             children: [
+                              Text(
+                                Get.find<GlobalValMyServices>()
+                                    .servicesListAsRootLeaf
+                                    .length
+                                    .toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
                               // SizedBox(height: 200),
                               ClipRRect(
                                   borderRadius:
@@ -175,6 +184,7 @@ class _BlockMyServicesState extends State<BlockMyServices> {
                                                     ),
                                                     Y(),
                                                     AllServicesCategory(
+                                                        // key: GlobalKey(),
                                                         rootService:
                                                             rootNodes[index]),
                                                     if (rootDirectChild
@@ -384,8 +394,6 @@ class _SingleWidget extends State<SingleWidget>
   void initState() {
     super.initState();
 
- 
-
     _controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
 
@@ -415,8 +423,23 @@ class _SingleWidget extends State<SingleWidget>
       builder: (_, child) {
         return GestureDetector(
             onTap: () {
-              BlockMyServicesRepo().showAddService(context,
-                  modelService: widget.modelService, isUpdate: isAdded);
+              ModelMyService? modelMyService;
+
+              try {
+                modelMyService =
+                    Get.find<GlobalValMyServices>().value.value.firstWhere(
+                          (element) =>
+                              element.serviceCode == widget.modelService.code,
+                        );
+              } catch (e) {
+                modelMyService = null;
+              }
+
+              BlockMyServicesRepo().showAddService(
+                context,
+                modelService: widget.modelService,
+                modelMyService: modelMyService,
+              );
             },
             child: Container(
                 padding: EdgeInsets.only(left: 170.h / 3, right: 170.h / 2),

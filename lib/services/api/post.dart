@@ -17,8 +17,7 @@ class PostHelper {
   bool auth = true;
 
   Map<String, String> getAuthHeader() {
-    String token =
-        BeautyProviderController().getToken()!;
+    String token = BeautyProviderController().getToken()!;
     return {
       "Content-type": "application/json ",
       HttpHeaders.authorizationHeader: 'Bearer ${token}'
@@ -40,7 +39,6 @@ class PostHelper {
       response = http.patch(Uri.parse(url!), headers: header, body: body);
       return response;
     } catch (e) {
-
       throw HttpException("حدث خطأ ما");
     }
   }

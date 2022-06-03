@@ -16,7 +16,7 @@ class GlobalVarLocalBeautyProvider {
 
       return s;
     } catch (e) {
-      var g;
+      // var g;
     }
   }
 
@@ -24,9 +24,9 @@ class GlobalVarLocalBeautyProvider {
     await GlobalValHiveBox.getHiveBox().put(LocalDBConstants().TOKEN, token);
   }
 
-  String? getTokenFromLocalDB()  {
+  String? getTokenFromLocalDB() {
     try {
-      String s =  GlobalValHiveBox.getHiveBox().get(LocalDBConstants().TOKEN);
+      String s = GlobalValHiveBox.getHiveBox().get(LocalDBConstants().TOKEN);
 
       return s;
     } catch (e) {

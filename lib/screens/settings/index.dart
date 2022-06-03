@@ -1,3 +1,4 @@
+import 'package:beautina_provider/blocks/settings_personal_info/block_settings_personal_info.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/settings/ui/location.dart';
 import 'package:beautina_provider/screens/settings/ui/personal_info.dart';
@@ -50,7 +51,8 @@ class _PageSettingsState extends State<PageSettings> {
                 padding: EdgeInsets.all(0),
                 controller: _scrollController,
                 children: <Widget>[
-              Y(height: heightTopBar), Y(),
+                  Y(height: heightTopBar),
+                  Y(),
                   Y(),
                   WdgtSettingsProfileImage(),
                   Y(),

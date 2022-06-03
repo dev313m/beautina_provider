@@ -63,7 +63,8 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
   late ModelBeautyProvider beautyProvider;
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GlobalValBeautyProviderListenable>(builder: (vMSalonData) {
+    return GetBuilder<GlobalValBeautyProviderListenable>(
+        builder: (vMSalonData) {
       beautyProvider = vMSalonData.beautyProvider;
       return Directionality(
         textDirection: TextDirection.rtl,
@@ -207,7 +208,7 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
                                   BorderRadius.circular(radiusDefault),
                               isSelected:
                                   beautyProvider.default_after_accept == 1
-                                      ? [false , true]
+                                      ? [false, true]
                                       : [true, false],
                               onPressed: (values) {
                                 int chosed;

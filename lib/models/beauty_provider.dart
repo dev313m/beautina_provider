@@ -1,73 +1,78 @@
-import 'dart:convert';
-
 import 'package:hive/hive.dart';
 part 'beauty_provider.g.dart';
-  
+
+enum DefaultAfterAccept { acceptBooking, refuseBooking }
+
+enum DefaultAccept { accept, refuse }
+
 @HiveType(typeId: 1)
 class ModelBeautyProvider extends HiveObject {
+  DefaultAccept defaultAcceptType = DefaultAccept.refuse;
+
+  DefaultAfterAccept defaultAfterAcceptType = DefaultAfterAccept.refuseBooking;
   @HiveField(0)
   int TYPE_SALON = 1;
   @HiveField(1)
   int TYPE_INDIVIDUAL = 1;
-  @HiveField(2)
-  String? firebaseUid = '';
+  // @HiveField(2)
+  // String? firebaseUid = '';
 
-  @HiveField(4)
+  @HiveField(2)
   int? type = 1; //whether it was a salon or a simple woman 1 for salon
-  @HiveField(5)
+  @HiveField(3)
   bool? available = true;
-  @HiveField(6)
+  @HiveField(4)
   String? image;
-  @HiveField(7)
+  @HiveField(5)
   double? customers;
-  @HiveField(8)
+  @HiveField(6)
   String? intro;
-  @HiveField(9)
+  @HiveField(7)
   String? email;
 
-  @HiveField(11)
+  @HiveField(8)
   List<double>? location;
-  @HiveField(12)
+  @HiveField(9)
   String? name;
-  @HiveField(13)
+  @HiveField(10)
   int? voter;
-  @HiveField(14)
+  @HiveField(11)
   String? username;
-  @HiveField(15)
+  @HiveField(12)
   String? uid = '';
-  @HiveField(16)
+  @HiveField(13)
   String? tokenId; // this is the jwt token for authority
-  @HiveField(17)
+  @HiveField(14)
   int? achieved;
-  @HiveField(18)
-  String? auth_login; // only one time firebase token for login
-  @HiveField(19)
+  @HiveField(15)
+  String? firebase_uid; // only one time firebase token for login
+  @HiveField(16)
   String? city;
-  @HiveField(20)
+  @HiveField(17)
   int? points;
-  @HiveField(21)
+  @HiveField(18)
   int? favorite_count;
-  @HiveField(22)
+  @HiveField(19)
   int? visitors;
-  @HiveField(23)
+  @HiveField(20)
   DateTime? register_date;
-  @HiveField(24)
+  @HiveField(21)
   double? rating;
-  @HiveField(25)
+  @HiveField(22)
   Map<String, dynamic>? package;
 
-  @HiveField(27)
+  @HiveField(23)
   bool? default_accept;
-  @HiveField(28)
+  @HiveField(24)
   int? default_after_accept;
-  @HiveField(29)
+  @HiveField(25)
   String? phone;
-  @HiveField(30)
+  @HiveField(26)
   String? token; // notification token
 
-  @HiveField(31)
+  @HiveField(27)
   String? country;
-  @HiveField(32)
+  @HiveField(28)
   int? likes;
 
   ModelBeautyProvider.empty();
@@ -90,14 +95,14 @@ class ModelBeautyProvider extends HiveObject {
       String? tokenId,
       List<Map<String, DateTime>>? busyDates,
       int? favorite_count,
-      String? auth_login,
+      String? firebase_uid,
       double? rating,
       DateTime? register_date,
       int? voter,
       String? country,
       int? likes,
       int? visitors,
-      String? firebaseUid,
+      // String? firebaseUid,
       String? city,
       String? uid,
       String? username,
@@ -115,10 +120,10 @@ class ModelBeautyProvider extends HiveObject {
         this.default_accept = default_accept,
         this.tokenId = tokenId,
         this.customers = customers,
-        this.firebaseUid = firebaseUid,
+        // this.firebaseUid = firebaseUid,
         this.rating = rating,
         this.default_after_accept = default_after_accept,
-        this.auth_login = auth_login,
+        this.firebase_uid = firebase_uid,
         this.phone = phone,
         this.available = available,
         this.image = image,
@@ -137,7 +142,7 @@ class ModelBeautyProvider extends HiveObject {
     map['type'] = this.type;
     map['default_after_accept'] = this.default_after_accept?.toInt();
     map['available'] = this.available ?? true;
-    map['auth_login'] = this.auth_login ?? '';
+    map['firebase_uid'] = this.firebase_uid ?? '';
     map['tokenId'] = this.tokenId ?? '';
     map['default_accept'] = this.default_accept;
     map['image'] = this.image ?? '';
@@ -146,12 +151,14 @@ class ModelBeautyProvider extends HiveObject {
     map['customers'] = this.customers ?? 0;
     map['acheived'] = this.achieved?.toInt() ?? 0;
     map['intro'] = this.intro ?? '';
+    map['lng'] = this.location?.first;
+    map['lat'] = this.location?.last;
     map['favorite_count'] = this.favorite_count ?? 0;
-    map['location'] = this.location ?? [];
+    map['location'] = location;
     map['name'] = this.name ?? '';
     map['visitors'] = this.visitors ?? 0;
     map['points'] = this.points ?? 0;
-    map['firebase_uid'] = this.firebaseUid ?? "";
+    // map['firebase_uid'] = this.firebaseUid ?? "";
     map['reg_date'] = this.register_date?.toString();
     map['rating'] = this.rating ?? 0;
     map['phone'] = this.phone;
@@ -171,14 +178,22 @@ class ModelBeautyProvider extends HiveObject {
     image = data['image'] ?? '';
     default_after_accept = data['default_after_accept'];
     default_accept = data['default_accept'];
+    defaultAcceptType = getDefaultAccept(data['default_accept']);
+    defaultAfterAcceptType =
+        getDefaultAfterAccept(data['default_after_accept']);
     intro = data['intro'] ?? '';
     type = data['type'] ?? 1;
-    username = data['username'];
+    username = data['username'] ?? "";
     customers = data['customers'].toDouble() ?? 0;
-    tokenId = data['tokenId']; 
+    tokenId = data['tokenId'];
     // package = data['package'] ?? {};
-    ///[todo ] add the location & check  
-    location = [0,2];
+    ///[todo ] add the location & check
+    location = data['location'] == null
+        ? []
+        : [
+            data['location']['coordinates'][0],
+            data['location']['coordinates'][1]
+          ];
     // location = data['location'] == null
     //     ? [1, 2]
     //     : List.castFrom<dynamic, double>(data['location']['coordinates']);
@@ -189,7 +204,7 @@ class ModelBeautyProvider extends HiveObject {
     points = data['points'] ?? 0;
     package = data['package'] ?? {};
     visitors = data['visitors'] ?? 0;
-    firebaseUid = data['firebase_uid'] ?? "";
+    // firebaseUid = data['firebase_uid'] ?? "";
     register_date = data['reg_date'] != null
         ? DateTime.parse(data['reg_date'])
         : DateTime.now().toLocal();
@@ -204,11 +219,9 @@ class ModelBeautyProvider extends HiveObject {
     uid = data['_id'] ?? '';
 
     token = data['token'] ?? '';
- 
+
     // getAllServices(servicespro);
   }
-
-
 
   // getAllServices(Map<String, dynamic> servicess) {
   //   Map<String, dynamic> finalResult = Map<String, dynamic>();
@@ -235,4 +248,16 @@ class ModelBeautyProvider extends HiveObject {
   //   return map;
   // }
 
+  DefaultAccept getDefaultAccept(bool defaultAccept) {
+    return defaultAccept ? DefaultAccept.accept : DefaultAccept.refuse;
+  }
+
+  DefaultAfterAccept getDefaultAfterAccept(int defaultAfterAccept) {
+    switch (defaultAfterAccept) {
+      case 2:
+        return DefaultAfterAccept.acceptBooking;
+      default:
+        return DefaultAfterAccept.refuseBooking;
+    }
+  }
 }

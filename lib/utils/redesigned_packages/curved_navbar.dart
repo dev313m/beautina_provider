@@ -89,9 +89,11 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
     Size size = MediaQuery.of(context).size;
     return Container(
       color: widget.backgroundColor,
-      height: widget.height,
+      height: widget.height + 20,
       child: Stack(
-        // overflow: Overflow.visible,
+        fit: StackFit.loose,
+        // clipBehavior: Clip.hardEdge,
+
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Positioned(
@@ -124,7 +126,9 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
             left: 0,
             right: 0,
             // bottom: 0 - (75.0 - widget.height),
-            child: Container(height: MediaQuery.of(context).padding.bottom, color: Color(0xff0d3c61)),
+            child: Container(
+                height: MediaQuery.of(context).padding.bottom,
+                color: Color(0xff0d3c61)),
           ),
           Positioned(
             left: 0,
@@ -148,7 +152,7 @@ class _CurvedNavigationBarCState extends State<CurvedNavigationBarC>
                     children: widget.items.map((item) {
                   return NavButton(
                     onTap: _buttonTap,
-                    position: _pos!,
+                    position: _pos ?? 10,
                     length: _length,
                     index: widget.items.indexOf(item),
                     child: item,

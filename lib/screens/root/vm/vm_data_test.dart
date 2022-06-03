@@ -30,7 +30,7 @@ class VMRootDataTest extends GetxController {
     }
   }
 
-  shareRoot() {
+  reInit() {
     // initNotFuture();
     initialize();
     initNotificationDb();

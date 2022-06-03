@@ -2,7 +2,7 @@ import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 
 abstract class AsyncApiGetx<T> extends GetxController {
-  final Future<T> api;
+  Future<T> api;
   Rx<T> value;
   RxBool isLoading = RxBool(false);
   RxBool isError = RxBool(false);
@@ -19,6 +19,7 @@ abstract class AsyncApiGetx<T> extends GetxController {
   loadApi() async {
     isLoading.value = true;
     isError.value = false;
+    isFinishSuccess.value = false;
     try {
       value.value = await api;
       isFinishSuccess.value = true;

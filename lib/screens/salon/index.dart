@@ -64,10 +64,11 @@ class _PageSalonState extends State<PageSalon> {
                 key: ValueKey('tdest'),
               ),
               Y(),
+              const BlockMyServices(),
+
               const BlockAllServices(),
               // Y(),
 
-              const BlockMyServices(),
               Y(),
 
               WdgtSalonShare(),

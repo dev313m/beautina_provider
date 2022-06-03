@@ -1,8 +1,6 @@
 import 'package:beautina_provider/core/models/response/model_service.dart';
 
 class CommonController {
-
-
   /// 1- take the parent node of each item
   /// 2- add the node to its parent
   static List<ModelService> buildTree(List<dynamic> nodes) {

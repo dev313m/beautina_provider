@@ -32,14 +32,13 @@ class ModelBeautyProviderAdapter extends TypeAdapter<ModelBeautyProvider> {
       default_after_accept: fields[28] as int?,
       tokenId: fields[16] as String?,
       favorite_count: fields[21] as int?,
-      auth_login: fields[18] as String?,
+      firebase_uid: fields[18] as String?,
       rating: fields[24] as double?,
       register_date: fields[23] as DateTime?,
       voter: fields[13] as int?,
       country: fields[31] as String?,
       likes: fields[32] as int?,
       visitors: fields[22] as int?,
-      firebaseUid: fields[2] as String?,
       city: fields[19] as String?,
       uid: fields[15] as String?,
       username: fields[14] as String?,
@@ -53,13 +52,11 @@ class ModelBeautyProviderAdapter extends TypeAdapter<ModelBeautyProvider> {
   @override
   void write(BinaryWriter writer, ModelBeautyProvider obj) {
     writer
-      ..writeByte(30)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.TYPE_SALON)
       ..writeByte(1)
       ..write(obj.TYPE_INDIVIDUAL)
-      ..writeByte(2)
-      ..write(obj.firebaseUid)
       ..writeByte(4)
       ..write(obj.type)
       ..writeByte(5)
@@ -87,7 +84,7 @@ class ModelBeautyProviderAdapter extends TypeAdapter<ModelBeautyProvider> {
       ..writeByte(17)
       ..write(obj.achieved)
       ..writeByte(18)
-      ..write(obj.auth_login)
+      ..write(obj.firebase_uid)
       ..writeByte(19)
       ..write(obj.city)
       ..writeByte(20)
