@@ -4,6 +4,7 @@ import 'dart:isolate';
 import 'package:beautina_provider/core/controller/all_salon_services_controller.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/controller/common_controller.dart';
+import 'package:beautina_provider/core/controller/functions.dart';
 import 'package:beautina_provider/core/db/my_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
@@ -16,9 +17,9 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 class MyServicesController {
-  static Future disableService(ModelService service) async {
+  static Future disableService(ModelMyService service) async {
     DBMyService _myServices = DBMyService();
-    await _myServices.disableService(service.docId);
+    await _myServices.disableService(service.id!);
   }
 
   static Future addService(
@@ -45,14 +46,19 @@ class MyServicesController {
     // return tree;
   }
 
-  Future refresh() async {
-    await Get.find<GlobalValMyServices>().refresh();
-    Get.find<GlobalValMyServices>().isServicesListAsRootLeafReady.value = false;
+  Future startOrRefresh() async {
+    List<ModelMyService> myServicesList = await getMyServicesList();
 
-    await setMyServicesAsNodes();
+    networkStatefulVarStarter(
+        networkStatefulVarClass: Get.find<GlobalValMyServices>(),
+        onStart: () async {
+          Get.find<GlobalValMyServices>().myService.value = myServicesList;
+        });
+
+    setMyServicesAsNodes(myServicesList);
   }
 
-  Future setMyServicesAsNodes() async {
+  Future setMyServicesAsNodes(List<ModelMyService> myServicesList) async {
     AllSalonServicesController _cntrl = AllSalonServicesController();
     try {
       _cntrl.listenSuccessfulDownload().listenAndPump((isDownloaded) async {
@@ -87,9 +93,7 @@ class MyServicesController {
                   CommonController.buildTree, allNodes.toSet().toList());
               await Future.delayed(Duration(seconds: 1));
               setServicesNodesList(tree);
-              Get.find<GlobalValMyServices>()
-                  .isServicesListAsRootLeafReady
-                  .value = true;
+              Get.find<GlobalValMyServices>().isReady.value = true;
             }
           });
         }
@@ -125,7 +129,7 @@ class MyServicesController {
   }
 
   List<ModelMyService> getGlobalValMyServicesList() {
-    return Get.find<GlobalValMyServices>().value.value;
+    return Get.find<GlobalValMyServices>().myService;
   }
 
   RxBool isServicesSuccessfullyDownloaded() {
@@ -133,11 +137,11 @@ class MyServicesController {
   }
 
   bool isError() {
-    return Get.find<GlobalValMyServices>().isServicesListAsRootLeafError.value;
+    return Get.find<GlobalValMyServices>().isError.value;
   }
 
   bool isReady() {
-    return Get.find<GlobalValMyServices>().isServicesListAsRootLeafReady.value;
+    return Get.find<GlobalValMyServices>().isReady.value;
   }
 
   // Future<bool> addService()

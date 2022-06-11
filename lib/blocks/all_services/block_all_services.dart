@@ -379,6 +379,7 @@ class _SingleWidget extends State<SingleWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  ModelMyService? modelMyService;
   bool isAdded = false;
 
   int? alpha;
@@ -399,15 +400,20 @@ class _SingleWidget extends State<SingleWidget>
     alpha = (_animation.value * 255).toInt();
   }
 
-  bool updateState() {
-    return Get.find<GlobalValMyServices>().value.value.indexWhere(
-            (element) => element.serviceCode == widget.modelService.code) !=
-        -1;
+  ModelMyService? getRegistredServiceIfExists() {
+    try {
+      modelMyService = Get.find<GlobalValMyServices>().myService.firstWhere(
+            (element) => element.serviceCode == widget.modelService.code,
+          );
+      return modelMyService;
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isRegistered = updateState();
+    final bool isRegistered = getRegistredServiceIfExists() != null;
 
     // return Text('solo');
     // return GWdgtTextDescDesc(string: widget.modelService.arName);
@@ -416,17 +422,17 @@ class _SingleWidget extends State<SingleWidget>
       builder: (_, child) {
         return GestureDetector(
             onTap: () {
-              ModelMyService? modelMyService;
+              // ModelMyService? modelMyService;
 
-              try {
-                modelMyService =
-                    Get.find<GlobalValMyServices>().value.value.firstWhere(
-                          (element) =>
-                              element.serviceCode == widget.modelService.code,
-                        );
-              } catch (e) {
-                modelMyService = null;
-              }
+              // try {
+              //   modelMyService =
+              //       Get.find<GlobalValMyServices>().myService.firstWhere(
+              //             (element) =>
+              //                 element.serviceCode == widget.modelService.code,
+              //           );
+              // } catch (e) {
+              //   modelMyService = null;
+              // }
               BlockAllServicesRepo().onServicePress(
                 context,
                 modelMyService: modelMyService,
@@ -440,7 +446,7 @@ class _SingleWidget extends State<SingleWidget>
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     borderRadius: widget.borderRadius,
-                    color: isRegistered
+                    color: isRegistered && modelMyService?.isActive == true
                         ? widget.color
                         : widget.color.withOpacity(0.2)),
                 child: Row(

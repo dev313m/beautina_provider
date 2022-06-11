@@ -323,7 +323,7 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
                             try {
                               _btndisableController.start();
                               await BlockAddServiceRepo()
-                                  .disableService(widget.modelService);
+                                  .disableService(widget.modelMyService!);
                               _btndisableController.success();
                               await Future.delayed(Duration(seconds: 1));
                               Get.back();

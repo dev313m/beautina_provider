@@ -31,8 +31,8 @@ class ModelMyService {
     required this.isActive,
     this.duration,
     this.cost,
-     this.viewCount  = 0,
-     this.orderCount = 0,
+    this.viewCount = 0,
+    this.orderCount = 0,
     this.id,
     required this.serviceCode,
     this.createDate,
@@ -108,6 +108,7 @@ class ModelMyService {
       prvd_img: map['prvd_img'] ?? '',
       providerDesc: map['prvd_desc'] ?? '',
       city: map['city'] ?? '',
+      id: map['_id'] ?? '',
       country: map['cntry'] ?? '',
       isActive: map['active'] ?? false,
       duration: map['duration']?.toDouble(),
@@ -115,18 +116,14 @@ class ModelMyService {
       viewCount: map['view_cnt']?.toInt() ?? 0,
       orderCount: map['order_cnt']?.toInt() ?? 0,
       serviceCode: map['service_code'] ?? '',
-      createDate: map['crt_dt'] != null
-          ? DateTime.parse(map['crt_dt'])
-          : null,
+      createDate: map['crt_dt'] != null ? DateTime.parse(map['crt_dt']) : null,
       geo: map['geo'] != null
-          ? GeoPoint(map['geo']['coordinates'][1].toDouble(), map['geo']['coordinates'][0].toDouble())
+          ? GeoPoint(map['geo']['coordinates'][1].toDouble(),
+              map['geo']['coordinates'][0].toDouble())
           : null,
-      startDate: map['strt_dt'] != null
-          ? DateTime.parse(map['strt_dt'])
-          : null,
-      finishDate: map['fnsh_dt'] != null
-          ? DateTime.parse(map['fnsh_dt'])
-          : null,
+      startDate: map['strt_dt'] != null ? DateTime.parse(map['strt_dt']) : null,
+      finishDate:
+          map['fnsh_dt'] != null ? DateTime.parse(map['fnsh_dt']) : null,
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/controller/refresh_controller.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
+import 'package:beautina_provider/core/models/response/my_service.dart';
 
 class BlockAddServiceRepo {
   Future addService(ModelService service, double duration, double cost) async {
@@ -8,7 +9,7 @@ class BlockAddServiceRepo {
     RefreshController.afterServiceUpdate();
   }
 
-  Future disableService(ModelService service) async {
+  Future disableService(ModelMyService service) async {
     await MyServicesController.disableService(service);
     RefreshController.afterServiceUpdate();
   }

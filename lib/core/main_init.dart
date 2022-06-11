@@ -1,3 +1,4 @@
+import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/controller/refresh_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
@@ -17,10 +18,6 @@ GetIt getIt = GetIt.instance;
 Future<bool?> mainInit() async {
   await RefreshController.onStart();
   bool? registered = await sharedGetRegestered();
-  if (registered ?? false)
-    await RefreshController.onStartRegistered();
-  else
-    await RefreshController.onStartNotRegistered();
   return registered;
 }
 
@@ -42,7 +39,8 @@ class InitialBinding extends Bindings {
     Get.lazyPut(
       () => GlobalValAllServices(),
     );
-    Get.lazyPut(() => GlobalValMyServices());
+    Get.put<GlobalValMyServices>(GlobalValMyServices());
+
     Get.lazyPut(() => VmDateDataTest(build: true));
 
     Get.lazyPut(
@@ -60,7 +58,7 @@ class InitialBindingRegistered extends Bindings {
     );
     Get.put(GlobalValAllServices(), permanent: true);
     Get.put(GlobalValBeautyProviderListenable(), permanent: true);
-    Get.lazyPut(() => GlobalValMyServices());
+    Get.put<GlobalValMyServices>(GlobalValMyServices());
     Get.put(VMRootUiTest(), permanent: true);
     Get.put(VMRootDataTest(build: true), permanent: true);
     Get.put(VmDateDataTest(build: true));

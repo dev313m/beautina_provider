@@ -36,7 +36,7 @@ class _PageRoot extends State<PageRoot>
   @override
   void initState() {
     super.initState();
-
+    RefreshController.onStartRegistered();
     WidgetsBinding.instance.addObserver(this);
     contextReadyAwaiter();
     initTimeString();

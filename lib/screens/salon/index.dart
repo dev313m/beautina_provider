@@ -1,5 +1,5 @@
 import 'package:beautina_provider/blocks/all_services/block_all_services.dart';
-import 'package:beautina_provider/blocks/my_services/block_all_services.dart';
+import 'package:beautina_provider/blocks/my_services/block_my_services.dart';
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
@@ -64,9 +64,10 @@ class _PageSalonState extends State<PageSalon> {
                 key: ValueKey('tdest'),
               ),
               Y(),
+              const BlockAllServices(),
+
               const BlockMyServices(),
 
-              const BlockAllServices(),
               // Y(),
 
               Y(),

@@ -30,7 +30,7 @@ class DBMyService {
     try {
       PostHelper _postHelper = PostHelper(
           auth: true, url: URL_DATABASE_LIVE + ApiUrls.POST_DISABLE_SERVICE);
-      response = await _postHelper.makePostRequest({"_id": serviceDocId});
+      response = await _postHelper.makePatchRequest({"_id": serviceDocId});
       if (response.statusCode != 200) {
         throw HttpException('An error occured.');
       }

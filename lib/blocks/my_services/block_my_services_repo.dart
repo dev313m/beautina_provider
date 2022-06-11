@@ -17,15 +17,15 @@ class BlockMyServicesRepo {
   }
 
   bool isLoadError() {
-    return globalValMyServices.isServicesListAsRootLeafError.value;
+    return globalValMyServices.isError.value;
   }
 
   bool isLoading() {
-    return !globalValMyServices.isServicesListAsRootLeafReady.value;
+    return !globalValMyServices.isReady.value;
   }
 
   reLoadServices() {
-    MyServicesController().refresh();
+    MyServicesController().startOrRefresh();
   }
 
   List<ModelService> getRootNodes() {

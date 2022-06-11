@@ -28,9 +28,10 @@ class PostHelper {
   PostHelper({this.auth = true, this.url});
 
   Future<http.Response> makePatchRequest(Map<String, dynamic> map) async {
-    String body = json.encode(map);
-    // showToast(body);
-    // make POST request
+    String uid =
+        auth ? BeautyProviderController.getBeautyProviderProfile().uid! : '';
+    String body = json.encode(auth ? (map..['client_id'] = uid) : map);
+
     Map<String, String> header = await getAuthHeader();
 
     print('POST HELPER: \n body: $body \n header: $header');

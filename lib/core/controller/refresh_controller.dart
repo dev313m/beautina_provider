@@ -17,16 +17,20 @@ class RefreshController {
   static Future onStart() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Hive.initFlutter();
-    Firebase.initializeApp();
+    await Firebase.initializeApp();
     HiveAdapters.init();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent));
     await GlobalValHiveBox().init();
+    try {
+      await BeautyProviderController().registerObjFromLocalStorage();
+    } catch (e) {}
   }
 
   static Future onStartRegistered() async {
-    await BeautyProviderController().registerObjFromLocalStorage();
+    MyServicesController().startOrRefresh();
+    // await BeautyProviderController().registerObjFromLocalStorage();
   }
 
   static Future onStartNotRegistered() async {}
@@ -37,7 +41,7 @@ class RefreshController {
   }
 
   static Future afterServiceUpdate() async {
-    await MyServicesController().refresh();
+    await MyServicesController().startOrRefresh();
   }
 
   static Future afterProfileUpdate() async {}

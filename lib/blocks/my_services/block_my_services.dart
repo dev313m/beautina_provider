@@ -1,4 +1,4 @@
-import 'package:beautina_provider/blocks/my_services/block_all_services_repo.dart';
+import 'package:beautina_provider/blocks/my_services/block_my_services_repo.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
@@ -87,13 +87,6 @@ class _BlockMyServicesState extends State<BlockMyServices> {
                         ? const CircularProgressIndicator()
                         : Column(
                             children: [
-                              Text(
-                                Get.find<GlobalValMyServices>()
-                                    .servicesListAsRootLeaf
-                                    .length
-                                    .toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
                               // SizedBox(height: 200),
                               ClipRRect(
                                   borderRadius:
@@ -427,7 +420,7 @@ class _SingleWidget extends State<SingleWidget>
 
               try {
                 modelMyService =
-                    Get.find<GlobalValMyServices>().value.value.firstWhere(
+                    Get.find<GlobalValMyServices>().myService.firstWhere(
                           (element) =>
                               element.serviceCode == widget.modelService.code,
                         );
