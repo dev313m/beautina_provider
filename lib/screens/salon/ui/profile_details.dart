@@ -57,7 +57,8 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GlobalValBeautyProviderListenable>(builder: (vMSalonData) {
+    return GetBuilder<GlobalValBeautyProviderListenable>(
+        builder: (vMSalonData) {
       beautyProvider = vMSalonData.beautyProvider;
 
       if (beautyProvider == null) return SizedBox();
@@ -93,15 +94,17 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                                 ? GetLoadingWidget()
                                 : beautyProvider.image != ''
                                     ? ImageFirebase(
+                                        key: ValueKey('image_change'),
                                         height: sizeImageProfile,
                                         width: sizeImageProfile,
                                         url:
-                                            'gs://beautina-firebase.appspot.com/image_profile/' +
+                                            'gs://banafasj-firebase.appspot.com/image_profile/' +
                                                 beautyProvider.uid!,
                                       )
                                     : Image.asset(
                                         strDefaultProfileImage,
                                         height: sizeImageProfile,
+                                        key: ValueKey('image_change_assets'),
                                         width: sizeImageProfile,
                                         fit: BoxFit.cover,
                                       ))),

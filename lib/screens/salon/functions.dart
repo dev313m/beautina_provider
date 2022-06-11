@@ -17,8 +17,8 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 Future<ModelBeautyProvider?> updateDataFromServer() async {
   try {
     ModelBeautyProvider? beautyProvider = await apiLoadOneBeautyProvider();
-    if(beautyProvider!= null)
-    await BeautyProviderController().storeToLocalDB(beautyProvider);
+    if (beautyProvider != null)
+      await BeautyProviderController().storeToLocalDB(beautyProvider);
     // sharedUserProviderSet(beautyProvider: beautyProvider);
     return beautyProvider;
   } catch (e) {
@@ -76,8 +76,7 @@ updateProviderServices(
     RoundedLoadingButtonController _btnController) async {
   _btnController.start();
 
-  ModelBeautyProvider bp =
-     BeautyProviderController.getBeautyProviderProfile();
+  ModelBeautyProvider bp = BeautyProviderController.getBeautyProviderProfile();
   try {
     // if (showOther)
     //   bp.service_duration![otherServiceName] = serviceDuration;
@@ -166,7 +165,7 @@ updateUserDefaults(
   onDefaultsChangeLoad();
   try {
     ModelBeautyProvider mbp =
-      BeautyProviderController.getBeautyProviderProfile();
+        BeautyProviderController.getBeautyProviderProfile();
 
     await apiBeautyProviderUpdate(mbp
       ..default_accept = defaultAccept
@@ -201,14 +200,14 @@ updateUserAvailability(
   onAvailableChangeLoad();
   try {
     ModelBeautyProvider mbp =
-       BeautyProviderController.getBeautyProviderProfile();
+        BeautyProviderController.getBeautyProviderProfile();
 
     await apiBeautyProviderUpdate(mbp..available = !mbp.available!);
 
     // Get.find<VMSalonDataTest>().beautyProvider = mbp;
     // setState(() {});
     Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
-       BeautyProviderController.getBeautyProviderProfile();
+        BeautyProviderController.getBeautyProviderProfile();
     onAvailableChangeSuccess();
     // var don;
   } catch (e) {
@@ -224,36 +223,40 @@ updateProfileImage(
     Function onProfileImageChangeSuccess,
     Function onProfileImageChangeError,
     Function onProfileImageChangeComplete) async {
-  XFile file = await (imageChoose() as Future<XFile>);
-  if (await File(file.path).exists() == false) return;
-  DefaultCacheManager manager = new DefaultCacheManager();
-  ModelBeautyProvider beautyProvider =
-      Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
-  manager.emptyCache();
-  onProfileImageChangeLoad();
-  bool response = await imageUpload(file, beautyProvider.uid);
-  if (response) {
-    try {
-      // imageCache.clear();
-      // painting.imageCache.clear();
-      manager.emptyCache();
+  try {
+    XFile file = await imageChoose() as XFile;
+    if (await File(file.path).exists() == false) return;
+    DefaultCacheManager manager = new DefaultCacheManager();
+    ModelBeautyProvider beautyProvider =
+        Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
+    manager.emptyCache();
+    onProfileImageChangeLoad();
+    bool response = await imageUpload(file, beautyProvider.uid);
+    if (response) {
+      try {
+        // imageCache.clear();
+        // painting.imageCache.clear();
+        manager.emptyCache();
 
-      await Future.delayed(Duration(seconds: 8));
-      // super.setState(() {});
-      // setState(() {});
+        await Future.delayed(Duration(seconds: 8));
+        // super.setState(() {});
+        // setState(() {});
 
-      ModelBeautyProvider mbp =
-          BeautyProviderController.getBeautyProviderProfile();
+        ModelBeautyProvider mbp =
+            BeautyProviderController.getBeautyProviderProfile();
 
-      await apiBeautyProviderUpdate(mbp..available = mbp.available);
+        await apiBeautyProviderUpdate(mbp..available = mbp.available);
 
-      // Get.find<VMSalonDataTest>().beautyProvider = mbp;
-      // setState(() {});
-      Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
-         BeautyProviderController.getBeautyProviderProfile();
-    } catch (e) {
-      onProfileImageChangeError();
+        // Get.find<VMSalonDataTest>().beautyProvider = mbp;
+        // setState(() {});
+        Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+            BeautyProviderController.getBeautyProviderProfile();
+      } catch (e) {
+        onProfileImageChangeError();
+      }
+      onProfileImageChangeComplete();
     }
-    onProfileImageChangeComplete();
+  } catch (e) {
+    var s;
   }
 }

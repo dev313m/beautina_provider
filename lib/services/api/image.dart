@@ -26,8 +26,8 @@ Future<bool> imageUpload(XFile file, String? name,
     var task = await FirebaseStorage.instance
         .ref()
         .child('image_profile/$name')
-        .putFile(File(file.path))
-        .snapshot;
+        .putFile(File(file.path));
+
     if (task.state == TaskState.success) return true;
 
     throw Exception('not completed');
