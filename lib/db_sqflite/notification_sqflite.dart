@@ -65,7 +65,7 @@ class NotificationHelper {
   Future<List<MyNotification>> getNotificationList() async {
     Database? db = await (this.database as Future<Database>);
     List<Map<String, dynamic>> list =
-        await db.query(_tableName, orderBy: '$colId DESC', limit: 15); //DESC
+        await db.query(_tableName, orderBy: '$colId DESC', limit: 40); //DESC
     return list.map((f) => MyNotification.fromMapObject(f)).toList();
   }
 
@@ -107,7 +107,15 @@ class NotificationHelper {
 
   updateListToRead(List<MyNotification> list) async {
     list.map((noti) async {
-      if (noti.status == 0) await updateNotification(noti);
+      if (noti.status == 0 && noti.type != 'chat_message')
+        await updateNotification(noti);
+    }).toList();
+  }
+
+  updateChatNotificationToRead(List<MyNotification> list) async {
+    list.map((noti) async {
+      if (noti.type == 'chat_message' && noti.status == 0)
+        await updateNotification(noti);
     }).toList();
   }
 

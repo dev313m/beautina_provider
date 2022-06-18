@@ -4,7 +4,8 @@ class ApiUrls {
 
   /// [GET] all providers, must have [city] & [country] as url parameters
   /// [GET] one provider, must have [id]
-  static String GET_PROVIDERS = 'beauty_providers/';
+  static String PATCH_PROVIDERS_AND_UPDATE =
+      'beauty_providers/update_last_access';
 
   /// [GET] one provider, must have [username] as url parameter
 
@@ -32,4 +33,10 @@ class ApiUrls {
   static final POST_DISABLE_SERVICE = 'salon_products/disable';
 
   static final GET_MY_SERVICES = 'salon_products/get_provider_services';
+
+  static final URL_UPDATE_USERNAME = 'beauty_providers/update_username';
+  static final URL_ADD_NEW_USER = 'eauty_providers/login';
+  static final URL_UPDATE_USER = 'beauty_providers/update';
+
+  static final SALON_SERVICES = 'salon_services';
 }

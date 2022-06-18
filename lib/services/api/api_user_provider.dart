@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
+import 'package:beautina_provider/core/services/constants/api_url.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/services/api/post.dart';
@@ -12,10 +13,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 final ERROR = "حدث خطأ ما، الرجاء المحاولة مجددا";
-String URL_UPDATE_USERNAME =
-    '${URL_DATABASE_LIVE}beauty_providers/update_username';
-String URL_ADD_NEW_USER = '${URL_DATABASE_LIVE}beauty_providers/login';
-String URL_UPDATE_USER = '${URL_DATABASE_LIVE}beauty_providers/update';
+
 // String URL_ADD_FAVORITE = 'https://beautyorders.herokuapp.com/favorite';
 
 // Future<Null> apiUserAddNew(ModelUser user) async {
@@ -28,7 +26,8 @@ String URL_UPDATE_USER = '${URL_DATABASE_LIVE}beauty_providers/update';
 
 Future<ModelBeautyProvider> apiUserProviderAddNew(
     ModelBeautyProvider modelBeautyProvider) async {
-  PostHelper ph = PostHelper(auth: false, url: URL_ADD_NEW_USER);
+  PostHelper ph = PostHelper(
+      auth: false, url: URL_DATABASE_LIVE + ApiUrls.URL_ADD_NEW_USER);
   ph.auth = false;
   http.Response response;
   try {
@@ -48,12 +47,18 @@ Future<ModelBeautyProvider?> apiLoadOneBeautyProvider() async {
   ModelBeautyProvider beautyProvider =
       BeautyProviderController.getBeautyProviderProfile();
   http.Response response;
+  PostHelper ph = PostHelper(
+      auth: true, url: URL_DATABASE_LIVE + ApiUrls.PATCH_PROVIDERS_AND_UPDATE);
+
+  Map<String, dynamic> body = {
+    'client_id': beautyProvider.uid,
+  };
+
   try {
-    response = await http.Client().get(Uri.parse(
-        '${URL_DATABASE_LIVE}beauty_providers/' + beautyProvider.uid!));
+    response = await ph.makePatchRequest(body);
 
     if (response.statusCode != 200)
-      throw HttpException(jsonDecode(response.body)['message']);
+      throw HttpException(jsonDecode(response.body));
     return parseOne(response.body);
   } catch (e) {
     throw HttpException(ERROR);
@@ -69,7 +74,8 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdateUsername(
     ModelBeautyProvider beautyProvider) async {
   // ModelBeautyProvider beautyProvider = await sharedUserProviderGetInfo();
   http.Response response;
-  PostHelper ph = PostHelper(auth: true, url: URL_UPDATE_USERNAME);
+  PostHelper ph = PostHelper(
+      auth: true, url: URL_DATABASE_LIVE + ApiUrls.URL_UPDATE_USERNAME);
 
   //because busy dates contains datetime so please convert them to string to be encodable
 
@@ -99,7 +105,8 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
     ModelBeautyProvider beautyProvider) async {
   // ModelBeautyProvider beautyProvider = await sharedUserProviderGetInfo();
   http.Response response;
-  PostHelper ph = PostHelper(auth: true, url: URL_UPDATE_USER);
+  PostHelper ph =
+      PostHelper(auth: true, url: URL_DATABASE_LIVE + ApiUrls.URL_UPDATE_USER);
 
   //because busy dates contains datetime so please convert them to string to be encodable
 
@@ -133,7 +140,8 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
 
     return beautyProvider;
   } catch (e) {
-    print('http error \n url: ${URL_UPDATE_USER} \n error: ${e.toString()}');
+    print(
+        'http error \n url: ${URL_DATABASE_LIVE + ApiUrls.URL_UPDATE_USER} \n error: ${e.toString()}');
 
     throw HttpException(e.toString());
   }

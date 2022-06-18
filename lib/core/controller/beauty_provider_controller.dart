@@ -4,6 +4,7 @@ import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 class BeautyProviderController {
   storeToken(String token) async {
@@ -37,7 +38,8 @@ class BeautyProviderController {
   }
 
   registerObj(ModelBeautyProvider modelBeautyProvider) {
-    getIt.registerSingleton<ModelBeautyProvider>(modelBeautyProvider);
+    if (!getIt.isRegistered<ModelBeautyProvider>())
+      getIt.registerSingleton<ModelBeautyProvider>(modelBeautyProvider);
   }
 
   updateBeautyProviderProfile(ModelBeautyProvider modelBeautyProvider) async {

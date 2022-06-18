@@ -1,4 +1,6 @@
+import 'package:beautina_provider/chat/rooms.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/divider.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
@@ -8,6 +10,7 @@ import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -35,7 +38,7 @@ final strImageExtension = '.jpg';
 final strMyPoints = 'نقاطي';
 final strAcheivedOrders = 'الطلبات المنجزة';
 final strLocation = 'الموقع';
-final strMobile = 'الجوال';
+final strMobile = 'الرسائل';
 final strDefaultProfileImage = 'assets/images/default.png';
 
 ///[sizes]
@@ -70,6 +73,7 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
           child: Padding(
             padding: EdgeInsets.all(edgeMainContainer),
             child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 InkWell(
                   onTap: () async {
@@ -97,9 +101,8 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                                         key: ValueKey('image_change'),
                                         height: sizeImageProfile,
                                         width: sizeImageProfile,
-                                        url:
-                                            'gs://banafasj-firebase.appspot.com/image_profile/' +
-                                                beautyProvider.uid!,
+                                        url: FIREBASE_STORAGE_URL +
+                                            beautyProvider.uid!,
                                       )
                                     : Image.asset(
                                         strDefaultProfileImage,
@@ -116,18 +119,23 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                   GWdgtTextTitle(
                     string: beautyProvider.username,
                   ),
-                Y(),
-                RatingBarFlutter.readOnly(
-                  maxRating: 5,
-                  initialRating:
-                      (beautyProvider.points! / beautyProvider.achieved!),
-                  filledIcon: CommunityMaterialIcons.heart,
-                  emptyIcon: CommunityMaterialIcons.heart_outline,
-                  halfFilledIcon: CommunityMaterialIcons.heart_half,
-                  isHalfAllowed: true,
-                  filledColor: colorIconFavorite,
-                  size: sizeIconFavorite,
+                Container(
+                  width: 250,
+                  child: RatingBarFlutter.readOnly(
+                    maxRating: 5,
+                    aligns: Alignment.center,
+                    initialRating:
+                        (beautyProvider.points! / beautyProvider.achieved!),
+                    filledIcon: CommunityMaterialIcons.heart,
+                    emptyIcon: CommunityMaterialIcons.heart_outline,
+                    halfFilledIcon: CommunityMaterialIcons.heart_half,
+                    isHalfAllowed: true,
+                    filledColor: colorIconFavorite,
+                    size: sizeIconFavorite,
+                  ),
                 ),
+                Y(),
+
                 Y(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -155,8 +163,9 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                     ),
                     CustomDivider(),
                     InfoItem(
-                      icon: CommunityMaterialIcons.whatsapp,
+                      icon: CupertinoIcons.chat_bubble_2,
                       title: strMobile,
+                      onClick: () => Get.to(RoomsPage()),
                       value: beautyProvider.phone.toString(),
                     ),
                   ],
@@ -200,31 +209,46 @@ class InfoItem extends StatelessWidget {
   final IconData? icon;
   final String? title;
   final String? value;
-  const InfoItem({Key? key, this.icon, this.title, this.value})
+  final Function? onClick;
+  const InfoItem({Key? key, this.icon, this.title, this.value, this.onClick})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4),
-      // height: ScreenUtil().setHeight(200),
-      child: Column(
-        children: <Widget>[
-          GWdgtTextProfile(
-            string: title,
-          ),
-          Icon(
-            icon,
-            size: sizeIconDetails,
-            color: colorIconDetails,
-          ),
-          Y(
-            height: BoxHeight.heightBtwContainers,
-          ),
-          GWdgtTextProfile(
-            string: value,
-          )
-        ],
+    return InkWell(
+      onTap: () {
+        if (onClick != null) onClick!();
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        // height: ScreenUtil().setHeight(200),
+        child: Column(
+          children: <Widget>[
+            GWdgtTextProfile(
+              string: title,
+            ),
+            icon == CupertinoIcons.chat_bubble_2
+                ? Hero(
+                    tag: "chatRoom",
+                    child: Icon(
+                      icon,
+                      size: sizeIconDetails,
+                      color: colorIconDetails,
+                    ),
+                  )
+                : Icon(
+                    icon,
+                    size: sizeIconDetails,
+                    color: colorIconDetails,
+                  ),
+            Y(
+              height: BoxHeight.heightBtwContainers,
+            ),
+            GWdgtTextProfile(
+              string: value,
+            )
+          ],
+        ),
       ),
     );
   }

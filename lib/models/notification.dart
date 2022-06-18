@@ -15,6 +15,8 @@ import 'package:http/http.dart' as http;
  * This class is a model for the type Notification
  */
 
+enum NotificationType { chatMessage, broadcast, orderStatus, other }
+
 class MyNotification {
   int? _colId;
   String? _title;
@@ -164,11 +166,13 @@ Future<MyNotification> dbServerloadNotification(String id) async {
       .collection('notifications')
       .doc(id)
       .get();
-  return MyNotification.fromFirebase(querySnapshot.data() as Map<String, dynamic>);
+  return MyNotification.fromFirebase(
+      querySnapshot.data() as Map<String, dynamic>);
 }
 
 Future<String?> getClientId() async {
-  ModelBeautyProvider user =BeautyProviderController.getBeautyProviderProfile();
+  ModelBeautyProvider user =
+      BeautyProviderController.getBeautyProviderProfile();
   return user.uid;
 }
 
@@ -190,13 +194,15 @@ Future<List<MyNotification>> dbServerloadAllNewNotification(
 
 List<MyNotification> computeMe(QuerySnapshot querySnapshot) {
   return querySnapshot.docs
-      .map((item) => MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
+      .map((item) =>
+          MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
       .toList();
 }
 
 List<MyNotification> parseNewList(QuerySnapshot? querySnapshot) {
   List<MyNotification> notificationMap = querySnapshot!.docs
-      .map((item) => MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
+      .map((item) =>
+          MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
       .toList();
 
   return notificationMap;

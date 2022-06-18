@@ -1,3 +1,4 @@
+import 'package:beautina_provider/chat/controller.dart';
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/controller/refresh_controller.dart';
@@ -152,11 +153,14 @@ Future<Null> saveUserData(BuildContext? context) async {
       await BeautyProviderController().storeToLocalDB(modelBeautyProvider);
       await BeautyProviderController().storeToken(modelBeautyProvider.tokenId!);
       // await saveData(modelBeautyProvider);
-      await sharedRegistered(true);
 
       BeautyProviderController()
           .updateBeautyProviderProfile(modelBeautyProvider);
       await RefreshController.afterLogin();
+      await ChatController().checkAndCreate();
+
+      await sharedRegistered(true);
+
       routeToRoot(context!);
       await Future.delayed(Duration(seconds: 3));
       showToast('مرحبا بك في عالم الجمال');
