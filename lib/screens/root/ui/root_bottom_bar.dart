@@ -1,3 +1,4 @@
+import 'package:beautina_provider/models/notification.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
@@ -57,7 +58,9 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                                 return Align(
                                   alignment: Alignment.topCenter,
                                   child: vmRootData.notificationList
-                                              .where((n) => n.status == 0)
+                                              .where((n) =>
+                                                  n.status ==
+                                                  NotificationStatus.notRead)
                                               .length !=
                                           0
                                       ? new Container(

@@ -79,6 +79,16 @@ onNotificationPageVisited(BuildContext context) async {
   });
 }
 
+///if the notificaton page visited:
+///1- clear the numbers on the notification
+///2- set a flag to await the process to finish [[isVisitedPage]]
+onChatPageVisited(BuildContext context) async {
+  VMRootUiTest vmRootUi = Get.find<VMRootUiTest>();
+  VMRootDataTest vmRootData = Get.find<VMRootDataTest>();
+  vmRootData.notificationHelper!
+      .updateChatNotificationToRead(vmRootData.notificationList);
+}
+
 ///Listern if the connection is lost to the internetw
 listenToInternet(BuildContext context) {
   StreamSubscription<ConnectivityResult> subscription;

@@ -103,7 +103,8 @@ class _ChatPageState extends State<ChatPage> {
           uri: uri,
         );
 
-        FirebaseChatCore.instance.sendMessage(message, widget.room.id);
+        FirebaseChatCore.instance.sendMessage(message, widget.room.id,
+            BeautyProviderController.getBeautyProviderProfile().uid!);
         _setAttachmentUploading(false);
       } finally {
         _setAttachmentUploading(false);
@@ -139,10 +140,8 @@ class _ChatPageState extends State<ChatPage> {
           width: image.width.toDouble(),
         );
 
-        FirebaseChatCore.instance.sendMessage(
-          message,
-          widget.room.id,
-        );
+        FirebaseChatCore.instance.sendMessage(message, widget.room.id,
+            BeautyProviderController.getBeautyProviderProfile().uid!);
         _setAttachmentUploading(false);
       } finally {
         _setAttachmentUploading(false);
@@ -209,9 +208,9 @@ class _ChatPageState extends State<ChatPage> {
   void _handleSendPressed(types.PartialText message) async {
     try {
       types.Message? messageMap = await FirebaseChatCore.instance.sendMessage(
-        message,
-        widget.room.id,
-      );
+          message,
+          widget.room.id,
+          BeautyProviderController.getBeautyProviderProfile().uid!);
       _updateReplaceRoomLastMessage(widget.room, messageMap!);
     } catch (e) {}
   }

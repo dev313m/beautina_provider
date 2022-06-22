@@ -47,8 +47,8 @@ class _PageRoot extends State<PageRoot>
       PageNotification(),
       PageGift(),
 
-      // PageDate(),
-      SizedBox(),
+      PageDate(),
+      // SizedBox(),
       // PagePackage(),
       // SizedBox(),
 

@@ -55,7 +55,7 @@ class NotificationHelper {
   void _createDb(Database db, int newVersion) async {
     await db.execute(
         'CREATE TABLE $_tableName($colId INTEGER PRIMARY KEY AUTOINCREMENT, $title TEXT, $describ TEXT, $createDate INTEGER, $readDate INTEGER,' +
-            '$status INTEGER, $type TEXT, $icon TEXT, $image TEXT' +
+            '$status TEXT, $type TEXT, $icon TEXT, $image TEXT' +
             ') ');
   }
 
@@ -63,18 +63,20 @@ class NotificationHelper {
  * getPrefrencesList() is to get all table list
  */
   Future<List<MyNotification>> getNotificationList() async {
-    Database? db = await (this.database as Future<Database>);
+    Database? db = await database;
     List<Map<String, dynamic>> list =
-        await db.query(_tableName, orderBy: '$colId DESC', limit: 40); //DESC
-    return list.map((f) => MyNotification.fromMapObject(f)).toList();
+        await db!.query(_tableName, orderBy: '$colId DESC', limit: 1); //DESC
+    var mylist = list.map((f) => MyNotification.fromMapObject(f)).toList();
+    return mylist;
   }
 
 /**
  * insertPrefrences() method is to insert a prefrence 
  */
   Future<int> insertNotification(MyNotification notification) async {
-    Database db = await (this.database as Future<Database>);
-    int result = await db.insert(_tableName, notification.toMap());
+    Database? db = await database;
+    var map = notification.toMap();
+    int result = await db!.insert(_tableName, notification.toMap());
     await updateLastNotificationDate(notification.createDate!);
     return result;
   }
@@ -95,9 +97,9 @@ class NotificationHelper {
  * Updating a prefrence
  */
   Future<int> updateNotification(MyNotification notification) async {
-    Database db = await (this.database as FutureOr<Database>);
-    notification.status = 1;
-    return await db.update(
+    Database? db = await database;
+    notification.status = NotificationStatus.read;
+    return await db!.update(
       _tableName,
       notification.toMap(),
       where: '$colId = ?',
@@ -107,7 +109,10 @@ class NotificationHelper {
 
   updateListToRead(List<MyNotification> list) async {
     list.map((noti) async {
-      if (noti.status == 0 && noti.type != 'chat_message')
+      if (noti.status != NotificationStatus.read &&
+          (noti.type == NotificationType.other ||
+              noti.type == NotificationType.chatMessage ||
+              noti.type == NotificationType.broadcast))
         await updateNotification(noti);
     }).toList();
   }
@@ -123,7 +128,7 @@ class NotificationHelper {
    * Delete a prefrence
    */
   Future<int> deleteNotification(MyNotification notification) async {
-    Database db = await (this.database as FutureOr<Database>);
+    Database db = await (this.database as Future<Database>);
     return await db.delete(_tableName,
         where: '$colId = ?', whereArgs: [notification.colId]);
   }

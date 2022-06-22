@@ -2,7 +2,9 @@ import 'package:beautina_provider/chat/rooms.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
+import 'package:beautina_provider/models/notification.dart';
 import 'package:beautina_provider/reusables/divider.dart';
+import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/animated/loading.dart';
@@ -162,12 +164,71 @@ class _WdgtSalonProfileDetailsState extends State<WdgtSalonProfileDetails> {
                       value: beautyProvider.city.toString(),
                     ),
                     CustomDivider(),
-                    InfoItem(
-                      icon: CupertinoIcons.chat_bubble_2,
-                      title: strMobile,
-                      onClick: () => Get.to(RoomsPage()),
-                      value: beautyProvider.phone.toString(),
-                    ),
+                    // InfoItem(
+                    //   icon: CupertinoIcons.chat_bubble_2,
+                    //   title: strMobile,
+                    //   onClick: () => Get.to(RoomsPage()),
+                    //   value: beautyProvider.phone.toString(),
+                    // ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(RoomsPage());
+                      },
+                      child: Stack(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 4),
+                            // height: ScreenUtil().setHeight(200),
+                            child: Column(
+                              children: <Widget>[
+                                GWdgtTextProfile(
+                                  string: strMobile,
+                                ),
+                                Hero(
+                                  tag: "chatRoom",
+                                  child: Icon(
+                                    CupertinoIcons.chat_bubble_2,
+                                    size: sizeIconDetails,
+                                    color: colorIconDetails,
+                                  ),
+                                ),
+                                // Y(
+                                //   height: BoxHeight.heightBtwContainers,
+                                // ),
+                                GetBuilder<VMRootDataTest>(
+                                    builder: (vmRootTest) {
+                                  var s = vmRootTest.notificationList
+                                      .where((element) {
+                                    return element.type ==
+                                        NotificationType.chatMessage;
+                                  });
+                                  var length = vmRootTest.notificationList
+                                      .where((n) =>
+                                          n.status ==
+                                              NotificationStatus.notRead &&
+                                          n.type ==
+                                              NotificationType.chatMessage)
+                                      .length;
+                                  if (length == 0)
+                                    return GWdgtTextBadge(string: '');
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 5, vertical: 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(24)),
+                                    child: Center(
+                                        child: GWdgtTextBadge(
+                                            string: length.toString())),
+                                  );
+                                })
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
                 Y(

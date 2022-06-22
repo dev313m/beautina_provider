@@ -35,7 +35,7 @@ class ApiUrls {
   static final GET_MY_SERVICES = 'salon_products/get_provider_services';
 
   static final URL_UPDATE_USERNAME = 'beauty_providers/update_username';
-  static final URL_ADD_NEW_USER = 'eauty_providers/login';
+  static final URL_ADD_NEW_USER = 'beauty_providers/login';
   static final URL_UPDATE_USER = 'beauty_providers/update';
 
   static final SALON_SERVICES = 'salon_services';

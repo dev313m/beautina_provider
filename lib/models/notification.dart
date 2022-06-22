@@ -17,19 +17,47 @@ import 'package:http/http.dart' as http;
 
 enum NotificationType { chatMessage, broadcast, orderStatus, other }
 
+enum NotificationStatus { notRead, read }
+
 class MyNotification {
   int? _colId;
   String? _title;
   String? _describ;
   String? _createDate = '';
   String? _readDate = '';
-  int? _status = 0;
-  String? _type;
+  NotificationStatus? _status = NotificationStatus.notRead;
+  NotificationType? _type;
   String? _icon = '';
   String? _image = '';
   String? from_name;
   String? client_id;
   Timestamp? t;
+
+  NotificationType typeStringToEnum(String? typeName) {
+    if (typeName == null) return NotificationType.other;
+    switch (typeName) {
+      case "chatMessage":
+        return NotificationType.chatMessage;
+      case "broadcast":
+        return NotificationType.broadcast;
+      case "orderStatus":
+        return NotificationType.orderStatus;
+      default:
+        return NotificationType.other;
+    }
+  }
+
+  NotificationStatus statusToEnum(String? status) {
+    if (status == null) return NotificationStatus.read;
+    switch (status) {
+      case "read":
+        return NotificationStatus.read;
+      case "not_read":
+        return NotificationStatus.notRead;
+      default:
+        return NotificationStatus.notRead;
+    }
+  }
 
   MyNotification.empty();
   MyNotification.fromFirebase(Map<String, dynamic> map) {
@@ -37,7 +65,7 @@ class MyNotification {
     _describ = map['describ'] ?? '';
     from_name = map['from_name'] ?? "";
     _createDate = map['create_date']?.toDate().toString() ?? "";
-    _type = map['type'] ?? '';
+    _type = typeStringToEnum(map['type']);
     _icon = map['icon'] ?? '';
     _image = map['image'] ?? "";
   }
@@ -51,8 +79,8 @@ class MyNotification {
     _describ = map['describ'];
     _createDate = map['create_date'];
     _readDate = map['read_date'];
-    _status = map['status'];
-    _type = map['type'];
+    _status = statusToEnum(map['status']);
+    _type = typeStringToEnum(map['type']);
     _icon = map['icon'];
     _image = map['image'];
   }
@@ -97,15 +125,15 @@ class MyNotification {
     _icon = icon;
   }
 
-  String? get type => _type;
+  NotificationType? get type => _type;
 
-  set type(String? type) {
+  set type(NotificationType? type) {
     _type = type;
   }
 
-  int? get status => _status;
+  NotificationStatus? get status => _status;
 
-  set status(int? status) {
+  set status(NotificationStatus? status) {
     _status = status;
   }
 
@@ -128,7 +156,7 @@ class MyNotification {
     map['create_date'] = _createDate;
     map['icon'] = _icon;
     map['image'] = _image;
-    map['type'] = _type;
+    map['type'] = _type?.name;
     return map;
   }
 
@@ -139,8 +167,8 @@ class MyNotification {
     map['describ'] = _describ;
     map['create_date'] = _createDate;
     map['read_date'] = _readDate;
-    map['status'] = _status;
-    map['type'] = _type;
+    map['status'] = _status?.name;
+    map['type'] = _type?.name;
     map['icon'] = _icon;
     map['image'] = _image;
 
@@ -162,12 +190,15 @@ MyNotification parse(String responseBody) {
  * a notification comes from adding a notification 
  */
 Future<MyNotification> dbServerloadNotification(String id) async {
-  DocumentSnapshot querySnapshot = await FirebaseFirestore.instance
+  DocumentSnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
       .collection('notifications')
       .doc(id)
       .get();
-  return MyNotification.fromFirebase(
-      querySnapshot.data() as Map<String, dynamic>);
+  var data = MyNotification.fromFirebase(
+      querySnapshot.data()!['list'] as Map<String, dynamic>);
+
+  return data;
 }
 
 Future<String?> getClientId() async {
@@ -179,30 +210,38 @@ Future<String?> getClientId() async {
 //Load all new notification based on last time as string
 Future<List<MyNotification>> dbServerloadAllNewNotification(
     String lastDate) async {
-  String? client_id = await getClientId();
+  try {
+    String? client_id = await getClientId();
 
-  Timestamp date = Timestamp.fromDate(DateTime.parse(lastDate));
-  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-      .collection('notifications')
-      .where("client_id", isEqualTo: client_id)
-      .where('create_date', isGreaterThan: date)
-      .orderBy('create_date')
-      .get();
+    Timestamp date = Timestamp.fromDate(DateTime.parse(lastDate));
+    QuerySnapshot<Map<String, dynamic>>? querySnapshot = await FirebaseFirestore
+        .instance
+        .collection('notifications')
+        .where("client_id", isEqualTo: client_id)
+        .where('create_date', isGreaterThan: date)
+        .orderBy('create_date')
+        .get();
 
-  return compute(computeMe, querySnapshot);
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> g = querySnapshot.docs;
+
+    List<MyNotification> s = await compute(parseNewList, g);
+    return s;
+  } catch (e) {
+    throw Exception("notification not loaded");
+  }
 }
 
-List<MyNotification> computeMe(QuerySnapshot querySnapshot) {
+List<MyNotification> computeMe(
+    QuerySnapshot<Map<String, dynamic>> querySnapshot) {
   return querySnapshot.docs
-      .map((item) =>
-          MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
+      .map((item) => MyNotification.fromFirebase(item.data()))
       .toList();
 }
 
-List<MyNotification> parseNewList(QuerySnapshot? querySnapshot) {
-  List<MyNotification> notificationMap = querySnapshot!.docs
-      .map((item) =>
-          MyNotification.fromFirebase(item.data() as Map<String, dynamic>))
+List<MyNotification> parseNewList(
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> querySnapshot) {
+  List<MyNotification> notificationMap = querySnapshot
+      .map((item) => MyNotification.fromFirebase(item.data()))
       .toList();
 
   return notificationMap;
@@ -214,7 +253,7 @@ List<MyNotification> parseNewList(QuerySnapshot? querySnapshot) {
 Future<List<MyNotification>> dbServerloadAllNotification() async {
   String? client_id = await getClientId();
 
-  QuerySnapshot? snapshot;
+  QuerySnapshot<Map<String, dynamic>>? snapshot;
 
   try {
     snapshot = await FirebaseFirestore.instance
@@ -222,8 +261,12 @@ Future<List<MyNotification>> dbServerloadAllNotification() async {
         .where('client_id', isEqualTo: client_id)
         .orderBy('create_date')
         .get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> g = snapshot.docs;
+
+    List<MyNotification> s = await compute(parseNewList, g);
+    return s;
   } catch (e) {
     showToast(e.toString());
+    return [];
   }
-  return compute(parseNewList, snapshot);
 }
