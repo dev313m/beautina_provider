@@ -36,6 +36,7 @@ class _RoomsPageState extends State<RoomsPage> {
   @override
   void initState() {
     initializeFlutterFire();
+
     super.initState();
   }
 
@@ -199,8 +200,12 @@ class _RoomsPageState extends State<RoomsPage> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             var room = snapshot.data![index];
-                            var lastMessage =
-                                room.lastMessages?.first as types.TextMessage;
+
+                            var lastMessage = room.lastMessages?.first;
+                            if (lastMessage?.type == types.TextMessage)
+                              lastMessage = lastMessage as types.TextMessage;
+                            else if (lastMessage?.type == types.ImageMessage)
+                              lastMessage = lastMessage as types.ImageMessage;
 
                             return InkWell(
                               onTap: () {
@@ -265,17 +270,31 @@ class _RoomsPageState extends State<RoomsPage> {
                                             ],
                                           ),
                                         ),
-                                        Container(
-                                          margin:
-                                              EdgeInsets.only(top: 5, left: 10),
-                                          child: Text(
-                                            lastMessage.text,
-                                            style: TextStyle(
-                                                fontFamily: "RobotoMedium",
-                                                color: Colors.grey[400],
-                                                fontSize: 15),
-                                          ),
-                                        )
+                                        if (lastMessage is types.TextMessage)
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                top: 5, left: 10),
+                                            child: Text(
+                                              lastMessage.text,
+                                              style: TextStyle(
+                                                  fontFamily: "RobotoMedium",
+                                                  color: Colors.grey[400],
+                                                  fontSize: 15),
+                                            ),
+                                          )
+                                        else if (lastMessage
+                                            is types.ImageMessage)
+                                          Container(
+                                              margin: EdgeInsets.only(
+                                                  top: 5, left: 10),
+                                              child: Icon(
+                                                  CupertinoIcons.photo_fill))
+                                        else
+                                          Container(
+                                              margin: EdgeInsets.only(
+                                                  top: 5, left: 10),
+                                              child: Icon(
+                                                  CupertinoIcons.link_circle))
                                       ],
                                     ),
                                     Expanded(child: SizedBox()),
@@ -299,25 +318,27 @@ class _RoomsPageState extends State<RoomsPage> {
                                                 color: Colors.grey.shade400),
                                           ),
                                         ),
-                                        Visibility(
-                                          visible: lastMessage.status !=
-                                                  types.Status.seen &&
-                                              FirebaseAuth.instance.currentUser!
-                                                      .uid !=
-                                                  lastMessage.author.id,
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                                right: 70, top: 10),
+                                        if (lastMessage is types.TextMessage ||
+                                            lastMessage is types.ImageMessage)
+                                          Visibility(
+                                            visible: lastMessage?.status !=
+                                                    types.Status.seen &&
+                                                FirebaseAuth.instance
+                                                        .currentUser!.uid !=
+                                                    lastMessage?.author.id,
                                             child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                child: Icon(
-                                                  Icons.circle,
-                                                  size: 15,
-                                                  color: AppColors.pinkBright,
-                                                )),
+                                              margin: EdgeInsets.only(
+                                                  right: 70, top: 10),
+                                              child: Container(
+                                                  width: 20,
+                                                  height: 20,
+                                                  child: Icon(
+                                                    Icons.circle,
+                                                    size: 15,
+                                                    color: AppColors.pinkBright,
+                                                  )),
+                                            ),
                                           ),
-                                        ),
                                       ]),
                                     )
                                   ],
