@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 
+enum OrderStatus {
+  NewOrder,
+  AcceptedByProvider,
+  CanceledByCustomer,
+  ConfirmedByCustomer,
+  RejectedByProvider,
+  FinishedSuccessfully,
+  Evaluated,
+  FinishedUncorrectly,
+  ClaimFinishedCorrectly,
+  HasError
+}
+
 class Order {
   String? _doc_id;
   String? _beauty_provider;
@@ -24,7 +37,7 @@ class Order {
   DateTime? _provider_refuse_date;
   DateTime? provider_cancel_date;
   Map<String, dynamic>? _services;
-  int? _status;
+  OrderStatus? _status;
   int? _total_price;
   int? rebook_status;
   int? _type;
@@ -85,7 +98,7 @@ class Order {
     tokens = data['tokens'];
     // services = snapshot.data['services'];
     services = data['services'];
-    status = data['status'];
+    status = getStatusFromCode(data['status']);
     total_price = data['total_price'];
     type = data['type'];
     who_come = data['who_come'];
@@ -114,7 +127,7 @@ class Order {
       String? client_name,
       String? provider_name,
       Map<String, dynamic>? services,
-      int? status,
+      OrderStatus? status,
       int? total_price,
       int? type,
       String? provider_notes,
@@ -178,7 +191,7 @@ class Order {
     map['client_name'] = _client_name;
     map['provider_name'] = _provider_name;
     map['services'] = _services;
-    map['status'] = _status;
+    map['status'] = orderStatusFromEnum(_status);
     map['total_price'] = _total_price;
     map['type'] = _type;
     map['order_info'] = _order_info;
@@ -280,9 +293,9 @@ class Order {
     _services = services;
   }
 
-  int? get status => _status;
+  OrderStatus? get status => _status;
 
-  set status(int? status) {
+  set status(OrderStatus? status) {
     _status = status;
   }
 
@@ -326,5 +339,55 @@ class Order {
 
   set provider_name(String? provider_name) {
     _provider_name = provider_name;
+  }
+
+  OrderStatus getStatusFromCode(int? status) {
+    switch (status) {
+      case 0:
+        return OrderStatus.NewOrder;
+      case 1:
+        return OrderStatus.AcceptedByProvider;
+      case 2:
+        return OrderStatus.CanceledByCustomer;
+      case 3:
+        return OrderStatus.ConfirmedByCustomer;
+      case 4:
+        return OrderStatus.RejectedByProvider;
+      case 5:
+        return OrderStatus.FinishedSuccessfully;
+      case 6:
+        return OrderStatus.Evaluated;
+      case 7:
+        return OrderStatus.FinishedUncorrectly;
+      case 8:
+        return OrderStatus.ClaimFinishedCorrectly;
+      default:
+        return OrderStatus.ClaimFinishedCorrectly;
+    }
+  }
+
+  int orderStatusFromEnum(OrderStatus? orderStatus) {
+    switch (orderStatus) {
+      case OrderStatus.NewOrder:
+        return 0;
+      case OrderStatus.AcceptedByProvider:
+        return 1;
+      case OrderStatus.CanceledByCustomer:
+        return 2;
+      case OrderStatus.ConfirmedByCustomer:
+        return 3;
+      case OrderStatus.RejectedByProvider:
+        return 4;
+      case OrderStatus.FinishedSuccessfully:
+        return 5;
+      case OrderStatus.Evaluated:
+        return 6;
+      case OrderStatus.FinishedUncorrectly:
+        return 7;
+      case OrderStatus.ClaimFinishedCorrectly:
+        return 8;
+      default:
+        return -1;
+    }
   }
 }

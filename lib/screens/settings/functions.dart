@@ -1,5 +1,7 @@
+import 'package:beautina_provider/blocks/settings_personal_info/block_settings_personal_info_repo.dart';
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/db/location.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/picker.dart';
@@ -60,8 +62,9 @@ bool gFunValidateUsername(String username) {
 }
 
 Future updateBtn(BuildContext context,
-    RoundedLoadingButtonController roundedLoadingButtonController) async {
-  if (!_validateInputs(context)) return;
+    RoundedLoadingButtonController roundedLoadingButtonController,
+    {phone, desc, name, city, country}) async {
+  // if (!_validateInputs(context, settingsPersonalInfoUsecase)) return;
 
   /**
                          * 1- get now beautyProvider from shared
@@ -70,7 +73,8 @@ Future updateBtn(BuildContext context,
                          */
 
   //2
-  ModelBeautyProvider newBeautyProvider = await getNewBeauty(context);
+  ModelBeautyProvider newBeautyProvider = await getNewBeauty(context,
+      name: name, descs: desc, mobile: phone, city: city, country: country);
 
   try {
     roundedLoadingButtonController.start();
@@ -88,8 +92,31 @@ Future updateBtn(BuildContext context,
   return;
 }
 
-bool _validateInputs(BuildContext context) {
+Future updateCountryCity(
+    RoundedLoadingButtonController roundedLoadingButtonController,
+    double lat,
+    double lng) async {
+  try {
+    roundedLoadingButtonController.start();
+    // setState(() {});
 
+    await DBChangeLocation().updateLocation(lat: lat, lng: lng);
+    BeautyProviderController().updateBeautyProviderProfile(
+        BeautyProviderController.getBeautyProviderProfile()
+          ..location = [lat, lng]);
+    showToast('تم التحديث');
+    roundedLoadingButtonController.success();
+  } catch (e) {
+    showToast('حدثت مشكلة، لم يتم التحديث');
+    roundedLoadingButtonController.error();
+  }
+  await Future.delayed(Duration(seconds: 3));
+  roundedLoadingButtonController.reset();
+  return;
+}
+
+bool _validateInputs(BuildContext context,
+    SettingsPersonalInfoUsecase settingsPersonalInfoUsecase) {
   if (Get.find<VMSettingsDataTest>().formKey!.currentState!.validate()) {
 //    If all data are correct then save data to out variables
     Get.find<VMSettingsDataTest>().formKey?..currentState!.save();
@@ -101,17 +128,15 @@ bool _validateInputs(BuildContext context) {
   }
 }
 
-Future<ModelBeautyProvider> getNewBeauty(BuildContext context) async {
-  VMSettingsDataTest vmSettingsData = Get.find<VMSettingsDataTest>();
+Future<ModelBeautyProvider> getNewBeauty(BuildContext context,
+    {name, mobile, descs, city, country}) async {
   ModelBeautyProvider bp = BeautyProviderController.getBeautyProviderProfile();
 
-  bp.name = vmSettingsData.name ?? bp.name;
-  bp.phone = vmSettingsData.mobile ?? bp.phone;
-  bp.intro = vmSettingsData.description ?? bp.intro;
-  bp.location = vmSettingsData.location ?? bp.location;
-  bp.city = vmSettingsData.city ?? bp.city;
-  bp.country = vmSettingsData.country ?? bp.country;
-  bp.username = vmSettingsData.username ?? bp.username;
+  bp.name = name ?? bp.name;
+  bp.phone = mobile ?? bp.phone;
+  bp.intro = descs ?? bp.intro;
+  bp.country = country ?? bp.country;
+  bp.city = city ?? bp.city;
 
   return bp;
 }

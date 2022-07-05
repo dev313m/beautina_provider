@@ -1,6 +1,6 @@
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/reusables/text.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data_test.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -22,6 +22,7 @@ class WdgtSettingsLocation extends StatefulWidget {
 
 class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
   bool loadingLocation = false;
+  List<double> geoLocation = [];
   // ModelBeautyProvider beautyProvider;
   // VMSettingsData vmSettingsData;
   RoundedLoadingButtonController buttonController =
@@ -47,67 +48,15 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
               return Directionality(
                 textDirection: TextDirection.rtl,
                 child: BeautyTextfield(
-                  suffixIcon: Icon(
-                    CommunityMaterialIcons.home_city_outline,
-                    // size: ScreenUtil().setSp(40),
-                  ),
-                  helperText: 'المنطقة',
-                  readOnly: true,
-                  inputType: TextInputType.text,
-                  onTap: () {
-                    showMenuLocation(context, vmSettingsData.globalKey);
-                  },
-                ),
-              );
-            }),
-            GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-              return GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
-                return Row(
-                  children: <Widget>[
-                    Chip(
-                        label: ExtendedText(
-                      string: vmSettingsData.city == null
-                          ? vMSalonData.beautyProvider.city
-                          : vmSettingsData.country,
-                      fontColor: Colors.black,
-                    )),
-                    Chip(
-                        label: ExtendedText(
-                      string: vmSettingsData.country == null
-                          ? vMSalonData.beautyProvider.country
-                          : vmSettingsData.city,
-                      fontColor: Colors.black,
-                    ))
-                  ],
-                );
-              });
-            }),
-            GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
-              return Directionality(
-                textDirection: TextDirection.rtl,
-                child: BeautyTextfield(
                   suffixIcon: Icon(Icons.location_on),
                   placeholder: loadingLocation
                       ? 'جاري التحميل، انقري مره اخرى عند التآخير'
-                      : introLocationStr,
+                      : BeautyProviderController.getBeautyProviderProfile()
+                          .location
+                          .toString(),
                   readOnly: true,
                   inputType: TextInputType.text,
-                  onTap: () async {
-                    setState(() {
-                      loadingLocation = true;
-                    });
-                    List<double> location = await getMyLocation();
-                    loadingLocation = false;
-                    if (location.toString() == null)
-                      introLocationStr = locationErrStr;
-                    else {
-                      introLocationStr =
-                          locationSuccessStr + location.toString();
-                      vmSettingsData.location = location;
-                    }
-                    await Future.delayed(Duration(seconds: 3));
-                    setState(() {});
-                  },
+                  onTap: () async {},
                 ),
               );
             }),
@@ -127,7 +76,26 @@ class _WdgtSettingsLocationState extends State<WdgtSettingsLocation> {
                 ],
               ),
               onPressed: () async {
-                await updateBtn(context, buttonController);
+                setState(() {
+                  loadingLocation = true;
+                });
+                try {
+                  geoLocation = await getMyLocation();
+                } catch (e) {}
+                loadingLocation = false;
+                if (geoLocation.isEmpty)
+                  introLocationStr = locationErrStr;
+                else {
+                  introLocationStr =
+                      locationSuccessStr + geoLocation.toString();
+                }
+                if (geoLocation.isNotEmpty)
+                  await updateCountryCity(
+                      buttonController, geoLocation.first, geoLocation.last);
+                else {
+                  showToast(
+                      'الرجاء المحاوله مره اخرى بالضغط على تحديد الموقع، ثم التحديث');
+                }
               },
               color: updateBtnColor,
               animateOnTap: false,
@@ -155,7 +123,7 @@ final inkBtnColor = Colors.pink;
 ///[Strings]
 String introLocationStr = 'انقري هنا لإضافة احداثيات موقعك';
 String locationErrStr = 'حدث خطأ ما، الرجاء تفعيل تحديد الموقع';
-String locationSuccessStr = "تمت الاضافة ";
+String locationSuccessStr = "تمت اضافة الاحداثيات ";
 final String locationDetails = 'بيانات الموقع';
 final String chooseLocationStr = 'اختيار المنطقة';
 final String updateStr = 'تحديث';

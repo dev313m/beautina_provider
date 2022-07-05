@@ -1,6 +1,8 @@
 import 'package:beautina_provider/blocks/settings_personal_info/block_settings_personal_info_repo.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/countries.dart';
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
@@ -27,14 +29,16 @@ class WdgtSetttingsPersonalInfo extends StatefulWidget {
 class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
   RoundedLoadingButtonController buttonController =
       RoundedLoadingButtonController();
-  SettingsPersonalInfoUsecase? _settingsPersonalInfoUsecase;
-  SettingsPersonalInfoRepo? _settingsPersonalInfoRepo;
+  late SettingsPersonalInfoUsecase? _settingsPersonalInfoUsecase;
+  late SettingsPersonalInfoRepo? _settingsPersonalInfoRepo;
   final globalKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
   @override
   void initState() {
     _settingsPersonalInfoUsecase = SettingsPersonalInfoUsecase();
     _settingsPersonalInfoRepo = SettingsPersonalInfoRepo();
+    _settingsPersonalInfoRepo!
+        .initSettingsPersonalUsercase(_settingsPersonalInfoUsecase!);
     super.initState();
   }
 
@@ -55,89 +59,106 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
               string: personalData,
             ),
             Y(),
-            GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-              return new BeautyTextfield(
-                helperText: nameHint,
-                placeholder: vMSalonData.beautyProvider.name,
-                inputType: TextInputType.text,
-                // height: 33,
-                onChanged: (val) {
-                  _settingsPersonalInfoUsecase?.name = val;
-                },
-                suffixIcon: Icon(CommunityMaterialIcons.face_profile),
-              );
-            }),
+            new BeautyTextfield(
+              helperText: nameHint,
+              placeholder:
+                  BeautyProviderController.getBeautyProviderProfile().name,
+              inputType: TextInputType.text,
+              // height: 33,
+              onChanged: (val) {
+                _settingsPersonalInfoUsecase?.name = val;
+              },
+              suffixIcon: Icon(CommunityMaterialIcons.face_profile),
+            ),
             SizedBox(height: btwAnyTwoInForm),
-            GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-              return BeautyTextfield(
-                inputType: TextInputType.phone,
-                maxLength: 9,
-                helperText: '966',
-                placeholder: vMSalonData.beautyProvider.phone!
-                    .substring(4, vMSalonData.beautyProvider.phone!.length),
+            BeautyTextfield(
+              inputType: TextInputType.phone,
+              maxLength: 9,
+              helperText: '966',
+              placeholder: BeautyProviderController.getBeautyProviderProfile()
+                  .phone!
+                  .substring(
+                      4,
+                      BeautyProviderController.getBeautyProviderProfile()
+                          .phone!
+                          .length),
+              prefixIcon: Icon(Icons.phone),
+              onChanged: (val) {
+                _settingsPersonalInfoUsecase?.phone = Countries.phoneCodePlus[
+                        BeautyProviderController.getBeautyProviderProfile()
+                            .country!]! +
+                    convertArabicToEnglish(val);
+              },
+            ),
+            Y(),
+            BeautyTextfield(
+              // initialValue: beautyProvider.intro,
+              placeholder:
+                  BeautyProviderController.getBeautyProviderProfile().intro,
+              // helperText: descHint,
+              isBox: true,
+              inputType: TextInputType.text,
+              helperText: descHint,
 
-                prefixIcon: Icon(Icons.phone),
-                onChanged: (val) {
-                  _settingsPersonalInfoUsecase?.phone = Countries
-                          .phoneCodePlus[vMSalonData.beautyProvider.country!]! +
-                      convertArabicToEnglish(val);
-                },
-                // initialValue: beautyProvider.phone.substring(4, beautyProvider.phone.length),
-                // decoration: new InputDecoration(
-                //     suffixText: '966 ',
-
-                //     // prefixStyle: TextStyle(color: AppColors.blueOpcity),
-                //     hasFloatingPlaceholder: true,
-                //     border: new OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(
-                //         Radius.circular(fieldsRadius),
-                //       ),
-                //       gapPadding: fieldGapPadding,
-                //     ),
-                //     prefixIcon: Icon(CommunityMaterialIcons.phone),
-                //     filled: true,
-                //     // labelText: '966',
-                //     // hintStyle: new TextStyle(color: Colors.grey[800]),
-                //     hintText: phoneHint,
-                //     fillColor: fieldColor),
-                // // strutStyle: StrutStyle(/),
-                // keyboardType: TextInputType.phone,
-                // validator: validateMobile,
-                // onSaved: (String val) {
-                //   vmSettingsData.mobile = Countries.phoneCodePlus[beautyProvider.country] + val;
-                // },
+              // decoration: new InputDecoration(
+              //     prefixText: descHint,
+              //     prefixStyle: TextStyle(color: AppColors.blueOpcity),
+              //     hasFloatingPlaceholder: true,
+              //     border: new OutlineInputBorder(
+              //       borderRadius: BorderRadius.all(
+              //         Radius.circular(fieldsRadius),
+              //       ),
+              //     ),
+              //     suffixIcon: Icon(CommunityMaterialIcons.information),
+              //     filled: true,
+              //     // hintStyle: new TextStyle(color: Colors.grey[800]),
+              //     // hintText: "وصف للصالون مختصر",
+              //     fillColor: fieldColor),
+              // keyboardType: TextInputType.text,
+              // validator: validateName,
+              onChanged: (String val) {
+                _settingsPersonalInfoUsecase?.desc = val;
+              },
+            ),
+            Y(),
+            GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: BeautyTextfield(
+                  suffixIcon: Icon(
+                    CommunityMaterialIcons.home_city_outline,
+                    // size: ScreenUtil().setSp(40),
+                  ),
+                  helperText: 'المنطقة',
+                  readOnly: true,
+                  inputType: TextInputType.text,
+                  onTap: () {
+                    showMenuLocation(context, vmSettingsData.globalKey);
+                  },
+                ),
               );
             }),
-            Y(),
             GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-              return BeautyTextfield(
-                // initialValue: beautyProvider.intro,
-                placeholder: vMSalonData.beautyProvider.intro,
-                // helperText: descHint,
-                isBox: true,
-                inputType: TextInputType.text,
-                helperText: descHint,
-
-                // decoration: new InputDecoration(
-                //     prefixText: descHint,
-                //     prefixStyle: TextStyle(color: AppColors.blueOpcity),
-                //     hasFloatingPlaceholder: true,
-                //     border: new OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(
-                //         Radius.circular(fieldsRadius),
-                //       ),
-                //     ),
-                //     suffixIcon: Icon(CommunityMaterialIcons.information),
-                //     filled: true,
-                //     // hintStyle: new TextStyle(color: Colors.grey[800]),
-                //     // hintText: "وصف للصالون مختصر",
-                //     fillColor: fieldColor),
-                // keyboardType: TextInputType.text,
-                // validator: validateName,
-                onChanged: (String val) {
-                  _settingsPersonalInfoUsecase?.desc = val;
-                },
-              );
+              return GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
+                return Row(
+                  children: <Widget>[
+                    Chip(
+                        label: GWdgtTextSmall(
+                      string: vmSettingsData.city == null
+                          ? vMSalonData.beautyProvider.city
+                          : vmSettingsData.country,
+                      color: Colors.black,
+                    )),
+                    Chip(
+                        label: GWdgtTextSmall(
+                      string: vmSettingsData.country == null
+                          ? vMSalonData.beautyProvider.country
+                          : vmSettingsData.city,
+                      color: Colors.black,
+                    ))
+                  ],
+                );
+              });
             }),
             Y(),
             RoundedLoadingButton(
@@ -154,11 +175,29 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
                 ],
               ),
               onPressed: () async {
-                if (Get.find<VMSettingsDataTest>().mobile!.length < 13) {
-                  showToast('رقم الجوال غير صحيح');
-                  return;
+                try {
+                  var city = Get.find<VMSettingsDataTest>().city;
+                  var country = Get.find<VMSettingsDataTest>().country;
+
+                  if (city != null && city != '')
+                    _settingsPersonalInfoUsecase!.city =
+                        Get.find<VMSettingsDataTest>().city;
+                  if (country != null && country != '')
+                    _settingsPersonalInfoUsecase!.country =
+                        Get.find<VMSettingsDataTest>().country;
+
+                  _settingsPersonalInfoRepo!
+                      .validateInput(_settingsPersonalInfoUsecase!);
+                  await updateBtn(context, buttonController,
+                      city: city,
+                      country: country,
+                      desc: _settingsPersonalInfoUsecase!.desc,
+                      name: _settingsPersonalInfoUsecase!.name,
+                      phone: _settingsPersonalInfoUsecase!.phone);
+                } catch (e) {
+                  buttonController.error();
+                  showToast(e.toString());
                 }
-                await updateBtn(context, buttonController);
               },
               color: updateBtnColor,
               animateOnTap: false,

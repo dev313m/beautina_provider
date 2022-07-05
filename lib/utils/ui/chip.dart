@@ -1,6 +1,7 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/signing_pages/function.dart';
 import 'package:beautina_provider/reusables/text.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +22,7 @@ class GWdgtChip extends StatelessWidget {
                 function!();
               },
               child: Chip(
-                label: ExtendedText(string: getCountry(context)),
+                label: GWdgtTextSmall(string: getCountry(context)),
                 backgroundColor: AppColors.pinkBright,
                 labelStyle: TextStyle(color: ExtendedText.brightColor),
               )),
@@ -33,7 +34,7 @@ class GWdgtChip extends StatelessWidget {
                 function!();
               },
               child: Chip(
-                label: ExtendedText(string: getCity(context)),
+                label: GWdgtTextSmall(string: getCity(context)),
                 backgroundColor: color,
               )),
           SizedBox(

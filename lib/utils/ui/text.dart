@@ -21,9 +21,9 @@ class GWdgtTextNavTitle extends StatelessWidget {
       textDirection: textDirection,
       style: TextStyle(
         fontSize: 55.sp,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.w600,
-         color: Colors.white,
+        color: Colors.white,
       ),
     );
   }
@@ -50,9 +50,9 @@ class GWdgtTextTitle extends StatelessWidget {
       textDirection: textDirection,
       style: TextStyle(
         fontSize: 45.sp,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.w600,
-         color: color ?? Colors.white,
+        color: color ?? Colors.white,
       ),
     );
   }
@@ -73,9 +73,9 @@ class GWdgtTextTitleDesc extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.center,
       textDirection: TextDirection.rtl,
       style: TextStyle(
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-         fontSize: 38.sp,
+        fontSize: 38.sp,
         color: color ?? Colors.white60,
       ),
     );
@@ -98,9 +98,9 @@ class GWdgtTextDescDesc extends StatelessWidget {
       textDirection: TextDirection.rtl,
       style: TextStyle(
         fontSize: 35.sp,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-         color: color ?? Colors.white70,
+        color: color ?? Colors.white70,
       ),
     );
   }
@@ -119,9 +119,9 @@ class GWdgtTextButton extends StatelessWidget {
       style: TextStyle(
         fontSize: 34.sp,
         color: color ?? Colors.white70,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.w500,
-       ),
+      ),
     );
   }
 }
@@ -138,9 +138,9 @@ class GWdgtTextToggle extends StatelessWidget {
         style: TextStyle(
           fontSize: 29.sp,
           color: Colors.white.withOpacity(0.7),
-              fontFamily: 'Tajawal',
+          fontFamily: 'Tajawal',
           fontWeight: FontWeight.normal,
-           ),
+        ),
       ),
     );
   }
@@ -175,9 +175,9 @@ class GWdgtTextProfile extends StatelessWidget {
       textDirection: textDirection,
       style: TextStyle(
         fontSize: ScreenUtil().setSp(26),
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-         color: fontColor.withOpacity(0.6),
+        color: fontColor.withOpacity(0.6),
       ),
     );
   }
@@ -195,9 +195,9 @@ class GWdgtTextPickerSubmit extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(30),
         color: Colors.blue,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-       ),
+      ),
     );
   }
 }
@@ -214,9 +214,9 @@ class GWdgtTextPickerCancel extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(30),
         color: Colors.red,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-       ),
+      ),
     );
   }
 }
@@ -232,15 +232,15 @@ class GWdgtTextChip extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(26),
         color: Colors.white70,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-       ),
+      ),
     );
   }
 }
 
 class GWdgtTextSmall extends StatelessWidget {
-  final String string;
+  final String? string;
   final Color? color;
   final TextAlign? textAlign;
   final TextDirection? textDirection;
@@ -255,13 +255,13 @@ class GWdgtTextSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      string,
+      string ?? '',
       style: TextStyle(
         fontSize: ScreenUtil().setSp(25),
         color: color ?? Colors.white70,
         fontWeight: FontWeight.normal,
-            fontFamily: 'Tajawal',
-       ),
+        fontFamily: 'Tajawal',
+      ),
       textAlign: textAlign ?? TextAlign.center,
       textDirection: textDirection ?? TextDirection.rtl,
     );
@@ -289,8 +289,8 @@ class GWdgtTextCalendarDay extends StatelessWidget {
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white38,
         fontWeight: FontWeight.normal,
-            fontFamily: 'Tajawal',
-       ),
+        fontFamily: 'Tajawal',
+      ),
       textAlign: textAlign ?? TextAlign.left,
       textDirection: textDirection,
     );
@@ -317,9 +317,9 @@ class GWdgtTextBadge extends StatelessWidget {
       style: TextStyle(
         fontSize: ScreenUtil().setSp(24),
         color: color ?? Colors.white,
-            fontFamily: 'Tajawal',
+        fontFamily: 'Tajawal',
         fontWeight: FontWeight.normal,
-       ),
+      ),
       textAlign: textAlign ?? TextAlign.left,
       textDirection: textDirection,
     );
@@ -341,8 +341,8 @@ class GWdgtTextPickerChoices extends StatelessWidget {
       style: TextStyle(
         fontSize: 34.sp,
         fontWeight: FontWeight.normal,
-            fontFamily: 'Tajawal',
-         color: Colors.blue,
+        fontFamily: 'Tajawal',
+        color: Colors.blue,
       ),
     );
   }

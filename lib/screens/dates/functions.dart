@@ -24,25 +24,25 @@ int getStep(int status) {
     return 2;
 }
 
-String? getOrderStatus(int? status) {
+String? getOrderStatus(OrderStatus? status) {
   switch (status) {
-    case 0:
+    case OrderStatus.NewOrder:
       return 'طلب جديد';
-    case 1:
+    case OrderStatus.AcceptedByProvider:
       return 'طلب بإنتظار تأكيد الزبونه';
-    case 2:
+    case OrderStatus.CanceledByCustomer:
       return 'طلب ملغي';
-    case 3:
+    case OrderStatus.ConfirmedByCustomer:
       return "طلب تام ومؤكد من الزبونة";
-    case 4:
+    case OrderStatus.RejectedByProvider:
       return 'طلب تم رفضة';
-    case 5:
+    case OrderStatus.FinishedSuccessfully:
       return 'طلب منتهي بانتظار التقييم';
-    case 6:
+    case OrderStatus.Evaluated:
       return 'تم تقييم الطلب من الزبون';
-    case 7:
+    case OrderStatus.FinishedUncorrectly:
       return 'طلب منتهي غير مكتمل';
-    case 8:
+    case OrderStatus.ClaimFinishedCorrectly:
       return 'طلب منتهي';
   }
 }

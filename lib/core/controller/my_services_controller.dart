@@ -10,7 +10,6 @@ import 'package:beautina_provider/core/global_values/responsive/my_services.dart
 import 'package:beautina_provider/core/models/response/model_service.dart';
 import 'package:beautina_provider/core/models/response/my_service.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/reusables/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/instance_manager.dart';
@@ -47,8 +46,9 @@ class MyServicesController {
   }
 
   Future startOrRefresh() async {
-    List<ModelMyService> myServicesList = await getMyServicesList();
-
+    List<ModelMyService> fullList = await getMyServicesList();
+    List<ModelMyService> myServicesList =
+        fullList.where((e) => e.isActive).toList();
     networkStatefulVarStarter(
         networkStatefulVarClass: Get.find<GlobalValMyServices>(),
         onStart: () async {

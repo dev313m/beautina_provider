@@ -39,4 +39,6 @@ class ApiUrls {
   static final URL_UPDATE_USER = 'beauty_providers/update';
 
   static final SALON_SERVICES = 'salon_services';
+
+  static final UPDATE_LOCATION = 'beauty_providers/update_location';
 }

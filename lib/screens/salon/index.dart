@@ -1,6 +1,8 @@
 import 'package:beautina_provider/blocks/all_services/block_all_services.dart';
+import 'package:beautina_provider/blocks/location_alert/location_alert.dart';
 import 'package:beautina_provider/blocks/my_services/block_my_services.dart';
 import 'package:beautina_provider/constants/resolution.dart';
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
@@ -60,13 +62,23 @@ class _PageSalonState extends State<PageSalon> {
             physics: AlwaysScrollableScrollPhysics(),
             children: <Widget>[
               Y(height: heightTopBar), Y(),
+              // GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
+              //   if (vMSalonDataTest.providedServices!
+              //       .containsKey('services')) if (vMSalonDataTest
+              //           .providedServices!['services'].keys.length !=
+              //       0) return WdgtSalonAddService();
+              //   return SizedBox();
+              // }),
+              Y(),
+              if (BeautyProviderController.getBeautyProviderProfile()
+                      .location!
+                      .length ==
+                  0)
+                WdgtSalonLocationNotSet(),
+              Y(),
               WdgtSalonProfileDetails(
                 key: ValueKey('tdest'),
               ),
-              Y(),
-              const BlockAllServices(),
-
-              const BlockMyServices(),
 
               // Y(),
 
@@ -75,23 +87,21 @@ class _PageSalonState extends State<PageSalon> {
               WdgtSalonShare(),
               Y(),
 
-              GetBuilder<GlobalValBeautyProviderListenable>(
-                  builder: (vMSalonDataTest) {
-                if (vMSalonDataTest.beautyProvider.location!.length != 2)
-                  return WdgtSalonLocationNotSet();
-                return SizedBox();
-              }),
+              // GetBuilder<GlobalValBeautyProviderListenable>(
+              //     builder: (vMSalonDataTest) {
+              //   if (vMSalonDataTest.beautyProvider.location!.length != 2)
+              //     return WdgtSalonLocationNotSet();
+              //   return SizedBox();
+              // }),
               Y(),
               WdgtSalonCloseOpenSalon(),
+              Y(),
+              const BlockAllServices(),
+
+              const BlockMyServices(),
 
               Y(),
-              GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
-                if (vMSalonDataTest.providedServices!
-                    .containsKey('services')) if (vMSalonDataTest
-                        .providedServices!['services'].keys.length !=
-                    0) return WdgtSalonAddService();
-                return SizedBox();
-              }),
+
               Y(),
 
               WdgtSalonDefaultAccept(),

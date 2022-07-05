@@ -34,9 +34,9 @@ class BlockMyServicesRepo {
         .toList();
   }
 
-  Future<List<ModelService>> getLeafs(ModelService modelService) async {
-    return await compute(computeLeafs, modelService);
-  }
+  // Future<List<ModelService>> getLeafs(ModelService modelService) async {
+  //   return await compute(computeLeafs, modelService);
+  // }
 
   showAddService(BuildContext context,
       {required ModelService modelService,
@@ -46,6 +46,6 @@ class BlockMyServicesRepo {
   }
 }
 
-List<ModelService> computeLeafs(ModelService modelService) {
-  return modelService.children.where((element) => !element.isCategory).toList();
-}
+// List<ModelService> computeLeafs(ModelService modelService) {
+//   return modelService.children.where((element) => !element.isCategory).toList();
+// }
