@@ -26,7 +26,8 @@ class _PagePackageState extends State<PagePackage> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GlobalValBeautyProviderListenable>(builder: (vMSalonData) {
+    return GetBuilder<GlobalValBeautyProviderListenable>(
+        builder: (vMSalonData) {
       return Stack(
         children: <Widget>[
           Scaffold(
@@ -51,7 +52,8 @@ class _PagePackageState extends State<PagePackage> {
                                   string: 'انت مشترك في باقة اضافة التخفيضات',
                                   fontSize: ExtendedText.xbigFont,
                                 ),
-                                Icon(Icons.subtitles, size: ScreenUtil().setSp(200)),
+                                Icon(Icons.subtitles,
+                                    size: ScreenUtil().setSp(200)),
                                 ExtendedText(
                                   string:
                                       'ينتهي الاشتراك في: ${getDateString(DateTime.parse(vMSalonData.beautyProvider.package!['01']['to']))}',
@@ -99,7 +101,8 @@ class _PagePackageState extends State<PagePackage> {
                                     //   color: Colors.pinkAccent,
                                     // ),
                                     Padding(
-                                      padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
+                                      padding: EdgeInsets.all(
+                                          ScreenUtil().setHeight(8)),
                                       child: Wrap(
                                         children: <Widget>[
                                           ExtendedText(
@@ -118,7 +121,6 @@ class _PagePackageState extends State<PagePackage> {
                                       indent: ScreenUtil().setWidth(200),
                                     ),
 
-
                                     Divider(
                                       height: ScreenUtil().setHeight(50),
                                       color: Colors.white60,
@@ -133,7 +135,8 @@ class _PagePackageState extends State<PagePackage> {
                                         child: SpringButton(
                                           SpringButtonType.OnlyScale,
                                           ClipRRect(
-                                            borderRadius: BorderRadius.circular(14),
+                                            borderRadius:
+                                                BorderRadius.circular(14),
                                             child: Ink(
                                               // width: 200,
                                               child: Material(
@@ -141,7 +144,8 @@ class _PagePackageState extends State<PagePackage> {
                                                 child: Center(
                                                     child: ExtendedText(
                                                   string: 'تفعيل 99\$ دولار',
-                                                  fontSize: ExtendedText.bigFont,
+                                                  fontSize:
+                                                      ExtendedText.bigFont,
                                                 )),
                                               ),
                                             ),
@@ -157,7 +161,9 @@ class _PagePackageState extends State<PagePackage> {
                                   ],
                                 ),
                                 AnimatedSwitcher(
-                                    duration: Duration(milliseconds: durationCalender), child: showPay ? WidgetPay() : SizedBox())
+                                    duration: Duration(
+                                        milliseconds: durationCalender),
+                                    child: showPay ? WidgetPay() : SizedBox())
                               ],
                             ),
                           ),
@@ -187,7 +193,8 @@ class _WidgetPayState extends State<WidgetPay> {
   String cardHolderName = '';
   String cvvCode = '';
   bool showBackView = false;
-  RoundedLoadingButtonController _roundedLoadingButtonController = RoundedLoadingButtonController();
+  RoundedLoadingButtonController _roundedLoadingButtonController =
+      RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -198,14 +205,14 @@ class _WidgetPayState extends State<WidgetPay> {
             padding: EdgeInsets.all(8),
             child: Column(children: <Widget>[
               Container(
-                // child: CreditCardWidget(
-                //   cardNumber: cardNumber,
-                //   expiryDate: expiryDate,
-                //   cardHolderName: cardHolderName,
-                //   cvvCode: cvvCode,
-                //   showBackView: showBackView, //true when you want to show cvv(back) view
-                // ),
-              ),
+                  // child: CreditCardWidget(
+                  //   cardNumber: cardNumber,
+                  //   expiryDate: expiryDate,
+                  //   cardHolderName: cardHolderName,
+                  //   cvvCode: cvvCode,
+                  //   showBackView: showBackView, //true when you want to show cvv(back) view
+                  // ),
+                  ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(

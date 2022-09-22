@@ -64,6 +64,10 @@ class BeautyProviderController {
         modelBeautyProvider;
   }
 
+  ModelBeautyProvider getListenable() {
+    return Get.find<GlobalValBeautyProviderListenable>().beautyProvider;
+  }
+
   Future initListenableData() async {
     updateListenableVal(getBeautyProviderProfile());
   }

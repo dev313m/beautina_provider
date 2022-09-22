@@ -7,12 +7,134 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:2770134358:android:53a84cd410410bd032a2f7",
+        "android_client_info": {
+          "package_name": "app.anawow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2770134358-d023bepga07gnhsham8kmkkav3q60njm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.anawow",
+            "certificate_hash": "17d7a31d689d21a91d56a621d565a85a33951578"
+          }
+        },
+        {
+          "client_id": "2770134358-tftqbs840ka45j891fja8cqljlvibudt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPfYptUdTBQ8jqjGN5awjCMCtE8ik2b7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2770134358-tftqbs840ka45j891fja8cqljlvibudt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2770134358-7rokiub9dhr2n4808bjiff8l8me99ims.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.banafsaj.service",
+                "app_store_id": "1616950627"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2770134358:android:8147402ee1308b6632a2f7",
+        "android_client_info": {
+          "package_name": "app.anawow.business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2770134358-4cm2ndoo5ofg2hlhhtl41hbhr94l7ieu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.anawow.business",
+            "certificate_hash": "17d7a31d689d21a91d56a621d565a85a33951578"
+          }
+        },
+        {
+          "client_id": "2770134358-tftqbs840ka45j891fja8cqljlvibudt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPfYptUdTBQ8jqjGN5awjCMCtE8ik2b7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2770134358-tftqbs840ka45j891fja8cqljlvibudt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2770134358-7rokiub9dhr2n4808bjiff8l8me99ims.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.banafsaj.service",
+                "app_store_id": "1616950627"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:2770134358:android:0b818974db2a086b32a2f7",
         "android_client_info": {
           "package_name": "app.banafsaj.service"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "2770134358-dhbp4ohdc33uqdejjm24nh9olin9huep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.banafsaj.service",
+            "certificate_hash": "3ddcb8419af1dc5f3e574944b44561baeec946cc"
+          }
+        },
+        {
+          "client_id": "2770134358-f2hf2lg0d5rvqk6a6544nod1hpntl0el.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.banafsaj.service",
+            "certificate_hash": "181d22b3474ae854702a6f8bc14cad1fc0c64cdd"
+          }
+        },
+        {
+          "client_id": "2770134358-jteclprvf0r6ndk3mes5p9bnnm3h9t3g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.banafsaj.service",
+            "certificate_hash": "17d7a31d689d21a91d56a621d565a85a33951578"
+          }
+        },
+        {
+          "client_id": "2770134358-vc8lte2hkpo78r9ph8som9a4dc5g6am2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.banafsaj.service",
+            "certificate_hash": "be8f086ba3e46b507682894d638a4f9d626f2e1c"
+          }
+        },
         {
           "client_id": "2770134358-tftqbs840ka45j891fja8cqljlvibudt.apps.googleusercontent.com",
           "client_type": 3

@@ -4,6 +4,7 @@ import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/utils/redesigned_packages/curved_navbar.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                   index: vMRootUiTest.pageIndex,
                   height: 0.06.sh + MediaQuery.of(context).padding.bottom,
                   items: <Widget>[
-                    Icon(CommunityMaterialIcons.settings_helper,
+                    Icon(CupertinoIcons.profile_circled,
                         size: sizeIcon, color: ConstRootColors.icons),
                     Stack(
                       fit: StackFit.passthrough,
@@ -105,7 +106,7 @@ class _WdgtRootBottomBarState extends State<WdgtRootBottomBar> {
                     //   color: ConstRootColors.icons,
                     // ),
 
-                    Icon(CommunityMaterialIcons.spa_outline,
+                    Icon(CommunityMaterialIcons.spa,
                         size: sizeIcon, color: ConstRootColors.icons),
                     // Icon(Icons.live_tv, size: sizeIcon, color: iconColors),
                   ],

@@ -1,3 +1,5 @@
+import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
@@ -32,7 +34,7 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
         Y(height: btwStrxImage),
         InkWell(
           onTap: () async {
-            imageCache.clear();
+            imageCache!.clear();
 
             updateProfileImage(
                 context,
@@ -44,42 +46,32 @@ class _WdgtSettingsProfileImageState extends State<WdgtSettingsProfileImage> {
           child: Container(
             height: sizeImageProfile,
             width: sizeImageProfile,
-            child: Stack(
-              children: [
-                GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-                  return ClipOval(
-                      key: ValueKey('image'),
-
-                      // clipper: ,
-                      // height: ScreenUtil().setHeight(300),
-                      child: AnimatedSwitcher(
-                          duration: Duration(seconds: 1),
-                          child: imageLoad
-                              ? GetLoadingWidget()
-                              : vMSalonData.beautyProvider.image != ''
-                                  ? ImageFirebase(
-                                      height: sizeImageProfile,
-                                      width: sizeImageProfile,
-                                      url:
-                                          'gs://beautina-firebase.appspot.com/image_profile/' +
-                                              vMSalonData.beautyProvider.uid!,
-                                    )
-                                  : Image.asset(
-                                      strDefaultProfileImage,
-                                      height: sizeImageProfile,
-                                      width: sizeImageProfile,
-                                      fit: BoxFit.cover,
-                                    )));
-                }),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Icon(
-                    Icons.edit,
-                    color: Colors.orange,
-                  ),
-                )
-              ],
-            ),
+            child: ClipOval(
+                // clipper: ,
+                // height: ScreenUtil().setHeight(300),
+                child: AnimatedSwitcher(
+                    duration: Duration(seconds: 1),
+                    child: imageLoad
+                        ? GetLoadingWidget()
+                        : BeautyProviderController.getBeautyProviderProfile()
+                                    .image !=
+                                ''
+                            ? ImageFirebase(
+                                key: ValueKey('image_change'),
+                                height: sizeImageProfile,
+                                width: sizeImageProfile,
+                                url: FIREBASE_STORAGE_URL +
+                                    BeautyProviderController
+                                            .getBeautyProviderProfile()
+                                        .uid!,
+                              )
+                            : Image.asset(
+                                strDefaultProfileImage,
+                                height: sizeImageProfile,
+                                key: ValueKey('image_change_assets'),
+                                width: sizeImageProfile,
+                                fit: BoxFit.cover,
+                              ))),
           ),
         ),
       ],

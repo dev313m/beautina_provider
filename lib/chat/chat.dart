@@ -22,7 +22,7 @@ import 'package:timeago/timeago.dart' as timeago;
 class ChatPage extends StatefulWidget {
   const ChatPage({
     Key? key,
-    required this.avatarColor,
+    this.avatarColor,
     required this.room,
   }) : super(key: key);
 

@@ -238,14 +238,14 @@ updateProfileImage(
         // painting.imageCache.clear();
         manager.emptyCache();
 
-        await Future.delayed(Duration(seconds: 8));
+        // await Future.delayed(Duration(seconds: 8));
         // super.setState(() {});
         // setState(() {});
 
         ModelBeautyProvider mbp =
             BeautyProviderController.getBeautyProviderProfile();
 
-        await apiBeautyProviderUpdate(mbp..available = mbp.available);
+        await apiBeautyProviderUpdate(mbp..image = 'exists');
 
         // Get.find<VMSalonDataTest>().beautyProvider = mbp;
         // setState(() {});

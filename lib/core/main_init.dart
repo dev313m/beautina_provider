@@ -56,12 +56,14 @@ class InitialBindingRegistered extends Bindings {
       VMSalonDataTest(build: true),
       permanent: true,
     );
-    Get.put(GlobalValAllServices(), permanent: true);
-    Get.put(GlobalValBeautyProviderListenable(), permanent: true);
+    Get.put<GlobalValAllServices>(GlobalValAllServices(), permanent: true);
+    Get.put<GlobalValBeautyProviderListenable>(
+        GlobalValBeautyProviderListenable(),
+        permanent: true);
     Get.put<GlobalValMyServices>(GlobalValMyServices());
-    Get.put(VMRootUiTest(), permanent: true);
-    Get.put(VMRootDataTest(build: true), permanent: true);
-    Get.put(VmDateDataTest(build: true));
-    Get.put(VMSettingsDataTest(), permanent: true);
+    Get.put<VMRootUiTest>(VMRootUiTest(), permanent: true);
+    Get.put<VMRootDataTest>(VMRootDataTest(build: true), permanent: true);
+    Get.put<VmDateDataTest>(VmDateDataTest(build: true));
+    Get.put<VMSettingsDataTest>(VMSettingsDataTest(), permanent: true);
   }
 }

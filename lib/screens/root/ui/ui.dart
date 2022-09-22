@@ -10,8 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-final String GOOGLE_APP_URL = 'http://play.google.com/store/apps/details?id=app.banafsaj.service';
-final String APPLE_APP_URL = 'https://apps.apple.com/us/app/beautina.service-provider/id1536944501';
+final String GOOGLE_APP_URL =
+    'http://play.google.com/store/apps/details?id=app.anawow.business';
+final String APPLE_APP_URL =
+    'https://apps.apple.com/us/app/beautina.service-provider/id1536944501';
 onAlertWithCustomImagePressed(context) {
   Alert(
     context: context,
@@ -30,13 +32,18 @@ onAlertWithCustomContentPressed(context) {
       isCloseButton: false,
       isButtonVisible: true,
       isOverlayTapDismiss: false,
-      descStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: ExtendedText.bigFont, color: ExtendedText.brightColor),
+      descStyle: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: ExtendedText.bigFont,
+          color: ExtendedText.brightColor),
       animationDuration: Duration(milliseconds: 400),
       alertBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radiusDefault),
       ),
       backgroundColor: AppColors.purpleColor,
-      titleStyle: TextStyle(fontSize: ExtendedText.bigFont, color: ExtendedText.brightColor.withOpacity(0.7)));
+      titleStyle: TextStyle(
+          fontSize: ExtendedText.bigFont,
+          color: ExtendedText.brightColor.withOpacity(0.7)));
 
   // Alert dialog using custom alert style
   Alert(

@@ -1,29 +1,20 @@
 import 'package:beautina_provider/blocks/all_services/block_all_services.dart';
-import 'package:beautina_provider/blocks/location_alert/location_alert.dart';
 import 'package:beautina_provider/blocks/my_services/block_my_services.dart';
 import 'package:beautina_provider/constants/resolution.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
-import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/auto_accept_default.dart';
 import 'package:beautina_provider/screens/salon/ui/close_open_salon.dart';
 import 'package:beautina_provider/screens/salon/ui/share.dart';
-
 import 'package:beautina_provider/screens/salon/ui/location_not_set.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
-import 'package:beautina_provider/screens/salon/ui/ui_displayed_services.dart';
 import 'package:beautina_provider/screens/root/utils/constants.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
-import 'package:get/instance_manager.dart';
 
 class PageSalon extends StatefulWidget {
   const PageSalon({Key? key}) : super(key: key);
@@ -61,7 +52,7 @@ class _PageSalonState extends State<PageSalon> {
             controller: _scrollController,
             physics: AlwaysScrollableScrollPhysics(),
             children: <Widget>[
-              Y(height: heightTopBar), Y(),
+              Y(height: heightTopBar),
               // GetBuilder<VMSalonDataTest>(builder: (vMSalonDataTest) {
               //   if (vMSalonDataTest.providedServices!
               //       .containsKey('services')) if (vMSalonDataTest
@@ -69,12 +60,9 @@ class _PageSalonState extends State<PageSalon> {
               //       0) return WdgtSalonAddService();
               //   return SizedBox();
               // }),
-              Y(),
-              if (BeautyProviderController.getBeautyProviderProfile()
-                      .location!
-                      .length ==
-                  0)
-                WdgtSalonLocationNotSet(),
+              // Y(),
+              WdgtSalonLocationNotSet(),
+
               Y(),
               WdgtSalonProfileDetails(
                 key: ValueKey('tdest'),
