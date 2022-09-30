@@ -41,4 +41,6 @@ class ApiUrls {
   static final SALON_SERVICES = 'salon_services';
 
   static final UPDATE_LOCATION = 'beauty_providers/update_location';
+
+  static final POST_SEND_NOTIFICATION = 'notification/send';
 }

@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:beautina_provider/blocks/constants/app_colors.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/controller/push_notification.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
+import 'package:beautina_provider/models/user.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_image/firebase_image.dart';
@@ -184,6 +187,7 @@ class _ChatPageState extends State<ChatPage> {
     if (visibleChanges &&
         message.status != types.Status.seen &&
         message.author.id != authorId) {
+      var ms = message.copyWith(status: types.Status.seen);
       FirebaseChatCore.instance.updateMessage(
           message.copyWith(status: types.Status.seen), widget.room.id);
       _updateLastMessageToSeen(
@@ -194,15 +198,21 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   _updateLastMessageToSeen(types.Room room, types.Message message) async {
-    await FirebaseChatCore.instance.updateRoom(room.copyWith(lastMessages: [
-      room.lastMessages!.first.copyWith(status: types.Status.seen)
-    ]));
+    await FirebaseChatCore.instance.updateRoom(
+      room.copyWith(lastMessages: [
+        room.lastMessages!.first.copyWith(status: types.Status.seen)
+      ]),
+      false,
+    );
   }
 
   _updateReplaceRoomLastMessage(types.Room room, types.Message message) async {
-    await FirebaseChatCore.instance.updateRoom(room.copyWith(
-        lastMessages: [message],
-        updatedAt: DateTime.now().millisecondsSinceEpoch));
+    await FirebaseChatCore.instance.updateRoom(
+      room.copyWith(
+          lastMessages: [message],
+          updatedAt: DateTime.now().millisecondsSinceEpoch),
+      true,
+    );
   }
 
   void _handleSendPressed(types.PartialText message) async {
@@ -212,6 +222,11 @@ class _ChatPageState extends State<ChatPage> {
           widget.room.id,
           BeautyProviderController.getBeautyProviderProfile().uid!);
       _updateReplaceRoomLastMessage(widget.room, messageMap!);
+      // final pushCntr = PushNotificationController();
+      // pushCntr.send(
+      //     message: message.text,
+      //     token: widget.room.users.last.metadata?['token']);
+      // widget.room.users;
     } catch (e) {}
   }
 

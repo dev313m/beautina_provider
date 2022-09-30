@@ -1,15 +1,10 @@
-import 'dart:io';
-
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
-import 'package:beautina_provider/prefrences/default_page.dart';
-import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 /**
  * This class is a model for the type Notification
@@ -20,19 +15,20 @@ enum NotificationType { chatMessage, broadcast, orderStatus, other }
 enum NotificationStatus { notRead, read }
 
 class MyNotification {
-  int? _colId;
-  String? _title;
-  String? _describ;
-  String? _createDate = '';
-  String? _readDate = '';
-  NotificationStatus? _status = NotificationStatus.notRead;
-  NotificationType? _type;
-  String? _icon = '';
-  String? _image = '';
+  int? colId;
+  String? title;
+  String? describ;
+  String? createDate = '';
+  String? readDate = '';
+  NotificationStatus? status = NotificationStatus.notRead;
+  NotificationType? type;
+  String? icon = '';
+  String? image = '';
   String? from_name;
   String? client_id;
   Timestamp? t;
 
+  String? token;
   NotificationType typeStringToEnum(String? typeName) {
     if (typeName == null) return NotificationType.other;
     switch (typeName) {
@@ -60,117 +56,70 @@ class MyNotification {
   }
 
   MyNotification.empty();
+  MyNotification.toFireStore({
+    required this.token,
+    required this.describ,
+    required this.title,
+    required this.type,
+    required this.createDate,
+  });
   MyNotification.fromFirebase(Map<String, dynamic> map) {
-    _title = map['title'] ?? '';
-    _describ = map['describ'] ?? '';
+    title = map['title'] ?? '';
+    describ = map['describ'] ?? '';
     from_name = map['from_name'] ?? "";
-    _createDate = map['create_date']?.toDate().toString() ?? "";
-    _type = typeStringToEnum(map['type']);
-    _icon = map['icon'] ?? '';
-    _image = map['image'] ?? "";
+    createDate = map['create_date']?.toDate().toString() ?? "";
+    type = typeStringToEnum(map['type']);
+    icon = map['icon'] ?? '';
+    image = map['image'] ?? "";
   }
 
   /**
    * Constructur that is build upon Map<String, dynamic>()
    */
   MyNotification.fromMapObject(Map<String, dynamic> map) {
-    _colId = map['id'];
-    _title = map['title'];
-    _describ = map['describ'];
-    _createDate = map['create_date'];
-    _readDate = map['read_date'];
-    _status = statusToEnum(map['status']);
-    _type = typeStringToEnum(map['type']);
-    _icon = map['icon'];
-    _image = map['image'];
+    colId = map['id'];
+    title = map['title'];
+    describ = map['describ'];
+    createDate = map['create_date'];
+    readDate = map['read_date'];
+    status = statusToEnum(map['status']);
+    type = typeStringToEnum(map['type']);
+    icon = map['icon'];
+    image = map['image'];
   }
 
   /**
    * Setters 
    */
 
-  int? get colId => _colId;
-
-  set colId(int? colId) {
-    _colId = colId;
-  }
-
-  String? get title => _title;
-
-  set title(String? title) {
-    _title = title;
-  }
-
-  String? get describ => _describ;
-
-  set describ(String? describ) {
-    _describ = describ;
-  }
-
-  String? get createDate => _createDate;
-
-  set createDate(String? createDate) {
-    _createDate = createDate;
-  }
-
-  String? get image => _image;
-
-  set image(String? image) {
-    _image = image;
-  }
-
-  String? get icon => _icon;
-
-  set icon(String? icon) {
-    _icon = icon;
-  }
-
-  NotificationType? get type => _type;
-
-  set type(NotificationType? type) {
-    _type = type;
-  }
-
-  NotificationStatus? get status => _status;
-
-  set status(NotificationStatus? status) {
-    _status = status;
-  }
-
-  String? get readDate => _readDate;
-
-  set readDate(String? readDate) {
-    _readDate = readDate;
-  }
-
 /**
  * 
  * method converter to get mapped value
  */
 
-  Map<String, dynamic> toFirestoreMap() {
-    var map = new Map<String, dynamic>();
+  Map<String, String> toFirestoreMap() {
+    var map = new Map<String, String>();
 
-    map['title'] = _title;
-    map['describ'] = _describ;
-    map['create_date'] = _createDate;
-    map['icon'] = _icon;
-    map['image'] = _image;
-    map['type'] = _type?.name;
+    map['title'] = title ?? '';
+    map['describ'] = describ ?? '';
+    map['create_date'] = createDate ?? '';
+    map['icon'] = icon ?? '';
+    map['image'] = image ?? '';
+    map['type'] = type?.name ?? ' ';
     return map;
   }
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
-    map['id'] = _colId;
-    map['title'] = _title;
-    map['describ'] = _describ;
-    map['create_date'] = _createDate;
-    map['read_date'] = _readDate;
-    map['status'] = _status?.name;
-    map['type'] = _type?.name;
-    map['icon'] = _icon;
-    map['image'] = _image;
+    map['id'] = colId;
+    map['title'] = title;
+    map['describ'] = describ;
+    map['create_date'] = createDate;
+    map['read_date'] = readDate;
+    map['status'] = status?.name;
+    map['type'] = type?.name;
+    map['icon'] = icon;
+    map['image'] = image;
 
     return map;
   }

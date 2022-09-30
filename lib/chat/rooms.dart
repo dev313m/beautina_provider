@@ -1,6 +1,7 @@
 import 'package:beautina_provider/blocks/constants/app_colors.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
+import 'package:beautina_provider/models/user.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -22,7 +23,9 @@ import 'util.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class RoomsPage extends StatefulWidget {
-  const RoomsPage({Key? key}) : super(key: key);
+  const RoomsPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RoomsPageState createState() => _RoomsPageState();
@@ -167,12 +170,12 @@ class _RoomsPageState extends State<RoomsPage> {
                           const Text('Not authenticated'),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  fullscreenDialog: true,
-                                  builder: (context) => const LoginPage(),
-                                ),
-                              );
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     fullscreenDialog: true,
+                              //     builder: (context) => const LoginPage(),
+                              //   ),
+                              // );
                             },
                             child: const Text('Login'),
                           ),
@@ -183,6 +186,7 @@ class _RoomsPageState extends State<RoomsPage> {
                       stream: FirebaseChatCore.instance.rooms(),
                       initialData: const [],
                       builder: (context, snapshot) {
+                        var user = FirebaseAuth.instance.currentUser;
                         if (!snapshot.hasData || snapshot.data!.isEmpty) {
                           return Container(
                             alignment: Alignment.center,
@@ -301,23 +305,24 @@ class _RoomsPageState extends State<RoomsPage> {
                                     Padding(
                                       padding: EdgeInsets.only(left: 10),
                                       child: Column(children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              right: 60, top: 15),
-                                          child: Text(
-                                            timeago.format(
-                                                Timestamp
-                                                        .fromMillisecondsSinceEpoch(
-                                                            room.updatedAt!)
-                                                    .toDate()
-                                                  ..toLocal(),
-                                                allowFromNow: true,
-                                                clock: DateTime.now(),
-                                                locale: 'ar'),
-                                            style: TextStyle(
-                                                color: Colors.grey.shade400),
+                                        if (room.updatedAt != null)
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                right: 60, top: 15),
+                                            child: Text(
+                                              timeago.format(
+                                                  Timestamp
+                                                          .fromMillisecondsSinceEpoch(
+                                                              room.updatedAt!)
+                                                      .toDate()
+                                                      .toLocal(),
+                                                  allowFromNow: true,
+                                                  clock: DateTime.now(),
+                                                  locale: 'ar'),
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade400),
+                                            ),
                                           ),
-                                        ),
                                         if (lastMessage is types.TextMessage ||
                                             lastMessage is types.ImageMessage)
                                           Visibility(

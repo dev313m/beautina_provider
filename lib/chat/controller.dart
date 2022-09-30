@@ -36,6 +36,9 @@ class ChatController {
             firstName: _beautyPrvdr.name,
             imageUrl: FIREBASE_STORAGE_URL + _beautyPrvdr.uid!,
             lastName: '',
+            metadata: {
+              'token': BeautyProviderController.getBeautyProviderProfile().token
+            },
             // lastSeen: DateTime.now().microsecondsSinceEpoch,
             // updatedAt: DateTime.now().microsecondsSinceEpoch,
             role: types.Role.admin));

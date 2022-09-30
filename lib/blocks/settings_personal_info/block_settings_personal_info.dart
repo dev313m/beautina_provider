@@ -62,7 +62,8 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
             new BeautyTextfield(
               helperText: nameHint,
               placeholder:
-                  BeautyProviderController.getBeautyProviderProfile().name,
+                  BeautyProviderController.getBeautyProviderProfile().name ??
+                      '',
               inputType: TextInputType.text,
               // height: 33,
               onChanged: (val) {
@@ -76,8 +77,8 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
               maxLength: 9,
               helperText: '966',
               placeholder: BeautyProviderController.getBeautyProviderProfile()
-                  .phone!
-                  .substring(
+                  .phone
+                  ?.substring(
                       4,
                       BeautyProviderController.getBeautyProviderProfile()
                           .phone!
@@ -121,44 +122,45 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
               },
             ),
             Y(),
-            GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
-              return Directionality(
-                textDirection: TextDirection.rtl,
-                child: BeautyTextfield(
-                  suffixIcon: Icon(
-                    CommunityMaterialIcons.home_city_outline,
-                    // size: ScreenUtil().setSp(40),
-                  ),
-                  helperText: 'المنطقة',
-                  readOnly: true,
-                  inputType: TextInputType.text,
-                  onTap: () {
-                    showMenuLocation(context, vmSettingsData.globalKey);
-                  },
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: BeautyTextfield(
+                suffixIcon: Icon(
+                  CommunityMaterialIcons.home_city_outline,
+                  // size: ScreenUtil().setSp(40),
                 ),
-              );
-            }),
+                helperText: 'المنطقة',
+                readOnly: true,
+                inputType: TextInputType.text,
+                onTap: () {
+                  showMenuLocation(
+                      context, Get.find<VMSettingsDataTest>().globalKey);
+                },
+              ),
+            ),
             GetBuilder<VMSalonDataTest>(builder: (vMSalonData) {
-              return GetBuilder<VMSettingsDataTest>(builder: (vmSettingsData) {
-                return Row(
-                  children: <Widget>[
-                    Chip(
-                        label: GWdgtTextSmall(
-                      string: vmSettingsData.city == null
-                          ? vMSalonData.beautyProvider.city
-                          : vmSettingsData.country,
-                      color: Colors.black,
-                    )),
-                    Chip(
-                        label: GWdgtTextSmall(
-                      string: vmSettingsData.country == null
-                          ? vMSalonData.beautyProvider.country
-                          : vmSettingsData.city,
-                      color: Colors.black,
-                    ))
-                  ],
-                );
-              });
+              return GetBuilder<VMSettingsDataTest>(
+                  init: VMSettingsDataTest(),
+                  builder: (vmSettingsData) {
+                    return Row(
+                      children: <Widget>[
+                        Chip(
+                            label: GWdgtTextSmall(
+                          string: vmSettingsData.city == null
+                              ? vMSalonData.beautyProvider.city
+                              : vmSettingsData.country,
+                          color: Colors.black,
+                        )),
+                        Chip(
+                            label: GWdgtTextSmall(
+                          string: vmSettingsData.country == null
+                              ? vMSalonData.beautyProvider.country
+                              : vmSettingsData.city,
+                          color: Colors.black,
+                        ))
+                      ],
+                    );
+                  });
             }),
             Y(),
             RoundedLoadingButton(
