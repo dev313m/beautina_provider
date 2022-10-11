@@ -24,11 +24,11 @@ Future<List<double>> getMyLocation() async {
   return [position.latitude, position.longitude];
 }
 
-Future funUpdateUsername(BuildContext context,
+Future funUpdateUsername(String newUsername,
     RoundedLoadingButtonController roundedLoadingButtonController) async {
-  ModelBeautyProvider newBeautyProvider = await getNewBeauty(context);
+  ModelBeautyProvider newBeautyProvider = await getNewBeauty();
 
-  if (!gFunValidateUsername(newBeautyProvider.username!)) {
+  if (!gFunValidateUsername(newUsername)) {
     showToast(
         'اسم المستخدم غير صالح، يجب ان يكون بالانجليزي وغير محتوي مسافات او بعض الرموز');
     roundedLoadingButtonController.error();
@@ -39,8 +39,8 @@ Future funUpdateUsername(BuildContext context,
   try {
     roundedLoadingButtonController.start();
     // setState(() {});
-    Get.find<VMSalonDataTest>().beautyProvider =
-        await apiBeautyProviderUpdateUsername(newBeautyProvider);
+
+    await apiBeautyProviderUpdateUsername(newUsername);
 
     showToast('تم التحديث');
     roundedLoadingButtonController.success();
@@ -73,7 +73,7 @@ Future updateBtn(BuildContext context,
                          */
 
   //2
-  ModelBeautyProvider newBeautyProvider = await getNewBeauty(context,
+  ModelBeautyProvider newBeautyProvider = await getNewBeauty(
       name: name, descs: desc, mobile: phone, city: city, country: country);
 
   try {
@@ -128,15 +128,15 @@ bool _validateInputs(BuildContext context,
   }
 }
 
-Future<ModelBeautyProvider> getNewBeauty(BuildContext context,
+Future<ModelBeautyProvider> getNewBeauty(
     {name, mobile, descs, city, country}) async {
   ModelBeautyProvider bp = BeautyProviderController.getBeautyProviderProfile();
-
-  bp.name = name ?? bp.name;
-  bp.phone = mobile ?? bp.phone;
-  bp.intro = descs ?? bp.intro;
-  bp.country = country ?? bp.country;
-  bp.city = city ?? bp.city;
+  var newBp = Get.find<VMSettingsDataTest>();
+  bp.name = newBp.name ?? bp.name;
+  bp.phone = newBp.mobile ?? bp.phone;
+  bp.intro = newBp.description ?? bp.intro;
+  bp.country = newBp.country ?? bp.country;
+  bp.city = newBp.city ?? bp.city;
 
   return bp;
 }

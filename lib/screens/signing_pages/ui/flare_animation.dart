@@ -35,11 +35,13 @@ class WdgtLoginFlare extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       child: Text(
-                        'Beautina',
-                        style: GoogleFonts.pacifico(
-                            fontSize: 60.sp,
-                            fontWeight: FontWeight.w500,
-                            color: ExtendedText.colorFull),
+                        "اناواو",
+                        style: TextStyle(
+                          fontFamily: 'Tajawal',
+                          fontSize: 60.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.pink,
+                        ),
                         textAlign: TextAlign.end,
                       ),
                     ),
@@ -47,9 +49,9 @@ class WdgtLoginFlare extends StatelessWidget {
                       width: double.infinity,
                       // padding: EdgeInsets.fromLTRB(87.0, 50.0, 0.0, 0.0),
                       child: Text(
-                        "بيوتينا",
+                        "صالونك الالكتروني",
                         style: TextStyle(
-            fontFamily: 'Tajawal',
+                          fontFamily: 'Tajawal',
                           fontSize: 35.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.pink,

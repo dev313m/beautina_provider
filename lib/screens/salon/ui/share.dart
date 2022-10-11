@@ -2,7 +2,6 @@ import 'package:beautina_provider/core/global_values/responsive/beauty_provider_
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
 import 'package:beautina_provider/screens/settings/vm/vm_data_test.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
@@ -13,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/reusables/animated_textfield.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 /// [radius]
@@ -51,153 +49,153 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
   bool availableLoad = false;
 
   late ModelBeautyProvider beautyProvider;
+  String text = '';
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GlobalValBeautyProviderListenable>(builder: (vMSalonData) {
-               beautyProvider = vMSalonData.beautyProvider;
+    return GetBuilder<GlobalValBeautyProviderListenable>(
+        builder: (vMSalonData) {
+      beautyProvider = vMSalonData.beautyProvider;
 
-      if (beautyProvider == null)
-        return SizedBox();
-      if (vMSalonData. beautyProvider.username!.contains('+9'))
-
-      return Container(
-        decoration: BoxDecoration(
-            color: colorContainerBg,
-            // image: AsssetImage(assetName),
-            borderRadius: BorderRadius.circular(radiusContainer)),
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Y(
-                height: BoxHeight.heightBtwTitle,
-              ),
-              GWdgtTextTitle(
-                  string: 'انشئي اسم مستعار، لتشاركي رابط خدماتك مع زبائنك'),
-              GWdgtTextTitleDesc(
-                string: "(لم تقومي بإختيار اسم مستعار)",
-                color: Colors.redAccent,
-              ),
-              Container(
-                height: 200.h,
-                child: FlareActor(
-                  strFlare,
-                  animation: 'Untitled',
-                  shouldClip: false,
-                  snapToEnd: false,
-                  // controller: ,
+      if (beautyProvider == null) return SizedBox();
+      if (vMSalonData.beautyProvider.username!.contains('+9'))
+        return Container(
+          decoration: BoxDecoration(
+              color: colorContainerBg,
+              // image: AsssetImage(assetName),
+              borderRadius: BorderRadius.circular(radiusContainer)),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Y(
+                  height: BoxHeight.heightBtwTitle,
                 ),
-              ),
-              Y(
-                height: BoxHeight.heightBtwContainers,
-              ),
-              // GWdgtTextTitleDesc(
-              //   string: 'عند انشاء اسم مستعارص يمكنكي مشاركة حسابك لدى زبائنك',
-              //   // fontColor: ExtendedText.brightColors2,
-              // ),
-              Y(
-                height: 60.h,
-              ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: BeautyTextfield(
-                  // height: ScreenUtil().setHeight(90),
-                  onChanged: (String s) {
-                    Get.find<VMSettingsDataTest>().username = s;
-                  },
-                  // textStyle: TextStyle(color: AppColors.pinkBright),
-                  suffixIcon: Icon(
-                    Icons.supervised_user_circle_outlined,
+                GWdgtTextTitle(
+                    string: 'انشئي اسم مستعار، لتشاركي رابط خدماتك مع زبائنك'),
+                GWdgtTextTitleDesc(
+                  string: "(لم تقومي بإختيار اسم مستعار)",
+                  color: Colors.redAccent,
+                ),
+                Container(
+                  height: 200.h,
+                  child: FlareActor(
+                    strFlare,
+                    animation: 'Untitled',
+                    shouldClip: false,
+                    snapToEnd: false,
+                    // controller: ,
                   ),
-                  helperText: 'مثال: beauty_salon',
-                  inputType: TextInputType.text,
                 ),
-              ),
-              Y(),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(radiusDefault),
-                child: RoundedLoadingButton(
-                  controller: roundedLoadingButtonController,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(radiusDefault),
-                      ),
-                      height: 100,
-                      width: double.infinity,
-                      child: Center(child: GWdgtTextButton(string: 'حفظ'))),
-                  onPressed: () async {
-                    // if (checkFields()) {
-                    //   await updateProviderServices(
-                    //       context,
-                    //       showOther,
-                    //       chosenService,
-                    //       priceBefore,
-                    //       priceAfter,
-                    //       otherServiceName,
-                    //       _btnController);
-                    //   clearFields();
-                    // }
-
-                    // _btnController.reset();
-
-                    funUpdateUsername(context, roundedLoadingButtonController);
-                  },
-                  // controller: _btnController,
+                Y(
+                  height: BoxHeight.heightBtwContainers,
                 ),
-              ),
-              Y(
-                height: 60.h,
-              ),
-              Padding(
-                padding: EdgeInsets.all(edgeText),
-                child: Row(
-                  children: [
-                    // GWdgtTextTitleDesc(
-                    //   string: 'مشاركة حسابي',
-                    // ),
-
-                    Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Expanded(
-                        child: Row(
-                          children: [
-                            IconButton(
-                              color: Colors.white70,
-                              icon: Icon(Icons.ios_share),
-                              onPressed: () {
-                                gFunShareAccount(beautyProvider.username);
-
-                                if (beautyProvider.username!.contains('+9'))
-                                  showToast('لم تقومي بحفظ اسم مستعار');
-                                else
-                                  gFunShareAccount(beautyProvider.username);
-                              },
-                            ),
-                            IconButton(
-                              color: Colors.white70,
-                              icon: Icon(Icons.copy),
-                              onPressed: () {
-                                if (beautyProvider.username!.contains('+9'))
-                                  showToast('لم تقومي بحفظ اسم مستعار');
-                                else
-                                  gFunCopyText(
-                                      'https://beautina.online/${beautyProvider.username}');
-                              },
-                            ),
-                          ],
+                // GWdgtTextTitleDesc(
+                //   string: 'عند انشاء اسم مستعارص يمكنكي مشاركة حسابك لدى زبائنك',
+                //   // fontColor: ExtendedText.brightColors2,
+                // ),
+                Y(
+                  height: 60.h,
+                ),
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: BeautyTextfield(
+                    // height: ScreenUtil().setHeight(90),
+                    onChanged: (String s) {
+                      text = s;
+                    },
+                    // textStyle: TextStyle(color: AppColors.pinkBright),
+                    suffixIcon: Icon(
+                      Icons.supervised_user_circle_outlined,
+                    ),
+                    helperText: 'مثال: beauty_salon',
+                    inputType: TextInputType.text,
+                  ),
+                ),
+                Y(),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(radiusDefault),
+                  child: RoundedLoadingButton(
+                    controller: roundedLoadingButtonController,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(radiusDefault),
                         ),
-                      ),
-                    )
-                  ],
+                        height: 100,
+                        width: double.infinity,
+                        child: Center(child: GWdgtTextButton(string: 'حفظ'))),
+                    onPressed: () async {
+                      // if (checkFields()) {
+                      //   await updateProviderServices(
+                      //       context,
+                      //       showOther,
+                      //       chosenService,
+                      //       priceBefore,
+                      //       priceAfter,
+                      //       otherServiceName,
+                      //       _btnController);
+                      //   clearFields();
+                      // }
+
+                      // _btnController.reset();
+
+                      funUpdateUsername(text, roundedLoadingButtonController);
+                    },
+                    // controller: _btnController,
+                  ),
                 ),
-              )
-            ],
+                Y(
+                  height: 60.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(edgeText),
+                  child: Row(
+                    children: [
+                      // GWdgtTextTitleDesc(
+                      //   string: 'مشاركة حسابي',
+                      // ),
+
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Expanded(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                color: Colors.white70,
+                                icon: Icon(Icons.ios_share),
+                                onPressed: () {
+                                  gFunShareAccount(beautyProvider.username);
+
+                                  if (beautyProvider.username!.contains('+9'))
+                                    showToast('لم تقومي بحفظ اسم مستعار');
+                                  else
+                                    gFunShareAccount(beautyProvider.username);
+                                },
+                              ),
+                              IconButton(
+                                color: Colors.white70,
+                                icon: Icon(Icons.copy),
+                                onPressed: () {
+                                  if (beautyProvider.username!.contains('+9'))
+                                    showToast('لم تقومي بحفظ اسم مستعار');
+                                  else
+                                    gFunCopyText(
+                                        'https://beautina.online/${beautyProvider.username}');
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      );
+        );
       return Container(
         decoration: BoxDecoration(
             color: colorContainerBg,
@@ -240,8 +238,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                           color: Colors.redAccent,
                         ),
                         GWdgtTextTitleDesc(
-                          string:
-                              "https://beautina.app/${beautyProvider.username}",
+                          string: "https://waow.app/${beautyProvider.username}",
                         ),
                       ],
                     ),
@@ -270,7 +267,7 @@ class _WdgtSalonShareState extends State<WdgtSalonShare> {
                                   showToast('لم تقومي بحفظ اسم مستعار');
                                 else
                                   gFunCopyText(
-                                      'https://beautina.app/${beautyProvider.username}');
+                                      'https://waow.app/${beautyProvider.username}');
                               },
                             ),
                           ],

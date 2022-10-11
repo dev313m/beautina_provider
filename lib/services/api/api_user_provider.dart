@@ -68,7 +68,7 @@ ModelBeautyProvider parseOne(String responseBody) {
 }
 
 Future<ModelBeautyProvider> apiBeautyProviderUpdateUsername(
-    ModelBeautyProvider beautyProvider) async {
+    String username) async {
   // ModelBeautyProvider beautyProvider = await sharedUserProviderGetInfo();
   http.Response response;
   PostHelper ph = PostHelper(
@@ -77,9 +77,7 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdateUsername(
   //because busy dates contains datetime so please convert them to string to be encodable
 
   Map<String, dynamic> body = {
-    'name': beautyProvider.name,
-    'client_id': beautyProvider.uid,
-    'username': beautyProvider.username,
+    'username': username,
   };
 
   try {
@@ -89,10 +87,11 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdateUsername(
       throw HttpException(jsonDecode(response.body)['message']);
     // ModelBeautyProvider model = parseOne(response.body);
     // await sharedUserProviderSet(beautyProvider: model);
-    await BeautyProviderController().storeToLocalDB(beautyProvider);
-    // await sharedUserProviderSet(beautyProvider: beautyProvider);
+    var user = BeautyProviderController.getBeautyProviderProfile()
+      ..username = username;
+    await BeautyProviderController().storeToLocalDB(user);
 
-    return beautyProvider;
+    return user;
   } catch (e) {
     throw HttpException(ERROR);
   }

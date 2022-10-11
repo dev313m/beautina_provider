@@ -1,17 +1,12 @@
-import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
-import 'package:beautina_provider/reusables/animated_textfield.dart';
 import 'package:beautina_provider/reusables/toast.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/animated/loading.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
@@ -132,7 +127,7 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
                         child: SizedBox(),
                       ),
                       availableLoad
-                          ? GetLoadingWidget()
+                          ? SizedBox()
                           : ToggleButtons(
                               borderRadius:
                                   BorderRadius.circular(radiusDefault),
@@ -202,7 +197,7 @@ class _WdgtSalonDefaultAcceptState extends State<WdgtSalonDefaultAccept> {
                         child: SizedBox(),
                       ),
                       availableLoad
-                          ? GetLoadingWidget()
+                          ? SizedBox()
                           : ToggleButtons(
                               borderRadius:
                                   BorderRadius.circular(radiusDefault),

@@ -8,6 +8,7 @@ import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_ui_test.dart';
 import 'package:beautina_provider/services/remote_config.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
@@ -18,7 +19,6 @@ import 'package:flutter/rendering.dart';
 import 'package:share/share.dart';
 import 'package:clipboard/clipboard.dart';
 
-/// Version checker between the current and the http request of the saved one in server
 /// Version checker between the current and the http request of the saved one in server
 versionCheck(BuildContext context) async {
   await Future.delayed(Duration(seconds: 4));
@@ -32,14 +32,15 @@ versionCheck(BuildContext context) async {
   try {
     // Using default duration to force fetching from remote server.
 
-    RemoteConfigService remote = await (RemoteConfigService.getInstance()
-        as FutureOr<RemoteConfigService>);
-    await remote.initialize();
-    final String nowVersion = remote.getStringValue;
+    RemoteConfigService? remote = await RemoteConfigService.getInstance();
 
-    double newVersion = double.parse(nowVersion.trim().replaceAll(".", ""));
-    if (newVersion > currentVersion) {
-      onAlertWithCustomContentPressed(context);
+    await remote?.initialize();
+    final String? nowVersion = remote?.getStringValue;
+    if (nowVersion != null) {
+      double newVersion = double.parse(nowVersion.trim().replaceAll(".", ""));
+      if (newVersion > currentVersion) {
+        onAlertWithCustomContentPressed(context);
+      }
     }
   } on Exception catch (exception) {
     // Fetch throttled.
@@ -51,8 +52,8 @@ versionCheck(BuildContext context) async {
 }
 
 launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
   } else {
     throw 'Could not launch $url';
   }
@@ -206,7 +207,7 @@ Function getWhatsappFunction(String? s) {
 }
 
 gFunShareAccount(String? username) {
-  Share.share(' https://beautina.app/$username خدماتنا على هذا الرابط',
+  Share.share(' https://waow.app/$username خدماتنا على هذا الرابط',
       subject: '');
 }
 

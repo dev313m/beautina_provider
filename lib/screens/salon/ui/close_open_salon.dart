@@ -109,10 +109,9 @@ class _WdgtSalonCloseOpenSalonState extends State<WdgtSalonCloseOpenSalon> {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: AnimatedSwitcher(
-                          duration: Duration(seconds: 1),
-                          child:
-                              availableLoad ? GetLoadingWidget() : SizedBox(),
-                        ),
+                            duration: Duration(seconds: 1), child: SizedBox()
+                            // availableLoad ? GetLoadingWidget() : SizedBox(),
+                            ),
                       )
                     ],
                   ),

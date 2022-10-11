@@ -24,6 +24,8 @@ class _WdgtSettingsUsernameState extends State<WdgtSettingsUsername> {
 
   RoundedLoadingButtonController roundedLoadingButtonController =
       RoundedLoadingButtonController();
+
+  String _text = '';
   @override
   Widget build(BuildContext context) {
     // beautyProvider = Provider.of<VMSalonData>(context).beautyProvider;
@@ -68,7 +70,8 @@ class _WdgtSettingsUsernameState extends State<WdgtSettingsUsername> {
                 child: BeautyTextfield(
                   // height: ScreenUtil().setHeight(90),
                   onChanged: (String s) {
-                    Get.find<VMSettingsDataTest>().username = s;
+                    _text = s;
+                    // Get.find<VMSettingsDataTest>().username = s;
                   },
                   // textStyle: TextStyle(color: AppColors.pinkBright),
                   suffixIcon: Icon(
@@ -111,7 +114,7 @@ class _WdgtSettingsUsernameState extends State<WdgtSettingsUsername> {
 
                   // _btnController.reset();
 
-                  funUpdateUsername(context, roundedLoadingButtonController);
+                  funUpdateUsername(_text, roundedLoadingButtonController);
                 },
                 // controller: _btnController,
               ),

@@ -3,8 +3,8 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 const String _STRING_VALUE = 'str_version';
 
 class RemoteConfigService {
-  final RemoteConfig? _remoteConfig;
-  RemoteConfigService({RemoteConfig? remoteConfig})
+  final FirebaseRemoteConfig? _remoteConfig;
+  RemoteConfigService({FirebaseRemoteConfig? remoteConfig})
       : _remoteConfig = remoteConfig;
 
   final defaults = <String, dynamic>{
@@ -15,8 +15,12 @@ class RemoteConfigService {
   static Future<RemoteConfigService?> getInstance() async {
     if (_instance == null) {
       _instance = RemoteConfigService(
-        remoteConfig: await RemoteConfig.instance,
-      );
+          remoteConfig: await FirebaseRemoteConfig.instance
+            ..setConfigSettings(
+              RemoteConfigSettings(
+                  fetchTimeout: Duration(seconds: 60),
+                  minimumFetchInterval: Duration.zero),
+            ));
     }
     return _instance;
   }
@@ -29,7 +33,7 @@ class RemoteConfigService {
       await _fetchAndActivate();
     } catch (e) {
       print("Rmeote Config fetch throttled: $e");
-    } 
+    }
   }
 
   Future _fetchAndActivate() async {

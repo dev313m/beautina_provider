@@ -13,7 +13,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 final String GOOGLE_APP_URL =
     'http://play.google.com/store/apps/details?id=app.anawow.business';
 final String APPLE_APP_URL =
-    'https://apps.apple.com/us/app/beautina.service-provider/id1536944501';
+    'https://apps.apple.com/us/app/%D8%A7%D9%86%D8%A7%D9%88%D8%A7%D9%88-%D8%A7%D8%B9%D9%85%D8%A7%D9%84/id6443426858';
 onAlertWithCustomImagePressed(context) {
   Alert(
     context: context,
@@ -57,10 +57,10 @@ onAlertWithCustomContentPressed(context) {
       content: Column(
         children: <Widget>[
           Container(
-            height: ScreenUtil().setHeight(250),
+            height: 200,
             child: FlareActor(
               'assets/rive/upgrade.flr',
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
               animation: 'spin2',
             ),
           )

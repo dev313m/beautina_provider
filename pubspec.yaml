@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.0.3+20
+version: 3.1.0+21
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -84,12 +84,13 @@ dependencies:
   ndialog: ^4.1.1
   scrollable_list_tabview: ^0.2.0-nullsafety
   shimmer: ^2.0.0
-  the_apple_sign_in: ^1.1.1
+  # the_apple_sign_in: ^1.1.1
   firebase_core: ^1.13.1
   get_it: ^7.2.0
   hive: ^2.1.0
   hive_flutter: ^1.1.0
   google_sign_in_web: ^0.10.0+5
+  sign_in_with_apple: ^4.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -111,9 +112,9 @@ dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/iwow_work.png"
-  adaptive_icon_background: "assets/icons/iwow_work.png"
-  adaptive_icon_foreground: "assets/icons/iwow_work.png"
+  image_path: "assets/icons/iwow.png"
+  adaptive_icon_background: "assets/icons/iwow.png"
+  adaptive_icon_foreground: "assets/icons/iwow.png"
   
 dev_dependencies:
   flutter_test:
