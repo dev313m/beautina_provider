@@ -20,6 +20,10 @@ class GlobalVarLocalBeautyProvider {
     }
   }
 
+  Future clearDB() async {
+    await GlobalValHiveBox.getHiveBox().clear();
+  }
+
   Future storeTokenToLocalDB(String token) async {
     await GlobalValHiveBox.getHiveBox().put(LocalDBConstants().TOKEN, token);
   }

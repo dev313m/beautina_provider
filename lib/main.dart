@@ -1,4 +1,3 @@
-import 'package:beautina_provider/core/controller/refresh_controller.dart';
 import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/screens/root/index.dart';
 import 'package:beautina_provider/screens/signing_pages/index.dart';

@@ -1,4 +1,5 @@
 import 'package:beautina_provider/blocks/location_alert/location_alert.dart';
+import 'package:beautina_provider/blocks/logout.dart/logout.dart';
 import 'package:beautina_provider/blocks/settings_personal_info/block_settings_personal_info.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
@@ -66,6 +67,10 @@ class _PageSettingsState extends State<PageSettings> {
                     height: btwProfilexLocation,
                   ),
                   WdgtSettingsLocation(),
+                  new SizedBox(
+                    height: btwProfilexLocation,
+                  ),
+                  BlockLogout(),
                   new SizedBox(
                     height: btwLocationxSupport,
                   ),

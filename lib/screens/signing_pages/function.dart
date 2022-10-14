@@ -55,7 +55,10 @@ loginWithApple(BuildContext? context) async {
   // await smsAuth.verifyPhone(error, success);
   String? result;
   try {
+    ////print('level 0');
+
     result = await signInWithApple();
+    ////print('auth is done $result');
     if (result == null)
       throw Exception("حدثت مشكله في التسجيل، الرجاء المحاولة مره اخرى");
     // showToast(result);
@@ -136,36 +139,60 @@ Function onConfirmPhoneNumber(BuildContext context) {
   return f;
 }
 
+Future<User?> getFirebaseAuthUser() async {
+  User? user = await FirebaseAuth.instance
+      .authStateChanges()
+      .firstWhere((element) => element != null);
+  return user;
+}
+
 Future<Null> saveUserData(BuildContext? context) async {
   // DocumentSnapshot userInfo = await apiUserCheckExist(currentUser.uid);
 
   try {
-    final User currentUser = FirebaseAuth.instance.currentUser!;
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    currentUser = await getFirebaseAuthUser();
+    if (currentUser == null) throw Exception('currentuser is null!');
 
     String? token = PlatformCheck.isWeb ? '' : await apiTokenGet();
+    //print('level 00');
 
     ModelBeautyProvider modelBeautyProvider =
         getUserData(currentUser.uid, token, context);
+    //print('level 01');
+
     modelBeautyProvider = await apiUserProviderAddNew(modelBeautyProvider);
+    //print('level 02');
+
     if (modelBeautyProvider == null)
       throw Exception('هناك خطأ');
     else {
+      //print('level 2');
       await BeautyProviderController().storeToLocalDB(modelBeautyProvider);
       await BeautyProviderController().storeToken(modelBeautyProvider.tokenId!);
       // await saveData(modelBeautyProvider);
+      //print('level 3');
 
       BeautyProviderController()
           .updateBeautyProviderProfile(modelBeautyProvider);
+      //print('level 4');
+
       await RefreshController.afterLogin();
+      //print('level 5');
+
       await ChatController().checkAndCreate();
+      //print('level 6');
 
       await sharedRegistered(true);
+      //print('level 7');
 
       routeToRoot(context!);
       await Future.delayed(Duration(seconds: 3));
       showToast('مرحبا بك في عالم الجمال');
     }
   } catch (e) {
+    //print(e.toString());
+
     throw Exception(e.toString());
   }
 }

@@ -12,3 +12,8 @@ Future<bool?> sharedGetRegestered() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getBool('page'); //False is for employer
 }
+
+Future sharedPreferencesLogout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.remove('page'); //False is for employer
+}

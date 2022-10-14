@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
   # provider: 3.2.0
   flare_flutter: ^3.0.2
-  firebase_auth: ^3.3.11
+  firebase_auth: ^3.11.2
   flutter_screenutil: ^5.3.1
   google_sign_in: ^5.2.4
   fluttertoast: ^8.0.9
@@ -73,7 +73,7 @@ dependencies:
   # flutter_picker_view: ^1.1.0
   # steps: ^1.0.1
   fluttericon: ^2.0.0
-  firebase_dynamic_links: ^4.1.1
+  # firebase_dynamic_links: ^4.1.1
   firebase_storage: ^10.2.9   
   firebase_image: ^1.1.1
   share: ^2.0.4	
