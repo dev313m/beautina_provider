@@ -1,0 +1,817 @@
+{
+    "_id": {
+        "$oid": "623ba646e861dee40060f70b"
+    },
+    "services": [
+        {
+            "code": "hair",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "صبغ شعر",
+            "en_nm": "Hair",
+            "is_root": true,
+            "is_category": true
+        },
+        {
+            "code": "long_hair",
+            "root_code": "hair",
+            "parent_code": "hair",
+            "ar_nm": "شعر طويل",
+            "en_nm": "شعر طويل",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "small_hair",
+            "root_code": "hair",
+            "parent_code": "hair",
+            "ar_nm": "شعر قصير",
+            "en_nm": "شعر قصير",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "h01",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "صبغ جذور",
+            "en_nm": "صبغ جذور",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h02",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "صبغ جذور",
+            "en_nm": "صبغ جذور",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h03",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "صبغ جذور بلا امونيا",
+            "en_nm": "صبغ جذور بلا امونيا",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h04",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "صبغ جذور بلا امونيا",
+            "en_nm": "صبغ جذور بلا امونيا",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h05",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "صبغ عادي",
+            "en_nm": "صبغ عادي",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h06",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "صبغ عادي",
+            "en_nm": "صبغ عادي",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h07",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "خصل",
+            "en_nm": "خصل",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h08",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "خصل",
+            "en_nm": "خصل",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h09",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "تعديل لون",
+            "en_nm": "تعديل لون",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h10",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "تعديل لون",
+            "en_nm": "تعديل لون",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h11",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "تفتيح",
+            "en_nm": "تفتيح",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h12",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "تفتيح",
+            "en_nm": "تفتيح",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h13",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "سحب لون",
+            "en_nm": "سحب لون",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h14",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "سحب لون",
+            "en_nm": "سحب لون",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h15",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "صبغ شعر كريزي",
+            "en_nm": "صبغ شعر كريزي",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h16",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "صبغ شعر كريزي",
+            "en_nm": "صبغ شعر كريزي",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h17",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "هايلايت",
+            "en_nm": "هايلايت",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h18",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "لو لايت",
+            "en_nm": "لو لايت",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h19",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "لو لايت",
+            "en_nm": "لو لايت",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h20",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "رنساج",
+            "en_nm": "رنساج",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h21",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "رنساج",
+            "en_nm": "رنساج",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h22",
+            "root_code": "hair",
+            "parent_code": "small_hair",
+            "ar_nm": "اومبري",
+            "en_nm": "اومبري",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "h22",
+            "root_code": "hair",
+            "parent_code": "long_hair",
+            "ar_nm": "اومبري",
+            "en_nm": "اومبري",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hair_care",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "عناية شعر",
+            "en_nm": "عناية شعر",
+            "is_root": true,
+            "is_category": true
+        },
+        {
+            "code": "long_hair_care",
+            "root_code": "hair_care",
+            "parent_code": "hair_care",
+            "ar_nm": "عناية شعر طويل",
+            "en_nm": "عناية شعر طويل",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "small_hair_care",
+            "root_code": "hair_care",
+            "parent_code": "hair_care",
+            "ar_nm": "عناية شعر قصير",
+            "en_nm": "عناية شعر قصير",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hc01",
+            "root_code": "hair_care",
+            "parent_code": "long_hair_care",
+            "ar_nm": "تمليس",
+            "en_nm": "تمليس",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc02",
+            "root_code": "hair_care",
+            "parent_code": "small_hair_care",
+            "ar_nm": "تمليس",
+            "en_nm": "تمليس",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc03",
+            "root_code": "hair_care",
+            "parent_code": "long_hair_care",
+            "ar_nm": "كراتين",
+            "en_nm": "كراتين",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc04",
+            "root_code": "hair_care",
+            "parent_code": "small_hair_care",
+            "ar_nm": "كراتين",
+            "en_nm": "كراتين",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc05",
+            "root_code": "hair_care",
+            "parent_code": "long_hair_care",
+            "ar_nm": "فيلار",
+            "en_nm": "فيلار",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc06",
+            "root_code": "hair_care",
+            "parent_code": "small_hair_care",
+            "ar_nm": "فيلار",
+            "en_nm": "فيلار",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc07",
+            "root_code": "hair_care",
+            "parent_code": "hair_care",
+            "ar_nm": "علاج تساقط",
+            "en_nm": "علاج تساقط",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc08",
+            "root_code": "hair_care",
+            "parent_code": "long_hair_care",
+            "ar_nm": "ماسك",
+            "en_nm": "ماسك",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc09",
+            "root_code": "hair_care",
+            "parent_code": "small_hair_care",
+            "ar_nm": "ماسك",
+            "en_nm": "ماسك",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc10",
+            "root_code": "hair_care",
+            "parent_code": "long_hair_care",
+            "ar_nm": "لوكس ماسك شعر",
+            "en_nm": "لوكس ماسك شعر",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc11",
+            "root_code": "hair_care",
+            "parent_code": "small_hair_care",
+            "ar_nm": "لوكس ماسك شعر",
+            "en_nm": "لوكس ماسك شعر",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc12",
+            "root_code": "hair_care",
+            "parent_code": "hair_care",
+            "ar_nm": "افيوجن",
+            "en_nm": "افيوجن",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hc13",
+            "root_code": "hair_care",
+            "parent_code": "hair_care",
+            "ar_nm": "علاج لفروة الرأس",
+            "en_nm": "علاج لفروة الرأس",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mask",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "عناية وجة",
+            "en_nm": "عناية وجة",
+            "is_root": true,
+            "is_category": true
+        },
+        {
+            "code": "mask01",
+            "root_code": "mask",
+            "parent_code": "face_mask",
+            "ar_nm": "ماسك طين",
+            "en_nm": "ماسك طين",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "face_mask",
+            "root_code": "mask",
+            "parent_code": "mask",
+            "ar_nm": "ماسك وجه",
+            "en_nm": "ماسك وجه",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "mask02",
+            "root_code": "mask",
+            "parent_code": "face_mask",
+            "ar_nm": "ماسك اكسجين",
+            "en_nm": "ماسك اكسجين",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mask03",
+            "root_code": "mask",
+            "parent_code": "face_mask",
+            "ar_nm": "ماسك الروز",
+            "en_nm": "ماسك الروز",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mask04",
+            "root_code": "mask",
+            "parent_code": "face_mask",
+            "ar_nm": "ماسك الفحم",
+            "en_nm": "ماسك الفحم",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mask05",
+            "root_code": "mask",
+            "parent_code": "face_mask",
+            "ar_nm": "ماسك الحنة البيضاء",
+            "en_nm": "ماسك الحنة البيضاء",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mask_sanfara01",
+            "root_code": "mask",
+            "parent_code": "face_sanfara",
+            "ar_nm": "سنفرة التوت",
+            "en_nm": "سنفرة التوت",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "face_sanfara",
+            "root_code": "mask",
+            "parent_code": "mask",
+            "ar_nm": "صنفرة",
+            "en_nm": "صنفرة",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "remove_hair",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "ازالة الشعر",
+            "en_nm": "ازالة الشعر",
+            "is_root": true,
+            "is_category": true
+        },
+        {
+            "code": "hawajib",
+            "root_code": "remove_hair",
+            "parent_code": "remove_hair",
+            "ar_nm": "الحواجب",
+            "en_nm": "الحواجب",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hawajib01",
+            "root_code": "remove_hair",
+            "parent_code": "hawajib",
+            "ar_nm": "موس حواجب",
+            "en_nm": "موس حواجب",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hawajib02",
+            "root_code": "remove_hair",
+            "parent_code": "hawajib",
+            "ar_nm": "حف حواجب",
+            "en_nm": "حف حواجب",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body",
+            "root_code": "remove_hair",
+            "parent_code": "remove_hair",
+            "ar_nm": "شعر الجسم",
+            "en_nm": "شعر الجسم",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body01",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف يد كامل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body02",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف رجل نص",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body03",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف رجل كامل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body04",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف ظهر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body05",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف بطن",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body06",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف رقبة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body07",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف اباط",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hair_body08",
+            "root_code": "remove_hair",
+            "parent_code": "hair_body",
+            "ar_nm": "حف جسم كامل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "cut_head_hair",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "قص شعر رأس",
+            "en_nm": "",
+            "is_root": true,
+            "is_category": true
+        },
+        {
+            "code": "chh_long",
+            "root_code": "cut_head_hair",
+            "parent_code": "cut_head_hair",
+            "ar_nm": "قصات شعر طويل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "chhl02",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_long",
+            "ar_nm": "قصة الشعر المدرج الطويل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chhl03",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_long",
+            "ar_nm": "قصة الشعر الطويل المتساوي",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chhl04",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_long",
+            "ar_nm": "قصات شعر طويل مع الغرة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chh_other",
+            "root_code": "cut_head_hair",
+            "parent_code": "cut_head_hair",
+            "ar_nm": "قصات شعر متنوعة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "chho01",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصة البيكسي",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho02",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصة البوب",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho03",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصة البلانت بوب",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho05",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصة شعر الموهوك",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho06",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصة الشعر القصير المتساوي",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho07",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصة شعر قصير مع غرة طويلة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho08",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصات شعر متوسط الطول مع خصل متدرجة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho09",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصات شعر متوسط الطول مع غرة جانبية",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho10",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "chho11",
+            "root_code": "cut_head_hair",
+            "parent_code": "chh_other",
+            "ar_nm": "قصة الشعر الكيرلي",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "henna",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "حناء",
+            "en_nm": "",
+            "is_root": true,
+            "is_category": true
+        }, 
+        {
+            "code": "henna_adult",
+            "root_code": "henna",
+            "parent_code": "henna",
+            "ar_nm": "حناء اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        }, 
+        {
+            "code": "ha01",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "حناء العروس",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }, 
+        {
+            "code": "ha02",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "حناء الخطوبة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }, 
+        {
+            "code": "ha03",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "اليدين الى الكوع",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }, 
+        {
+            "code": "ha04",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "اليدين + الارجل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }, 
+        {
+            "code": "ha05",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "نص اليد",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }, 
+        {
+            "code": "ha06",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "الكف",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }, 
+        {
+            "code": "ha07",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "بطن الرجل (نقش",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }, 
+        {
+            "code": "ha08",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "بطن الرجل (مسحة)",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        }
+    ]
+}

@@ -222,6 +222,17 @@ class _ChatPageState extends State<ChatPage> {
           widget.room.id,
           BeautyProviderController.getBeautyProviderProfile().uid!);
       _updateReplaceRoomLastMessage(widget.room, messageMap!);
+
+      final notiCntr = PushNotificationController();
+      String token = '';
+      try {
+        widget.room.users[0].id ==
+                BeautyProviderController.getBeautyProviderProfile().uid
+            ? widget.room.users[1].metadata!['token']
+            : widget.room.users[0].metadata?['token'];
+      } catch (e) {}
+
+      if (token != "") notiCntr.send(message: message.text, token: token);
       // final pushCntr = PushNotificationController();
       // pushCntr.send(
       //     message: message.text,
