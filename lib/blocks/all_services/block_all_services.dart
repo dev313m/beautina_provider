@@ -143,14 +143,14 @@ class _BlockAllServicesState extends State<BlockAllServices> {
                                                       ),
                                                       child: Row(
                                                         children: [
-                                                          Image.asset(
-                                                            _blockAllServicesRepo
-                                                                    .servicesIcons +
-                                                                rootNodes[index]
-                                                                    .code +
-                                                                '.png',
-                                                            height: 180.h,
-                                                          ),
+                                                          // Image.asset(
+                                                          //   _blockAllServicesRepo
+                                                          //           .servicesIcons +
+                                                          //       rootNodes[index]
+                                                          //           .code +
+                                                          //       '.png',
+                                                          //   height: 180.h,
+                                                          // ),
                                                           Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
@@ -158,7 +158,7 @@ class _BlockAllServicesState extends State<BlockAllServices> {
                                                             children: [
                                                               const GWdgtTextTitle(
                                                                   string:
-                                                                      'نوع الخدمة'),
+                                                                      'الفئة'),
                                                               const Y(),
                                                               const Y(),
                                                               GWdgtTextTitleDesc(

@@ -205,7 +205,12 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
                       suffixIcon: Icon(
                         Icons.attach_money,
                       ),
-                      helperText: strServicePrice,
+                      helperText: widget.modelMyService == null
+                          ? strServicePrice
+                          : strServicePrice +
+                              ' السابق:  ' +
+                              widget.modelMyService!.cost.toString(),
+
                       inputType: TextInputType.number,
                     ),
                   ),
@@ -216,7 +221,9 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
                     child: BeautyTextfield(
                       // prefixText: durationTextFieldController.text,
                       placeholder: durationTextFieldController.text,
-                      helperText: 'المدة المتوقعة:  ',
+                      helperText: widget.modelMyService == null
+                          ? 'المدة المتوقعة:  '
+                          : 'المدة المتوقعة الحالية :  ' + showDuration(),
                       readOnly: true,
                       isBox: true,
                       prefixIcon: Icon(CommunityMaterialIcons.watch),
@@ -392,6 +399,14 @@ class _BlockWdgtAddServiceState extends State<BlockWdgtAddService> {
         ),
       ),
     );
+  }
+
+  String showDuration() {
+    final duration = (widget.modelMyService!.duration! ~/ 60).toString() +
+        ' ساعات   ' +
+        (widget.modelMyService!.duration! % 60).toInt().toString() +
+        '  دق ';
+    return duration;
   }
 
   ///Clear all textFields

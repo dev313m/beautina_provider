@@ -15,7 +15,6 @@ import 'package:flutter/services.dart';
 
 class RefreshController {
   static Future onStart() async {
-    WidgetsFlutterBinding.ensureInitialized();
     await Hive.initFlutter();
     await Firebase.initializeApp();
     HiveAdapters.init();

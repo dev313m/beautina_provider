@@ -11,6 +11,6 @@ Future<String?> apiTokenGet() async {
     token = await _fcmFore.getToken();
     return token;
   } catch (e) {
-    throw HttpException('Notification Exception: ${e.toString()}');
+    throw e;
   }
 }

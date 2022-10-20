@@ -36,7 +36,7 @@ Future<ModelBeautyProvider> apiUserProviderAddNew(
 
     return ModelBeautyProvider.fromMap(parsed);
   } catch (e) {
-    throw HttpException(e.toString());
+    throw e;
   }
 }
 

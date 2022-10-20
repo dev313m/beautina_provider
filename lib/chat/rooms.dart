@@ -1,7 +1,6 @@
 import 'package:beautina_provider/blocks/constants/app_colors.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
-import 'package:beautina_provider/models/user.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
@@ -11,14 +10,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import '../screens/dates/ui/order_detail/order_waiting_customer.dart';
 import '../screens/salon/ui/profile_details.dart';
 import 'chat.dart';
-import 'login.dart';
-import 'users.dart';
 import 'util.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

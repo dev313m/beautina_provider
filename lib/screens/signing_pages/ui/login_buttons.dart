@@ -1,3 +1,4 @@
+import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/constants.dart';
@@ -15,7 +16,9 @@ class WdgtLoginButtonIos extends StatelessWidget {
   final Function? onError;
   final BuildContext? contextT;
 
-  const WdgtLoginButtonIos({Key? key, this.onPress, this.onError, this.contextT}) : super(key: key);
+  const WdgtLoginButtonIos(
+      {Key? key, this.onPress, this.onError, this.contextT})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,28 +33,30 @@ class WdgtLoginButtonIos extends StatelessWidget {
               } catch (e) {
                 showToast(e.toString());
                 onError!();
+                ErrorController.logError(
+                    eventName: ErrorController.unableToLoginError,
+                    exception: e);
               }
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(radius),
               child: Container(
                 color: Colors.white,
-                          height: heightTextField,
-
+                height: heightTextField,
                 child: Row(
                   children: <Widget>[
                     Expanded(child: SizedBox()),
                     GWdgtTextButton(
-                      string:'Apple تسجيل الدخول باستخدام',
+                      string: 'Apple تسجيل الدخول باستخدام',
                       color: Colors.black,
-                      
                     ),
                     Padding(
-                  padding: EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
+                      padding:
+                          EdgeInsets.only(left: 2.w, top: 10.h, bottom: 15.h),
                       child: Icon(
                         CommunityMaterialIcons.apple,
                         color: Colors.black,
-                    size: 67.sp,
+                        size: 67.sp,
                       ),
                     ),
                     Expanded(child: SizedBox()),
@@ -74,7 +79,9 @@ class WdgtLoginButtonGoogle extends StatelessWidget {
   final Function? onPress;
   final Function? onError;
   final BuildContext? contextT;
-  const WdgtLoginButtonGoogle({Key? key, this.onPress, this.onError, this.contextT}) : super(key: key);
+  const WdgtLoginButtonGoogle(
+      {Key? key, this.onPress, this.onError, this.contextT})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +94,8 @@ class WdgtLoginButtonGoogle extends StatelessWidget {
         } catch (e) {
           showToast(e.toString());
           onError!();
+          ErrorController.logError(
+              eventName: ErrorController.unableToLoginError, exception: e);
           // var a = 34;
         }
         // var a = 4;

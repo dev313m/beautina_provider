@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/screens/signing_pages/constants.dart';
 import 'package:beautina_provider/screens/signing_pages/ui/flare_animation.dart';
 import 'package:beautina_provider/screens/signing_pages/ui/location.dart';

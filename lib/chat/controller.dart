@@ -43,7 +43,7 @@ class ChatController {
             // updatedAt: DateTime.now().microsecondsSinceEpoch,
             role: types.Role.admin));
     } catch (e) {
-      throw Exception('There is a problem with the chat');
+      throw e;
     }
   }
 }

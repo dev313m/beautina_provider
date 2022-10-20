@@ -706,15 +706,6 @@
             "is_category": false
         },
         {
-            "code": "chho10",
-            "root_code": "cut_head_hair",
-            "parent_code": "chh_other",
-            "ar_nm": "",
-            "en_nm": "",
-            "is_root": false,
-            "is_category": false
-        },
-        {
             "code": "chho11",
             "root_code": "cut_head_hair",
             "parent_code": "chh_other",
@@ -731,84 +722,687 @@
             "en_nm": "",
             "is_root": true,
             "is_category": true
-        }, 
+        },
         {
             "code": "henna_adult",
             "root_code": "henna",
             "parent_code": "henna",
-            "ar_nm": "حناء اسود",
+            "ar_nm": "حناء كبار",
             "en_nm": "",
             "is_root": false,
             "is_category": true
-        }, 
-        {
-            "code": "ha01",
-            "root_code": "henna",
-            "parent_code": "henna_adult",
-            "ar_nm": "حناء العروس",
-            "en_nm": "",
-            "is_root": false,
-            "is_category": false
-        }, 
-        {
-            "code": "ha02",
-            "root_code": "henna",
-            "parent_code": "henna_adult",
-            "ar_nm": "حناء الخطوبة",
-            "en_nm": "",
-            "is_root": false,
-            "is_category": false
-        }, 
+        },
         {
             "code": "ha03",
             "root_code": "henna",
             "parent_code": "henna_adult",
-            "ar_nm": "اليدين الى الكوع",
+            "ar_nm": "اليدين الى الكوع اسود",
             "en_nm": "",
             "is_root": false,
             "is_category": false
-        }, 
+        },
         {
             "code": "ha04",
             "root_code": "henna",
             "parent_code": "henna_adult",
-            "ar_nm": "اليدين + الارجل",
+            "ar_nm": "اليدين + الارجل اسود",
             "en_nm": "",
             "is_root": false,
             "is_category": false
-        }, 
+        },
         {
             "code": "ha05",
             "root_code": "henna",
             "parent_code": "henna_adult",
-            "ar_nm": "نص اليد",
+            "ar_nm": "نص اليد اسود",
             "en_nm": "",
             "is_root": false,
             "is_category": false
-        }, 
+        },
         {
             "code": "ha06",
             "root_code": "henna",
             "parent_code": "henna_adult",
-            "ar_nm": "الكف",
+            "ar_nm": "الكف اسود",
             "en_nm": "",
             "is_root": false,
             "is_category": false
-        }, 
+        },
         {
             "code": "ha07",
             "root_code": "henna",
             "parent_code": "henna_adult",
-            "ar_nm": "بطن الرجل (نقش",
+            "ar_nm": "بطن الرجل (نقش) اسود",
             "en_nm": "",
             "is_root": false,
             "is_category": false
-        }, 
+        },
         {
             "code": "ha08",
             "root_code": "henna",
             "parent_code": "henna_adult",
-            "ar_nm": "بطن الرجل (مسحة)",
+            "ar_nm": "بطن الرجل (مسحة) اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "ha09",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "اليدين الى الكوع احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "ha10",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "اليدين + الارجل احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "ha11",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "نص اليد احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "ha12",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "الكف احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "ha13",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "بطن الرجل (نقش) احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "ha14",
+            "root_code": "henna",
+            "parent_code": "henna_adult",
+            "ar_nm": "بطن الرجل (مسحة) احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "henna_party",
+            "root_code": "henna",
+            "parent_code": "henna",
+            "ar_nm": "حناء مناسبات",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hp01",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء عروس احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hp02",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء صباحه احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hp03",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء شبكة احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hp04",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء للمواليد احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hp05",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء عروس اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hp06",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء صباحه اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hp07",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء شبكة اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hp08",
+            "root_code": "henna",
+            "parent_code": "henna_party",
+            "ar_nm": "حناء للمواليد اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "henna_child",
+            "root_code": "henna",
+            "parent_code": "henna",
+            "ar_nm": "حناء صغار",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "hch03",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "اليدين الى الكوع اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch04",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "اليدين + الارجل اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch05",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "نص اليد اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch06",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "الكف اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch07",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "بطن الرجل (نقش) اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch08",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "بطن الرجل (مسحة) اسود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "ha09",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "اليدين الى الكوع احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch10",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "اليدين + الارجل احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch11",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "نص اليد احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch12",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "الكف احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch13",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "بطن الرجل (نقش) احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "hch14",
+            "root_code": "henna",
+            "parent_code": "henna_child",
+            "ar_nm": "بطن الرجل (مسحة) احمر",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tasreeha",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "تسريحة",
+            "en_nm": "",
+            "is_root": true,
+            "is_category": true
+        },
+        {
+            "code": "tmix",
+            "root_code": "tasreeha",
+            "parent_code": "tasreeha",
+            "ar_nm": "تسريحات متعددة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "tm01",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة بقصة على الجانب",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm02",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الضفيرة المتشابكة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm03",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة التاج",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm04",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة ذيل الحصان",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm05",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الشعر الملتوي والمزين بالورود",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm06",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الكعكة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm07",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة نصف الرفعة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm08",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الويفي",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm09",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الشعر المبتل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm10",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الغره مع الاكسسوارات",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm11",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الوردة",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm12",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الكعكة المعكوسة ",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm13",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الشنيون",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm14",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة البالرينا",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm15",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة الضفيرة الهولندية ",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm16",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة شعر رومانية ",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm17",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة تاج الماس",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "tm18",
+            "root_code": "tasreeha",
+            "parent_code": "tmix",
+            "ar_nm": "تسريحة اكسسوارات ماس",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "feethand",
+            "root_code": "",
+            "parent_code": "",
+            "ar_nm": "الاضافر وعناية اليدين والقدمين",
+            "en_nm": "",
+            "is_root": true,
+            "is_category": true
+        },
+        {
+            "code": "mkr",
+            "root_code": "feethand",
+            "parent_code": "feethand",
+            "ar_nm": "مناكير",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "mkr01",
+            "root_code": "feethand",
+            "parent_code": "mkr",
+            "ar_nm": "مناكير كلاسيكي اليدين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mkr02",
+            "root_code": "feethand",
+            "parent_code": "mkr",
+            "ar_nm": "مناكير كلاسيكي القدمين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mkr03",
+            "root_code": "feethand",
+            "parent_code": "mkr",
+            "ar_nm": "مناكير كلاسيكي مع فرنش اليدين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mkr04",
+            "root_code": "feethand",
+            "parent_code": "mkr",
+            "ar_nm": "مناكير كلاسيكي مع فرنش القدمين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mkr05",
+            "root_code": "feethand",
+            "parent_code": "mkr",
+            "ar_nm": "جل مناكير",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mkr06",
+            "root_code": "feethand",
+            "parent_code": "mkr",
+            "ar_nm": "ازالة جل مناكير",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "bdc",
+            "root_code": "feethand",
+            "parent_code": "feethand",
+            "ar_nm": "بدكير",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "bdc01",
+            "root_code": "feethand",
+            "parent_code": "bdc",
+            "ar_nm": "بدكير كلاسيكي اليدين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "bdc02",
+            "root_code": "feethand",
+            "parent_code": "bdc",
+            "ar_nm": "بدكير كلاسيكي القدمين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "bdc03",
+            "root_code": "feethand",
+            "parent_code": "bdc",
+            "ar_nm": "بدكير كلاسيكي مع فرنش اليدين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "bdc04",
+            "root_code": "feethand",
+            "parent_code": "bdc",
+            "ar_nm": "بدكير كلاسيكي مع فرنش القدمين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "feethand",
+            "ar_nm": "معالجة وعناية",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": true
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "mcr",
+            "ar_nm": "توصيلات الأظافر باستخدام الجل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "mcr",
+            "ar_nm": "تعبئة توصيلة الأظافر باستخدام الجل",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "mcr",
+            "ar_nm": "ازالة توصيلة الاضافر ",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "mcr",
+            "ar_nm": "تجميل بولشد السريع لليدين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "mcr",
+            "ar_nm": "تجميل بولشد السريع للقدمين",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "mcr",
+            "ar_nm": "تجميل بولشد السريع لليدين مع فرنش",
+            "en_nm": "",
+            "is_root": false,
+            "is_category": false
+        },
+        {
+            "code": "mcr",
+            "root_code": "feethand",
+            "parent_code": "mcr",
+            "ar_nm": "تجميل بولند السريع للقدمين مع فرنش",
             "en_nm": "",
             "is_root": false,
             "is_category": false

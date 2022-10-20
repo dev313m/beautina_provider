@@ -16,7 +16,7 @@ class GlobalVarLocalBeautyProvider {
 
       return s;
     } catch (e) {
-      // var g;
+      throw e;
     }
   }
 

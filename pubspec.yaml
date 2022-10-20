@@ -21,7 +21,9 @@ dependencies:
     sdk: flutter
   # provider: 3.2.0
   flare_flutter: ^3.0.2
-  firebase_auth: ^3.11.2
+  firebase_storage: ^11.0.1
+  firebase_crashlytics: ^3.0.1
+
   flutter_screenutil: ^5.3.1
   google_sign_in: ^5.2.4
   fluttertoast: ^8.0.9
@@ -41,9 +43,9 @@ dependencies:
   # flutter_cupertino_date_picker: ^1.0.8
   flutter_picker: ^2.0.3
   rflutter_alert: ^2.0.4
-  firebase_messaging: ^11.2.11	
+  firebase_messaging: ^14.0.1
   url_launcher: ^6.0.20
-  firebase_remote_config: ^2.0.2
+  firebase_remote_config: ^3.0.1
   page_transition: ^2.0.5
   # rating_bar: ^0.2.0
   spring_button: ^2.0.0
@@ -51,7 +53,7 @@ dependencies:
   # geolocator: ^5.1.1+1
   rating_bar_flutter: ^1.0.2
 
-  cloud_firestore: ^3.1.10
+  cloud_firestore: ^4.0.1
   table_calendar: ^3.0.5
   # image_picker: ^0.8.4+11
   # image_picker_modern: ^0.4.12+3
@@ -74,8 +76,9 @@ dependencies:
   # steps: ^1.0.1
   fluttericon: ^2.0.0
   # firebase_dynamic_links: ^4.1.1
-  firebase_storage: ^10.2.9   
-  firebase_image: ^1.1.1
+  firebase_image: 
+    git:
+      url: https://github.com/dev313m/firebase_image
   share: ^2.0.4	
   clipboard: ^0.1.3
   regexpattern: ^2.0.1
@@ -85,7 +88,7 @@ dependencies:
   scrollable_list_tabview: ^0.2.0-nullsafety
   shimmer: ^2.0.0
   # the_apple_sign_in: ^1.1.1
-  firebase_core: ^1.13.1
+  firebase_core: ^2.0.0
   get_it: ^7.2.0
   hive: ^2.1.0
   hive_flutter: ^1.1.0
