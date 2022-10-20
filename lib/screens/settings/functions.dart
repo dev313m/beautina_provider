@@ -1,6 +1,7 @@
 import 'package:beautina_provider/blocks/settings_personal_info/block_settings_personal_info_repo.dart';
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/core/db/location.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -26,8 +27,6 @@ Future<List<double>> getMyLocation() async {
 
 Future funUpdateUsername(String newUsername,
     RoundedLoadingButtonController roundedLoadingButtonController) async {
-  ModelBeautyProvider newBeautyProvider = await getNewBeauty();
-
   if (!gFunValidateUsername(newUsername)) {
     showToast(
         'اسم المستخدم غير صالح، يجب ان يكون بالانجليزي وغير محتوي مسافات او بعض الرموز');
@@ -46,6 +45,8 @@ Future funUpdateUsername(String newUsername,
     roundedLoadingButtonController.success();
   } catch (e) {
     showToast(e.toString());
+    ErrorController.logError(
+        exception: e, eventName: BeautyProviderController.ErrUsername);
     roundedLoadingButtonController.error();
   }
   await Future.delayed(Duration(seconds: 3));
@@ -86,6 +87,9 @@ Future updateBtn(BuildContext context,
   } catch (e) {
     showToast('حدثت مشكلة، لم يتم التحديث');
     roundedLoadingButtonController.error();
+    await Future.delayed(Duration(seconds: 3));
+    roundedLoadingButtonController.reset();
+    throw e;
   }
   await Future.delayed(Duration(seconds: 3));
   roundedLoadingButtonController.reset();
@@ -107,6 +111,8 @@ Future updateCountryCity(
     showToast('تم التحديث');
     roundedLoadingButtonController.success();
   } catch (e) {
+    ErrorController.logError(
+        exception: e, eventName: BeautyProviderController.Errlocation);
     showToast('حدثت مشكلة، لم يتم التحديث');
     roundedLoadingButtonController.error();
   }

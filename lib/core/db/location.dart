@@ -17,7 +17,7 @@ class DBChangeLocation {
         throw HttpException('An error occured.');
       }
     } catch (e) {
-      throw HttpException(e.toString());
+      throw e;
       // return {};
     }
   }

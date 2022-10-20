@@ -1,5 +1,7 @@
 import 'package:beautina_provider/blocks/constants/app_colors.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/controller/erros_controller.dart';
+import 'package:beautina_provider/core/controller/refresh_controller.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/signing_pages/index.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
@@ -34,11 +36,16 @@ class BlockLogout extends StatelessWidget {
         buttonController.start();
         try {
           await BeautyProviderController().logout();
+          await RefreshController.onStart();
+          await RefreshController.onStartNotRegistered();
+
           Navigator.pushReplacement(
               context,
               PageTransition(
                   type: PageTransitionType.fade, child: LoginPage()));
         } catch (e) {
+          ErrorController.logError(
+              exception: e, eventName: BeautyProviderController.ErrLogout);
           showToast('Can\'t logout now..');
         }
       },

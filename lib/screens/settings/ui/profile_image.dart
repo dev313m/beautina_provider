@@ -1,14 +1,10 @@
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
-import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/profile_details.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
-import 'package:beautina_provider/screens/settings/vm/vm_data.dart';
 import 'package:beautina_provider/utils/animated/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:beautina_provider/utils/ui/space.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 

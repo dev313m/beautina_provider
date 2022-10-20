@@ -32,7 +32,7 @@ Future<bool> imageUpload(XFile file, String? name,
 
     throw Exception('not completed');
   } catch (e) {
-    return false;
+    throw e;
   }
   // http.Response response = await http.post(url, body: {
   //   "image": base64Image,

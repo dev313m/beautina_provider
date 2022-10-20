@@ -12,11 +12,12 @@ class DBAllServices {
       response = await http
           .get(Uri.parse(URL_DATABASE_LIVE + ApiUrls.GET_SALON_ALL_SERVICES));
       if (response.statusCode != 200) {
-        throw HttpException('An error occured.');
+        throw HttpException(
+            'An http error occured.' + response.body.toString());
       }
       return await response.body;
     } catch (e) {
-      throw HttpException(e.toString());
+      throw e;
       // return {};
     }
   }

@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/material.dart';
 
 class ErrorController {
   static final unableToLoginError = 'unable_to_login';
@@ -19,7 +16,6 @@ class ErrorController {
       exception,
       null,
       fatal: false,
-      reason: exception,
     );
   }
 }

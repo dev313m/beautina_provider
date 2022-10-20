@@ -5,11 +5,16 @@ import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/services/api/api_user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 class BeautyProviderController {
+  static final ErrUsername = 'username_update_err';
+  static final ErrImageUpdate = 'image_update_err';
+  static final ErrNotAvailable = 'not_available_update_err';
+  static final ErrBookngDefaults = 'default_booking_update_err';
+  static final Errlocation = 'location_update_err';
+  static final ErrLogout = 'logout_err';
+  static final ErrProfileInfo = 'profile_info_update_err';
   storeToken(String token) async {
     await GlobalVarLocalBeautyProvider().storeTokenToLocalDB(token);
   }
@@ -21,6 +26,7 @@ class BeautyProviderController {
   Future logout() async {
     await FirebaseAuth.instance.signOut();
     getIt.reset();
+    await getIt.unregister<ModelBeautyProvider>();
     await GlobalVarLocalBeautyProvider().clearDB();
     await sharedPreferencesLogout();
   }

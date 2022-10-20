@@ -93,7 +93,7 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdateUsername(
 
     return user;
   } catch (e) {
-    throw HttpException(ERROR);
+    throw e;
   }
 }
 
@@ -136,9 +136,6 @@ Future<ModelBeautyProvider> apiBeautyProviderUpdate(
 
     return beautyProvider;
   } catch (e) {
-    print(
-        'http error \n url: ${URL_DATABASE_LIVE + ApiUrls.URL_UPDATE_USER} \n error: ${e.toString()}');
-
-    throw HttpException(e.toString());
+    throw e;
   }
 }

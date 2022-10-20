@@ -1,4 +1,5 @@
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -85,7 +86,7 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
                           BeautyProviderController.getBeautyProviderProfile();
 
                       //Clear old dates
-                      List<Map<String, DateTime>>? newBusyDates ;
+                      List<Map<String, DateTime>>? newBusyDates;
                       //update busy dates
                       newBusyDates =
                           changeAvaDates(widget.changableAvailableDate!, mbp);
@@ -93,13 +94,18 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
                       // await apiBeautyProviderUpdate(
                       //     mbp..busyDates = newBusyDates);
 
-                      Get.find<GlobalValBeautyProviderListenable>().beautyProvider = mbp;
-                      Get.find<GlobalValBeautyProviderListenable>().beautyProvider =
+                      Get.find<GlobalValBeautyProviderListenable>()
+                          .beautyProvider = mbp;
+                      Get.find<GlobalValBeautyProviderListenable>()
+                              .beautyProvider =
                           BeautyProviderController.getBeautyProviderProfile();
 
                       isAvailabilityChecked = false;
                       checkAvalability(widget.changableAvailableDate);
                     } catch (e) {
+                      ErrorController.logError(
+                          exception: e,
+                          eventName: BeautyProviderController.ErrNotAvailable);
                       showToast('حدث خطأ اثناء التحديث');
                     }
                     isLoading = false;

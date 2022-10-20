@@ -2,6 +2,7 @@ import 'package:beautina_provider/blocks/settings_personal_info/block_settings_p
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/countries.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/reusables/text.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
@@ -197,6 +198,9 @@ class _WdgtSetttingsPersonalInfoState extends State<WdgtSetttingsPersonalInfo> {
                       name: _settingsPersonalInfoUsecase!.name,
                       phone: _settingsPersonalInfoUsecase!.phone);
                 } catch (e) {
+                  ErrorController.logError(
+                      exception: e,
+                      eventName: BeautyProviderController.ErrProfileInfo);
                   buttonController.error();
                   showToast(e.toString());
                 }

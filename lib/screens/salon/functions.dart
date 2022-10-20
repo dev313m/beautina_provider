@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
+import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
@@ -178,6 +179,8 @@ updateUserDefaults(
     onDefaultsChangeSuccess();
     // var don;
   } catch (e) {
+    ErrorController.logError(
+        exception: e, eventName: BeautyProviderController.ErrBookngDefaults);
     onADefaultsChangeError();
   }
 
@@ -253,10 +256,13 @@ updateProfileImage(
             BeautyProviderController.getBeautyProviderProfile();
       } catch (e) {
         onProfileImageChangeError();
+        throw e;
       }
       onProfileImageChangeComplete();
     }
   } catch (e) {
-    var s;
+    // var s;
+    ErrorController.logError(
+        eventName: BeautyProviderController.ErrImageUpdate, exception: e);
   }
 }

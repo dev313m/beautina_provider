@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:isolate';
 
 import 'package:beautina_provider/core/controller/all_salon_services_controller.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/controller/common_controller.dart';
+import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/core/controller/functions.dart';
 import 'package:beautina_provider/core/db/my_services.dart';
 import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
@@ -16,6 +16,7 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 class MyServicesController {
+  static final ErrMyServicesNoLoading = 'my_services_err';
   static Future disableService(ModelMyService service) async {
     DBMyService _myServices = DBMyService();
     await _myServices.disableService(service.id!);
@@ -46,16 +47,20 @@ class MyServicesController {
   }
 
   Future startOrRefresh() async {
-    List<ModelMyService> fullList = await getMyServicesList();
-    List<ModelMyService> myServicesList =
-        fullList.where((e) => e.isActive).toList();
-    networkStatefulVarStarter(
-        networkStatefulVarClass: Get.find<GlobalValMyServices>(),
-        onStart: () async {
-          Get.find<GlobalValMyServices>().myService.value = myServicesList;
-        });
+    try {
+      List<ModelMyService> fullList = await getMyServicesList();
+      List<ModelMyService> myServicesList =
+          fullList.where((e) => e.isActive).toList();
+      networkStatefulVarStarter(
+          networkStatefulVarClass: Get.find<GlobalValMyServices>(),
+          onStart: () async {
+            Get.find<GlobalValMyServices>().myService.value = myServicesList;
+          });
 
-    setMyServicesAsNodes(myServicesList);
+      setMyServicesAsNodes(myServicesList);
+    } catch (e) {
+      ErrorController.logError(exception: e, eventName: ErrMyServicesNoLoading);
+    }
   }
 
   Future setMyServicesAsNodes(List<ModelMyService> myServicesList) async {
@@ -99,8 +104,6 @@ class MyServicesController {
         }
       });
     } catch (e) {
-      print('Print: this is my services level 2 error');
-
       return [];
     }
 
@@ -117,7 +120,7 @@ class MyServicesController {
 
       return _myServicesList.cast<ModelMyService>();
     } catch (e) {
-      throw Exception(e);
+      throw e;
     }
   }
 
