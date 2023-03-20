@@ -370,23 +370,23 @@ class WdgtOrderItemBrief extends StatelessWidget {
                           children: <Widget>[
                             Builder(builder: (_) {
                               List<String?> list = [];
-                              Map<String, dynamic>? mapper =
-                                  Get.find<VMSalonDataTest>().providedServices;
+                              // Map<String, dynamic>? mapper =
+                              //     Get.find<VMSalonDataTest>().providedServices;
 
-                              order!.services!.forEach((k, v) {
-                                v.forEach((kk, vv) {
-                                  if (k == 'other')
-                                    list.add(kk.toString());
-                                  else {
-                                    try {
-                                      list.add(mapper!['services'][k]['items']
-                                          [kk]['ar']);
-                                    } catch (e) {
-                                      list.add(k.toString());
-                                    }
-                                  }
-                                });
-                              });
+                              // order!.services!.forEach((k, v) {
+                              //   v.forEach((kk, vv) {
+                              //     if (k == 'other')
+                              //       list.add(kk.toString());
+                              //     else {
+                              //       try {
+                              //         list.add(mapper!['services'][k]['items']
+                              //             [kk]['ar']);
+                              //       } catch (e) {
+                              //         list.add(k.toString());
+                              //       }
+                              //     }
+                              //   });
+                              // });
                               return Wrap(
                                 textDirection: TextDirection.rtl,
                                 // verticalDirection: VerticalDirection.down,
@@ -422,10 +422,9 @@ class WdgtOrderItemBrief extends StatelessWidget {
       ),
     );
   }
+
   String getText() {
-    if (order!
-            .client_order_date!
-            .isBefore(DateTime.now().toLocal()) &&
+    if (order!.client_order_date!.isBefore(DateTime.now().toLocal()) &&
         (order!.status == 3 || order!.status == 8))
       return 'مرحبا، نرجو تأكيد اتمام العملية  (${order!.client_name})  ${getDate(order!.client_order_date!)}';
     else

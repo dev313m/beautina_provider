@@ -1,3 +1,4 @@
+import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/screens/dates/constants.dart';
 import 'package:beautina_provider/screens/dates/ui/on_off_availability.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
@@ -55,137 +56,137 @@ class WdgtDateTutorialCalendar extends StatelessWidget {
           bottomLeft: Radius.circular(radius),
           bottomRight: Radius.circular(radius)),
       child: Container(
-        color: colorContainer,
+        color: AppColors.blueOpcity.withOpacity(0.9),
         height: sizeContainer,
         // width: ScreenUtil().setWidth(200),
         child: Stack(
           children: <Widget>[
-            Positioned(
-                left: 500.w,
-                // alignment: Alignment(100.w, 100.w),
-                child: Padding(
-                  padding: EdgeInsets.all(edgeContainer),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      GWdgtTextSmall(
-                        string: strInstruction,
-                        // fontSize: ExtendedText.bigFont,
-                      ),
-                      // GWdgtTextSmall(string: strInstDesc,color: Colors.white54,),
-                      SizedBox(
-                        height: heightInstruction,
-                      ),
-                      Container(
-                        // color: Colors.white60,
-                        
-                        height: sizeHInstructionDay + 50.h,
-                        width: sizeWInstructionDay + 50.h,
-                        child: Stack(
-                          children: <Widget>[
-                            Align(
-                                child: Container(
-                              decoration: BoxDecoration(
-                                  color: colorEvent,
-                                  borderRadius:
-                                      BorderRadius.circular(radiusDay)),
-                              height: sizeDay + 50.h,
-                              width: sizeDay + 50.h,
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.all(edge24Padding),
-                                  child: GWdgtTextBadge(
-                                    string: '24',
-                                  ),
-                                ),
-                              ),
-                            )),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Container(
-                                width: sizeInsideDayInstrH,
-                                height: sizeInsideDayInstrW,
-                                child: Row(
-                                  children: <Widget>[
-                                    ClipOval(
-                                      child: Container(
-                                        color: colorTopNoti,
-                                        width: sizePaddingDayInst,
-                                        height: sizePaddingDayInst,
-                                        child: Center(
-                                            child: GWdgtTextBadge(
-                                          string: '4',
-                                        )),
-                                      ),
-                                    ),
-                                    GWdgtTextSmall(
-                                      string: strOrdersConfirmed,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Container(
-                                width: sizeInsideDayInstrH,
-                                height: sizeInsideDayInstrW,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Center(
-                                      child: GWdgtTextSmall(
-                                        string: strOrdersNew,
-                                      ),
-                                    ),
-                                    ClipOval(
-                                      child: Container(
-                                        color: colorBottomLeftNoti,
-                                        width: sizePaddingDayInst,
-                                        height: sizePaddingDayInst,
-                                        child: Center(
-                                          child: GWdgtTextBadge(
-                                            string: '5',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                width: sizeInsideDayInstrH,
-                                height: sizeInsideDayInstrW,
-                                child: Row(
-                                  children: <Widget>[
-                                    ClipOval(
-                                      child: Container(
-                                        color: colorBottomRightNoti,
-                                        width: sizePaddingDayInst,
-                                        height: sizePaddingDayInst,
-                                        child: Center(
-                                            child: GWdgtTextBadge(
-                                          string: '2',
-                                        )),
-                                      ),
-                                    ),
-                                    GWdgtTextSmall(
-                                      string: strOrdersWaiting,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
+            // Positioned(
+            //     left: 500.w,
+            //     // alignment: Alignment(100.w, 100.w),
+            //     child: Padding(
+            //       padding: EdgeInsets.all(edgeContainer),
+            //       child: Column(
+            //         crossAxisAlignment: CrossAxisAlignment.end,
+            //         children: <Widget>[
+            //           GWdgtTextSmall(
+            //             string: strInstruction,
+            //             // fontSize: ExtendedText.bigFont,
+            //           ),
+            //           // GWdgtTextSmall(string: strInstDesc,color: Colors.white54,),
+            //           SizedBox(
+            //             height: heightInstruction,
+            //           ),
+            //           Container(
+            //             // color: Colors.white60,
+
+            //             height: sizeHInstructionDay + 50.h,
+            //             width: sizeWInstructionDay + 50.h,
+            //             child: Stack(
+            //               children: <Widget>[
+            //                 Align(
+            //                     child: Container(
+            //                   decoration: BoxDecoration(
+            //                       color: colorEvent,
+            //                       borderRadius:
+            //                           BorderRadius.circular(radiusDay)),
+            //                   height: sizeDay + 50.h,
+            //                   width: sizeDay + 50.h,
+            //                   child: Align(
+            //                     alignment: Alignment.topLeft,
+            //                     child: Padding(
+            //                       padding: EdgeInsets.all(edge24Padding),
+            //                       child: GWdgtTextBadge(
+            //                         string: '24',
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 )),
+            //                 Align(
+            //                   alignment: Alignment.topRight,
+            //                   child: Container(
+            //                     width: sizeInsideDayInstrH,
+            //                     height: sizeInsideDayInstrW,
+            //                     child: Row(
+            //                       children: <Widget>[
+            //                         ClipOval(
+            //                           child: Container(
+            //                             color: colorTopNoti,
+            //                             width: sizePaddingDayInst,
+            //                             height: sizePaddingDayInst,
+            //                             child: Center(
+            //                                 child: GWdgtTextBadge(
+            //                               string: '4',
+            //                             )),
+            //                           ),
+            //                         ),
+            //                         GWdgtTextSmall(
+            //                           string: strOrdersConfirmed,
+            //                         )
+            //                       ],
+            //                     ),
+            //                   ),
+            //                 ),
+            //                 Align(
+            //                   alignment: Alignment.bottomLeft,
+            //                   child: Container(
+            //                     width: sizeInsideDayInstrH,
+            //                     height: sizeInsideDayInstrW,
+            //                     child: Row(
+            //                       mainAxisAlignment: MainAxisAlignment.end,
+            //                       children: <Widget>[
+            //                         Center(
+            //                           child: GWdgtTextSmall(
+            //                             string: strOrdersNew,
+            //                           ),
+            //                         ),
+            //                         ClipOval(
+            //                           child: Container(
+            //                             color: colorBottomLeftNoti,
+            //                             width: sizePaddingDayInst,
+            //                             height: sizePaddingDayInst,
+            //                             child: Center(
+            //                               child: GWdgtTextBadge(
+            //                                 string: '5',
+            //                               ),
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ],
+            //                     ),
+            //                   ),
+            //                 ),
+            //                 Align(
+            //                   alignment: Alignment.bottomRight,
+            //                   child: Container(
+            //                     width: sizeInsideDayInstrH,
+            //                     height: sizeInsideDayInstrW,
+            //                     child: Row(
+            //                       children: <Widget>[
+            //                         ClipOval(
+            //                           child: Container(
+            //                             color: colorBottomRightNoti,
+            //                             width: sizePaddingDayInst,
+            //                             height: sizePaddingDayInst,
+            //                             child: Center(
+            //                                 child: GWdgtTextBadge(
+            //                               string: '2',
+            //                             )),
+            //                           ),
+            //                         ),
+            //                         GWdgtTextSmall(
+            //                           string: strOrdersWaiting,
+            //                         )
+            //                       ],
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     )),
             Align(
               alignment: Alignment.topLeft,
               child: AnimatedSwitcher(

@@ -149,6 +149,7 @@ class WdgtTabOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var s = Get.find<VmDateDataTest>().listOfDay;
     return WdgtScrollableListTabView(
       tabHeight: 135.h,
       tabs: [
@@ -168,7 +169,7 @@ class WdgtTabOrders extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: Get.find<VmDateDataTest>()
                     .listOfDay
-                    .where((element) => element.status == 0)
+                    .where((element) => element.status!.index == 0)
                     .toList()
                     .length,
                 itemBuilder: (_, index) {
@@ -177,7 +178,7 @@ class WdgtTabOrders extends StatelessWidget {
                     hero: '1',
                     order: Get.find<VmDateDataTest>()
                         .listOfDay
-                        .where((element) => element.status == 0)
+                        .where((element) => element.status!.index == 0)
                         .toList()[index],
                   );
                 })),
@@ -195,13 +196,13 @@ class WdgtTabOrders extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: Get.find<VmDateDataTest>()
                     .listOfDay
-                    .where((element) => element.status == 1)
+                    .where((element) => element.status!.index == 1)
                     .toList()
                     .length,
                 itemBuilder: (_, index) {
                   var a = Get.find<VmDateDataTest>()
                       .listOfDay
-                      .where((element) => element.status == 1)
+                      .where((element) => element.status!.index == 1)
                       .toList();
                   return WdgtOrderItemBrief(
                     hero: '2',
@@ -224,13 +225,13 @@ class WdgtTabOrders extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: Get.find<VmDateDataTest>()
                     .listOfDay
-                    .where((element) => element.status == 3)
+                    .where((element) => element.status!.index == 3)
                     .toList()
                     .length,
                 itemBuilder: (_, index) {
                   var a = Get.find<VmDateDataTest>()
                       .listOfDay
-                      .where((element) => element.status == 3)
+                      .where((element) => element.status!.index == 3)
                       .toList();
                   return WdgtOrderItemBrief(
                     hero: '3',

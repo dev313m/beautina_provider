@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
             initialBinding: getBinding(),
             theme: ThemeData(
               platform: TargetPlatform.iOS,
+              useMaterial3: true,
               fontFamily: 'Tajawal',
             ),
             home: registered != null ? PageRoot() : LoginPage());

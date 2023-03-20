@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "2770134358-5jnri81capn99egi3iuemncitg4hgp4g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.anawow",
+            "certificate_hash": "ee99462e474f321c56c2f89c5d1004858de2befc"
+          }
+        },
+        {
           "client_id": "2770134358-d023bepga07gnhsham8kmkkav3q60njm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.anawow",
             "certificate_hash": "17d7a31d689d21a91d56a621d565a85a33951578"
+          }
+        },
+        {
+          "client_id": "2770134358-uanm0djreubai548m57cfnrolha66s2h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.anawow",
+            "certificate_hash": "3b1081a228c1203e49932c3aa25255113c18bf45"
           }
         },
         {
@@ -59,11 +75,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "2770134358-2ha5rjanfde6r410kgclphqpr6e8gout.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.anawow.business",
+            "certificate_hash": "181d22b3474ae854702a6f8bc14cad1fc0c64cdd"
+          }
+        },
+        {
           "client_id": "2770134358-4cm2ndoo5ofg2hlhhtl41hbhr94l7ieu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.anawow.business",
             "certificate_hash": "17d7a31d689d21a91d56a621d565a85a33951578"
+          }
+        },
+        {
+          "client_id": "2770134358-9srefo1mqaddq9rfgtimi9g61f2advbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.anawow.business",
+            "certificate_hash": "c0506f21d67eb408c8d3a07c5b6aa6c42dad4ed0"
           }
         },
         {

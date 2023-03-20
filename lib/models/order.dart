@@ -24,7 +24,7 @@ class Order {
   double? provider_response_time;
   String? provider_notes;
   String? _city;
-  DateTime? creation_data;
+  DateTime? creation_date;
   String? client_id;
   DateTime? _client_cancel_date;
   List<dynamic>? _client_location;
@@ -58,9 +58,9 @@ class Order {
   Order.fromMap(Map<String, dynamic> data) {
     client_id = data['client_id'];
     rebook_status = data['rebook_status'];
-    creation_data = data['creation_data'] == null
+    creation_date = data['creation_date'] == null
         ? null
-        : DateTime.parse(data['creation_data']);
+        : DateTime.parse(data['creation_date']);
     evaluation_date = data['evaluation_date'] == null
         ? null
         : DateTime.parse(data['evaluation_date']);
@@ -142,7 +142,7 @@ class Order {
         this._city = city,
         this.rebook_status = rebook_status,
         this.order_duration = order_duration,
-        this.creation_data = creation_date,
+        this.creation_date = creation_date,
         this._client_cancel_date = client_cancel_date,
         this._client_location = client_location,
         this._client_order_date = client_order_date,
@@ -169,8 +169,8 @@ class Order {
   Map<String, dynamic> getOrderMap() {
     Map<String, dynamic> map = {};
     map['_id'] = doc_id;
-    if (creation_data != null)
-      map['creation_data'] ??= creation_data.toString();
+    if (creation_date != null)
+      map['creation_date'] ??= creation_date.toString();
     map['city'] = _city;
     map['rebook_status'] = rebook_status ?? 1;
     map['provider_notes'] = provider_notes ?? '';

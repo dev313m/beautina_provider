@@ -7,12 +7,14 @@ import 'package:beautina_provider/screens/dates/ui/calendar/selected_day.dart';
 import 'package:beautina_provider/screens/dates/ui/calendar/today_builder.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/utils/animated/loading.dart';
+import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
+import 'package:intl/intl.dart' as dateUtil;
 
 ///[radius]
 final double radius = radiusDefault;
@@ -36,6 +38,7 @@ class WdgtDateCalendar extends StatefulWidget {
 class _CalenderState extends State<WdgtDateCalendar>
     with TickerProviderStateMixin {
   int? month;
+  DateTime _focusedDate = DateTime.now();
   AnimationController? _animationController;
 
   @override
@@ -62,32 +65,36 @@ class _CalenderState extends State<WdgtDateCalendar>
       return ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(radius)),
         child: Container(
-            color: colorContainer,
+            color: AppColors.blueOpcity.withOpacity(0.9),
             child: Stack(
               children: <Widget>[
                 Directionality(
                   textDirection: TextDirection.rtl,
                   child: TableCalendar(
-                    // eventLoader: (date) {
-                    //   return vmDateDataTest.orderList!
-                    //       .where((element) =>
-                    //           (element.creation_data!.month == date.month &&
-                    //               element.creation_data!.day == date.day) &&
-                    //           (element.status == 0 ||
-                    //               element.status == 1 ||
-                    //               element.status == 3))
-                    //       .toList();
-                    // },
+                    eventLoader: (date) {
+                      var days = vmDateDataTest.orderList!.where((element) {
+                        return (element.client_order_date!.month ==
+                                    date.month &&
+                                element.client_order_date!.day == date.day) &&
+                            (element.status!.index == 0 ||
+                                element.status!.index == 1 ||
+                                element.status!.index == 3);
+                      }).toList();
+
+                      return days;
+                    },
                     firstDay: DateTime.now(),
-                    focusedDay: DateTime.now(),
+                    focusedDay: _focusedDate.add(Duration(days: 1)),
                     lastDay: DateTime.now().add(Duration(days: 30)),
                     availableCalendarFormats: {
                       CalendarFormat.week: 'الاسبوع',
                       CalendarFormat.month: 'الشهر',
                       CalendarFormat.twoWeeks: "بعد اسبوعين"
                     },
-
+                    calendarFormat: CalendarFormat.twoWeeks,
                     startingDayOfWeek: StartingDayOfWeek.sunday,
+                    dayHitTestBehavior: HitTestBehavior.deferToChild,
+                    pageAnimationEnabled: true,
 
                     // // locale: 'ar_AR',
                     // events: getEvents(
@@ -101,14 +108,16 @@ class _CalenderState extends State<WdgtDateCalendar>
                       events,
                     ) async {
                       vmDateDataTest.listOfDay = [];
-                      await Future.delayed(const Duration(milliseconds: 500));
+                      _focusedDate = date;
+                      setState(() {});
+                      // await Future.delayed(const Duration(milliseconds: 500));
                       vmDateDataTest.listOfDay = vmDateDataTest.orderList!
                           .where((item) =>
-                              (item.creation_data!.month == date.month &&
-                                  item.creation_data!.day == date.day) &&
-                              (item.status == 0 ||
-                                  item.status == 1 ||
-                                  item.status == 3))
+                              (item.client_order_date!.month == date.month &&
+                                  item.client_order_date!.day == date.day) &&
+                              (item.status!.index == 0 ||
+                                  item.status!.index == 1 ||
+                                  item.status!.index == 3))
                           .toList();
                       // onCalendarDaySelected(date, events, context);
                     },
@@ -130,21 +139,33 @@ class _CalenderState extends State<WdgtDateCalendar>
                       }
                       // month = time.month;
                     },
+                    selectedDayPredicate: (day) {
+                      if (day.month == _focusedDate.month &&
+                          day.day == _focusedDate.day) return true;
+                      return false;
+                    },
+
                     headerStyle: HeaderStyle(
                         titleTextStyle: TextStyle(color: Colors.white),
                         rightChevronIcon: Icon(
                           Icons.arrow_forward_ios_rounded,
-                          color: Colors.white,
+                          color: Colors.amber.withOpacity(0.9),
                           size: 16,
                         ),
                         formatButtonVisible: false,
                         titleCentered: true),
                     calendarBuilders: CalendarBuilders(
+                      dowBuilder: (_, day) {
+                        return GWdgtTextTitleDesc(
+                          string: getArDay(day),
+                          color: Colors.amber.withOpacity(0.7),
+                        );
+                      },
                       selectedBuilder: (context, date, date2) {
                         var list = vmDateDataTest.orderList!
                             .where((item) =>
-                                (item.creation_data?.month == date.month &&
-                                    item.creation_data?.day == date.day) &&
+                                (item.creation_date?.month == date.month &&
+                                    item.creation_date?.day == date.day) &&
                                 (item.status == 0 ||
                                     item.status == 1 ||
                                     item.status == 3))
@@ -157,12 +178,15 @@ class _CalenderState extends State<WdgtDateCalendar>
                       },
                       markerBuilder: (context, date, List<Order> events) {
                         final children = <Widget>[];
-                        List<dynamic> newOrders =
-                            events.where((event) => event.status == 0).toList();
-                        List<dynamic> acceptedOrder =
-                            events.where((event) => event.status == 1).toList();
-                        List<dynamic> approvedOrder =
-                            events.where((event) => event.status == 3).toList();
+                        var newOrders = events
+                            .where((event) => event.status!.index == 0)
+                            .toList();
+                        var acceptedOrder = events
+                            .where((event) => event.status!.index == 1)
+                            .toList();
+                        var approvedOrder = events
+                            .where((event) => event.status!.index == 3)
+                            .toList();
 
                         if (newOrders.isNotEmpty) {
                           children.add(
@@ -206,22 +230,25 @@ class _CalenderState extends State<WdgtDateCalendar>
                           children: children,
                         );
                       },
-                      // defaultBuilder: (_, date, date2) {
-                      //   var list = vmDateDataTest.orderList!
-                      //       .where((item) =>
-                      //           (item.creation_data!.month == date.month &&
-                      //               item.creation_data!.day == date.day) &&
-                      //           (item.status == 0 ||
-                      //               item.status == 1 ||
-                      //               item.status == 3))
-                      //       .toList();
-                      //   // if(newOrders ==null || acceptedOrder ==null || approvedOrder == null)
-                      //   if (list == null) list = [];
-                      //   return WdgtDateCalendarDayBuilder(
-                      //     date: date,
-                      //     list: list,
-                      //   );
-                      // },
+                      disabledBuilder: ((context, day, focusedDay) {
+                        return SizedBox();
+                      }),
+                      defaultBuilder: (_, date, date2) {
+                        var list = vmDateDataTest.orderList!
+                            .where((item) =>
+                                (item.creation_date!.month == date.month &&
+                                    item.creation_date!.day == date.day) &&
+                                (item.status == 0 ||
+                                    item.status == 1 ||
+                                    item.status == 3))
+                            .toList();
+                        // if(newOrders ==null || acceptedOrder ==null || approvedOrder == null)
+                        if (list == null) list = [];
+                        return WdgtDateCalendarDayBuilder(
+                          date: date,
+                          list: list,
+                        );
+                      },
                       todayBuilder: (context, date, _) {
                         return WdgtDateCalendarTodayBuilder(
                           date: date,
@@ -243,30 +270,57 @@ class _CalenderState extends State<WdgtDateCalendar>
                     alignment: Alignment.bottomRight,
                     // height: 50,
                     // left: MediaQuery.of(context).size.width / 2 - ScreenUtil().setWidth(ConstDateSizes.reloadLeft),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(radius),
-                          bottomRight: Radius.circular(radius)),
-                      // color: Colors.pink,
-                      child: Material(
-                        color: colorReloadBtn,
-                        child: IconButton(
-                            color: Colors.white,
-                            disabledColor: Colors.brown,
-                            icon: Icon(CommunityMaterialIcons.reload),
-                            highlightColor: Colors.deepOrangeAccent,
-                            focusColor: Colors.deepOrangeAccent,
-                            hoverColor: Colors.deepOrangeAccent,
-                            splashColor: Colors.pink,
-                            onPressed: () async {
-                              Get.find<VmDateDataTest>().isLoading = true;
-                              await pagesRefresh(context);
-                            }),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(radius),
+                            bottomRight: Radius.circular(radius)),
+                        // color: Colors.pink,
+                        child: Material(
+                          color: colorReloadBtn,
+                          child: IconButton(
+                              color: Colors.white,
+                              disabledColor: Colors.brown,
+                              icon: Icon(
+                                CommunityMaterialIcons.reload,
+                                color: Colors.amber,
+                              ),
+                              highlightColor: Colors.deepOrangeAccent,
+                              focusColor: Colors.deepOrangeAccent,
+                              hoverColor: Colors.deepOrangeAccent,
+                              splashColor: Colors.pink,
+                              onPressed: () async {
+                                Get.find<VmDateDataTest>().isLoading = true;
+                                await pagesRefresh(context);
+                              }),
+                        ),
                       ),
                     )),
               ],
             )),
       );
     });
+  }
+
+  getArDay(DateTime enDay) {
+    var day = dateUtil.DateFormat('EEEE').format(enDay);
+
+    switch (day) {
+      case "Sunday":
+        return 'الاحد';
+      case "Monday":
+        return 'الاثنين';
+      case "Tuesday":
+        return 'الثلاثاء';
+      case "Wednesday":
+        return 'الاربعاء';
+      case "Thursday":
+        return 'الخميس';
+      case "Friday":
+        return 'الجمعة';
+      case "Saturday":
+        return 'السبت';
+    }
   }
 }

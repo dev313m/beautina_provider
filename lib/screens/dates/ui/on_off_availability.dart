@@ -51,18 +51,12 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: sizeContainer,
+      // width: 0.5.sw,
 
       // decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(12)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          GWdgtTextSmall(
-            string: strInstruction,
-            textAlign: TextAlign.start,
-            textDirection: TextDirection.rtl,
-            // fontSize: ExtendedText.defaultFont,
-          ),
           Container(
             height: sizeContainer,
             child: Material(
@@ -112,17 +106,21 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
 
                     setState(() {});
                   },
-                  child: Stack(
+                  child: Column(
                     children: <Widget>[
-                      FlareActor(
-                        strFlare,
-                        animation: available ? strUnlock : strLock,
-                        shouldClip: false,
-                        snapToEnd: false,
-                        // artboard: available ? 'open' : 'closed',
-                        // animation: available ? 'open' : 'closed',
+                      SizedBox(
+                        height: 55,
+                        child: FlareActor(
+                          strFlare,
+                          fit: BoxFit.fitHeight,
+                          animation: available ? strUnlock : strLock,
+                          shouldClip: false,
+                          snapToEnd: false,
+                          // artboard: available ? 'open' : 'closed',
+                          // animation: available ? 'open' : 'closed',
 
-                        // controller: ,
+                          // controller: ,
+                        ),
                       ),
                       Align(
                         alignment: Alignment.center,
@@ -137,6 +135,19 @@ class _WAvailablilityChangerState extends State<WAvailablilityChanger> {
               ),
             ),
           ),
+          GWdgtTextButton(
+            color: Colors.amber.withOpacity(0.9),
+            string: 'ايقاف استلام الطلبات',
+            // textAlign: TextAlign.start,
+            // textDirection: TextDirection.rtl,
+            // fontSize: ExtendedText.defaultFont,
+          ),
+          // GWdgtTextSmall(
+          //   string: strInstruction,
+          //   textAlign: TextAlign.start,
+          //   textDirection: TextDirection.rtl,
+          //   // fontSize: ExtendedText.defaultFont,
+          // ),
         ],
       ),
     );

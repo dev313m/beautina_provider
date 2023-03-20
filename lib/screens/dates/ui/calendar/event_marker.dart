@@ -13,7 +13,9 @@ class WdgtDateCalendarEventMarker extends StatelessWidget {
   final DateTime? date;
   final List? events;
   final Color? color;
-  const WdgtDateCalendarEventMarker({Key? key, this.date, this.calendarController, this.events, this.color}) : super(key: key);
+  const WdgtDateCalendarEventMarker(
+      {Key? key, this.date, this.calendarController, this.events, this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,7 @@ class WdgtDateCalendarEventMarker extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             // shape: BoxShape.rectangle,
-            color: calendarController.isSelected(date)
-                ? color
-                : calendarController.isToday(date)
-                    ? Colors.brown[300]
-                    : color,
+            color: color,
           ),
           // width: ScreenUtil().setWidth(16),
           // height: ScreenUtil().setWidth(16),

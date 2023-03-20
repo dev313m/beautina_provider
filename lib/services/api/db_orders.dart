@@ -2,9 +2,7 @@ import 'package:beautina_provider/core/controller/beauty_provider_controller.dar
 import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/models/order.dart';
-import 'package:beautina_provider/prefrences/sharedUserProvider.dart';
 import 'package:beautina_provider/services/api/post.dart';
-import 'package:beautina_provider/services/api_config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';

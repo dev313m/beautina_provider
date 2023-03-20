@@ -5,7 +5,6 @@ import 'package:beautina_provider/constants/countries.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
 
 cityPicker({required Function onConfirm, required BuildContext context}) {

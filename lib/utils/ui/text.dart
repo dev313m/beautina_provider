@@ -286,7 +286,7 @@ class GWdgtTextCalendarDay extends StatelessWidget {
     return Text(
       string,
       style: TextStyle(
-        fontSize: ScreenUtil().setSp(24),
+        fontSize: ScreenUtil().setSp(30),
         color: color ?? Colors.white38,
         fontWeight: FontWeight.normal,
         fontFamily: 'Tajawal',

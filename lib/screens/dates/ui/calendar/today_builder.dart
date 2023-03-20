@@ -8,11 +8,11 @@ final sizeDayHeight = 200.h;
 final sizeDayWidth = 200.h;
 
 ///[radius]
-final double radius = 12;
+final double radius = 25;
 
 ///[colors]
 
-Color colorDay =AppColors.pinkBright .withOpacity(0.3);
+Color colorDay = Colors.white.withOpacity(0.3);
 
 ///[edge]
 double edgeDayToContainer = 4.w;
@@ -25,15 +25,20 @@ class WdgtDateCalendarTodayBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: colorDay, borderRadius: BorderRadius.circular(radius)),
+      decoration: BoxDecoration(
+          color: Colors.amber.withOpacity(0.4),
+          borderRadius: BorderRadius.circular(radius)),
       margin: EdgeInsets.all(edgeDayToContainer),
-      padding: EdgeInsets.only(top: edgeDayStr, left: edgeDayStr),
-      width: sizeDayWidth,
+      // padding: EdgeInsets.only(top: edgeDayStr, left: edgeDayStr),
+      width: sizeDayHeight,
       height: sizeDayHeight,
-      child: GWdgtTextCalendarDay(
-        string: 'اليوم: ${date!.day} ',
-        textDirection: TextDirection.rtl,
-        textAlign: TextAlign.left,
+      child: Center(
+        child: GWdgtTextCalendarDay(
+          string: 'اليوم ',
+          color: Colors.white,
+          textDirection: TextDirection.rtl,
+          textAlign: TextAlign.left,
+        ),
       ),
     );
   }
