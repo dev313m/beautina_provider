@@ -1,7 +1,7 @@
 apply plugin: 'com.google.gms.google-services'
 
 buildscript {
-    ext.kotlin_version = '1.6.10' // Change here
+    ext.kotlin_version = '1.8.21' // Change here
     repositories {
         google()
         jcenter()
@@ -31,6 +31,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

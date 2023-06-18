@@ -27,14 +27,14 @@ class _WdgtDateOrderDetailsState extends State<WdgtDateOrderDetails> {
         .where((element) => element.doc_id == widget.orderId)
         .first;
 
-    if (order!.status == 0) //new order
+    if (order!.status!.index == 0) //new order
       return WidgetNewOrder(order: order);
-    else if (order!.status == 1) // order approved by provider
+    else if (order!.status!.index == 1) // order approved by provider
       return WidgetWaitingCustomer(order: order);
-    else if (order!.status == 2 ||
-        order!.status == 4) //order is canceled by customer or provider
+    else if (order!.status!.index == 2 ||
+        order!.status!.index == 4) //order is canceled by customer or provider
       return WidgetCanceledOrder(order: order);
-    else if (order!.status == 3) // order is confirmed by costomer
+    else if (order!.status!.index == 3) // order is confirmed by costomer
     {
       if (DateTime.now().toLocal().isAfter(order!.client_order_date!.toLocal()))
 
@@ -45,14 +45,14 @@ class _WdgtDateOrderDetailsState extends State<WdgtDateOrderDetails> {
       return WidgetConfirmedByCustomerOrder(order: order);
     }
 
-    /// [status = 5]: finished successfully,
-    /// [status = 7]: finished unsuccessfully,
-    /// [status = 6]: is in evaluation status,
-    /// [status = 8]: user claim finished complete
-    else if (order!.status == 5 ||
-        order!.status == 6 ||
-        order!.status == 7 ||
-        order!.status == 8) return WidgetOnlyDetailsOrder(order: order);
+    /// [status!.index = 5]: finished successfully,
+    /// [status!.index = 7]: finished unsuccessfully,
+    /// [status!.index = 6]: is in evaluation status!.index,
+    /// [status!.index = 8]: user claim finished complete
+    else if (order!.status!.index == 5 ||
+        order!.status!.index == 6 ||
+        order!.status!.index == 7 ||
+        order!.status!.index == 8) return WidgetOnlyDetailsOrder(order: order);
     return SizedBox();
   }
 }

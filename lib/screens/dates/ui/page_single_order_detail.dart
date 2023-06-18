@@ -39,6 +39,10 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
     return GetBuilder<VmDateDataTest>(builder: (
       vm,
     ) {
+      final orderId = vm.orderList!
+          .where((element) => element.doc_id == widget.orderId)
+          .first
+          .doc_id!;
       return Scaffold(
         primary: false,
         // resizeToAvoidBottomPadding: false,
@@ -49,11 +53,7 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
 
             children: <Widget>[
               Hero(
-                tag: vm.orderList!
-                        .where((element) => element.doc_id == widget.orderId)
-                        .first
-                        .doc_id! +
-                    'ok',
+                tag: orderId + 'ok',
                 transitionOnUserGestures: true,
                 child: Container(
                   width: double.infinity,
@@ -72,11 +72,7 @@ class _PageOrderDetailState extends State<WdgtDatePageSingleOrderDetail> {
                 ),
               ),
               Y(),
-              WdgtDateOrderDetails(
-                  orderId: vm.orderList!
-                      .where((element) => element.doc_id == widget.orderId)
-                      .first
-                      .doc_id)
+              WdgtDateOrderDetails(orderId: orderId)
             ],
           ),
         ),

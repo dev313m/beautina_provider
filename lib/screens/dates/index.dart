@@ -149,7 +149,6 @@ class WdgtTabOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var s = Get.find<VmDateDataTest>().listOfDay;
     return WdgtScrollableListTabView(
       tabHeight: 135.h,
       tabs: [

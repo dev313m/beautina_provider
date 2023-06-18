@@ -14,7 +14,7 @@ cityPicker({required Function onConfirm, required BuildContext context}) {
       smooth: 3,
       adapter: PickerDataAdapter<String>(
           isArray: false,
-          pickerdata: JsonDecoder().convert(Countries.countriesList)),
+          pickerData: JsonDecoder().convert(Countries.countriesList)),
       changeToFirst: true,
       // cancel: Padding(
       //   padding: const EdgeInsets.all(8.0),

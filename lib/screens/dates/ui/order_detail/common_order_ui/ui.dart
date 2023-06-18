@@ -1,11 +1,8 @@
 import 'package:beautina_provider/reusables/divider.dart';
 import 'package:beautina_provider/screens/root/functions.dart';
-import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
 import 'package:beautina_provider/utils/ui/text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';
 import 'package:spring_button/spring_button.dart';
@@ -28,29 +25,13 @@ class AllSingleServiceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (_) {
-      List<String?> list = [];
       int index = 0;
 
-      Map<String, dynamic>? mapper =
-          Get.find<VMSalonDataTest>().providedServices;
-
-      services!.forEach((k, v) {
-        v.forEach((kk, vv) {
-          if (k == 'other')
-            list.add(kk.toString());
-          else
-            try {
-              list.add(mapper!['services'][k]['items'][kk]['ar']);
-            } catch (e) {
-              list.add(k);
-            }
-        });
-      });
       return Row(
         textDirection: TextDirection.rtl,
         // verticalDirection: VerticalDirection.down,
         // direction: Axis.horizontal,
-        children: list.map((f) {
+        children: services!.keys.map((key) {
           index++;
           if (index == 1)
             return Container(
@@ -60,7 +41,7 @@ class AllSingleServiceWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(radius),
                 ),
                 child: GWdgtTextChip(
-                  string: f,
+                  string: key,
                 ));
           else
             return Row(
@@ -72,7 +53,7 @@ class AllSingleServiceWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(radius),
                     ),
                     child: GWdgtTextChip(
-                      string: f,
+                      string: key,
                     )),
                 CustomDivider(
                   color: Colors.white30,
