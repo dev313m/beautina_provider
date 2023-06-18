@@ -1,4 +1,4 @@
-import 'package:beautina_provider/core/global_values/responsive/global_val.dart';
+import 'package:beautina_provider/core/states/responsive/global_val.dart';
 
 class GlobalValFunController {
   static Future load(

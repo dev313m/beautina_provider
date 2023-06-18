@@ -1,6 +1,6 @@
 import 'package:beautina_provider/blocks/all_services/block_all_services_repo.dart';
 import 'package:beautina_provider/constants/app_colors.dart';
-import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
+import 'package:beautina_provider/core/states/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
 import 'package:beautina_provider/core/models/response/my_service.dart';
 import 'package:beautina_provider/utils/size/edge_padding.dart';

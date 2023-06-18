@@ -6,7 +6,7 @@ import 'package:beautina_provider/core/controller/common_controller.dart';
 import 'package:beautina_provider/core/controller/erros_controller.dart';
 import 'package:beautina_provider/core/controller/functions.dart';
 import 'package:beautina_provider/core/db/my_services.dart';
-import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
+import 'package:beautina_provider/core/states/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
 import 'package:beautina_provider/core/models/response/my_service.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';

@@ -1,4 +1,4 @@
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/states/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/screens/salon/functions.dart';
 import 'package:beautina_provider/reusables/toast.dart';

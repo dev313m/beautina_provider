@@ -1,4 +1,4 @@
-import 'package:beautina_provider/core/global_values/core/common.dart';
+import 'package:beautina_provider/core/states/core/common.dart';
 
 networkStatefulVarStarter(
     {required NetworkStatefulVar networkStatefulVarClass,

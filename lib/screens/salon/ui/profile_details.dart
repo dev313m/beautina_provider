@@ -1,5 +1,5 @@
 import 'package:beautina_provider/chat/rooms.dart';
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/states/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/core/services/constants/api_config.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/models/notification.dart';

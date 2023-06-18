@@ -1,7 +1,7 @@
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
 import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/db/local/hive_adapters.dart';
-import 'package:beautina_provider/core/global_values/not_responsive/hive_box.dart';
+import 'package:beautina_provider/core/states/not_responsive/hive_box.dart';
 
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';

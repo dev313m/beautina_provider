@@ -1,6 +1,6 @@
 import 'package:beautina_provider/constants/app_colors.dart';
 import 'package:beautina_provider/constants/duration.dart';
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/states/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/screens/dates/functions.dart';
 import 'package:beautina_provider/screens/salon/ui/adding_services.dart';
 import 'package:beautina_provider/screens/packages/constants.dart';

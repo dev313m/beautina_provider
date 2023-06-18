@@ -1,8 +1,8 @@
 import 'package:beautina_provider/core/controller/my_services_controller.dart';
 import 'package:beautina_provider/core/controller/refresh_controller.dart';
-import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
-import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
+import 'package:beautina_provider/core/states/responsive/all_salon_services.dart';
+import 'package:beautina_provider/core/states/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/states/responsive/my_services.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/root/vm/vm_data_test.dart';

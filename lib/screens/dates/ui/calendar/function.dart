@@ -1,4 +1,4 @@
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/states/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:beautina_provider/screens/dates/vm/vm_data_test.dart';
 import 'package:beautina_provider/screens/salon/vm/vm_salon_data_test.dart';
@@ -33,7 +33,8 @@ Map<DateTime, List<dynamic>?> getBusyDatesEvents(BuildContext context) {
 
 ///This method combine events and use busy dates as also events
 
-Map<DateTime, List<dynamic>?> getEvents(List<Order> orders, BuildContext context) {
+Map<DateTime, List<dynamic>?> getEvents(
+    List<Order> orders, BuildContext context) {
   Map<DateTime, List<dynamic>?> events = getBusyDatesEvents(context);
 
   Get.find<VmDateDataTest>().orderList!.forEach((f) {
@@ -50,7 +51,8 @@ Map<DateTime, List<dynamic>?> getEvents(List<Order> orders, BuildContext context
   return events;
 }
 
-onCalendarDaySelected(DateTime date, List<dynamic> events, BuildContext context) async {
+onCalendarDaySelected(
+    DateTime date, List<dynamic> events, BuildContext context) async {
   List<Order> list = events.cast();
   Get.find<VmDateDataTest>().calanderChosenDay = date;
 
@@ -59,7 +61,9 @@ onCalendarDaySelected(DateTime date, List<dynamic> events, BuildContext context)
   await Future.delayed(Duration(milliseconds: 200));
   Get.find<VmDateDataTest>().isShowAvailableWidget = true;
 
-  Get.find<VmDateDataTest>().listOfDay = list.where((item) => item.status == 0 || item.status == 1 || item.status == 3).toList();
+  Get.find<VmDateDataTest>().listOfDay = list
+      .where((item) => item.status == 0 || item.status == 1 || item.status == 3)
+      .toList();
 }
 
 onVisibleDaysChanged(BuildContext context, DateTime date) async {

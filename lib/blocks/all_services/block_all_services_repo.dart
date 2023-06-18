@@ -1,6 +1,6 @@
 import 'package:beautina_provider/blocks/add_service/block_add_service.dart';
-import 'package:beautina_provider/core/global_values/responsive/all_salon_services.dart';
-import 'package:beautina_provider/core/global_values/responsive/my_services.dart';
+import 'package:beautina_provider/core/states/responsive/all_salon_services.dart';
+import 'package:beautina_provider/core/states/responsive/my_services.dart';
 import 'package:beautina_provider/core/models/response/model_service.dart';
 import 'package:beautina_provider/core/models/response/my_service.dart';
 import 'package:flutter/foundation.dart';

@@ -1,6 +1,6 @@
 import 'package:beautina_provider/blocks/constants/app_colors.dart';
 import 'package:beautina_provider/core/controller/beauty_provider_controller.dart';
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/states/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/reusables/toast.dart';
 import 'package:beautina_provider/screens/settings/functions.dart';
 import 'package:beautina_provider/utils/ui/text.dart';

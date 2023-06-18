@@ -1,5 +1,5 @@
-import 'package:beautina_provider/core/global_values/not_responsive/beauty_provider_data.dart';
-import 'package:beautina_provider/core/global_values/responsive/beauty_provider_profile.dart';
+import 'package:beautina_provider/core/states/not_responsive/beauty_provider_data.dart';
+import 'package:beautina_provider/core/states/responsive/beauty_provider_profile.dart';
 import 'package:beautina_provider/core/main_init.dart';
 import 'package:beautina_provider/models/beauty_provider.dart';
 import 'package:beautina_provider/prefrences/default_page.dart';

@@ -1,4 +1,4 @@
-import 'package:beautina_provider/core/global_values/responsive/orders.dart';
+import 'package:beautina_provider/core/states/responsive/orders.dart';
 import 'package:beautina_provider/models/order.dart';
 import 'package:get/instance_manager.dart';
 
